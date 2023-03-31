@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font: normal 15px Verdana, Arial, sans-serif;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding-top: 20px;
+        }
+
+        .header{
+            margin-left: auto;
+            margin-right: auto; 
+            display: inline-flex;
+            align-items: center;
+            border-radius: 30px;
+        }
+
+        .logo{
+            display: flex;
+            align-items: baseline;
+            text-align: center;
+        }
+
+        .numbers{
+            display: inline-flex;
+        }
+
+        .numbers > h2{
+            font-size: 30px;
+            background-color: #FACE56;
+            margin: 10px;
+            padding: 10px 17px 10px 17px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .message{
+            background-color: lightyellow;
+            border-radius: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            padding-bottom: 20px;
+        }
+
+
+        #version{
+            font-size: 9px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAJQ0lEQVR4nO2df2ycZR3AP9/n7roxOlyBIkxUnKwhGkHFH9kCkaIDMsJP7e1+dThnaNZ2jeBMNCR6iQkkggls/cEl1rl2997tKj8XpmwQcKAYERJU0DhEREDGGIytrrR39379oz1oDrrer7Zv5/NJ+se9z/N+n+/d5733ed73274Fi8VisVgsFovluEfmOoFq6d627RQTCFzpuiLkx+7rvO66g3OdUzXMSyGJxM5F+frDl4NZ66KXCNRNNOUF+T24AznVdFcsdnhOE62AeSNk69atC48uWLBKVFsUuRY4cZpdRgXZo7hDBAJ3dwSDw7ORZ7V4Wkgmk6k7kMtdqqohQa4E6ou6vI7ySxXdASAqaxC+AZxW1G9Y0ftFJN3o9z8YDAbHZiP/SvCckEwm4zuQy61AtQUkDDQWdTkk6E4VGfIfOfLrtra2bC33n2s8ISQej5vGpqaVqLagEkQ4vajLiCAPgzuQa2i4v2v16tFS4mYyGd8b2WwzsFaRq4HFk9sV3jToAyoy1Oj37woGg/kavaWKmVMh3Y7zaRk/kluBZUXNNZ0Dpp2DhFdQvQuRofZw+LciotWMVymzLmSShDDQVNQ8K6ukY6zSAFD0JYF7ERnqiEQen4kcpmJWhPSlUme5rnsVsBbk80XNriBPKO6QyedTG9aufX02cirQm0w2KFwhmBZFLwP8k9sVnhN0yBVJb4xE/jbT+cyYkO5k8uOIBEU19AESFOUJFdkRcHNDba2t/6l0nITjnJpXuSFvuGdjOPzHanJODA6ekTX+FlFdg7CC930++rSKpFHNdEaj/6pmrKmoqZCeTOZ0yeVa1CU0U28okdi56L8NI3pjMDgC0O043xPlJ8ATHdHIShhfLu/PZpsP7tu3Jx6Pu5WMU8oBJYa0+v1DHcHga5WM8UFULaR727ZTxFd3rYqGBL4C+Ca3KzxnhB2uMenOUOjv1YyVGMh8LOfLPQn82z98ZEVbW1t2czr9SX9etyluX0c0mgToSaa2gn5T0Zs6o9GbqxkToDudbjKuG3KVNQKfKmrOK/xGVNKaH7u72ls3FQnZvH37SUZ8VwkaAlYBgaIuLwiSRnRHeyTyp0qT604mQ0akaUM4/GMR0S3bt3/GiHkKONweCTdOtRLqdZwfuspNRmVdeyzsAPQ4zvcFLvVBS1sk8kalOfU6zrmorNHx9168MswCexRJu5q/r5JFSclCCisTxYRAVwMLi7q8DDpkIL0hGv1DuYkA9A0MnFaY1DOZTN2BbG4YCCBcWFjtbEmlvuDPZl+abvJPZDIfagsG3y687kk6+4HTRLimPRK5F2CL45yjebOgqzX0TEX5JpNfciEE0gKcWdT8DsguwU37hk96oK3tiqOlxJxWSCaT8b2ezd4hyHUc49bFG/v2PV7p+RqgN5nqVfR6MXJVezj8AEDPducW4MyFoyPt69evP1Jp7PFY6UvUuOeN+f3dNwaDI7c7zocDyivAUb+wrJpvTTweN6cuX37BsW7dgPyiMeD7znQXn/5jNQIczGbPF6Rj0qZDCveImnRjnXm4kqvbvlTqrLzrbkKkrzMSeRbAFf2IKD7yemqhX0cs8oNyY09FRyy0G9hdeF3v92fHsrkXVRlj+MjbAFsGBj5hfP5+FX7VGYncWmrsiQNxL7A3k8l0HRhzv6rihgSuAZYA9aCdB7PZQeCYZ49pheRcs8iY8VO1CN/NLVnSU+qtiwI/y2ROPgwjhZVR3tWNgnSgciZwNYDruq0BkXM2xCo73ZXLt4PBNxOJnec2NIyMBmNteQDj810INIvKR4FbARKJRCBbX796LBDYXcj/WEwcoLuB3Zt37drgP3SoQ5WfwvhnOd3+0wqZTD4vT5croy+V+txoNvfYQuFJoBnAlzdbXV/+PBV6Cv0mJsBZkVGg+LzuHx5O5errl6nwYGFbrr7+ZkE21WWzPUBnOfG7Vq8e3TKYerpwQJdCWUJKoTuZ6jKqJ7bHIrcAaI56DAtVObnQZ8Pa0F+Ar9V67GqZuPMbn7xN1fwV0THg2cK27mSqS9B1gn69PRp9oZY5mGp27u/vX9ybTL679EsMDp4h6B0q3HxnMrkcoL01/JigXz6az62sNtm5oDMW/vlYwL+kMxrtK2wTdD3wWSYdVN3pdFNvKnV5f3//4g+KUyplf0MSg4Nn5Hy+K0W5ZgSaBQJbHKdlYyRy1/Wx2Gt9qdTtqshrS5f+s7BPezT6VDVJzjXFc4eg33JFLsYfcAA279q1gLcO/Vmh7p2FJ4z2bHcewXCvP5+/v9xKWFlCjNH+HL6zUIzy3ppZVBYBTFyo3VBmDvOOiQPs3YNs8f79crSu7hmQLwILEC5DuSxnfL0GfbGc2OWespZN2udV0DtBL+6MhgfLjHNcsW7duncOLF26UtBVKAmgcLPU8P6r+WMy7TdEJf88mBHgBMAFDMrv2qPhC+aqiONF4s3NOeAh4KF4PN7euLzpcWAFhc8MPariPj9dnGm/IV2x2MuukbPzPnO2CHsBxDBmZUxNPB53RRgFEGFv3mfOdo1Z3hWLvTzdviXNIRvD4VcBeh2nukz/T+kKhf5Rat+qlr2W2mOFeAwrxGPU/NZJT9LZU+uYXqYjGllVy3g1F4IH71HNJ2ZCSIEXJn6OR5ZR5gVfqcygEB3siEbj0/ebf/Qkk3GQH81EbDupewwrxGNYIR7DCvEYVojHsEI8xkxeh1TF5sH0eT7j3jYTsfOu2VTpbyvONJ4VImgDM3TVPxHbk3hWSBFPAW9VGaMBOL8Gucwo80KI68qmja3hR6uJsWUwdZEx+kitcpop7KTuMawQj2GFeAwrxGNYIR7DCvEYVojHsEI8hhXiMawQj2GFeAwrxGNYIR7DCvEYVojHsEI8xqwXqEqvlb9XZjVGb+tJOlVWDMuPNxe191kXUmGtvNal15LizUXtfa5LuLWulc/72vucCql1rfx4qL3bSd1jWCEewwrxGFaIx7BCPIYV4jGsEI9hhXgMK8RjWCEewwrxGFaIx7BCPIYV4jGsEI9hhXiMsv7lUa/jPKLKRYxX5aZ6fHihPDvV87JmssI3W/EmPy/roSninA80iPBoeyTSXOrglVYMS6mLl/KQrzmpldc4Xk3/lr4sITp+xORqmcDxjoInnxhhsVgsFovFYrFYLBaLxTIP+R/l/KXDauyjZgAAAABJRU5ErkJggg==" alt=""  width="60" > -->
+    <div class="header">
+        <div class="logo">
+            &nbsp;&nbsp;
+            <h1>SalmosRecover</h1>
+            &nbsp;
+            <p id="version"> 1.0</p>
+
+        </div>
+    </div>
+    <div class="message">
+        <h1>
+            **helloMessage**, **name**!
+        </h1>
+        <p>**infoMessage**</p>
+    
+        
+        <p>**codeInfo**</p>
+
+        <div class="numbers">
+            <h2>**num0**</h2>
+            <h2>**num1**</h2>
+            <h2>**num2**</h2>
+            <h2>**num3**</h2>
+            <h2>**num4**</h2>
+        </div>        
+        
+        <p>**finalMessage**</p>
+        <p>Atenciosamente, <br> &nbsp;&nbsp;SalmosRecover 1.0</p>
+    </div>
+</body>
+</html>

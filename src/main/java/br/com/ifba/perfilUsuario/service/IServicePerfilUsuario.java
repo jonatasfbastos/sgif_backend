@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package br.com.ifba.perfilUsuario.service;
+package br.com.ifba.perfilusuario.service;
 
 import java.util.List;
 
-import br.com.ifba.perfilUsuario.model.PerfilUsuario;
+import br.com.ifba.perfilusuario.model.PerfilUsuario;
 
 /**
  *

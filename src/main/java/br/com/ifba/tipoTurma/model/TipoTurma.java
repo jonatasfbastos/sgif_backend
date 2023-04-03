@@ -1,4 +1,4 @@
-package br.com.ifba.tipoTurma.model;
+package br.com.ifba.tipoturma.model;
 
 import java.io.Serializable;
 import java.util.List;

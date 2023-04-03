@@ -1,4 +1,4 @@
-package br.com.ifba.tecnicoAdministrativo.service;
+package br.com.ifba.tecnicoadministrativo.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.tecnicoAdministrativo.dao.IDaoTecnicoAdministrativo;
-import br.com.ifba.tecnicoAdministrativo.model.TecnicoAdministrativo;
+import br.com.ifba.tecnicoadministrativo.dao.IDaoTecnicoAdministrativo;
+import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 
 @Service
 public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrativo{

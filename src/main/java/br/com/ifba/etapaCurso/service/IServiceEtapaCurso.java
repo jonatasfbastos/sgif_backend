@@ -1,8 +1,8 @@
-package br.com.ifba.etapaCurso.service;
+package br.com.ifba.etapacurso.service;
 
 import java.util.List;
 
-import br.com.ifba.etapaCurso.model.EtapaCurso;
+import br.com.ifba.etapacurso.model.EtapaCurso;
 
 public interface IServiceEtapaCurso {
      // Salva EtapaCurso

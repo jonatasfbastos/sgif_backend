@@ -8,9 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.ifba.etapaCurso.model.EtapaCurso;
+import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-import br.com.ifba.tipoTurma.model.TipoTurma;
+import br.com.ifba.tipoturma.model.TipoTurma;
 import lombok.Data;
 
 @Entity

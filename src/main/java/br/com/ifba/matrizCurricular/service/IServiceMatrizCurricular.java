@@ -1,8 +1,8 @@
-package br.com.ifba.matrizCurricular.service;
+package br.com.ifba.matrizcurricular.service;
 
 import java.util.List;
 
-import br.com.ifba.matrizCurricular.model.MatrizCurricular;
+import br.com.ifba.matrizcurricular.model.MatrizCurricular;
 
 public interface IServiceMatrizCurricular {
 

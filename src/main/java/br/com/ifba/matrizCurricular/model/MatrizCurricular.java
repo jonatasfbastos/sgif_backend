@@ -1,4 +1,4 @@
-package br.com.ifba.matrizCurricular.model;
+package br.com.ifba.matrizcurricular.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.ifba.curso.model.Curso;
-import br.com.ifba.etapaCurso.model.EtapaCurso;
+import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import lombok.Data;
 

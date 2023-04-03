@@ -1,4 +1,4 @@
-package br.com.ifba.tecnicoAdministrativo.model;
+package br.com.ifba.tecnicoadministrativo.model;
 
 import java.io.Serializable;
 

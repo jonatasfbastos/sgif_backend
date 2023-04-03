@@ -1,11 +1,11 @@
-package br.com.ifba.tecnicoAdministrativo.dao;
+package br.com.ifba.tecnicoadministrativo.dao;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.ifba.tecnicoAdministrativo.model.TecnicoAdministrativo;
+import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 
 @Repository
 public interface IDaoTecnicoAdministrativo extends JpaRepository<TecnicoAdministrativo, Long>{

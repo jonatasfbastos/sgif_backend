@@ -1,8 +1,8 @@
-package br.com.ifba.tipoTurma.service;
+package br.com.ifba.tipoturma.service;
 
 import java.util.List;
 
-import br.com.ifba.tipoTurma.model.TipoTurma;
+import br.com.ifba.tipoturma.model.TipoTurma;
 
 public interface IServiceTipoTurma {
      // Salva Tipoturma.

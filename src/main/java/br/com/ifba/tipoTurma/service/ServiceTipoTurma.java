@@ -1,4 +1,4 @@
-package br.com.ifba.tipoTurma.service;
+package br.com.ifba.tipoturma.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.tipoTurma.dao.IDaoTipoTurma;
-import br.com.ifba.tipoTurma.model.TipoTurma;
+import br.com.ifba.tipoturma.dao.IDaoTipoTurma;
+import br.com.ifba.tipoturma.model.TipoTurma;
 
 @Service
 public class ServiceTipoTurma implements IServiceTipoTurma{

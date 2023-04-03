@@ -1,8 +1,8 @@
-package br.com.ifba.tecnicoAdministrativo.service;
+package br.com.ifba.tecnicoadministrativo.service;
 
 import java.util.List;
 
-import br.com.ifba.tecnicoAdministrativo.model.TecnicoAdministrativo;
+import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 
 public interface IServiceTecnicoAdministrativo {
     public TecnicoAdministrativo saveTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo);

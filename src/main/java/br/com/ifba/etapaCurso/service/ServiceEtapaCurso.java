@@ -1,12 +1,12 @@
-package br.com.ifba.etapaCurso.service;
+package br.com.ifba.etapacurso.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ifba.etapaCurso.dao.IDaoEtapaCurso;
-import br.com.ifba.etapaCurso.model.EtapaCurso;
+import br.com.ifba.etapacurso.dao.IDaoEtapaCurso;
+import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.exception.BusinessException;
 
 @Service

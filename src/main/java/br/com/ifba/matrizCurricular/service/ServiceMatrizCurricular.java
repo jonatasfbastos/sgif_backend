@@ -1,4 +1,4 @@
-package br.com.ifba.matrizCurricular.service;
+package br.com.ifba.matrizcurricular.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.matrizCurricular.dao.IDaoMatrizCurricular;
-import br.com.ifba.matrizCurricular.model.MatrizCurricular;
+import br.com.ifba.matrizcurricular.dao.IDaoMatrizCurricular;
+import br.com.ifba.matrizcurricular.model.MatrizCurricular;
 
 @Service
 public class ServiceMatrizCurricular implements IServiceMatrizCurricular{

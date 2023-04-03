@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.ifba.avaliacao.model.Avaliacao;
-import br.com.ifba.etapaCurso.model.EtapaCurso;
+import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.professor.model.Professor;
 import lombok.Data;

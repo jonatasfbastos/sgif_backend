@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-import br.com.ifba.perfilusuario.model.PerfilUsuario;
+import br.com.ifba.perfilusuarioo.model.PerfilUsuario;
 import br.com.ifba.pessoa.model.Pessoa;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -4,6 +4,8 @@
  */
 package br.com.ifba.item.service;
 
+
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -25,4 +27,8 @@ public interface IServiceItem {
     public abstract List<Item> getAllItens();
 
     public List<Item> findByNome(String name);
+
+    public abstract List<Item> validadeBefore(Date validade);
+
+    public abstract List<Item> validadeAfter(Date validade);
 }

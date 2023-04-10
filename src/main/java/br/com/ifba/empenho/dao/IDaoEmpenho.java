@@ -17,7 +17,5 @@ import br.com.ifba.empenho.model.Empenho;
  * @author rocki.julius
  */
 public interface IDaoEmpenho extends JpaRepository<Empenho, Long> {
-    public abstract List<Empenho> validadeBefore(Date validade);
-
-    public abstract List<Empenho> validadeAfter(Date validade);
+    
 }

@@ -73,11 +73,6 @@ public class Controller {
         return (List<Empenho>) serviceEmpenho.getAllEmpenho();
     }
 
-    @RequestMapping(path = "/empenhosValidos")
-    public List<Empenho> listarEmpenhosValidos() {
-        return (List<Empenho>) serviceEmpenho.validadeAfter(new java.util.Date());
-    }
-
     @RequestMapping(path = "/salvarEmpenho", method = RequestMethod.POST)
     public Empenho salvarEmpenho(@RequestBody String empenho1) {
         Empenho empenho = (Empenho) gson.fromJson(empenho1, Empenho.class);
@@ -85,25 +80,24 @@ public class Controller {
     }
 
     // Rodando de 5 em 5 minutos
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 10000)
     public void sendNotificationsWhenDue() throws InterruptedException {
-        List<Empenho> empenhos = serviceEmpenho
-                .validadeBefore(new java.util.Date());
+        List<Item> itens = serviceItem.validadeBefore(new java.util.Date());
 
-        if (empenhos == null)
+        if (itens == null)
             return;
 
         // System.out.println("Send notification Empenho's due");
-        for (Empenho empenho : empenhos) {
+        for (Item empenho : itens) {
             Notification notification = serviceNotification.findByWhatIdAndWhatObjectName(empenho.getId(),
                     empenho.getClass().getSimpleName());
 
             if (notification != null)
                 continue;
 
-            String title = "Um empenho está vencido";
-            String body = "O empenho com nota " + empenho.getNota() + " e valor R$ "
-                    + String.valueOf(empenho.getValor()).replace('.', ',')
+            String title = "Um item está vencido";
+            String body = "O item: " + empenho.getNome() + ", de valor R$ "
+                    + String.valueOf(empenho.getValorItem()).replace('.', ',')
                     + " está vencido, acesse e siga os passos necessários.";
 
             notification = Notification.createNotification(title, body, empenho);

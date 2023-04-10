@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,19 +36,32 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Item extends PersistenceEntity {
-    private String codigoItem;
     private String nome;
-    private String descricao;
+    private String unidadeMedida;
     private int quantidade;
     private int quantidadeMinima;
-    private Date dataValidade;
+
+    @Temporal(TemporalType.DATE)
+    private Date validade;
+    
     private double valorItem;
     private String perecivel;
+
+    @ManyToOne
+    @JoinColumn(name = "empenho_id")
+    @JsonIgnoreProperties("itens")
+    private Empenho codigoItem;
+
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
     @JsonIgnoreProperties("itens")
     private Fornecedor fornecedor;
+
+    // @ManyToOne
+    // @JoinColumn(name = "codigo_empenho_id")
+    // @JsonIgnoreProperties("itens")
+    // private Empenho codigoEmpenho;
 
     @ManyToOne
     @JoinColumn(name = "tipoDeItem_id")

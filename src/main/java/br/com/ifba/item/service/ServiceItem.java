@@ -4,6 +4,7 @@
  */
 package br.com.ifba.item.service;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
@@ -83,6 +84,16 @@ public class ServiceItem implements IServiceItem {
         } else {
             return daoItem.findByNome(name);
         }
+    }
+
+    @Override
+    public List<Item> validadeBefore(Date validade) {
+        return daoItem.validadeBefore(validade);
+    }
+
+    @Override
+    public List<Item> validadeAfter(Date validade) {
+        return daoItem.validadeAfter(validade);
     }
 
 }

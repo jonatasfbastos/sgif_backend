@@ -30,6 +30,7 @@ public class Fornecedor extends PersistenceEntity {
     private String email;
     private String cnpj;
     private String telefone;
+    private String inscricaoEstadual;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fornecedor")
     private List<Item> itens;

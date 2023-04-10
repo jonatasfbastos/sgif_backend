@@ -7,7 +7,6 @@ package br.com.ifba.empenho.model;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.item.model.Item;
-import br.com.ifba.pedido.model.Pedido;
 
 import java.util.Date;
 import java.util.List;
@@ -32,13 +31,8 @@ import lombok.Data;
 @Table(name = "empenho")
 @Data
 public class Empenho extends PersistenceEntity {
-    @Temporal(TemporalType.DATE)
-    private Date validade;
-    private String nota;
-    private float valor;
 
-    @OneToMany(mappedBy = "empenho", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Pedido> pedidos;
+    private String nota;
 
     @ManyToMany
     private List<Item> itens;

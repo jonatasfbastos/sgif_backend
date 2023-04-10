@@ -4,6 +4,7 @@
  */
 package br.com.ifba.item.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,8 @@ import br.com.ifba.item.model.Item;
 public interface IDaoItem extends JpaRepository<Item, Long> {
 
     public abstract List<Item> findByNome(String name);
+
+    public abstract List<Item> validadeBefore(Date validade);
+
+    public abstract List<Item> validadeAfter(Date validade);
 }

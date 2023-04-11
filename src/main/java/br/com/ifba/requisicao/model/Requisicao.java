@@ -7,7 +7,7 @@ package br.com.ifba.requisicao.model;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.setor.model.Setor;
-
+import br.com.ifba.usuario.model.Usuario;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -32,6 +32,9 @@ public class Requisicao extends PersistenceEntity {
     private String codigoSaida;
     private boolean status;
     private int quantidadeItensReq;
+
+    @OneToOne
+    private Usuario criador;
 
     @JsonIgnoreProperties("requisicoes")
     @ManyToOne(fetch = FetchType.EAGER)

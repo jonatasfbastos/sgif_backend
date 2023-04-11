@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +21,7 @@ import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.pedido.model.Pedido;
 import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.tipodeitem.model.TipoDeItem;
+import br.com.ifba.usuario.model.Usuario;
 
 import java.util.Date;
 import java.util.List;
@@ -40,6 +42,9 @@ public class Item extends PersistenceEntity {
     private String unidadeMedida;
     private int quantidade;
     private int quantidadeMinima;
+
+    @OneToOne
+    private Usuario criador;
 
     @Temporal(TemporalType.DATE)
     private Date validade;

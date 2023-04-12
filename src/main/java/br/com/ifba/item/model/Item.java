@@ -40,6 +40,7 @@ import lombok.EqualsAndHashCode;
 public class Item extends PersistenceEntity {
     private String nome;
     private String unidadeMedida;
+    private int alerta;
     private int quantidade;
     private int quantidadeMinima;
 

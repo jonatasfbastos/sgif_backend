@@ -1,6 +1,10 @@
 package br.com.ifba;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -79,13 +83,43 @@ public class Controller {
         return serviceEmpenho.saveEmpenho(empenho);
     }
 
-    // Rodando de 5 em 5 minutos
-    @Scheduled(fixedDelay = 10000)
-    public void sendNotificationsWhenDue() throws InterruptedException {
-        List<Item> itens = serviceItem.validadeBefore(new java.util.Date());
+    private Timer timer;
 
-        if (itens == null)
-            return;
+    // @Scheduled(fixedDelay = 10000)
+    // private void alertaMsg(Date date){
+    //     timer = new Timer();
+
+    //     timer.schedule(new TimerTask(){
+            
+    //         @Override
+    //         public void run(){
+    //             try {
+    //                 sendNotificationsWhenDue();
+    //             } catch (InterruptedException e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     }, date);
+    // }
+
+    
+    public Date getDataAjuste(Date data, int num){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+        calendar.add(Calendar.DATE, -num);
+   
+        return calendar.getTime();
+   }
+
+    // Rodando de 5 em 5 minutos
+    @Scheduled(fixedDelay = 5000)
+    public void sendNotificationsWhenDue() throws InterruptedException {
+        List<Item> item = serviceItem.getAllItens();
+        
+        for(int i = 0; i < item.size(); i++){
+        
+        List<Item> itens = serviceItem.validadeBefore(getDataAjuste(item.get(i).getValidade(), item.get(i).getAlerta()));
 
         // System.out.println("Send notification Empenho's due");
         for (Item empenho : itens) {
@@ -95,15 +129,16 @@ public class Controller {
             if (notification != null)
                 continue;
 
-            String title = "Um item está vencido";
+            String title = "Alerta de vencimento de item";
             String body = "O item: " + empenho.getNome() + ", de valor R$ "
                     + String.valueOf(empenho.getValorItem()).replace('.', ',')
-                    + " está vencido, acesse e siga os passos necessários.";
+                    + " vai vencer dia " + empenho.getValidade();
 
             notification = Notification.createNotification(title, body, empenho);
             serviceNotification.saveNotification(notification);
         }
     }
+}
 
     // ---------------------------------------------------
     // ------------- Fornecedor -----------------------------

@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import br.com.ifba.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
+import br.com.ifba.funcaotecnicoadministrativo.service.IServiceFuncaoTecnicoAdministrativo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 
@@ -165,6 +164,56 @@ public class Controller {
         Fornecedor forn = (Fornecedor) gson.fromJson(fornecedor, Fornecedor.class);
         return serviceFornecedor.saveFornecedor(forn);
     }
+
+    // ---------------------------------------------------
+    // ------------- Funcao Tecnico Admistrativo ---------
+    // ---------------------------------------------------
+    @Autowired
+    private IServiceFuncaoTecnicoAdministrativo serviceFuncaoTecnicoAdm;
+
+    @PostMapping("/salvarFuncaoTecnicoAdm")
+    public ResponseEntity<Object> salvarFuncaoTecnicoAdm
+            (@RequestBody FuncaoTecnicoAdministrativo funcaoTecnicoAdm) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(serviceFuncaoTecnicoAdm.saveFuncaoTecnicoAdm(funcaoTecnicoAdm));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarFuncoesTecnicoAdm")
+    public ResponseEntity<Object> listarFuncoesTecnicoAdm() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoTecnicoAdm.getAllFuncoesTecnicoAdm());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizarFuncaoTecnicoAdm")
+    public ResponseEntity<Object> atualizarFuncaoTecnicoAdm
+            (@RequestBody FuncaoTecnicoAdministrativo funcaoTecnicoAdm) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoTecnicoAdm.updateFuncaoTecnicoAdm(funcaoTecnicoAdm));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deletarFuncaoTecnicoAdm/{id}")
+    public ResponseEntity<Object> deletarFuncaoTecnicoAdm
+            (@PathVariable Long id) {
+        try {
+            serviceFuncaoTecnicoAdm.deleteFuncaoTecnicoAdm(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Função deletada com sucesso.");
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
     // ---------------------------------------------------
     // ------------- Pessoa -----------------------------
     // ---------------------------------------------------

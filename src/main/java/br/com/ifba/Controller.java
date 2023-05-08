@@ -207,8 +207,8 @@ public class Controller {
     public ResponseEntity<Object> deletarFuncaoTecnicoAdm
             (@PathVariable Long id) {
         try {
-            serviceFuncaoTecnicoAdm.deleteFuncaoTecnicoAdm(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Função deletada com sucesso.");
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoTecnicoAdm.deleteFuncaoTecnicoAdm(id));
         } catch (Exception err) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
         }

@@ -7,7 +7,7 @@ public interface IServiceFuncaoTecnicoAdministrativo {
 
     FuncaoTecnicoAdministrativo saveFuncaoTecnicoAdm(FuncaoTecnicoAdministrativo funcaoTecnicoAdm);
     FuncaoTecnicoAdministrativo updateFuncaoTecnicoAdm(FuncaoTecnicoAdministrativo funcaoTecnicoAdm);
-    void deleteFuncaoTecnicoAdm(Long id);
+    String deleteFuncaoTecnicoAdm(Long id);
     List<FuncaoTecnicoAdministrativo> getAllFuncoesTecnicoAdm();
 
 }

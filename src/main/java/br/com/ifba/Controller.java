@@ -23,6 +23,8 @@ import br.com.ifba.fornecedor.service.IServiceFornecedor;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
+import br.com.ifba.matrizcurricular.model.MatrizCurricular;
+import br.com.ifba.matrizcurricular.service.IServiceMatrizCurricular;
 import br.com.ifba.notification.model.Notification;
 import br.com.ifba.notification.service.IServiceNotification;
 import br.com.ifba.pedido.model.Pedido;
@@ -275,6 +277,46 @@ public class Controller {
         return serviceItem.saveItem(item);
     }
 
+    // ---------------------------------------------------
+    // ------------- MATRIZ CURRICULAR -------------------
+    // ---------------------------------------------------
+    
+    @Autowired
+    private IServiceMatrizCurricular serviceMatriz;
+
+    @RequestMapping(path = "/atualizarMatriz", method = RequestMethod.POST)
+    public MatrizCurricular atualizarMatriz(@RequestBody String matriz) {
+        MatrizCurricular mc = (MatrizCurricular) gson.fromJson(matriz, MatrizCurricular.class);
+        if (mc.getId() == null)
+            return null;
+        return serviceMatriz.saveMatrizCurricular(mc);
+    }
+
+    @RequestMapping(path = "/deletarMatriz", method = RequestMethod.GET)
+    public boolean deletarMatriz(Long id) {
+        MatrizCurricular mc = new MatrizCurricular();
+        mc.setId(id);
+        serviceMatriz.deleteMatrizCurricular(id);
+        return true;
+    }
+
+    @RequestMapping(path = "/salvarMatriz", method = RequestMethod.POST)
+    public MatrizCurricular salvarMatriz(@RequestBody String matriz) {
+        MatrizCurricular mc = (MatrizCurricular) gson.fromJson(matriz, MatrizCurricular.class);
+        return serviceMatriz.saveMatrizCurricular(mc);
+    }
+
+    @RequestMapping(path = "/matrizes")
+    public List<MatrizCurricular> getMatrizes() {
+        return serviceMatriz.getAllMatrizCurricular();
+    }
+
+    @RequestMapping(path = "/matriz/{id}")
+    public MatrizCurricular getMatriz(@PathVariable Long id) {
+        System.out.println("Id " + id);
+        return (MatrizCurricular) this.serviceMatriz.findById(id);
+    }
+    
     // ---------------------------------------------------
     // ------------- NOTIFICAÇÃO -------------------------
     // ---------------------------------------------------

@@ -296,7 +296,7 @@ public class Controller {
     public boolean deletarMatriz(Long id) {
         MatrizCurricular mc = new MatrizCurricular();
         mc.setId(id);
-        serviceMatriz.deleteMatrizCurricular(id);
+        serviceMatriz.deleteMatrizCurricular(mc);
         return true;
     }
 

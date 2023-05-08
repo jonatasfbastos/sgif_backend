@@ -58,13 +58,13 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
     }
 
     @Override
-    public void deleteMatrizCurricular(Long id) {
+    /*public void deleteMatrizCurricular(Long id) {
         if (matrizCurricularDao.existsById(id) == false) {
             throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
         }
         matrizCurricularDao.delete(matrizCurricularDao.getReferenceById(id)); 
-    }
-    /*public void deleteMatrizCurricular(MatrizCurricular matrizCurricular) {
+    }*/
+    public void deleteMatrizCurricular(MatrizCurricular matrizCurricular) {
         if(matrizCurricular == null) {
             throw new BusinessException(MATRIZ_CURRICULAR_NULL);
         }
@@ -72,7 +72,7 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
             throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
         }
         matrizCurricularDao.delete(matrizCurricular);
-    }*/
+    }
 
     @Override
     public List<MatrizCurricular> getAllMatrizCurricular() {

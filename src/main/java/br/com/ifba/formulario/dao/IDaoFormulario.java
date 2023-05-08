@@ -11,5 +11,7 @@ import br.com.ifba.formulario.model.Formulario;
 public interface IDaoFormulario extends JpaRepository<Formulario, Long>{
     
     public abstract List<Formulario> findByTitulo(String titulo);
+    boolean existsByNome(String nome);
+    boolean existsById(Long id);
 
 }

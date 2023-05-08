@@ -22,7 +22,7 @@ public class Formulario extends PersistenceEntity implements Serializable{
     
     private String titulo;
     private String descricao;
-
+    
     @OneToOne
     private Avaliacao avaliacao;
 }

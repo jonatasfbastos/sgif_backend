@@ -15,6 +15,9 @@ public interface IServiceFormulario {
     // Deleta o Formulario
     public abstract void deleteFormulario(Formulario formulario);
     
+    // Deleta o Formulario por ID
+    public void deleteFormularioPorID(Long id);
+    
     // Metodo que retorna todos os Formularios da base de dados
     public abstract List<Formulario> getAllFormulario();
     

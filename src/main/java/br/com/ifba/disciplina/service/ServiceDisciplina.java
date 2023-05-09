@@ -11,17 +11,17 @@ import br.com.ifba.infrastructure.exception.BusinessException;
 
 @Service
 public class ServiceDisciplina implements IServiceDisciplina{
-    //mensagem de erro se o Usuario for null;
-    public final static String USUARIO_NULL = "Dados do Usuario nÃ£o preenchidos";
+    //mensagem de erro se o Disciplina for null;
+    public final static String DISCIPLINA_NULL = "Dados do Disciplina nÃ£o preenchidos";
     
-    //mensagem de erro se o Usuario jÃ¡ existir;
-    public final static String USUARIO_EXISTE = "Usuario ja existente no Banco de dados";
+    //mensagem de erro se o Disciplina jÃ¡ existir;
+    public final static String DISCIPLINA_EXISTE = "Disciplina ja existente no Banco de dados";
     
-    //mensagem de erro se o Usuario nÃ£o existir no banco;
-    public final static String USUARIO_NAO_EXISTE = "Usuario nao existente no Banco de dados";
+    //mensagem de erro se o Disciplina nÃ£o existir no banco;
+    public final static String DISCIPLINA_NAO_EXISTE = "Disciplina nao existente no Banco de dados";
     
-    //mensagem de erro se o Usuario for invÃ¡lido;
-    public final static String USUARIO_INVALIDO = "As informaÃ§oes do Usuario nao sao validas";
+    //mensagem de erro se o Disciplina for invÃ¡lido;
+    public final static String DISCIPLINA_INVALIDO = "As informaÃ§oes do Disciplina nao sao validas";
     
     @Autowired
      private IDaoDisciplina disciplinaDao;
@@ -29,9 +29,7 @@ public class ServiceDisciplina implements IServiceDisciplina{
      @Override
     public Disciplina saveDisciplina(Disciplina disciplina) {
         if(disciplina == null){
-            throw new BusinessException(USUARIO_NULL);
-        } else if(disciplinaDao.existsById(disciplina.getId()) == true){
-            throw new BusinessException(USUARIO_EXISTE);
+            throw new BusinessException(DISCIPLINA_NULL);
         } else {
             return disciplinaDao.save(disciplina);
         }
@@ -40,9 +38,9 @@ public class ServiceDisciplina implements IServiceDisciplina{
     @Override
     public Disciplina updateDisciplina(Disciplina disciplina) {
         if(disciplina == null){
-            throw new BusinessException(USUARIO_NULL);
+            throw new BusinessException(DISCIPLINA_NULL);
         } else if(disciplinaDao.existsById(disciplina.getId()) == false) {
-            throw new BusinessException(USUARIO_NAO_EXISTE);
+            throw new BusinessException(DISCIPLINA_NAO_EXISTE);
         } else {
             return disciplinaDao.save(disciplina);
         }    
@@ -51,12 +49,12 @@ public class ServiceDisciplina implements IServiceDisciplina{
     @Override
     public void deleteDisciplina(Disciplina disciplina) {
         if(disciplina == null){
-            throw new BusinessException(USUARIO_NULL);
+            throw new BusinessException(DISCIPLINA_NULL);
         }else if(this.disciplinaDao.existsById(disciplina.getId()) == true) {
             this.disciplinaDao.delete(disciplina);
             return;
         }
-            throw new BusinessException(USUARIO_NAO_EXISTE);    
+            throw new BusinessException(DISCIPLINA_NAO_EXISTE);    
 }
 
     @Override

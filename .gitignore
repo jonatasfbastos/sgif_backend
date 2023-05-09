@@ -38,3 +38,4 @@ src/main/java/META-INF/persistence.xml
 
 ### Application ###
 src/main/resources/templates/
+src/main/resources/application.properties

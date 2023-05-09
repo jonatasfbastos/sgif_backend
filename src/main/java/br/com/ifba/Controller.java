@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 
+import br.com.ifba.disciplina.model.Disciplina;
+import br.com.ifba.disciplina.service.IServiceDisciplina;
 import br.com.ifba.empenho.model.Empenho;
 import br.com.ifba.empenho.service.IServiceEmpenho;
 import br.com.ifba.formulario.model.Formulario;
@@ -59,6 +61,34 @@ public class Controller {
         Usuario user = (Usuario) gson.fromJson(usuario, Usuario.class);
         return "Hello " + user.getSenha() + "!";
     }
+
+    // ------------------------------------------------------------------------------
+    // ------------------------------- Disciplina ----------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceDisciplina serviceDisciplina;
+
+    @RequestMapping(path = "/disciplina")
+    public List<Disciplina> listarDisciplina() {
+        return (List<Disciplina>) serviceDisciplina.getAllDisciplina();
+    }
+
+    @RequestMapping(path = "/salvarDisciplina", method = RequestMethod.POST)
+    public Disciplina salvarDisciplina(@RequestBody String disciplina1) {
+        Disciplina disciplina = (Disciplina) gson.fromJson(disciplina1, Disciplina.class);
+        return serviceDisciplina.saveDisciplina(disciplina);
+    }
+
+    @RequestMapping(path = "deletarDisciplina", method = RequestMethod.DELETE)
+    public boolean deletarDisciplina(Long id) {
+        Disciplina disciplina = new Disciplina();
+        disciplina.setId(id);
+        serviceDisciplina.deleteDisciplina(disciplina);
+        return true;
+    }
+    
+
 
     // ------------------------------------------------------------------------------
     // ------------------------------- Empenho ----------------------------------

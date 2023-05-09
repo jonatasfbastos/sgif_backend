@@ -3,11 +3,13 @@ package br.com.ifba.formulario.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.ifba.formulario.dao.IDaoFormulario;
 import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.infrastructure.exception.BusinessException;
 
+@Service
 public class ServiceFormulario implements IServiceFormulario {
 
     //mensagem de erro caso o Formulario seja nulo;
@@ -78,14 +80,5 @@ public class ServiceFormulario implements IServiceFormulario {
         return formularioDao.getReferenceById(id);
     }
 
-    @Override
-    public List<Formulario> findByTitulo(String titulo) {
-        if (titulo == null) {
-            throw new BusinessException("Dados do titulo nao preenchidos");
-        } else if (titulo.isEmpty()) {
-            throw new BusinessException("O Campo titulo esta vazio");
-        } else {
-            return formularioDao.findByTitulo(titulo);
-        }
-    }
+    
 }

@@ -2,8 +2,11 @@ package br.com.ifba.formulario.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.com.ifba.formulario.model.Formulario;
 
+@Service
 public interface IServiceFormulario {
     
     // Salva o Formulario
@@ -23,8 +26,5 @@ public interface IServiceFormulario {
     
     // MÃ©todo que retorna o Formulario com o id informado
     public Formulario findById(Long id);
-    
-    // MÃ©todo que retorna a lista com os Formularios com o nome informado
-    public List<Formulario> findByTitulo(String titulo);
     
 }

@@ -5,14 +5,7 @@
 package br.com.ifba.perfilusuario.model;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-import br.com.ifba.usuario.model.Usuario;
-
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;

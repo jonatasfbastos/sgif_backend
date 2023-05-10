@@ -5,9 +5,6 @@
 
 package br.com.ifba.empenho.dao;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.ifba.empenho.model.Empenho;

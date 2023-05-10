@@ -1,18 +1,13 @@
 package br.com.ifba.terceirizado.service;
 
-import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.Entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.terceirizado.dao.IDaoTerceirizado;
 import br.com.ifba.terceirizado.model.Terceirizado;
-import lombok.Data;
 
 @Service
 public class ServiceTerceirizado implements IServiceTerceirizado{

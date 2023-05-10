@@ -16,8 +16,6 @@ import br.com.ifba.setor.model.Setor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
-
 /**
  *
  * @author Everton.

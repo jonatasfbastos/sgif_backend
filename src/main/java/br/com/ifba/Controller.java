@@ -3,9 +3,6 @@ package br.com.ifba;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import br.com.ifba.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
 import br.com.ifba.funcaotecnicoadministrativo.service.IServiceFuncaoTecnicoAdministrativo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +113,7 @@ public class Controller {
         return serviceEmpenho.saveEmpenho(empenho);
     }
 
-    private Timer timer;
+    
 
     // @Scheduled(fixedDelay = 10000)
     // private void alertaMsg(Date date){

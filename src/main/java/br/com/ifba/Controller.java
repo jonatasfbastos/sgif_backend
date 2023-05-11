@@ -38,6 +38,9 @@ import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.requisicao.service.IServiceRequisicao;
 import br.com.ifba.setor.model.Setor;
 import br.com.ifba.setor.service.IServiceSetor;
+import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
+import br.com.ifba.tecnicoadministrativo.service.IServiceTecnicoAdministrativo;
+import br.com.ifba.tecnicoadministrativo.service.ServiceTecnicoAdministrativo;
 import br.com.ifba.tipodeitem.model.TipoDeItem;
 import br.com.ifba.tipodeitem.service.IServiceTipoItem;
 import br.com.ifba.usuario.model.Usuario;
@@ -539,6 +542,57 @@ public class Controller {
         TipoDeItem tipo = (TipoDeItem) gson.fromJson(tipodeitem, TipoDeItem.class);
         return serviceTipoItem.savetipoDeItem(tipo);
     }
+    
+     // ---------------------------------------------------
+    // ------------- TECNICO ADMINISTRATIVO -----------------------------
+    // ---------------------------------------------------
+    
+    @Autowired
+    private IServiceTecnicoAdministrativo serviceTecnicoAdministrativo;
+    
+    @PostMapping("/salvarTecnicoAdministrativo")
+    public ResponseEntity<Object> salvarTecnicoAdministrativo
+            (@RequestBody TecnicoAdministrativo tecnicoAdministrativo) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(serviceTecnicoAdministrativo.saveTecnicoAdministrativo(tecnicoAdministrativo));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarTecnicoAdministrativo")
+    public ResponseEntity<Object> listarTecnicoAdministrativo() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceTecnicoAdministrativo.getAllTecnicoAdministrativo());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizarTecnicoAdministrativo")
+    public ResponseEntity<Object> atualizarTecnicoAdministrativo
+            (@RequestBody TecnicoAdministrativo TecnicoAdministrativo) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceTecnicoAdministrativo.updateTecincoAdministrativo(TecnicoAdministrativo));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deletarTecnicoAdministrativo/{id}")
+    public ResponseEntity<Object> deletarTecnicoAdministrativo
+            (@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceTecnicoAdministrativo.deleteTecnicoAdministrativo(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+    
 
     // ---------------------------------------------------
     // ------------- PERFIL USUARIO -----------------------------

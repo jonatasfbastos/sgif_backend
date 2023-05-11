@@ -273,7 +273,7 @@ public class Controller {
             (@RequestBody FuncaoTecnicoAdministrativo funcaoTecnicoAdm) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceFuncaoTecnicoAdm.updateFuncaoTecnicoAdm(funcaoTecnicoAdm));
+                    .body(serviceFuncaoTecnicoAdm.saveFuncaoTecnicoAdm(funcaoTecnicoAdm));
         } catch (Exception err) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
         }

@@ -31,6 +31,9 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     // Mensagem de erro caso o nome seja null.
     private final static String NOME_NULL = "Dados do nome nao preenchidos";
     
+    // Mensagem que foi deletado.
+    private final static String TECNICO_DELETA = "Tecnico administrativo deletada com sucesso";
+    
    
      //================= OBJETO =================================================
     @Autowired
@@ -60,14 +63,13 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     }
 
     @Override
-    public void deleteTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-        if(tecnicoAdministrativo == null) {
-            throw new BusinessException(TECNICO_ADM_NULL);
-        }
-        if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
+    public String deleteTecnicoAdministrativo(Long id) {
+        if (tecnicoAdministrativoDao.existsById(id) == false) {
             throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
         }
-        tecnicoAdministrativoDao.delete(tecnicoAdministrativo);
+        tecnicoAdministrativoDao
+                .delete(tecnicoAdministrativoDao.getReferenceById(id));
+        return TECNICO_DELETA;
     }
 
     @Override
@@ -90,4 +92,6 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
      public TecnicoAdministrativo findById(Long id) {
           return tecnicoAdministrativoDao.getReferenceById(id);
      }
+
+    
 }

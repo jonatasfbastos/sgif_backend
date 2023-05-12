@@ -17,6 +17,8 @@ import br.com.ifba.disciplina.model.Disciplina;
 import br.com.ifba.disciplina.service.IServiceDisciplina;
 import br.com.ifba.empenho.model.Empenho;
 import br.com.ifba.empenho.service.IServiceEmpenho;
+import br.com.ifba.etapacurso.model.EtapaCurso;
+import br.com.ifba.etapacurso.service.IServiceEtapaCurso;
 import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.formulario.service.IServiceFormulario;
 import br.com.ifba.fornecedor.model.Fornecedor;
@@ -174,6 +176,34 @@ public class Controller {
         }
     }
 }
+
+    //--------------------------------------------------------
+    //--------------- etapa curso ------------------------------
+    //-------------------------------------------------------
+    
+    @Autowired
+    private IServiceEtapaCurso serviceEtapaCurso;
+
+
+    @RequestMapping(path = "deletarEtapaCurso", method = RequestMethod.GET)
+    public boolean deletarEtapaCurso(Long id) {
+        EtapaCurso etapaCurso = new EtapaCurso();
+        etapaCurso.setId(id);
+        serviceEtapaCurso.deleteEtapaCurso(etapaCurso);
+        return true;
+    }
+
+    @RequestMapping(path = "/etapaCurso")
+    public List<EtapaCurso> salvarEtapaCurso() {
+        return (List<EtapaCurso>) serviceEtapaCurso.getAllEtapaCurso();
+    }
+
+    @RequestMapping(path = "/salvarEtapaCurso", method = RequestMethod.POST)
+    public EtapaCurso salvarEtapaCurso(@RequestBody String etapa) {
+        EtapaCurso etapaCurso = (EtapaCurso) gson.fromJson(etapa, EtapaCurso.class);
+        System.out.println(etapaCurso.toString());
+        return serviceEtapaCurso.saveEtapaCurso(etapaCurso);
+    }
 
     //-------------------------------------
     //---------- Formulário ---------------

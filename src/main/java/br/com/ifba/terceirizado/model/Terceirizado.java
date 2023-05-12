@@ -9,6 +9,6 @@ import lombok.Data;
 
 @Entity
 @Data
-public abstract class Terceirizado extends Pessoa implements Serializable{
+public class Terceirizado extends Pessoa implements Serializable{
     
 }

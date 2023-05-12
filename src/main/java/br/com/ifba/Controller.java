@@ -41,6 +41,8 @@ import br.com.ifba.setor.service.IServiceSetor;
 import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 import br.com.ifba.tecnicoadministrativo.service.IServiceTecnicoAdministrativo;
 import br.com.ifba.tecnicoadministrativo.service.ServiceTecnicoAdministrativo;
+import br.com.ifba.terceirizado.model.Terceirizado;
+import br.com.ifba.terceirizado.service.IServiceTerceirizado;
 import br.com.ifba.tipodeitem.model.TipoDeItem;
 import br.com.ifba.tipodeitem.service.IServiceTipoItem;
 import br.com.ifba.usuario.model.Usuario;
@@ -668,5 +670,31 @@ public class Controller {
     public Usuario getUsuario(@PathVariable Long id) {
         System.out.println("Id " + id);
         return (Usuario) this.serviceUsuario.findById(id);
+    }
+    
+    // ---------------------------------------------------
+    // ------------- Terceirizado -----------------------------
+    // ---------------------------------------------------
+
+    @Autowired
+    private IServiceTerceirizado serviceTerceirizado;
+
+    @RequestMapping(path = "deletarTerceirizado", method = RequestMethod.GET)
+    public boolean deletarTerceirizado(Long id) {
+        Terceirizado terceirizado = new Terceirizado();
+        terceirizado.setId(id);
+        servicePessoa.delete(terceirizado);
+        return true;
+    }
+
+    @RequestMapping(path = "/terceirizado")
+    public List<Terceirizado> getTerceirizado() {
+        return (List<Terceirizado>) serviceTerceirizado.getAllterceirizado();
+    }
+
+    @RequestMapping(path = "/salvarTerceirizado", method = RequestMethod.POST)
+    public Terceirizado salvarTerceirizado(@RequestBody String terceirizado) {
+        Terceirizado terc = (Terceirizado) gson.fromJson(terceirizado, Terceirizado.class);
+        return serviceTerceirizado.saveTerceirizado(terc);
     }
 }

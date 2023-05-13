@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 
+
+import br.com.ifba.avaliacao.model.Avaliacao;
+import br.com.ifba.avaliacao.service.IServiceAvaliacao;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.aluno.service.IServiceAluno;
 import br.com.ifba.disciplina.model.Disciplina;
@@ -69,6 +72,33 @@ public class Controller {
     }
 
     
+    // ------------------------------------------------------------------------------
+    // ------------------------------- Avaliação ------------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceAvaliacao serviceAvaliacao;
+
+    @RequestMapping(path = "deletarAvaliacao", method = RequestMethod.GET)
+    public boolean deletarAvaliacao(Long id) {
+        Avaliacao avaliacao = new Avaliacao();
+        avaliacao.setId(id);
+        serviceAvaliacao.deleteAvaliacao(avaliacao);
+        return true;
+    }
+
+    @RequestMapping(path = "/avaliacao")
+    public List<Avaliacao> listarAvaliacao() {
+        return (List<Avaliacao>) serviceAvaliacao.getAllAvaliacao();
+    }
+
+    @RequestMapping(path = "/salvarAvaliacao", method = RequestMethod.POST)
+    public Avaliacao salvarAvaliacao(@RequestBody String avaliacao1) {
+        Avaliacao avaliacao = (Avaliacao) gson.fromJson(avaliacao1, Avaliacao.class);
+        return serviceAvaliacao.saveAvaliacao(avaliacao);
+    }
+
+
     // ------------------------------------------------------------------------------
     // --------------------------------- Aluno --------------------------------------
     // ------------------------------------------------------------------------------

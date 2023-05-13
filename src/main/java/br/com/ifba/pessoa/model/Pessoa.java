@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.requisicao.model.Requisicao;
+import javax.persistence.Temporal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,6 +32,8 @@ public class Pessoa extends PersistenceEntity {
     private String telefone;
     private String email;
     private String cpf;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataDeNascimento;
 
     @OneToMany(mappedBy = "requisitante")

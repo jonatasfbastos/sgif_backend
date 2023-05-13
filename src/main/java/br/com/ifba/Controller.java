@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 
+import br.com.ifba.aluno.model.Aluno;
+import br.com.ifba.aluno.service.IServiceAluno;
 import br.com.ifba.disciplina.model.Disciplina;
 import br.com.ifba.disciplina.service.IServiceDisciplina;
 import br.com.ifba.empenho.model.Empenho;
@@ -66,6 +68,33 @@ public class Controller {
         return "Hello " + user.getSenha() + "!";
     }
 
+    
+    // ------------------------------------------------------------------------------
+    // --------------------------------- Aluno --------------------------------------
+    // ------------------------------------------------------------------------------
+    
+    @Autowired
+    private IServiceAluno serviceAluno;
+
+    @RequestMapping(path = "/alunos")
+    public List<Aluno> listarAluno() {
+        return (List<Aluno>) serviceAluno.getAllaluno();
+    }
+
+    @RequestMapping(path = "/salvarAluno", method = RequestMethod.POST)
+    public Aluno salvarAluno(@RequestBody String aluno1) {
+        Aluno aluno = (Aluno) gson.fromJson(aluno1, Aluno.class);
+        return serviceAluno.saveAluno(aluno);
+    }
+
+    @RequestMapping(path = "deletarAluno", method = RequestMethod.GET)
+    public boolean deletarAluno(Long id) {
+        Aluno aluno = new Aluno();
+        aluno.setId(id);
+        serviceAluno.deleteAluno(aluno);
+        return true;
+    }
+    
     // ------------------------------------------------------------------------------
     // ------------------------------- Disciplina ----------------------------------
     // ------------------------------------------------------------------------------

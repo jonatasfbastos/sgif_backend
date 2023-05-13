@@ -293,7 +293,7 @@ public class Controller {
     public ResponseEntity<Object> atualizarFormulario(@RequestBody Formulario formulario) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceFormulario.updateFormulario(formulario));
+                    .body(serviceFormulario.saveFormulario(formulario));
         } catch (Exception err) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
         }
@@ -302,7 +302,7 @@ public class Controller {
     @DeleteMapping("/deletarFormulario/{id}")
     public ResponseEntity<Object> deletarFormulario(@PathVariable Long id) {
         try {
-            serviceFormulario.deleteFormularioPorID(id);
+            serviceFormulario.deleteFormulario(id);
             return ResponseEntity.status(HttpStatus.OK).body("Formulário deletado com sucesso.");
         } catch (Exception err) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());

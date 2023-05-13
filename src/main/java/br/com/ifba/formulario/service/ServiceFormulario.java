@@ -3,11 +3,11 @@ package br.com.ifba.formulario.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import br.com.ifba.formulario.dao.IDaoFormulario;
 import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceFormulario implements IServiceFormulario {
@@ -23,6 +23,9 @@ public class ServiceFormulario implements IServiceFormulario {
 
     //mensagem de erro caso o Formulario seja invÃ¡lido;
     public final static String FORMULARIO_INVALIDO = "As informaÃ§oes do Formulario nao sao validas";
+    
+    //mensagem de erro caso o Formulario seja invÃ¡lido;
+    public final static String CAMPO_VAZIO = "Campos não preenchidos";
 
     //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
     @Autowired
@@ -33,8 +36,9 @@ public class ServiceFormulario implements IServiceFormulario {
     public Formulario saveFormulario(Formulario formulario) {
         if (formulario == null) {
             throw new BusinessException(FORMULARIO_NULL);
-        } else if (formularioDao.existsById(formulario.getId()) == true) {
-            throw new BusinessException(FORMULARIO_EXISTE);
+        }
+        if (formulario.getTitulo().isEmpty() || formulario.getDescricao().isEmpty()) {
+            throw new BusinessException(CAMPO_VAZIO);
         } else {
             return formularioDao.save(formulario);
         }
@@ -63,11 +67,11 @@ public class ServiceFormulario implements IServiceFormulario {
     }
     
     @Override
-    public void deleteFormularioPorID(Long id) {
-        if (formularioDao.existsById(id) == false) {
+    public void deleteFormulario(Long id) {
+        if (this.formularioDao.existsById(id) == false) {
             throw new BusinessException(FORMULARIO_NAO_EXISTE);
         }
-        formularioDao.delete(formularioDao.getReferenceById(id));
+        this.formularioDao.delete(formularioDao.getReferenceById(id));
     }
 
     @Override
@@ -80,5 +84,14 @@ public class ServiceFormulario implements IServiceFormulario {
         return formularioDao.getReferenceById(id);
     }
 
-    
+    @Override
+    public List<Formulario> findByTitulo(String titulo) {
+        if (titulo == null) {
+            throw new BusinessException("Dados do titulo nao preenchidos");
+        } else if (titulo.isEmpty()) {
+            throw new BusinessException("O Campo titulo esta vazio");
+        } else {
+            return formularioDao.findByTitulo(titulo);
+        }
+    }
 }

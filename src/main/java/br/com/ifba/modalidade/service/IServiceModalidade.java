@@ -17,9 +17,9 @@ public interface IServiceModalidade {
     // Metodo que retorna todas as Modalidades da base de dados
     public abstract List<Modalidade> getAllModalidade();
     
-    // MÃ©todo que retorna a Modalidade com o id informado
+    // Metodo que retorna a Modalidade com o id informado
     public Modalidade findById(Long id);
     
-    // MÃ©todo que retorna a lista com as Modalidades com o nome informado
+    // Metodo que retorna a lista com as Modalidades com o nome informado
     public List<Modalidade> findByNome(String nome);
 }

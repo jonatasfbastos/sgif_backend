@@ -16,13 +16,13 @@ public class ServiceModalidade implements IServiceModalidade{
     //mensagem de erro caso a Modalidade seja nula;
     public final static String MODALIDADE_NULL = "Dados da Modalidade nao preenchidos";
     
-    //mensagem de erro caso a Modalidade jÃ¡ exista no banco de dados;
+    //mensagem de erro caso a Modalidade ja exista no banco de dados;
     public final static String MODALIDADE_EXISTE = "Modalidade ja existente no Banco de dados";
     
-    //mensagem de erro caso a Modalidade nÃ£o exista no banco de dados;
+    //mensagem de erro caso a Modalidade nao exista no banco de dados;
     public final static String MODALIDADE_NAO_EXISTE = "Modalidade nao existente no Banco de dados";
     
-    //mensagem de erro caso a Modalidade seja invÃ¡lida;
+    //mensagem de erro caso a Modalidade seja invalida;
     public final static String MODALIDADE_INVALIDO = "As informaÃ§oes da Modalidade nao sao validas";
     
     //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
@@ -30,7 +30,7 @@ public class ServiceModalidade implements IServiceModalidade{
     @Autowired
      private IDaoModalidade modalidadeDao;
      
-    //-_-_-_-_-_-_-_-_-_- MÃ‰TODOS -_-_-_-_-_-_-_-_-_-
+    //-_-_-_-_-_-_-_-_-_- METODOS -_-_-_-_-_-_-_-_-_-
     
     @Override
     public Modalidade saveModalidade(Modalidade modalidade) {

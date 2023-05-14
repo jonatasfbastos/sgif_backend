@@ -33,6 +33,8 @@ import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
 import br.com.ifba.matrizcurricular.model.MatrizCurricular;
 import br.com.ifba.matrizcurricular.service.IServiceMatrizCurricular;
+import br.com.ifba.modalidade.model.Modalidade;
+import br.com.ifba.modalidade.service.IServiceModalidade;
 import br.com.ifba.notification.model.Notification;
 import br.com.ifba.notification.service.IServiceNotification;
 import br.com.ifba.pedido.model.Pedido;
@@ -484,7 +486,47 @@ public class Controller {
         System.out.println("Id " + id);
         return (MatrizCurricular) this.serviceMatriz.findById(id);
     }
+
+    // ---------------------------------------------------
+    // ----------------- Modalidade ----------------------
+    // ---------------------------------------------------
     
+    @Autowired
+    private IServiceModalidade serviceModalidade;
+
+    @RequestMapping(path = "/atualizarModalidade", method = RequestMethod.POST)
+    public Modalidade atualizarModalidade(@RequestBody String modalidade) {
+        Modalidade mod = (Modalidade) gson.fromJson(modalidade, Modalidade.class);
+        if (mod.getId() == null)
+            return null;
+        return serviceModalidade.saveModalidade(mod);
+    }
+
+    @RequestMapping(path = "/deletarModalidade", method = RequestMethod.GET)
+    public boolean deletarModalidade(Long id) {
+        Modalidade mod = new Modalidade();
+        mod.setId(id);
+        serviceModalidade.deleteModalidade(mod);
+        return true;
+    }
+
+    @RequestMapping(path = "/salvarModalidade", method = RequestMethod.POST)
+    public Modalidade salvarModalidade(@RequestBody String modalidade) {
+        Modalidade mod = (Modalidade) gson.fromJson(modalidade, Modalidade.class);
+        return serviceModalidade.saveModalidade(mod);
+    }
+
+    @RequestMapping(path = "/modalidades")
+    public List<Modalidade> getModalidades() {
+        return serviceModalidade.getAllModalidade();
+    }
+
+    @RequestMapping(path = "/modalidade/{id}")
+    public Modalidade getModalidade(@PathVariable Long id) {
+        System.out.println("Id " + id);
+        return (Modalidade) this.serviceModalidade.findById(id);
+    }
+
     // ---------------------------------------------------
     // ------------- NOTIFICAÇÃO -------------------------
     // ---------------------------------------------------

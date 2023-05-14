@@ -272,43 +272,37 @@ public class Controller {
     @Autowired
     private IServiceFormulario serviceFormulario;
 
-    @PostMapping("/salvarFormulario")
-    public ResponseEntity<Object> salvarFormulario(@RequestBody Formulario formulario) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(serviceFormulario.saveFormulario(formulario));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "/atualizarFormulario", method = RequestMethod.POST)
+    public Formulario atualizarFormulario(@RequestBody String formulario) {
+        Formulario frm = (Formulario) gson.fromJson(formulario, Formulario.class);
+        if (frm.getId() == null)
+            return null;
+        return serviceFormulario.saveFormulario(frm);
     }
 
-    @GetMapping("/listarFormulario")
-    public ResponseEntity<Object> listarFormularios() {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(serviceFormulario.getAllFormulario());
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "/deletarFormulario", method = RequestMethod.GET)
+    public boolean deletarFormulario(Long id) {
+        Formulario frm = new Formulario();
+        frm.setId(id);
+        serviceFormulario.deleteFormulario(frm);
+        return true;
     }
 
-    @PutMapping("/atualizarFormulario")
-    public ResponseEntity<Object> atualizarFormulario(@RequestBody Formulario formulario) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceFormulario.saveFormulario(formulario));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "/salvarFormulario", method = RequestMethod.POST)
+    public Formulario salvarFormulario(@RequestBody String formulario) {
+        Formulario frm = (Formulario) gson.fromJson(formulario, Formulario.class);
+        return serviceFormulario.saveFormulario(frm);
     }
 
-    @DeleteMapping("/deletarFormulario/{id}")
-    public ResponseEntity<Object> deletarFormulario(@PathVariable Long id) {
-        try {
-            serviceFormulario.deleteFormulario(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Formulário deletado com sucesso.");
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "/formularios")
+    public List<Formulario> getFormularios() {
+        return serviceFormulario.getAllFormulario();
+    }
+
+    @RequestMapping(path = "/formulario/{id}")
+    public Formulario getFormulario(@PathVariable Long id) {
+        System.out.println("Id " + id);
+        return (Formulario) this.serviceFormulario.findById(id);
     }
 
     // ---------------------------------------------------

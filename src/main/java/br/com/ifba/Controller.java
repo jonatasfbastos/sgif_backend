@@ -43,6 +43,8 @@ import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.perfilusuario.service.IServicePerfilUsuario;
 import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.pessoa.service.IServicePessoa;
+import br.com.ifba.relatoriomensal.model.RelatorioMensal;
+import br.com.ifba.relatoriomensal.service.IServiceRelatorioMensal;
 import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.requisicao.service.IServiceRequisicao;
 import br.com.ifba.setor.model.Setor;
@@ -605,6 +607,32 @@ public class Controller {
     public Requisicao salvarRequisicao(@RequestBody String requisicoes) {
         Requisicao requisicaoo = (Requisicao) gson.fromJson(requisicoes, Requisicao.class);
         return serviceRequisicao.saveRequisicao(requisicaoo);
+    }
+
+    // ---------------------------------------------------
+    // ------------- Relatório Mensal -----------------------------
+    // ---------------------------------------------------
+
+    @Autowired
+    private IServiceRelatorioMensal serviceRelatorio;
+
+    @RequestMapping(path = "/deletarRelatorio", method = RequestMethod.GET)
+    public boolean deletarRelatorio(Long id) {
+        RelatorioMensal relatorio = new RelatorioMensal();
+        relatorio.setId(id);
+        serviceRelatorio.delete(relatorio);
+        return true;
+    }
+
+    @RequestMapping(path = "/relatorio")
+    public List<RelatorioMensal> salvarRelatorio() {
+        return (List<RelatorioMensal>) serviceRelatorio.getAllRelatorioMensal();
+    }
+
+    @RequestMapping(path = "/salvarRelatorio", method = RequestMethod.POST)
+    public RelatorioMensal salvarRelatorioMensal(@RequestBody String relatorios) {
+        RelatorioMensal relatorio = (RelatorioMensal) gson.fromJson(relatorios, RelatorioMensal.class);
+        return serviceRelatorio.saveRelatorioMensal(relatorio);
     }
 
     // ---------------------------------------------------

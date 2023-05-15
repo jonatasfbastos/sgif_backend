@@ -30,6 +30,7 @@ import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.fornecedor.service.IServiceFornecedor;
 import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.funcaoservidor.service.IServiceFuncaoServidor;
+import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
@@ -45,6 +46,8 @@ import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.perfilusuario.service.IServicePerfilUsuario;
 import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.pessoa.service.IServicePessoa;
+import br.com.ifba.professor.model.Professor;
+import br.com.ifba.professor.service.IServiceProfessor;
 import br.com.ifba.relatoriomensal.model.RelatorioMensal;
 import br.com.ifba.relatoriomensal.service.IServiceRelatorioMensal;
 import br.com.ifba.requisicao.model.Requisicao;
@@ -891,4 +894,32 @@ public class Controller {
         Terceirizado terc = (Terceirizado) gson.fromJson(terceirizado, Terceirizado.class);
         return serviceTerceirizado.saveTerceirizado(terc);
     }
+    
+    // ---------------------------------------------------
+    // ------------- Professor ---------------------------
+    // ---------------------------------------------------
+
+    @Autowired
+    private IServiceProfessor serviceProfessor;
+    
+    @RequestMapping(path = "deletarProfessor", method = RequestMethod.GET)
+    public boolean deletarProfessor(Long id){
+        Professor professor = new Professor();
+        professor.setId(id);
+        serviceProfessor.deleteProfessor(professor);
+        return true;
+    }
+    
+    @RequestMapping(path = "/professor")
+    public List<Professor> listarProfessor() {
+        return (List<Professor>) serviceProfessor.getAllprofessor();
+    }
+
+    @RequestMapping(path = "/salvarProfessor", method = RequestMethod.POST)
+    public Professor salvarProfessor(@RequestBody String professor1) {
+        Professor professor = (Professor) gson.fromJson(professor1, Professor.class);
+        return serviceProfessor.saveProfessor(professor);
+    }
 }
+
+    

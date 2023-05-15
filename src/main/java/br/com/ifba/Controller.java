@@ -703,7 +703,7 @@ public class Controller {
             (@RequestBody TecnicoAdministrativo TecnicoAdministrativo) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceTecnicoAdministrativo.updateTecincoAdministrativo(TecnicoAdministrativo));
+                    .body(serviceTecnicoAdministrativo.saveTecnicoAdministrativo(TecnicoAdministrativo));
         } catch (Exception err) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
         }

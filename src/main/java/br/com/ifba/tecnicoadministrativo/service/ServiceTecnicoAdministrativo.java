@@ -45,22 +45,23 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
        if(tecnicoAdministrativo == null) {
             throw new BusinessException(TECNICO_ADM_NULL);
         } 
-       if(tecnicoAdministrativoDao.existsByNome(tecnicoAdministrativo.getNome()) == true) {
-            throw new BusinessException(TECNICO_ADM_EXISTE);
+       if (tecnicoAdministrativo.getNome().isEmpty() || tecnicoAdministrativo.getTelefone().isEmpty() ||
+           tecnicoAdministrativo.getEmail().isEmpty() || tecnicoAdministrativo.getCpf().isEmpty()) {
+            throw new BusinessException(TECNICO_ADM_NULL);
         }
        return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
     }
 
-    @Override
-    public TecnicoAdministrativo updateTecincoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-        if(tecnicoAdministrativo == null) {
-            throw new BusinessException(TECNICO_ADM_NULL);
-        }
-        if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
-            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
-        }
-        return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
-    }
+//    @Override
+//    public TecnicoAdministrativo updateTecincoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
+//        if(tecnicoAdministrativo == null) {
+//            throw new BusinessException(TECNICO_ADM_NULL);
+//        }
+//        if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
+//            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
+//        }
+//        return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
+//    }
 
     @Override
     public String deleteTecnicoAdministrativo(Long id) {

@@ -44,12 +44,9 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     public TecnicoAdministrativo saveTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
        if(tecnicoAdministrativo == null) {
             throw new BusinessException(TECNICO_ADM_NULL);
-        } 
-       if (tecnicoAdministrativo.getNome().isEmpty() || tecnicoAdministrativo.getTelefone().isEmpty() ||
-           tecnicoAdministrativo.getEmail().isEmpty() || tecnicoAdministrativo.getCpf().isEmpty()) {
-            throw new BusinessException(TECNICO_ADM_NULL);
-        }
+        } else{
        return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
+       }
     }
 
 //    @Override

@@ -149,7 +149,7 @@ public class Controller {
         return serviceDisciplina.saveDisciplina(disciplina);
     }
 
-    @RequestMapping(path = "deletarDisciplina", method = RequestMethod.DELETE)
+    @RequestMapping(path = "deletarDisciplina", method = RequestMethod.GET)
     public boolean deletarDisciplina(Long id) {
         Disciplina disciplina = new Disciplina();
         disciplina.setId(id);

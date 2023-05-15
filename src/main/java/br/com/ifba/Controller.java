@@ -28,6 +28,8 @@ import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.formulario.service.IServiceFormulario;
 import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.fornecedor.service.IServiceFornecedor;
+import br.com.ifba.funcaoservidor.model.FuncaoServidor;
+import br.com.ifba.funcaoservidor.service.IServiceFuncaoServidor;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
@@ -331,6 +333,45 @@ public class Controller {
     public Fornecedor salvarFornecedor(@RequestBody String fornecedor) {
         Fornecedor forn = (Fornecedor) gson.fromJson(fornecedor, Fornecedor.class);
         return serviceFornecedor.saveFornecedor(forn);
+    }
+    
+    // ---------------------------------------------------
+    // ----------------- Funcao Servidor -----------------
+    // ---------------------------------------------------
+
+    @Autowired
+    private IServiceFuncaoServidor serviceFuncaoServidor;
+
+    @PostMapping("/salvarFuncaoServidor")
+    public ResponseEntity<Object> salvarFuncaoServidor
+            (@RequestBody FuncaoServidor funcaoServidor) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(serviceFuncaoServidor.saveFuncaoServidor(funcaoServidor));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+    
+    @DeleteMapping("/deletarFuncaoServidor/{id}")
+    public ResponseEntity<Object> deletarFuncaoServidor
+            (@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoServidor.deleteFuncaoServidor(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarFuncaoServidor")
+    public ResponseEntity<Object> listarFuncoesServidor() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoServidor.getAllFuncaoServidor());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
     }
 
     // ---------------------------------------------------

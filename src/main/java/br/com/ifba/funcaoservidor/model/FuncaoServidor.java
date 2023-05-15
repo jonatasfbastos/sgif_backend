@@ -21,7 +21,7 @@ public class FuncaoServidor extends PersistenceEntity implements Serializable {
     private String nome;
     private String descricao;
     @JsonIgnore
-    @ManyToMany(mappedBy = "funcaoservidor", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "funcaoServidor", fetch = FetchType.LAZY)
     private List<Servidor> servidor;
 
 }

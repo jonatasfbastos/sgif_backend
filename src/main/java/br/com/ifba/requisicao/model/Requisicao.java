@@ -34,6 +34,7 @@ public class Requisicao extends PersistenceEntity {
     private int quantidadeItensReq;
 
     @OneToOne
+    @JoinColumn(name = "criador_id")
     private Usuario criador;
 
     @JsonIgnoreProperties("requisicoes")
@@ -41,16 +42,9 @@ public class Requisicao extends PersistenceEntity {
     @JoinColumn(name = "setor_id")
     private Setor setor;
 
-    // @JsonBackReference
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "pessoa_id")
-    // private Pessoa requisitante;
-
     private String requisitante;
 
-    @JsonIgnoreProperties("requisicoes")
-    // @ManyToMany(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "item_id")
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "itens_id")
     private Item itens;
 }

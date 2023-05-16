@@ -12,10 +12,12 @@ import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.tipoturma.model.TipoTurma;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "turma")
 @Data
+@EqualsAndHashCode(callSuper = false)
 
 public class Turma extends PersistenceEntity implements Serializable {
     private String nome;

@@ -2,14 +2,19 @@ package br.com.ifba.funcaoservidor.model;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.servidor.model.Servidor;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+
 import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
+
 /**
  *
  * @author Gusd
@@ -22,8 +27,8 @@ public class FuncaoServidor extends PersistenceEntity implements Serializable {
 
     private String nome;
     private String descricao;
-    @JsonIgnore
-    @OneToMany(mappedBy="funcaoServidor")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcaoServidor")
     private List<Servidor> servidor;
 
 }

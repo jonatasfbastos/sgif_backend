@@ -14,10 +14,12 @@ import br.com.ifba.curso.model.Curso;
 import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "matriz_curricular")
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class MatrizCurricular extends PersistenceEntity implements Serializable{
     //atributos
     private String nome;

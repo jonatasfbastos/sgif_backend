@@ -14,25 +14,16 @@ public class ServiceServidor implements IServiceServidor{
     //================= CONSTANTES =============================================
     
     // Mensagem de erro se o Tecnico Administrativo for null.
-    public final static String TECNICO_ADM_NULL = "Dados do Tecnico Administrativo nao preenchidos";
+    public final static String Servidor_NULL = "Dados do Servidor nao preenchidos";
     
     // Mensagem de erro se o Tecnico Administrativo já existe.
-    public final static String TECNICO_ADM_EXISTE = "Tecnico Administrativo ja existente no Banco de dados";
+    public final static String Servidor_EXISTE = "Servidor ja existente no Banco de dados";
     
     // Mensagem de erro se o Tecnico Administrativo não existir no banco.
-    public final static String TECNICO_ADM_NAO_EXISTE = "Tecnico Administrativo nao existente no Banco de dados";
+    public final static String Servidor_NAO_EXISTE = "Servidor nao existente no Banco de dados";
     
     // Mensagem de erro se o Tecnico Administrativo for inválido.
-    public final static String TECNICO_ADM_INVALIDO = "As informaçoes do Tecnico Administrativo nao sao validas";
-    
-     // Mensagem de erro caso o nome esteja vazio.
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-    
-    // Mensagem de erro caso o nome seja null.
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-    // Mensagem que foi deletado.
-    private final static String TECNICO_DELETA = "Tecnico administrativo deletada com sucesso";
+    public final static String Servidor_INVALIDO = "As informaçoes do Servidor nao sao validas";
     
    
      //================= OBJETO =================================================
@@ -43,55 +34,36 @@ public class ServiceServidor implements IServiceServidor{
     @Override
     public Servidor saveServidor(Servidor servidor) {
        if(servidor == null) {
-            throw new BusinessException(TECNICO_ADM_NULL);
+            throw new BusinessException(Servidor_NULL);
         } 
-       if(servidorDao.existsById(servidor.getId()) == true) {
-            throw new BusinessException(TECNICO_ADM_EXISTE);
-        }
        return servidorDao.save(servidor);
     }
 
     @Override
     public Servidor updateTecincoAdministrativo(Servidor servidor) {
         if(servidor == null) {
-            throw new BusinessException(TECNICO_ADM_NULL);
+            throw new BusinessException(Servidor_NULL);
         }
-        if(servidorDao.existsById(servidor.getId()) == false) {
-            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
+        else if(servidorDao.findById(servidor.getId()) == null) {
+            throw new BusinessException(Servidor_NAO_EXISTE);
         }
         return servidorDao.save(servidor);
     }
 
     @Override
-    public String deleteServidor(Long id) {
-        if (servidorDao.existsById(id) == false) {
-            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
+    public void deleteServidor(Servidor servidor) {
+        if (servidor == null) {
+            throw new BusinessException(Servidor_NAO_EXISTE);
+        } else{
+            this.servidorDao.delete(servidor);
+            return;
         }
-        servidorDao
-                .delete(servidorDao.getReferenceById(id));
-        return TECNICO_DELETA;
+    
     }
 
     @Override
     public List<Servidor> getAllServidor() {
         return this.servidorDao.findAll();
     }
-    
-    @Override
-    public List<Servidor> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException(NOME_NULL);
-        }
-        if(nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return servidorDao.findByNome(nome);
-    }
-    
-     @Override
-     public Servidor findById(Long id) {
-          return servidorDao.getReferenceById(id);
-     }
-
     
 }

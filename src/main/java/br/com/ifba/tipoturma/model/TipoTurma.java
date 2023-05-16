@@ -12,10 +12,13 @@ import javax.persistence.Table;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.turma.model.Turma;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "tipo_turma")
 @Data
+@EqualsAndHashCode(callSuper = false)
+
 public class TipoTurma extends PersistenceEntity implements Serializable{
     
     private String nome;

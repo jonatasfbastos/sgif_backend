@@ -14,9 +14,9 @@ import java.util.List;
 public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
 
     private final static String FUNCAO_NULL = "A função do técnico está vazia, preencha e tente novamente.";
-    private final static String FUNCAO_NAO_EXISTE = "A função informada não existe.";
-    private final static String FUNCAO_DELETADA = "Função deletada com sucesso.";
-    private final static String CAMPO_VAZIO = "Há campo vazio, preencha e tente novamente.";
+    public final static String FUNCAO_NAO_EXISTE = "A função informada não existe.";
+    public final static String FUNCAO_INVÁLIDA = "Função inválida.";
+    public final static String FUNCAO_EXISTE = "Função já existe";
 
     @Autowired
     private IDaoFuncaoServidor daoFuncaoServidor;
@@ -25,23 +25,35 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
     public FuncaoServidor saveFuncaoServidor(FuncaoServidor funcaoServidor) {
         if (funcaoServidor == null) {
             throw new BusinessException(FUNCAO_NULL);
-        }
-        
-        return daoFuncaoServidor.save(funcaoServidor);
+        } else{
+            return daoFuncaoServidor.save(funcaoServidor);
+        }      
     }
 
     @Override
-    public String deleteFuncaoServidor(Long id) {
-        if (daoFuncaoServidor.existsById(id) == false) {
-            throw new BusinessException(FUNCAO_NAO_EXISTE);
+    public void deleteFuncaoServidor(FuncaoServidor funcaoServidor) {
+        if (funcaoServidor == null) {
+            throw new BusinessException(FUNCAO_NULL);
+        } else{
+            this.daoFuncaoServidor.delete(funcaoServidor);
+            return;
         }
-        daoFuncaoServidor.delete(daoFuncaoServidor.getReferenceById(id));
-        return FUNCAO_DELETADA;
     }
 
     @Override
     public List<FuncaoServidor> getAllFuncaoServidor() {
         return daoFuncaoServidor.findAll();
+    }
+
+    @Override
+    public FuncaoServidor updateFuncaoServidor(FuncaoServidor funcaoServidor) {
+        if (funcaoServidor == null) {
+            throw new BusinessException(FUNCAO_NULL);
+        } else if (daoFuncaoServidor.findById(funcaoServidor.getId()) == null) {
+            throw new BusinessException(FUNCAO_EXISTE);
+        } else {
+            return daoFuncaoServidor.save(funcaoServidor);
+        }
     }
 
 }

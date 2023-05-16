@@ -15,10 +15,13 @@ import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.matrizcurricular.model.MatrizCurricular;
 import br.com.ifba.turma.model.Turma;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "etapa_curso")
 @Data
+@EqualsAndHashCode(callSuper = false)
+
 public class EtapaCurso extends PersistenceEntity implements Serializable{
     private String nome;
     private int periodo;

@@ -12,11 +12,11 @@ public class ServiceTurma implements IServiceTurma{
     
     private final static String TURMA_NULL = "Dados da Turma nao preenchidos";
     // Mensagem de erro se o Turma jÃ¡ existir.
-    private final static String TURMA_EXISTE = "Turma ja existente no Banco de dados";
+    public final static String TURMA_EXISTE = "Turma ja existente no Banco de dados";
     // Mensagem de erro se a Turma nÃ£o existir no banco.
     private final static String TURMA_NAO_EXISTE = "Turma nao existente no Banco de dados";
     // Mensagem de erro caso o nome esteja vazio.
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
+    public final static String NOME_VAZIO = "O Campo Nome esta vazio";
     // Mensagem de erro caso o nome seja null.
         
      //================= OBJETO =================================================

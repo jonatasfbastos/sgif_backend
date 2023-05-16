@@ -28,9 +28,6 @@ import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.formulario.service.IServiceFormulario;
 import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.fornecedor.service.IServiceFornecedor;
-import br.com.ifba.funcaoservidor.model.FuncaoServidor;
-import br.com.ifba.funcaoservidor.service.IServiceFuncaoServidor;
-import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
@@ -40,8 +37,6 @@ import br.com.ifba.modalidade.model.Modalidade;
 import br.com.ifba.modalidade.service.IServiceModalidade;
 import br.com.ifba.notification.model.Notification;
 import br.com.ifba.notification.service.IServiceNotification;
-import br.com.ifba.pedido.model.Pedido;
-import br.com.ifba.pedido.service.IServicePedido;
 import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.perfilusuario.service.IServicePerfilUsuario;
 import br.com.ifba.pessoa.model.Pessoa;
@@ -56,7 +51,6 @@ import br.com.ifba.setor.model.Setor;
 import br.com.ifba.setor.service.IServiceSetor;
 import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 import br.com.ifba.tecnicoadministrativo.service.IServiceTecnicoAdministrativo;
-import br.com.ifba.tecnicoadministrativo.service.ServiceTecnicoAdministrativo;
 import br.com.ifba.terceirizado.model.Terceirizado;
 import br.com.ifba.terceirizado.service.IServiceTerceirizado;
 import br.com.ifba.tipodeitem.model.TipoDeItem;
@@ -342,40 +336,7 @@ public class Controller {
     // ----------------- Funcao Servidor -----------------
     // ---------------------------------------------------
 
-    @Autowired
-    private IServiceFuncaoServidor serviceFuncaoServidor;
-
-    @PostMapping("/salvarFuncaoServidor")
-    public ResponseEntity<Object> salvarFuncaoServidor
-            (@RequestBody FuncaoServidor funcaoServidor) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(serviceFuncaoServidor.saveFuncaoServidor(funcaoServidor));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
-    }
     
-    @DeleteMapping("/deletarFuncaoServidor/{id}")
-    public ResponseEntity<Object> deletarFuncaoServidor
-            (@PathVariable Long id) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceFuncaoServidor.deleteFuncaoServidor(id));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
-    }
-
-    @GetMapping("/listarFuncaoServidor")
-    public ResponseEntity<Object> listarFuncoesServidor() {
-        try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceFuncaoServidor.getAllFuncaoServidor());
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
-    }
 
     // ---------------------------------------------------
     // ------------- Funcao Tecnico Admistrativo ---------
@@ -605,27 +566,27 @@ public class Controller {
     // ------------------------------- Pedido ----------------------------------
     // ------------------------------------------------------------------------------
 
-    @Autowired
-    private IServicePedido servicePedido;
+    // @Autowired
+    // private IServicePedido servicePedido;
 
-    @RequestMapping(path = "deletarPedido", method = RequestMethod.GET)
-    public boolean deletarPedido(Long id) {
-        Pedido pedido = new Pedido();
-        pedido.setId(id);
-        servicePedido.deletePedido(pedido);
-        return true;
-    }
+    // @RequestMapping(path = "deletarPedido", method = RequestMethod.GET)
+    // public boolean deletarPedido(Long id) {
+    //     Pedido pedido = new Pedido();
+    //     pedido.setId(id);
+    //     servicePedido.deletePedido(pedido);
+    //     return true;
+    // }
 
-    @RequestMapping(path = "/pedido")
-    public List<Pedido> listarPedido() {
-        return (List<Pedido>) servicePedido.getAllPedido();
-    }
+    // @RequestMapping(path = "/pedido")
+    // public List<Pedido> listarPedido() {
+    //     return (List<Pedido>) servicePedido.getAllPedido();
+    // }
 
-    @RequestMapping(path = "/salvarPedido", method = RequestMethod.POST)
-    public Pedido salvarPedido(@RequestBody String empenho1) {
-        Pedido pedido = (Pedido) gson.fromJson(empenho1, Pedido.class);
-        return servicePedido.savePedido(pedido);
-    }
+    // @RequestMapping(path = "/salvarPedido", method = RequestMethod.POST)
+    // public Pedido salvarPedido(@RequestBody String empenho1) {
+    //     Pedido pedido = (Pedido) gson.fromJson(empenho1, Pedido.class);
+    //     return servicePedido.savePedido(pedido);
+    // }
 
     // ---------------------------------------------------
     // ------------- Requisição -----------------------------
@@ -703,11 +664,6 @@ public class Controller {
     public Setor salvarSetor(@RequestBody String ssetor) {
         Setor setor = (Setor) gson.fromJson(ssetor, Setor.class);
         return serviceSetor.saveSetor(setor);
-    }
-
-    @RequestMapping(path = "/setorItem/{id}")
-    public List<Item> listarItensPorSetor(@PathVariable Long id) {
-        return (List<Item>) serviceSetor.getSetorItens(id, serviceRequisicao.getAllRequisicao());
     }
 
     // ---------------------------------------------------

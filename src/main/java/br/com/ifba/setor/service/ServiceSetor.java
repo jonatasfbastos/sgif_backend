@@ -4,12 +4,9 @@
  */
 package br.com.ifba.setor.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.item.model.Item;
-import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.setor.dao.IDaoSetor;
 import br.com.ifba.setor.model.Setor;
 
@@ -75,27 +72,4 @@ public class ServiceSetor implements IServiceSetor {
         return this.daoSetor.findAll();
     }
 
-    @Override
-    public List<Setor> findByNome(String name) {
-        if (name == null) {
-            throw new BusinessException("Nome null");
-        } else if (name.isEmpty()) {
-            throw new BusinessException("Nome vazio");
-        } else {
-            return daoSetor.findByNome(name);
-        }
-    }
-
-    @Override
-    public List<Item> getSetorItens(Long setorId, List<Requisicao> listReq) {
-        List<Item> itensList = new ArrayList<Item>();
-
-        for (Requisicao req : listReq) {
-            if (setorId.equals(req.getSetor().getId())) {
-                itensList.add(req.getItens());
-            }
-
-        }
-        return itensList;
-    }
 }

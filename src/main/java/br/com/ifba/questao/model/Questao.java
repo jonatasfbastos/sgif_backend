@@ -10,10 +10,12 @@ import javax.persistence.Table;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.resposta.model.Resposta;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "questao")
 @Data
+@EqualsAndHashCode(callSuper = false)
 
 public class Questao extends PersistenceEntity implements Serializable{
     

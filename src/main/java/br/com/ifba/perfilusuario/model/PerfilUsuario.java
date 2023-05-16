@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
@@ -18,6 +19,7 @@ import lombok.Data;
 @Entity
 @Table(name = "perfilusuario")
 @Data
+@EqualsAndHashCode(callSuper = false)
 
 public class PerfilUsuario extends PersistenceEntity {
     private String nome;

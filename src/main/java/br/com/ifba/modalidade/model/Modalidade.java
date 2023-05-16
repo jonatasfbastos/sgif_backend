@@ -12,10 +12,12 @@ import javax.persistence.Table;
 import br.com.ifba.curso.model.Curso;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "modalidade")
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Modalidade extends PersistenceEntity implements Serializable{
     //Atributos
     private String nome;

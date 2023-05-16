@@ -2,14 +2,19 @@ package br.com.ifba.servidor.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.com.ifba.servidor.model.Servidor;
 
+@Service
 public interface IServiceServidor {
-    public Servidor saveServidor(Servidor servidor);
-    public Servidor updateTecincoAdministrativo(Servidor servidor);
-    String deleteServidor(Long id);
-    //public void deleteServidor(Servidor servidor);
-    public List<Servidor> getAllServidor();
-    public List<Servidor> findByNome(String nome);
-    public Servidor findById(Long id);
+
+    public abstract Servidor saveServidor(Servidor servidor);
+
+    public abstract Servidor updateTecincoAdministrativo(Servidor servidor);
+
+    public abstract void deleteServidor(Servidor servidor);
+
+    public abstract List<Servidor> getAllServidor();
+    
 }

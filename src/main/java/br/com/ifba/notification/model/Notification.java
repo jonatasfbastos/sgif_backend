@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
@@ -24,6 +25,8 @@ import lombok.Data;
 @Entity
 @Table(name = "notification")
 @Data
+@EqualsAndHashCode(callSuper = false)
+
 public class Notification extends PersistenceEntity {
 
     @Column(nullable = false)

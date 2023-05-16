@@ -12,10 +12,14 @@ import br.com.ifba.usuario.model.Usuario;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
@@ -25,6 +29,8 @@ import lombok.Data;
 @Entity
 @Table(name = "empenho")
 @Data
+@EqualsAndHashCode(callSuper = false)
+
 public class Empenho extends PersistenceEntity {
 
     private String nota;
@@ -32,7 +38,8 @@ public class Empenho extends PersistenceEntity {
     @OneToOne
     private Usuario criador;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "empenhos")
+    @JsonIgnoreProperties("itens")
     private List<Item> itens;
 
 }

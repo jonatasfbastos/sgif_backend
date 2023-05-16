@@ -60,7 +60,7 @@ import br.com.ifba.usuario.service.IServiceUsuario;
 
 /*=========================ATENÇÃO=========================
  * As classes a seguir estão organizadas em ordem alfabética assim como seus respectivos métodos. Caso for fazer alguma alteração, continue com a organização!
- *  
+ *  coloquem em ordem alfabética!!!
 */
 @RestController
 @RequestMapping(path = "/api/v1/app")

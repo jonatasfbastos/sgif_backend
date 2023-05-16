@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
+import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.servidor.model.Servidor;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Servidor extends PersistenceEntity{
+public abstract class Servidor extends Pessoa implements Serializable {
 
     private String nome;
     private String siape;

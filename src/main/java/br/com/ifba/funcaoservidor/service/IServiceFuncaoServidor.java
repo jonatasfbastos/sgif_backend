@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IServiceFuncaoServidor {
 
-    FuncaoServidor saveFuncaoServidor(FuncaoServidor funcaoservidor);
+    FuncaoServidor saveFuncaoServidor(FuncaoServidor funcaoServidor);
     String deleteFuncaoServidor(Long id);
     List<FuncaoServidor> getAllFuncaoServidor();
 

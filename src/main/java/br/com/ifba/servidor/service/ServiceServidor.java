@@ -45,7 +45,7 @@ public class ServiceServidor implements IServiceServidor{
        if(servidor == null) {
             throw new BusinessException(TECNICO_ADM_NULL);
         } 
-       if(servidorDao.existsByNome(servidor.getNome()) == true) {
+       if(servidorDao.existsById(servidor.getId()) == true) {
             throw new BusinessException(TECNICO_ADM_EXISTE);
         }
        return servidorDao.save(servidor);

@@ -64,11 +64,6 @@ public class Item extends PersistenceEntity {
     @JsonIgnoreProperties("itens")
     private Fornecedor fornecedor;
 
-    // @ManyToOne
-    // @JoinColumn(name = "codigo_empenho_id")
-    // @JsonIgnoreProperties("itens")
-    // private Empenho codigoEmpenho;
-
     @ManyToOne
     @JoinColumn(name = "tipoDeItem_id")
     @JsonIgnoreProperties("itens")

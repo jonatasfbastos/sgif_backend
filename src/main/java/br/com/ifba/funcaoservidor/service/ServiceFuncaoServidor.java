@@ -26,9 +26,7 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
         if (funcaoServidor == null) {
             throw new BusinessException(FUNCAO_NULL);
         }
-        if (funcaoServidor.getNome().isEmpty() || funcaoServidor.getDescricao().isEmpty()) {
-            throw new BusinessException(CAMPO_VAZIO);
-        }
+        
         return daoFuncaoServidor.save(funcaoServidor);
     }
 

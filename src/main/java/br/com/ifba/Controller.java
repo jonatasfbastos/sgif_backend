@@ -3,9 +3,6 @@ package br.com.ifba;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import javax.tools.FileObject;
-
 import br.com.ifba.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
 import br.com.ifba.funcaotecnicoadministrativo.service.IServiceFuncaoTecnicoAdministrativo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,8 @@ import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.formulario.service.IServiceFormulario;
 import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.fornecedor.service.IServiceFornecedor;
+import br.com.ifba.funcaoservidor.model.FuncaoServidor;
+import br.com.ifba.funcaoservidor.service.IServiceFuncaoServidor;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
@@ -339,6 +338,45 @@ public class Controller {
         return serviceFornecedor.saveFornecedor(forn);
     }
     
+    // ---------------------------------------------------
+    // ----------------- Funcao Servidor -----------------
+    // ---------------------------------------------------
+
+    @Autowired
+    private IServiceFuncaoServidor serviceFuncaoServidor;
+
+    @PostMapping("/salvarFuncaoServidor")
+    public ResponseEntity<Object> salvarFuncaoServidor
+            (@RequestBody FuncaoServidor funcaoServidor) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(serviceFuncaoServidor.saveFuncaoServidor(funcaoServidor));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+    
+    @DeleteMapping("/deletarFuncaoServidor/{id}")
+    public ResponseEntity<Object> deletarFuncaoServidor
+            (@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoServidor.deleteFuncaoServidor(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarFuncaoServidor")
+    public ResponseEntity<Object> listarFuncoesServidor() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoServidor.getAllFuncaoServidor());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
     // ---------------------------------------------------
     // ------------- Funcao Tecnico Admistrativo ---------
     // ---------------------------------------------------

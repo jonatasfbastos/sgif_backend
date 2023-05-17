@@ -48,14 +48,14 @@ public class ServiceAluno implements IServiceAluno{
     }
 
     @Override
-    public void deleteAluno(Aluno professor) {
-        if(professor == null) {
+    public void deleteAluno(Aluno aluno) {
+        if(aluno == null) {
             throw new BusinessException(ALUNO_NULL);
         } 
-        if(alunoDao.existsById(professor.getId()) == false) {
+        if(alunoDao.existsById(aluno.getId()) == false) {
             throw new BusinessException(ALUNO_NAO_EXISTE);
         }
-        alunoDao.delete(professor);
+        alunoDao.delete(aluno);
     }
 
     @Override

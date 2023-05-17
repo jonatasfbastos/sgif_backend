@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.turma.dao.IDaoTurma;
 import br.com.ifba.turma.model.Turma;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServiceTurma implements IServiceTurma{
     
     private final static String TURMA_NULL = "Dados da Turma nao preenchidos";

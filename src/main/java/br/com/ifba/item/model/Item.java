@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.ifba.empenho.model.Empenho;
 import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
+import br.com.ifba.relatoriomensal.model.RelatorioMensal;
 import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.tipodeitem.model.TipoDeItem;
 import br.com.ifba.usuario.model.Usuario;
@@ -47,6 +48,10 @@ public class Item extends PersistenceEntity implements Serializable{
     @OneToOne
     @JoinColumn(name = "criador_id")
     private Usuario criador;
+
+    @OneToOne
+    @JoinColumn(name = "relatorio_id")
+    private RelatorioMensal relatorioMensal;
 
     @Temporal(TemporalType.DATE)
     private Date validade;

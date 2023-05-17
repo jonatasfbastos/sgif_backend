@@ -640,6 +640,14 @@ public class Controller {
         return serviceRelatorio.saveRelatorioMensal(relatorio);
     }
 
+    @RequestMapping(path = "/atualizarRelatorio", method = RequestMethod.POST)
+    public RelatorioMensal atualizarRelatorio(@RequestBody String relatorios) {
+        RelatorioMensal relatorio = (RelatorioMensal) gson.fromJson(relatorios, RelatorioMensal.class);
+        if (relatorio.getId() == null)
+            return null;
+        return serviceRelatorio.saveRelatorioMensal(relatorio);
+    }
+
     // ---------------------------------------------------
     // ------------- Setor -----------------------------
     // ---------------------------------------------------

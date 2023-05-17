@@ -55,6 +55,8 @@ import br.com.ifba.terceirizado.model.Terceirizado;
 import br.com.ifba.terceirizado.service.IServiceTerceirizado;
 import br.com.ifba.tipodeitem.model.TipoDeItem;
 import br.com.ifba.tipodeitem.service.IServiceTipoItem;
+import br.com.ifba.turma.model.Turma;
+import br.com.ifba.turma.service.IServiceTurma;
 import br.com.ifba.usuario.model.Usuario;
 import br.com.ifba.usuario.service.IServiceUsuario;
 
@@ -749,6 +751,33 @@ public class Controller {
     }
     
 
+    // ------------------------------------------------------------------------------
+    // --------------------------------- TURMA --------------------------------------
+    // ------------------------------------------------------------------------------
+    
+    @Autowired
+    private IServiceTurma serviceTurma;
+
+    @RequestMapping(path = "/turma")
+    public List<Turma> listarTurma() {
+        return (List<Turma>) serviceTurma.getAllTurma();
+    }
+
+    @RequestMapping(path = "/salvarTurma", method = RequestMethod.POST)
+    public Turma salvarTurma(@RequestBody String turma1) {
+        Turma turma = (Turma) gson.fromJson(turma1, Turma.class);
+        return serviceTurma.saveTurma(turma);
+    }
+
+    @RequestMapping(path = "deletarTurma", method = RequestMethod.GET)
+    public boolean deletarTurma(Long id) {
+        Turma turma = new Turma();
+        turma.setId(id);
+        serviceTurma.deleteTurma(turma);
+        return true;
+    }        
+      
+            
     // ---------------------------------------------------
     // ------------- PERFIL USUARIO -----------------------------
     // ---------------------------------------------------

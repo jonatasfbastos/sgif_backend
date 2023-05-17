@@ -24,7 +24,6 @@ import lombok.EqualsAndHashCode;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Servidor extends Pessoa implements Serializable {
 
-    private String nome;
     private String siape;
 
     @ManyToOne

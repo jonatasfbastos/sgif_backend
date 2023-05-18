@@ -34,9 +34,6 @@ public class ServiceProfessor implements IServiceProfessor{
        if(professor == null) {
             throw new BusinessException(PROFESSOR_NULL);
         }
-       if(professorDao.existsById(professor.getId()) == true) {
-            throw new BusinessException(PROFESSOR_EXISTE);
-        }
        return professorDao.save(professor);
     }
 

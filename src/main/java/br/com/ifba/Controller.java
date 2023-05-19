@@ -306,9 +306,7 @@ public class Controller {
 
     @RequestMapping(path = "/deletarFormulario", method = RequestMethod.GET)
     public boolean deletarFormulario(Long id) {
-        Formulario frm = new Formulario();
-        frm.setId(id);
-        serviceFormulario.deleteFormulario(frm);
+        serviceFormulario.deleteFormulario(id);
         return true;
     }
 

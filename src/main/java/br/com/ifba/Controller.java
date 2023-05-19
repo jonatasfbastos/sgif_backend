@@ -137,23 +137,44 @@ public class Controller {
     @Autowired
     private IServiceDisciplina serviceDisciplina;
 
-    @RequestMapping(path = "/disciplina")
-    public List<Disciplina> listarDisciplina() {
-        return (List<Disciplina>) serviceDisciplina.getAllDisciplina();
+    @GetMapping("/disciplina")
+    public ResponseEntity<Object> listarDisciplina() {
+        try {
+            return new ResponseEntity<Object>((List<Disciplina>) serviceDisciplina.getAllDisciplina(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @RequestMapping(path = "/salvarDisciplina", method = RequestMethod.POST)
-    public Disciplina salvarDisciplina(@RequestBody String disciplina1) {
+    @PostMapping("/salvarDisciplina")
+    public ResponseEntity<Object> salvarDisciplina(@RequestBody String disciplina1) {
         Disciplina disciplina = (Disciplina) gson.fromJson(disciplina1, Disciplina.class);
-        return serviceDisciplina.saveDisciplina(disciplina);
+        try {
+            return new ResponseEntity<Object>(serviceDisciplina.saveDisciplina(disciplina), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @RequestMapping(path = "deletarDisciplina", method = RequestMethod.GET)
-    public boolean deletarDisciplina(Long id) {
-        Disciplina disciplina = new Disciplina();
-        disciplina.setId(id);
-        serviceDisciplina.deleteDisciplina(disciplina);
-        return true;
+    @PutMapping("/atualizarDisciplina")
+    public ResponseEntity<Object> atualizarDisciplina(@RequestBody String disciplina1) {
+        Disciplina disciplina = (Disciplina) gson.fromJson(disciplina1, Disciplina.class);
+        try {
+            return new ResponseEntity<Object>(serviceDisciplina.updateDisciplina(disciplina), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("deletarDisciplina")
+    public ResponseEntity<Object>  deletarDisciplina(Long id) {
+        Disciplina disciplina = serviceDisciplina.findById(id);
+        try {
+            serviceDisciplina.deleteDisciplina(disciplina);
+            return new ResponseEntity<Object>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
     
 

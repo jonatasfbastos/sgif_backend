@@ -21,19 +21,18 @@ import lombok.EqualsAndHashCode;
 @Table(name = "etapa_curso")
 @Data
 @EqualsAndHashCode(callSuper = false)
-
 public class EtapaCurso extends PersistenceEntity implements Serializable{
     private String nome;
     private int periodo;
-    private boolean concluinte;
     private int cargaHoraria;
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER)
     private MatrizCurricular matrizCurricular; 
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Disciplina disciplina; 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Disciplina> disciplinas; 
     
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.LAZY)
     private List <Turma> turma; 
+
 }

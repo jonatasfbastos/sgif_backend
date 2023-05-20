@@ -34,8 +34,8 @@ public class Disciplina extends PersistenceEntity implements Serializable{
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Professor> professor;
     
-    @OneToMany(fetch = FetchType.LAZY)
-    private List <EtapaCurso> etapaCurso;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private EtapaCurso etapaCurso;
     
     @OneToOne
     private Avaliacao avaliacao;  

@@ -250,10 +250,14 @@ public class Controller {
 
 
     @RequestMapping(path = "deletarEtapaCurso", method = RequestMethod.GET)
-    public boolean deletarEtapaCurso(Long id) {
+    public Object deletarEtapaCurso(Long id) {
         EtapaCurso etapaCurso = new EtapaCurso();
         etapaCurso.setId(id);
-        serviceEtapaCurso.deleteEtapaCurso(etapaCurso);
+        try {
+            serviceEtapaCurso.deleteEtapaCurso(etapaCurso);
+        } catch (Exception e) {
+            //return e.getMessage();
+        }
         return true;
     }
 

@@ -11,17 +11,21 @@ import br.com.ifba.infrastructure.exception.BusinessException;
 
 @Service
 public class ServiceDisciplina implements IServiceDisciplina{
-    //mensagem de erro se o Disciplina for null;
-    public final static String DISCIPLINA_NULL = "Dados do Disciplina nÃ£o preenchidos";
-    
-    //mensagem de erro se o Disciplina jÃ¡ existir;
-    public final static String DISCIPLINA_EXISTE = "Disciplina ja existente no Banco de dados";
-    
-    //mensagem de erro se o Disciplina nÃ£o existir no banco;
-    public final static String DISCIPLINA_NAO_EXISTE = "Disciplina nao existente no Banco de dados";
-    
-    //mensagem de erro se o Disciplina for invÃ¡lido;
-    public final static String DISCIPLINA_INVALIDO = "As informaÃ§oes do Disciplina nao sao validas";
+    // Mensagem de erro se o Disciplina for null
+    public final static String DISCIPLINA_NULL = "Dados do Disciplina não preenchidos";
+
+    // Mensagem de erro se o Disciplina já existir
+    public final static String DISCIPLINA_EXISTE = "Disciplina já existente no Banco de dados";
+
+    // Mensagem de erro se o Disciplina não existir no banco
+    public final static String DISCIPLINA_NAO_EXISTE = "Disciplina não existente no Banco de dados";
+
+    // Mensagem de erro se o Disciplina for inválido
+    public final static String DISCIPLINA_INVALIDO = "As informações do Disciplina não são válidas";
+
+    // Mensagem de erro se o Disciplina tiver etapa curso
+    public final static String DISCIPLINA_POSSUI_ETAPA_CURSO = "Disciplina possui etapa curso";
+
     
     @Autowired
      private IDaoDisciplina disciplinaDao;
@@ -51,9 +55,12 @@ public class ServiceDisciplina implements IServiceDisciplina{
         if(disciplina == null){
             throw new BusinessException(DISCIPLINA_NULL);
         }else if(this.disciplinaDao.existsById(disciplina.getId()) == true) {
+            if (disciplina.getEtapaCurso() == null){
+                throw new BusinessException(DISCIPLINA_POSSUI_ETAPA_CURSO);
+            }
             this.disciplinaDao.delete(disciplina);
             return;
-        }
+        } 
             throw new BusinessException(DISCIPLINA_NAO_EXISTE);    
 }
 
@@ -70,6 +77,17 @@ public class ServiceDisciplina implements IServiceDisciplina{
             throw new BusinessException("nome vazio");
         } else {
             return disciplinaDao.findByNome(nome);
+        }
+    }
+
+    @Override
+    public Disciplina findById(Long id) {
+        if(id == null) {
+            throw new BusinessException("id null");
+        } else if(id <= 0) {
+            throw new BusinessException("id invalido");
+        } else {
+            return disciplinaDao.findById(id).orElse(null);
         }
     }
     

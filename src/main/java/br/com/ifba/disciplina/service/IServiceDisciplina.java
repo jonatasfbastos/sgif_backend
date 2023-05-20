@@ -19,4 +19,8 @@ public interface IServiceDisciplina {
     
     // Procura disciplina por nome
     public List<Disciplina> findByNome(String nome);
+
+    // Procura disciplina por id
+    public Disciplina findById(Long id);
+    
 }

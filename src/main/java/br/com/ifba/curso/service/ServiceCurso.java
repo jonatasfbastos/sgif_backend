@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.ifba.curso.dao.IDaoCurso;
 import br.com.ifba.curso.model.Curso;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServiceCurso implements IServiceCurso{
     
     //-_-_-_-_-_-_-_-_-_- CONSTANTES -_-_-_-_-_-_-_-_-_-
@@ -15,14 +17,17 @@ public class ServiceCurso implements IServiceCurso{
     //mensagem de erro caso o Curso seja nulo;
     public final static String CURSO_NULL = "Dados do Curso nao preenchidos";
     
-    //mensagem de erro caso o Curso jÃ¡ exista no banco de dados;
+    //mensagem de erro caso o Curso exista no banco de dados;
     public final static String CURSO_EXISTE = "Curso ja existente no Banco de dados";
     
-    //mensagem de erro caso o Curso nÃ£o exista no banco de dados;
+    //mensagem de erro caso o Curso não exista no banco de dados;
     public final static String CURSO_NAO_EXISTE = "Curso nao existente no Banco de dados";
     
-    //mensagem de erro caso o Curso seja invÃ¡lido;
-    public final static String CURSO_INVALIDO = "As informaÃ§oes do Curso nao sao validas";
+    //mensagem de erro caso o Curso seja inválido;
+    public final static String CURSO_INVALIDO = "As informaacoes do Curso nao sao validas";
+    
+    // Mensagem de erro se o Curso possuir matriz curricular
+    public final static String CURSO_POSSUI_MSTRIZ_CURRICULAR = "Curso possui matriz curricular";
     
     //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
     
@@ -58,14 +63,31 @@ public class ServiceCurso implements IServiceCurso{
         if(curso == null){
             throw new BusinessException(CURSO_NULL);
         }else if(this.cursoDao.existsById(curso.getId()) == true) {
+            if (curso.getMatrizCurricular() == null){
+                throw new BusinessException(CURSO_POSSUI_MSTRIZ_CURRICULAR);
+            }
             this.cursoDao.delete(curso);
             return;
         }
             throw new BusinessException(CURSO_NAO_EXISTE);    
+            
 }
 
     @Override
     public List<Curso> getAllCurso() {
         return this.cursoDao.findAll();    
     }
+
+    @Override
+    public Curso findById(Long id) {
+        if(id == null) {
+            throw new BusinessException("id null");
+        } else if(id <= 0) {
+            throw new BusinessException("id invalido");
+        } else {
+            return cursoDao.findById(id).orElse(null);
+        }
+    }
 }
+
+    

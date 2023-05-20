@@ -1,9 +1,10 @@
 package br.com.ifba.disciplina.service;
 
 import java.util.List;
-
+import org.springframework.stereotype.Service;
 import br.com.ifba.disciplina.model.Disciplina;
 
+@Service
 public interface IServiceDisciplina {
     //salva a disciplina
     public abstract Disciplina saveDisciplina(Disciplina disciplina);

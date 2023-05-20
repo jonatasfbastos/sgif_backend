@@ -18,6 +18,8 @@ import br.com.ifba.avaliacao.model.Avaliacao;
 import br.com.ifba.avaliacao.service.IServiceAvaliacao;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.aluno.service.IServiceAluno;
+import br.com.ifba.curso.model.Curso;
+import br.com.ifba.curso.service.IServiceCurso;
 import br.com.ifba.disciplina.model.Disciplina;
 import br.com.ifba.disciplina.service.IServiceDisciplina;
 import br.com.ifba.empenho.model.Empenho;
@@ -129,6 +131,64 @@ public class Controller {
         serviceAluno.deleteAluno(aluno);
         return true;
     }
+    
+    
+    // ------------------------------------------------------------------------------
+    // ---------------------------------- Curso -------------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceCurso serviceCurso;
+
+    @GetMapping("/curso")
+    public ResponseEntity<Object> listarCurso() {
+        try {
+            return new ResponseEntity<Object>((List<Curso>) serviceCurso.getAllCurso(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarCurso")
+    public ResponseEntity<Object> salvarCurso(@RequestBody String cursoo) {
+        Curso curso = (Curso) gson.fromJson(cursoo, Curso.class);
+        try {
+            return new ResponseEntity<Object>(serviceCurso.saveCurso(curso), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarCurso")
+    public ResponseEntity<Object> atualizarCurso(@RequestBody String cursoo) {
+        Curso curso = (Curso) gson.fromJson(cursoo, Curso.class);
+        try {
+            return new ResponseEntity<Object>(serviceCurso.updateCurso(curso), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/deletarCurso")
+    public ResponseEntity<Object>  deletarCurso(Long id) {
+        Curso curso = serviceCurso.findById(id);
+        try {
+            serviceCurso.deleteCurso(curso);
+            return new ResponseEntity<Object>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+   /*
+    @RequestMapping(path = "/deletarCurso", method = RequestMethod.GET)
+    public boolean deletarCurso(Long id) {
+        Curso cursoo = new Curso();
+        cursoo.setId(id);
+        serviceCurso.deleteCurso(cursoo);
+        return true;
+    }
+     */
+    
     
     // ------------------------------------------------------------------------------
     // ------------------------------- Disciplina ----------------------------------

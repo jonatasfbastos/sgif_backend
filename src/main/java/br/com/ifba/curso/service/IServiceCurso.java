@@ -19,5 +19,8 @@ public interface IServiceCurso {
     
     // Metodo que retorna todos os Cursos da base de dados
     public abstract List<Curso> getAllCurso();
-
+    
+    // Metodo que procura curso pelo id
+    public Curso findById (Long id);
+    
 }

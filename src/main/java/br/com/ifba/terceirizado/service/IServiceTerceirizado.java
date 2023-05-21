@@ -1,5 +1,6 @@
 package br.com.ifba.terceirizado.service;
 
+import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
 import java.util.List;
 
 import br.com.ifba.terceirizado.model.Terceirizado;
@@ -16,4 +17,6 @@ public interface IServiceTerceirizado {
     public Terceirizado findById(Long id);
    
     public List<Terceirizado> findByNome(String nome);
+    
+    public List<Terceirizado> getByFuncao(FuncaoTerceirizado funcaoTerceirizado);
 }

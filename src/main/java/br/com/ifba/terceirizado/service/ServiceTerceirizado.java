@@ -1,5 +1,6 @@
 package br.com.ifba.terceirizado.service;
 
+import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +77,13 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
         return terceirizadoDao.findByNome(nome); 
     }
     
-     @Override
-     public Terceirizado findById(Long id) {
-          return terceirizadoDao.getReferenceById(id);
-     }
-     
+    @Override
+    public Terceirizado findById(Long id) {
+        return terceirizadoDao.getReferenceById(id);
+    }
+
+    @Override
+    public List<Terceirizado> getByFuncao(FuncaoTerceirizado funcaoTerceirizado) {
+        return terceirizadoDao.findByFuncao(funcaoTerceirizado);
+    }
 }

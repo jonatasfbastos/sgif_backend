@@ -30,6 +30,7 @@ import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.formulario.service.IServiceFormulario;
 import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.fornecedor.service.IServiceFornecedor;
+import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
@@ -952,7 +953,7 @@ public class Controller {
     @Autowired
     private IServiceTerceirizado serviceTerceirizado;
 
-    @RequestMapping(path = "deletarTerceirizado", method = RequestMethod.GET)
+    @RequestMapping(path = "/deletarTerceirizado", method = RequestMethod.GET)
     public boolean deletarTerceirizado(Long id) {
         Terceirizado terceirizado = new Terceirizado();
         terceirizado.setId(id);
@@ -969,6 +970,11 @@ public class Controller {
     public Terceirizado salvarTerceirizado(@RequestBody String terceirizado) {
         Terceirizado terc = (Terceirizado) gson.fromJson(terceirizado, Terceirizado.class);
         return serviceTerceirizado.saveTerceirizado(terc);
+    }
+    
+    @RequestMapping(path = "/filtrarFuncaoTerceirizado", method = RequestMethod.POST)
+    public List<Terceirizado> getTerceirizadoByFuncao(@RequestBody FuncaoTerceirizado funcao){
+        return (List<Terceirizado>) serviceTerceirizado.getByFuncao(funcao);
     }
     
     // ---------------------------------------------------

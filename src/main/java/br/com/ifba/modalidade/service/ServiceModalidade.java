@@ -36,8 +36,6 @@ public class ServiceModalidade implements IServiceModalidade{
     public Modalidade saveModalidade(Modalidade modalidade) {
         if(modalidade == null){
             throw new BusinessException(MODALIDADE_NULL);
-        } else if(modalidadeDao.existsById(modalidade.getId()) == true){
-            throw new BusinessException(MODALIDADE_EXISTE);
         } else {
             return modalidadeDao.save(modalidade);
         }

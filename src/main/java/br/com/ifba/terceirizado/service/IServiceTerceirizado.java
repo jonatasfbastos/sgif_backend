@@ -18,5 +18,5 @@ public interface IServiceTerceirizado {
    
     public List<Terceirizado> findByNome(String nome);
     
-    public List<Terceirizado> getByFuncao(FuncaoTerceirizado funcaoTerceirizado);
+    public List<Terceirizado> getByFuncao(Long id);
 }

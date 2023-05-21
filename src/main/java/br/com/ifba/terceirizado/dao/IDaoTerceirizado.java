@@ -10,5 +10,5 @@ import br.com.ifba.terceirizado.model.Terceirizado;
 public interface IDaoTerceirizado extends JpaRepository<Terceirizado, Long> {
     public List<Terceirizado> findByNome(String nome);
     public boolean existsByNome(String nome);
-    public List<Terceirizado> findByFuncao(FuncaoTerceirizado funcao);
+    public List<Terceirizado> findFuncaoTerceirizadoById(Long id);
 }

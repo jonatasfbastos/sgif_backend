@@ -973,8 +973,8 @@ public class Controller {
     }
     
     @RequestMapping(path = "/filtrarFuncaoTerceirizado", method = RequestMethod.POST)
-    public List<Terceirizado> getTerceirizadoByFuncao(@RequestBody FuncaoTerceirizado funcao){
-        return (List<Terceirizado>) serviceTerceirizado.getByFuncao(funcao);
+    public List<Terceirizado> getTerceirizadoByFuncao(@RequestBody Long id){
+        return (List<Terceirizado>) serviceTerceirizado.getByFuncao(id);
     }
     
     // ---------------------------------------------------

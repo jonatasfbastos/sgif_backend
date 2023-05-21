@@ -5,7 +5,6 @@
 package br.com.ifba.funcaoterceirizado.service;
 
 import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
-import br.com.ifba.terceirizado.model.Terceirizado;
 import java.util.List;
 
 /**

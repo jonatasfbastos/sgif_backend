@@ -7,14 +7,15 @@ package br.com.ifba.funcaoterceirizado.service;
 import br.com.ifba.funcaoterceirizado.dao.IDaoFuncaoTerceirizado;
 import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.terceirizado.model.Terceirizado;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ph715
  */
+@Service
 public class ServiceFuncaoTerceirizado implements IServiceFuncaoTerceirizado{
     private final static String FUNCAO_NULL = "A função do técnico está vazia, preencha e tente novamente.";
     private final static String FUNCAO_NAO_EXISTE = "A função informada não existe.";

@@ -83,7 +83,7 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
     }
 
     @Override
-    public List<Terceirizado> getByFuncao(FuncaoTerceirizado funcaoTerceirizado) {
-        return terceirizadoDao.findByFuncao(funcaoTerceirizado);
+    public List<Terceirizado> getByFuncao(Long id) {
+        return terceirizadoDao.findFuncaoTerceirizadoById(id);
     }
 }

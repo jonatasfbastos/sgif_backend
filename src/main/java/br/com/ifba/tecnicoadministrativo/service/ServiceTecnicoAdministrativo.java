@@ -61,16 +61,6 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
 //    }
 
     @Override
-    public String deleteTecnicoAdministrativo(Long id) {
-        if (tecnicoAdministrativoDao.existsById(id) == false) {
-            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
-        }
-        tecnicoAdministrativoDao
-                .delete(tecnicoAdministrativoDao.getReferenceById(id));
-        return TECNICO_DELETA;
-    }
-
-    @Override
     public List<TecnicoAdministrativo> getAllTecnicoAdministrativo() {
         return this.tecnicoAdministrativoDao.findAll();
     }
@@ -90,6 +80,17 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
      public TecnicoAdministrativo findById(Long id) {
           return tecnicoAdministrativoDao.getReferenceById(id);
      }
+
+    @Override
+    public void deleteTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
+        if(tecnicoAdministrativo == null) {
+            throw new BusinessException(TECNICO_ADM_NULL);
+        } 
+        if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
+            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
+        }
+        tecnicoAdministrativoDao.delete(tecnicoAdministrativo);
+    }
 
     
 }

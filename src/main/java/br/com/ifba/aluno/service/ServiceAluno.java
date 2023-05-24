@@ -62,4 +62,9 @@ public class ServiceAluno implements IServiceAluno{
     public List<Aluno> getAllaluno() {
         return this.alunoDao.findAll();
     }
+
+    @Override
+    public List<Aluno> findByStatusAlunoId(Long id) {
+        return alunoDao.findByStatusAlunoId(id);
+    }
 }

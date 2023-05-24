@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.ifba.pessoa.model.Pessoa;
+import br.com.ifba.statusaluno.model.StatusAluno;
 import br.com.ifba.turma.model.Turma;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,4 +24,9 @@ public class Aluno extends Pessoa implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turma_id", referencedColumnName = "ID")
     private Turma turma;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", referencedColumnName = "ID")
+    private StatusAluno statusAluno;
+    
 }

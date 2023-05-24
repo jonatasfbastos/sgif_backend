@@ -26,7 +26,7 @@ public class EtapaCurso extends PersistenceEntity implements Serializable{
     private int periodo;
     private int cargaHoraria;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     private MatrizCurricular matrizCurricular; 
     
     @OneToMany(fetch = FetchType.LAZY)

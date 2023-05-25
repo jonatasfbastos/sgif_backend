@@ -1035,6 +1035,18 @@ public class Controller {
         Professor professor = (Professor) gson.fromJson(professor1, Professor.class);
         return serviceProfessor.saveProfessor(professor);
     }
+    
+       @PutMapping("/atualizarProfessor")
+    public ResponseEntity<Object> atualizarProfessor
+            (@RequestBody Professor professor) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceProfessor.updateProfessor(professor));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+    
 }
 
     

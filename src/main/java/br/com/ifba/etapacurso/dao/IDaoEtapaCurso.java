@@ -9,4 +9,6 @@ import br.com.ifba.etapacurso.model.EtapaCurso;
 public interface IDaoEtapaCurso extends JpaRepository<EtapaCurso, Long>{
     public abstract List<EtapaCurso> findByNome(String nome);
     public boolean existsByNome(String nome);
+
+    
 }

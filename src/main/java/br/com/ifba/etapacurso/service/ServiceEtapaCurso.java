@@ -9,6 +9,7 @@ import br.com.ifba.etapacurso.dao.IDaoEtapaCurso;
 import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.turma.dao.IDaoTurma;
+import lombok.ToString;
 
 @Service
 public class ServiceEtapaCurso implements IServiceEtapaCurso{
@@ -28,6 +29,7 @@ public class ServiceEtapaCurso implements IServiceEtapaCurso{
      //================= OBJETO =================================================
     @Autowired
     private IDaoEtapaCurso etapaCursoDao;
+    @Autowired
     private IDaoTurma turmaDao;
 
      //================= MÃ‰TODOS ================================================
@@ -61,7 +63,7 @@ public class ServiceEtapaCurso implements IServiceEtapaCurso{
         if(etapaCursoDao.existsById(etapaCurso.getId()) == false) {
             throw new BusinessException(ETAPA_CURSO_NAO_EXISTE);
         }
-        if(etapaCursoDao.getReferenceById(etapaCurso.getId()).getTurma().isEmpty() == false) {
+        if(turmaDao.findByEtapaCursoId(etapaCurso.getId()).isEmpty() == false) {
             throw new BusinessException(TURMA_EXISTE);
         }
         this.etapaCursoDao.delete(etapaCurso);

@@ -340,16 +340,16 @@ public class Controller {
     private IServiceEtapaCurso serviceEtapaCurso;
 
 
-    @RequestMapping(path = "deletarEtapaCurso", method = RequestMethod.GET)
-    public Object deletarEtapaCurso(Long id) {
+    @DeleteMapping("deletarEtapaCurso/{id}")
+    public ResponseEntity<Object> deletarEtapaCurso(@PathVariable Long id) {
         EtapaCurso etapaCurso = new EtapaCurso();
         etapaCurso.setId(id);
         try {
             serviceEtapaCurso.deleteEtapaCurso(etapaCurso);
+            return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso.");
         } catch (Exception e) {
-            //return e.getMessage();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
-        return true;
     }
 
     @RequestMapping(path = "/etapaCurso")

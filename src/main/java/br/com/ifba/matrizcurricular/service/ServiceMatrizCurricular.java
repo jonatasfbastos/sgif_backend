@@ -37,6 +37,7 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
      //================= OBJETO =================================================
     @Autowired
     private IDaoMatrizCurricular matrizCurricularDao;
+    @Autowired
     private IDaoEtapaCurso etapaCursoDao;
 
      //================= MÃ‰TODOS ================================================
@@ -76,7 +77,7 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
         if(matrizCurricularDao.existsById(matrizCurricular.getId()) == false) {
             throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
         }
-        if(matrizCurricularDao.equals(etapaCursoDao) == true) {
+        if(matrizCurricularDao.getReferenceById(matrizCurricular.getId()).getEtapacurso().isEmpty() == false) {
             throw new BusinessException(ETAPA_CURSO_EXISTE);
         }
         matrizCurricularDao.delete(matrizCurricular);

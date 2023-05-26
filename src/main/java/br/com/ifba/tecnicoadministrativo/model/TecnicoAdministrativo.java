@@ -1,5 +1,6 @@
 package br.com.ifba.tecnicoadministrativo.model;
 
+import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.ifba.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
 import br.com.ifba.servidor.model.Servidor;
+import javax.persistence.FetchType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +24,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class TecnicoAdministrativo extends Servidor implements Serializable{
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "funcao_id", referencedColumnName = "ID")
+    private FuncaoServidor funcao;
+    
     @ManyToOne
     @JoinColumn(name = "tecnicoAdministrativo_id")
     @JsonIgnoreProperties("tecnicoAdministrativos")

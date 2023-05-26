@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.etapacurso.dao.IDaoEtapaCurso;
 import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.turma.dao.IDaoTurma;
+import lombok.ToString;
 
 @Service
 public class ServiceEtapaCurso implements IServiceEtapaCurso{
@@ -21,10 +23,14 @@ public class ServiceEtapaCurso implements IServiceEtapaCurso{
     private final static String NOME_VAZIO = "O Campo Nome esta vazio";
     // Mensagem de erro caso o nome seja null
     private final static String NOME_NULL = "Dados do nome nao preenchidos";
+    //mensagem de erro caso exista turma
+    private final static String TURMA_EXISTE = "Etapa Curso não pode ser excluiída com Turma";
     
      //================= OBJETO =================================================
     @Autowired
     private IDaoEtapaCurso etapaCursoDao;
+    @Autowired
+    private IDaoTurma turmaDao;
 
      //================= MÃ‰TODOS ================================================
     @Override
@@ -56,6 +62,9 @@ public class ServiceEtapaCurso implements IServiceEtapaCurso{
         } 
         if(etapaCursoDao.existsById(etapaCurso.getId()) == false) {
             throw new BusinessException(ETAPA_CURSO_NAO_EXISTE);
+        }
+        if(turmaDao.findByEtapaCursoId(etapaCurso.getId()).isEmpty() == false) {
+            throw new BusinessException(TURMA_EXISTE);
         }
         this.etapaCursoDao.delete(etapaCurso);
     }

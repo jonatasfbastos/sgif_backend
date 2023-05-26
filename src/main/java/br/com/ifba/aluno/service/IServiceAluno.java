@@ -13,4 +13,7 @@ public interface IServiceAluno {
     public abstract void deleteAluno(Aluno professor);
 
     public abstract List<Aluno> getAllaluno();
+    
+    public List<Aluno> findByStatusAlunoId(Long id);
+
 }

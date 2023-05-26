@@ -12,9 +12,11 @@ public interface IServiceFormulario {
     // Atualiza o Formulario
     public abstract Formulario updateFormulario(Formulario formulario);
     
+    /*
     // Deleta o Formulario
     public abstract void deleteFormulario(Formulario formulario);
-    
+    */    
+
     // Deleta o formulário por id
     public abstract void deleteFormulario(Long id);
     

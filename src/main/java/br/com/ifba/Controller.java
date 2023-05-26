@@ -18,6 +18,8 @@ import br.com.ifba.avaliacao.model.Avaliacao;
 import br.com.ifba.avaliacao.service.IServiceAvaliacao;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.aluno.service.IServiceAluno;
+import br.com.ifba.curso.model.Curso;
+import br.com.ifba.curso.service.IServiceCurso;
 import br.com.ifba.disciplina.model.Disciplina;
 import br.com.ifba.disciplina.service.IServiceDisciplina;
 import br.com.ifba.empenho.model.Empenho;
@@ -28,6 +30,9 @@ import br.com.ifba.formulario.model.Formulario;
 import br.com.ifba.formulario.service.IServiceFormulario;
 import br.com.ifba.fornecedor.model.Fornecedor;
 import br.com.ifba.fornecedor.service.IServiceFornecedor;
+import br.com.ifba.funcaoservidor.model.FuncaoServidor;
+import br.com.ifba.funcaoservidor.service.IServiceFuncaoServidor;
+import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
@@ -49,6 +54,8 @@ import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.requisicao.service.IServiceRequisicao;
 import br.com.ifba.setor.model.Setor;
 import br.com.ifba.setor.service.IServiceSetor;
+import br.com.ifba.statusaluno.model.StatusAluno;
+import br.com.ifba.statusaluno.service.IServiceStatusAluno;
 import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 import br.com.ifba.tecnicoadministrativo.service.IServiceTecnicoAdministrativo;
 import br.com.ifba.terceirizado.model.Terceirizado;
@@ -130,6 +137,69 @@ public class Controller {
         return true;
     }
     
+    @RequestMapping(path = "/statusAlunos", method = RequestMethod.GET)
+    public List<Aluno> findAlunosStatus(Long id) {
+        return serviceAluno.findByStatusAlunoId(id);
+    }
+    
+    
+    // ------------------------------------------------------------------------------
+    // ---------------------------------- Curso -------------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceCurso serviceCurso;
+
+    @GetMapping("/curso")
+    public ResponseEntity<Object> listarCurso() {
+        try {
+            return new ResponseEntity<Object>((List<Curso>) serviceCurso.getAllCurso(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarCurso")
+    public ResponseEntity<Object> salvarCurso(@RequestBody String cursoo) {
+        Curso curso = (Curso) gson.fromJson(cursoo, Curso.class);
+        try {
+            return new ResponseEntity<Object>(serviceCurso.saveCurso(curso), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarCurso")
+    public ResponseEntity<Object> atualizarCurso(@RequestBody String cursoo) {
+        Curso curso = (Curso) gson.fromJson(cursoo, Curso.class);
+        try {
+            return new ResponseEntity<Object>(serviceCurso.updateCurso(curso), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/deletarCurso")
+    public ResponseEntity<Object>  deletarCurso(Long id) {
+        Curso curso = serviceCurso.findById(id);
+        try {
+            serviceCurso.deleteCurso(curso);
+            return new ResponseEntity<Object>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+   /*
+    @RequestMapping(path = "/deletarCurso", method = RequestMethod.GET)
+    public boolean deletarCurso(Long id) {
+        Curso cursoo = new Curso();
+        cursoo.setId(id);
+        serviceCurso.deleteCurso(cursoo);
+        return true;
+    }
+     */
+    
+    
     // ------------------------------------------------------------------------------
     // ------------------------------- Disciplina ----------------------------------
     // ------------------------------------------------------------------------------
@@ -137,23 +207,44 @@ public class Controller {
     @Autowired
     private IServiceDisciplina serviceDisciplina;
 
-    @RequestMapping(path = "/disciplina")
-    public List<Disciplina> listarDisciplina() {
-        return (List<Disciplina>) serviceDisciplina.getAllDisciplina();
+    @GetMapping("/disciplina")
+    public ResponseEntity<Object> listarDisciplina() {
+        try {
+            return new ResponseEntity<Object>((List<Disciplina>) serviceDisciplina.getAllDisciplina(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @RequestMapping(path = "/salvarDisciplina", method = RequestMethod.POST)
-    public Disciplina salvarDisciplina(@RequestBody String disciplina1) {
+    @PostMapping("/salvarDisciplina")
+    public ResponseEntity<Object> salvarDisciplina(@RequestBody String disciplina1) {
         Disciplina disciplina = (Disciplina) gson.fromJson(disciplina1, Disciplina.class);
-        return serviceDisciplina.saveDisciplina(disciplina);
+        try {
+            return new ResponseEntity<Object>(serviceDisciplina.saveDisciplina(disciplina), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @RequestMapping(path = "deletarDisciplina", method = RequestMethod.GET)
-    public boolean deletarDisciplina(Long id) {
-        Disciplina disciplina = new Disciplina();
-        disciplina.setId(id);
-        serviceDisciplina.deleteDisciplina(disciplina);
-        return true;
+    @PutMapping("/atualizarDisciplina")
+    public ResponseEntity<Object> atualizarDisciplina(@RequestBody String disciplina1) {
+        Disciplina disciplina = (Disciplina) gson.fromJson(disciplina1, Disciplina.class);
+        try {
+            return new ResponseEntity<Object>(serviceDisciplina.updateDisciplina(disciplina), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("deletarDisciplina")
+    public ResponseEntity<Object>  deletarDisciplina(Long id) {
+        Disciplina disciplina = serviceDisciplina.findById(id);
+        try {
+            serviceDisciplina.deleteDisciplina(disciplina);
+            return new ResponseEntity<Object>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
     
 
@@ -234,12 +325,16 @@ public class Controller {
     private IServiceEtapaCurso serviceEtapaCurso;
 
 
-    @RequestMapping(path = "deletarEtapaCurso", method = RequestMethod.GET)
-    public boolean deletarEtapaCurso(Long id) {
+    @DeleteMapping("deletarEtapaCurso/{id}")
+    public ResponseEntity<Object> deletarEtapaCurso(@PathVariable Long id) {
         EtapaCurso etapaCurso = new EtapaCurso();
         etapaCurso.setId(id);
-        serviceEtapaCurso.deleteEtapaCurso(etapaCurso);
-        return true;
+        try {
+            serviceEtapaCurso.deleteEtapaCurso(etapaCurso);
+            return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @RequestMapping(path = "/etapaCurso")
@@ -270,9 +365,7 @@ public class Controller {
 
     @RequestMapping(path = "/deletarFormulario", method = RequestMethod.GET)
     public boolean deletarFormulario(Long id) {
-        Formulario frm = new Formulario();
-        frm.setId(id);
-        serviceFormulario.deleteFormulario(frm);
+        serviceFormulario.deleteFormulario(id);
         return true;
     }
 
@@ -323,7 +416,28 @@ public class Controller {
     // ----------------- Funcao Servidor -----------------
     // ---------------------------------------------------
 
-    
+    @Autowired
+    private IServiceFuncaoServidor serviceFuncao;
+
+    @RequestMapping(path = "/listarFuncaoServidor")
+    public List<FuncaoServidor> listarFuncao() {
+        return (List<FuncaoServidor>) serviceFuncao.getAllFuncaoServidor();
+    }
+
+    @RequestMapping(path = "/salvarFuncaoServidor", method = RequestMethod.POST)
+    public FuncaoServidor salvarFuncao(@RequestBody String funcao1) {
+        FuncaoServidor funcao = (FuncaoServidor) gson.fromJson(funcao1, FuncaoServidor.class);
+        return serviceFuncao.saveFuncaoServidor(funcao);
+    }
+
+    @RequestMapping(path = "deletarFuncaoServidor", method = RequestMethod.GET)
+    public boolean deletarFuncao(Long id) {
+        FuncaoServidor funcao = new FuncaoServidor();
+        funcao.setId(id);
+        serviceFuncao.deleteFuncaoServidor(funcao);
+        return true;
+    }
+
 
     // ---------------------------------------------------
     // ------------- Funcao Tecnico Admistrativo ---------
@@ -634,6 +748,33 @@ public class Controller {
             return null;
         return serviceRelatorio.saveRelatorioMensal(relatorio);
     }
+    
+    // ------------------------------------------------------------------------------
+    // --------------------------------- STATUS --------------------------------------
+    // ------------------------------------------------------------------------------
+    
+    @Autowired
+    private IServiceStatusAluno serviceStatus;
+
+    @RequestMapping(path = "/status")
+    public List<StatusAluno> listarStatus() {
+        return (List<StatusAluno>) serviceStatus.getAllstatus();
+    }
+
+    @RequestMapping(path = "/salvarStatus", method = RequestMethod.POST)
+    public StatusAluno salvarStatus(@RequestBody String status1) {
+        StatusAluno status = (StatusAluno) gson.fromJson(status1, StatusAluno.class);
+        return serviceStatus.saveStatus(status);
+    }
+
+    @RequestMapping(path = "deletarStatus", method = RequestMethod.GET)
+    public boolean deletarStatus(Long id) {
+        StatusAluno status = new StatusAluno();
+        status.setId(id);
+        serviceStatus.deleteStatus(status);
+        return true;
+    }
+
 
     // ---------------------------------------------------
     // ------------- Setor -----------------------------
@@ -698,49 +839,25 @@ public class Controller {
     // ---------------------------------------------------
     
     @Autowired
-    private IServiceTecnicoAdministrativo serviceTecnicoAdministrativo;
+    private IServiceTecnicoAdministrativo serviceTecnicoAdministrativo;        
     
-    @PostMapping("/salvarTecnicoAdministrativo")
-    public ResponseEntity<Object> salvarTecnicoAdministrativo
-            (@RequestBody TecnicoAdministrativo tecnicoAdministrativo) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(serviceTecnicoAdministrativo.saveTecnicoAdministrativo(tecnicoAdministrativo));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "/listarTecnicoAdministrativo")
+    public List<TecnicoAdministrativo> listarTecnicoAdministrativos() {
+        return (List<TecnicoAdministrativo>) serviceTecnicoAdministrativo.getAllTecnicoAdministrativo();
     }
 
-    @GetMapping("/listarTecnicoAdministrativo")
-    public ResponseEntity<Object> listarTecnicoAdministrativo() {
-        try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceTecnicoAdministrativo.getAllTecnicoAdministrativo());
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "/salvarTecnicoAdministrativo", method = RequestMethod.POST)
+    public TecnicoAdministrativo salvarTecnicoAdministrativo(@RequestBody String tecnico1) {
+        TecnicoAdministrativo tecnicoAdministrativo = (TecnicoAdministrativo) gson.fromJson(tecnico1, TecnicoAdministrativo.class);
+        return serviceTecnicoAdministrativo.saveTecnicoAdministrativo(tecnicoAdministrativo);
     }
 
-    @PutMapping("/atualizarTecnicoAdministrativo")
-    public ResponseEntity<Object> atualizarTecnicoAdministrativo
-            (@RequestBody TecnicoAdministrativo TecnicoAdministrativo) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceTecnicoAdministrativo.saveTecnicoAdministrativo(TecnicoAdministrativo));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
-    }
-
-    @DeleteMapping("/deletarTecnicoAdministrativo/{id}")
-    public ResponseEntity<Object> deletarTecnicoAdministrativo
-            (@PathVariable Long id) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(serviceTecnicoAdministrativo.deleteTecnicoAdministrativo(id));
-        } catch (Exception err) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
-        }
+    @RequestMapping(path = "deletarTecnicoAdministrativo", method = RequestMethod.GET)
+    public boolean deletarTecnico(Long id) {
+        TecnicoAdministrativo tecnicoAdministrativo = new TecnicoAdministrativo();
+        tecnicoAdministrativo.setId(id);
+        serviceTecnicoAdministrativo.deleteTecnicoAdministrativo(tecnicoAdministrativo);
+        return true;
     }
     
 
@@ -854,7 +971,7 @@ public class Controller {
     @Autowired
     private IServiceTerceirizado serviceTerceirizado;
 
-    @RequestMapping(path = "deletarTerceirizado", method = RequestMethod.GET)
+    @RequestMapping(path = "/deletarTerceirizado", method = RequestMethod.GET)
     public boolean deletarTerceirizado(Long id) {
         Terceirizado terceirizado = new Terceirizado();
         terceirizado.setId(id);
@@ -871,6 +988,11 @@ public class Controller {
     public Terceirizado salvarTerceirizado(@RequestBody String terceirizado) {
         Terceirizado terc = (Terceirizado) gson.fromJson(terceirizado, Terceirizado.class);
         return serviceTerceirizado.saveTerceirizado(terc);
+    }
+    
+    @RequestMapping(path = "/filtrarFuncaoTerceirizado", method = RequestMethod.POST)
+    public List<Terceirizado> getTerceirizadoByFuncao(@RequestBody Long id){
+        return (List<Terceirizado>) serviceTerceirizado.getByFuncao(id);
     }
     
     // ---------------------------------------------------
@@ -898,6 +1020,18 @@ public class Controller {
         Professor professor = (Professor) gson.fromJson(professor1, Professor.class);
         return serviceProfessor.saveProfessor(professor);
     }
+    
+       @PutMapping("/atualizarProfessor")
+    public ResponseEntity<Object> atualizarProfessor
+            (@RequestBody Professor professor) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceProfessor.updateProfessor(professor));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+    
 }
 
     

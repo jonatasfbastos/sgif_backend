@@ -3,6 +3,7 @@ package br.com.ifba.funcaoservidor.service;
 import br.com.ifba.funcaoservidor.dao.IDaoFuncaoServidor;
 import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.tecnicoadministrativo.dao.IDaoTecnicoAdministrativo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,9 +18,12 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
     public final static String FUNCAO_NAO_EXISTE = "A função informada não existe.";
     public final static String FUNCAO_INVÁLIDA = "Função inválida.";
     public final static String FUNCAO_EXISTE = "Função já existe";
+    //mensagem de erro caso exista técnico administrativo atrelado a uma função
+    private final static String TECNICO_EXISTE = "Função não pode ser excluída, pois existe Técnico cadastrado";
 
     @Autowired
     private IDaoFuncaoServidor daoFuncaoServidor;
+    private IDaoTecnicoAdministrativo daoTecnicoAdministrativo;
 
     @Override
     public FuncaoServidor saveFuncaoServidor(FuncaoServidor funcaoServidor) {
@@ -32,12 +36,16 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
 
     @Override
     public void deleteFuncaoServidor(FuncaoServidor funcaoServidor) {
-        if (funcaoServidor == null) {
+        if(funcaoServidor == null) {
             throw new BusinessException(FUNCAO_NULL);
-        } else{
-            this.daoFuncaoServidor.delete(funcaoServidor);
-            return;
+        } 
+        if(daoFuncaoServidor.existsById(funcaoServidor.getId()) == false) {
+            throw new BusinessException(FUNCAO_NAO_EXISTE);
         }
+        if(daoFuncaoServidor.getReferenceById(funcaoServidor.getId()).getTecnicoAdministrativos().isEmpty() == false){
+            throw new BusinessException(TECNICO_EXISTE);
+        }
+        daoFuncaoServidor.delete(funcaoServidor);
     }
 
     @Override

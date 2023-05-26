@@ -27,16 +27,17 @@ public class ServiceProfessor implements IServiceProfessor{
      //================= OBJETO =================================================
     @Autowired
     private IDaoProfessor professorDao;
-
+    
      //================= MÃ‰TODOS ================================================
     @Override
     public Professor saveProfessor(Professor professor) {
+       
        if(professor == null) {
             throw new BusinessException(PROFESSOR_NULL);
         }
-       if(professorDao.existsById(professor.getId()) == true) {
-            throw new BusinessException(PROFESSOR_EXISTE);
-        }
+       if(professorDao.existsBySiape(professor.getSiape())){
+           throw new BusinessException(PROFESSOR_EXISTE);
+       }
        return professorDao.save(professor);
     }
 

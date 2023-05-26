@@ -9,4 +9,5 @@ import br.com.ifba.professor.model.Professor;
 public interface IDaoProfessor extends JpaRepository<Professor, Long>{
     public List<Professor> findByNome(String nome);
     public boolean existsByNome(String nome);
+    public boolean existsBySiape(String siape);
 }

@@ -1,5 +1,6 @@
 package br.com.ifba.matrizcurricular.service;
 
+import br.com.ifba.etapacurso.dao.IDaoEtapaCurso;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,13 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
     // Mensagem de erro caso o nome seja null.
     private final static String NOME_NULL = "Dados do nome nao preenchidos";
     
+    //Mensagem de erro caso exista Etapa Curso
+    private final static String ETAPA_CURSO_EXISTE = "Não é possível excluir com uma Etapa Curso existente";
+    
      //================= OBJETO =================================================
     @Autowired
     private IDaoMatrizCurricular matrizCurricularDao;
+    private IDaoEtapaCurso etapaCursoDao;
 
      //================= MÃ‰TODOS ================================================
     @Override
@@ -70,6 +75,9 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
         }
         if(matrizCurricularDao.existsById(matrizCurricular.getId()) == false) {
             throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
+        }
+        if(matrizCurricularDao.equals(etapaCursoDao) == true) {
+            throw new BusinessException(ETAPA_CURSO_EXISTE);
         }
         matrizCurricularDao.delete(matrizCurricular);
     }

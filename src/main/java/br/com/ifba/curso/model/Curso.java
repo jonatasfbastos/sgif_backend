@@ -26,12 +26,13 @@ public class Curso extends PersistenceEntity implements Serializable{
     private String codigoCurso;
     private String sigla;
     private String descricao;
+    boolean ativo;
     
-    //VÃ¡rios cursos podem estar associados a uma modalidade
+    //Varios cursos podem estar associados a uma modalidade
     @ManyToOne(fetch = FetchType.EAGER)    
     private Modalidade modalidade;
     
-    //Um curso estÃ¡ associado a uma ou mais matrizes curriculares
+    //Um curso esta associado a uma ou mais matrizes curriculares
     @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
     private List <MatrizCurricular> matrizCurricular;
 }

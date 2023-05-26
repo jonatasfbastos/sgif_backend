@@ -33,6 +33,7 @@ import br.com.ifba.fornecedor.service.IServiceFornecedor;
 import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.funcaoservidor.service.IServiceFuncaoServidor;
 import br.com.ifba.funcaoterceirizado.model.FuncaoTerceirizado;
+import br.com.ifba.funcaoterceirizado.service.IServiceFuncaoTerceirizado;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
@@ -1037,6 +1038,44 @@ public class Controller {
         }
     }
     
-}
+        // ---------------------------------------------------
+    // ------------- Funcao Terceirizado -----------------
+    // ---------------------------------------------------
+    @Autowired
+    private IServiceFuncaoTerceirizado serviceFuncaoTerceirizado;
 
+    @PostMapping("/salvarFuncaoTerceirizado")
+    public ResponseEntity<Object> salvarFuncaoTerceirizado(@RequestBody FuncaoTerceirizado funcaoTerceirizado) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(serviceFuncaoTerceirizado.saveFuncaoTerceirizado(funcaoTerceirizado));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarFuncoesTerceirizado")
+    public ResponseEntity<Object> listarFuncoesTerceirizado() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(serviceFuncaoTerceirizado.getAllFuncoesTerceirizado());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizarFuncaoTerceirizado")
+    public ResponseEntity<Object> atualizarFuncaoTerceirizado(@RequestBody FuncaoTerceirizado funcaoTerceirizado) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(serviceFuncaoTerceirizado.saveFuncaoTerceirizado(funcaoTerceirizado));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
     
+    public boolean deletarFuncaoTerceirizado(Long id){
+        FuncaoTerceirizado funcTerceirizado = new FuncaoTerceirizado();
+        funcTerceirizado.setId(id);
+        serviceFuncaoTerceirizado.deleteFuncaoTerceirizado(funcTerceirizado.getId());
+        return true;
+    }
+}

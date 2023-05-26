@@ -24,6 +24,6 @@ public class Modalidade extends PersistenceEntity implements Serializable{
     private String descricao;
 
     //Uma modalidade esta associada a um ou varios cursos
-    @OneToMany(mappedBy = "modalidade", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     private List<Curso> cursos;
 }

@@ -1,6 +1,7 @@
 package br.com.ifba.modalidade.service;
 
 import java.util.List;
+import br.com.ifba.curso.dao.IDaoCurso;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,16 @@ public class ServiceModalidade implements IServiceModalidade{
     
     //mensagem de erro caso a Modalidade seja invalida;
     public final static String MODALIDADE_INVALIDO = "As informaÃ§oes da Modalidade nao sao validas";
+
+    //mensagem de erro caso ja exista um ou mais cursos atrelados a essa modalidade
+    public final static String CURSO_EXISTE = "Nao e possivel excluir modalidade com curso atrelado a ela";
     
     //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
     
     @Autowired
-     private IDaoModalidade modalidadeDao;
+    private IDaoModalidade modalidadeDao;
+    @Autowired
+    private IDaoCurso cursoDao;
      
     //-_-_-_-_-_-_-_-_-_- METODOS -_-_-_-_-_-_-_-_-_-
     
@@ -59,6 +65,8 @@ public class ServiceModalidade implements IServiceModalidade{
         }else if(this.modalidadeDao.existsById(modalidade.getId()) == true) {
             this.modalidadeDao.delete(modalidade);
             return;
+        }else if(modalidadeDao.getReferenceById(modalidade.getId()).getCursos().isEmpty() == false){
+            throw new BusinessException(CURSO_EXISTE);
         }
             throw new BusinessException(MODALIDADE_NAO_EXISTE);    
 }

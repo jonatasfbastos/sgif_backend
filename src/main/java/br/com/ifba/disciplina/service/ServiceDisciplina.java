@@ -34,7 +34,11 @@ public class ServiceDisciplina implements IServiceDisciplina{
     public Disciplina saveDisciplina(Disciplina disciplina) {
         if(disciplina == null){
             throw new BusinessException(DISCIPLINA_NULL);
-        } else {
+        } 
+        if(disciplinaDao.existsByDescricao(disciplina.getDescricao())){
+            throw new BusinessException(DISCIPLINA_EXISTE);
+        }
+        else {
             return disciplinaDao.save(disciplina);
         }
     }

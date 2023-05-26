@@ -59,7 +59,7 @@ public class ServiceDisciplina implements IServiceDisciplina{
         if(disciplina == null){
             throw new BusinessException(DISCIPLINA_NULL);
         }else if(this.disciplinaDao.existsById(disciplina.getId()) == true) {
-            if (disciplina.getEtapaCurso() == null){
+            if (disciplina.getEtapaCurso() != null){
                 throw new BusinessException(DISCIPLINA_POSSUI_ETAPA_CURSO);
             }
             this.disciplinaDao.delete(disciplina);

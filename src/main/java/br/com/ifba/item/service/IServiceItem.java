@@ -28,7 +28,7 @@ public interface IServiceItem {
 
     public List<Item> findByNome(String name);
 
-    public abstract List<Item> validadeBefore(Date validade);
+    public abstract List<Item> dataNotBefore(Date dataNot);
 
     public abstract List<Item> validadeAfter(Date validade);
 }

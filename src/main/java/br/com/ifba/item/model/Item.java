@@ -55,6 +55,9 @@ public class Item extends PersistenceEntity implements Serializable{
 
     @Temporal(TemporalType.DATE)
     private Date validade;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataNot;
     
     private double valorItem;
     private String perecivel;

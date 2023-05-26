@@ -4,6 +4,7 @@
  */
 package br.com.ifba.item.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,9 +45,19 @@ public class ServiceItem implements IServiceItem {
         if (item == null) {
             throw new BusinessException(ITEM_NULL);
         } else {
+            item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
             return daoItem.save(item);
         }
     }
+
+    public Date getDataAjuste(Date data, int num){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+        calendar.add(Calendar.DATE, -num);
+        
+        return calendar.getTime();
+   }
 
     @Override
     public Item updateItem(Item item) {
@@ -55,6 +66,7 @@ public class ServiceItem implements IServiceItem {
         } else if (daoItem.findById(item.getId()) == null) {
             throw new BusinessException(ITEM_EXISTE);
         } else {
+            item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
             return daoItem.save(item);
         }
     }
@@ -87,8 +99,8 @@ public class ServiceItem implements IServiceItem {
     }
 
     @Override
-    public List<Item> validadeBefore(Date validade) {
-        return daoItem.validadeBefore(validade);
+    public List<Item> dataNotBefore(Date dataNot) {
+        return daoItem.dataNotBefone(dataNot);
     }
 
     @Override

@@ -203,27 +203,13 @@ public class Controller {
     //     }, date);
     // }
 
-    
-    public Date getDataAjuste(Date data, int num){
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(data);
-        calendar.add(Calendar.DATE, -num);
-   
-        return calendar.getTime();
-   }
-
     // Rodando de 5 em 5 minutos
-    @Scheduled(fixedDelay = 5000)
+    // Posso colocar essa função lá em baixo e evitar loop toda hora
+    @Scheduled(fixedDelay = 6000)
     public void sendNotificationsWhenDue() throws InterruptedException {
-        List<Item> item = serviceItem.getAllItens();
-        
-        for(int i = 0; i < item.size(); i++){
-        
-        List<Item> itens = serviceItem.validadeBefore(getDataAjuste(item.get(i).getValidade(), item.get(i).getAlerta()));
-
-        // System.out.println("Send notification Empenho's due");
-        for (Item empenho : itens) {
+        List<Item> item = serviceItem.dataNotBefore(new Date());
+                        
+        for (Item empenho : item) {
             Notification notification = serviceNotification.findByWhatIdAndWhatObjectName(empenho.getId(),
                     empenho.getClass().getSimpleName());
 
@@ -238,7 +224,6 @@ public class Controller {
             notification = Notification.createNotification(title, body, empenho);
             serviceNotification.saveNotification(notification);
         }
-    }
 }
 
     //--------------------------------------------------------

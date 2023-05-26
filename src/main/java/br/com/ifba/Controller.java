@@ -1016,9 +1016,14 @@ public class Controller {
     }
 
     @RequestMapping(path = "/salvarProfessor", method = RequestMethod.POST)
-    public Professor salvarProfessor(@RequestBody String professor1) {
-        Professor professor = (Professor) gson.fromJson(professor1, Professor.class);
-        return serviceProfessor.saveProfessor(professor);
+    public ResponseEntity<Object> salvarProfessor(@RequestBody String professor1) {
+        try{
+            Professor professor = (Professor) gson.fromJson(professor1, Professor.class);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(serviceProfessor.saveProfessor(professor));
+        }catch(Exception err){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }    
     }
     
        @PutMapping("/atualizarProfessor")

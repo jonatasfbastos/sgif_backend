@@ -100,7 +100,7 @@ public class ServiceItem implements IServiceItem {
 
     @Override
     public List<Item> dataNotBefore(Date dataNot) {
-        return daoItem.dataNotBefone(dataNot);
+        return daoItem.dataNotBefore(dataNot);
     }
 
     @Override

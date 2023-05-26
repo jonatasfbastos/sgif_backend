@@ -19,7 +19,7 @@ public interface IDaoItem extends JpaRepository<Item, Long> {
 
     public abstract List<Item> findByNome(String name);
 
-    public abstract List<Item> dataNotBefone(Date dataNot);
+    public abstract List<Item> dataNotBefore(Date dataNot);
 
     public abstract List<Item> validadeAfter(Date validade);
 }

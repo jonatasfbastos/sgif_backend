@@ -39,6 +39,8 @@ import br.com.ifba.item.model.Item;
 import br.com.ifba.item.service.IServiceItem;
 import br.com.ifba.matrizcurricular.model.MatrizCurricular;
 import br.com.ifba.matrizcurricular.service.IServiceMatrizCurricular;
+import br.com.ifba.mensagem.model.Mensagem;
+import br.com.ifba.mensagem.service.IServiceMensagem;
 import br.com.ifba.modalidade.model.Modalidade;
 import br.com.ifba.modalidade.service.IServiceModalidade;
 import br.com.ifba.notification.model.Notification;
@@ -590,6 +592,38 @@ public class Controller {
         return (MatrizCurricular) this.serviceMatriz.findById(id);
     }
 
+    
+    
+     // ---------------------------------------------------
+    // ------------- Mensagem -----------------------------
+    // ---------------------------------------------------
+    
+    @Autowired
+    private IServiceMensagem serviceMensagem;
+
+    @RequestMapping(path = "deletarMensagem", method = RequestMethod.GET)
+    public boolean deletarMensagem(Long id) {
+        Mensagem mensagem = new Mensagem();
+        mensagem.setId(id);
+        serviceMensagem.deleteMensagem(mensagem);
+        return true;
+    }
+
+    @RequestMapping(path = "/mensagem")
+    public List<Mensagem> salvarMensagem() {
+        return (List<Mensagem>) serviceMensagem.getAllMensagem();
+    }
+
+    @RequestMapping(path = "/salvarMensagem", method = RequestMethod.POST)
+    public Mensagem salvarMensagem(@RequestBody String msg) {
+        Mensagem mensagem = (Mensagem) gson.fromJson(msg, Mensagem.class);
+        System.out.println(mensagem.toString());
+        return serviceMensagem.saveMensagem(mensagem);
+    }
+    
+    
+    
+    
     // ---------------------------------------------------
     // ----------------- Modalidade ----------------------
     // ---------------------------------------------------

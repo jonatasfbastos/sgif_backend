@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 public class Avaliacao extends PersistenceEntity implements Serializable{
     private String descricao;
     private String dataFim;
-    private String datainicio;
+    private String dataInicio;
     
     @OneToOne   
     private Formulario formulario;    

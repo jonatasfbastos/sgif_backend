@@ -16,5 +16,6 @@ public interface IServiceAvaliacao {
     public List<Avaliacao> getAllAvaliacao();
     // MÃ©todo que retorna o Disponibilizar Avaliacao com o id informado.
     public Avaliacao findById(Long id);
+    public List<Avaliacao> filtrarAvaliacao(String dtInicio, String dtFim, Long idDisciplina);
     
 }

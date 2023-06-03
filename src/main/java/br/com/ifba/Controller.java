@@ -113,6 +113,11 @@ public class Controller {
         return serviceAvaliacao.saveAvaliacao(avaliacao);
     }
 
+    @RequestMapping(path = "/filtrarAvaliacao", method = RequestMethod.GET)
+    public List<Avaliacao> filtrarAvaliacao(String dtInicio, String dtFim,
+            Long idDisciplina) {
+        return (List<Avaliacao>) serviceAvaliacao.filtrarAvaliacao(dtInicio, dtFim, idDisciplina);
+    }
 
     // ------------------------------------------------------------------------------
     // --------------------------------- Aluno --------------------------------------

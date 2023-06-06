@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.avaliacao.dao.IDaoAvaliacao;
 import br.com.ifba.avaliacao.model.Avaliacao;
 import br.com.ifba.infrastructure.exception.BusinessException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Objects;
 
 @Service
 public class ServiceAvaliacao implements IServiceAvaliacao {
@@ -90,51 +89,43 @@ public class ServiceAvaliacao implements IServiceAvaliacao {
             throw new BusinessException(DADOS_NULL);
         }
         // =================== Utilizados para pesquisa. =======================
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date inicio = new Date();
-        Date fim = new Date();
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDate inicio;
+        LocalDate fim;
         List<Avaliacao> avaliacoes = avaliacaoDao.findAll();
-        List<Avaliacao> filtro = new ArrayList<Avaliacao>();
-        Date comparaInicio;
-        Date comparaFim;
+        List<Avaliacao> filtro = new ArrayList<>();
+        LocalDate comparaInicio;
+        LocalDate comparaFim;
         // Transfomação das strings em datas e verificação do período desejado.
-        try {
-            inicio = formatter.parse(dtInicio);
-            fim = formatter.parse(dtFim);
-            if (fim.before(inicio)) {
-                throw new BusinessException(PERIODO_INVALIDO);
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(ServiceAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
+        inicio = LocalDate.parse(dtInicio, parser);
+        fim = LocalDate.parse(dtFim, parser);
+        inicio = inicio.plusDays(-1);
+        fim = fim.plusDays(1);
+        if (fim.isBefore(inicio)) {
+            throw new BusinessException(PERIODO_INVALIDO);
         }
         // Verificação se todas as disciplinas devem ser incluídas.
         if (idDisciplina == 0) {
             for (Avaliacao avl : avaliacoes) {
-                try {
-                    comparaInicio = formatter.parse(avl.getDataInicio());
-                    comparaFim = formatter.parse(avl.getDataFim());
-                    if (inicio.before(comparaInicio)
-                            && fim.after(comparaFim)) {
-                        filtro.add(avl);
-                    }
-                } catch (ParseException ex) {
-                    Logger.getLogger(ServiceAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
+                comparaInicio = LocalDate.parse(avl.getDataInicio(), parser);
+                comparaFim = LocalDate.parse(avl.getDataFim(), parser);
+                if (inicio.isBefore(comparaInicio)
+                        && fim.isAfter(comparaFim)) {
+                    filtro.add(avl);
                 }
             }
             return filtro;
         }
         // Pesquisa por disciplina específica nos filtros selecionados.
         for (Avaliacao avl : avaliacoes) {
-            try {
-                comparaInicio = formatter.parse(avl.getDataInicio());
-                comparaFim = formatter.parse(avl.getDataFim());
-                if (inicio.before(comparaInicio)
-                        && fim.after(comparaFim)
-                        && avl.getDisciplina().getId() == idDisciplina) {
+            comparaInicio = LocalDate.parse(avl.getDataInicio(), parser);
+            comparaFim = LocalDate.parse(avl.getDataFim(), parser);
+            if (Objects.equals(avl.getDisciplina().getId(), idDisciplina)
+                    && inicio.isBefore(comparaInicio)) {
+                if (fim.isAfter(comparaFim)) {
                     filtro.add(avl);
                 }
-            } catch (ParseException ex) {
-                Logger.getLogger(ServiceAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return filtro;

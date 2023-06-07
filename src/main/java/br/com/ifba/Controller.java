@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 import br.com.ifba.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
 import br.com.ifba.funcaotecnicoadministrativo.service.IServiceFuncaoTecnicoAdministrativo;
+import br.com.ifba.permissao.model.Permissao;
+import br.com.ifba.permissao.service.IServicePermissao;
+import br.com.ifba.permissaolink.model.PermissaoLink;
+import br.com.ifba.permissaolink.service.IServicePermissaoLink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -491,6 +495,118 @@ public class Controller {
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(serviceFuncaoTecnicoAdm.deleteFuncaoTecnicoAdm(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    // ----------------------------------------------------
+    // ------------------- Permissão ----------------------
+    // ----------------------------------------------------
+    @Autowired
+    private IServicePermissao servicePermissao;
+
+    @PostMapping("/salvarPermissao")
+    public ResponseEntity<Object> salvarPermissao(@RequestBody Permissao permissao) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(servicePermissao.savePermissao(permissao));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarPermissoes")
+    public ResponseEntity<Object> listarPermissoes() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissao.getAllPermissoes());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarPermissoesPerfil/{id}")
+    public ResponseEntity<Object> listarPermissoesByPerfilId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissao.getAllByPerfilId(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizarPermissao")
+    public ResponseEntity<Object> atualizarPermissao(@RequestBody Permissao permissao) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissao.updatePermissao(permissao));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deletarPermissao/{id}")
+    public ResponseEntity<Object> deletarPermissao(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissao.deletePermissao(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    // ----------------------------------------------------
+    // ----------------- Permissão Link -------------------
+    // ----------------------------------------------------
+    @Autowired
+    private IServicePermissaoLink servicePermissaoLink;
+
+    @PostMapping("/salvarLink")
+    public ResponseEntity<Object> salvarPermissaoLink(@RequestBody PermissaoLink permissaoLink) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(servicePermissaoLink.saveLink(permissaoLink));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarLinks")
+    public ResponseEntity<Object> listarPermissaoLink() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissaoLink.getAllLinks());
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @GetMapping("/listarLinksPermissao/{id}")
+    public ResponseEntity<Object> listarLinksByPermissaoId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissaoLink.getAllByPermissaoId(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizarLink")
+    public ResponseEntity<Object> atualizarPermissaoLink(@RequestBody PermissaoLink permissaoLink) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissaoLink.updateLink(permissaoLink));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deletarLink/{id}")
+    public ResponseEntity<Object> deletarPermissaoLink(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissaoLink.deleteLink(id));
         } catch (Exception err) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
         }

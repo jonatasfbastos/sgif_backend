@@ -13,13 +13,12 @@ import br.com.ifba.perfilusuario.model.PerfilUsuario;
  * @author Igor Lopes e Eduarda
  */
 public interface IServicePerfilUsuario {
-    public abstract PerfilUsuario savePerfilUsuario(PerfilUsuario perfilDeUsuario);
 
-    public abstract PerfilUsuario updatePerfilDeUsuario(PerfilUsuario perfilDeUsuario);
+    PerfilUsuario savePerfilUsuario(PerfilUsuario perfilDeUsuario);
+    PerfilUsuario updatePerfilDeUsuario(PerfilUsuario perfilDeUsuario);
+    void deletePerfilUsuario(PerfilUsuario perfilDeUsuario);
+    List<PerfilUsuario> getAllPerfilUsuario();
+    List<PerfilUsuario> findByNome(String name);
+    List<PerfilUsuario> findPerfisByPermissaoId(Long id);
 
-    public abstract void deletePerfilUsuario(PerfilUsuario perfilDeUsuario);
-
-    public abstract List<PerfilUsuario> getAllPerfilUsuario();
-
-    public List<PerfilUsuario> findByNome(String name);
 }

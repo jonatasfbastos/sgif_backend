@@ -84,4 +84,9 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
         }
     }
 
+    @Override
+    public List<PerfilUsuario> findPerfisByPermissaoId(Long id) {
+        return daoPerfilDeUsuario.findByPermissoesId(id);
+    }
+
 }

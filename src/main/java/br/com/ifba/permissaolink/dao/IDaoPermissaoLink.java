@@ -7,6 +7,6 @@ import java.util.List;
 public interface IDaoPermissaoLink extends JpaRepository<PermissaoLink, Long> {
 
     boolean existsByUrl(String url);
-    List<PermissaoLink> findAllByPermissoesId(Long id);
+    List<PermissaoLink> findByPermissoesId(Long id);
 
 }

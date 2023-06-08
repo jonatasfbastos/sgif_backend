@@ -65,7 +65,7 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
 
     @Override
     public List<PermissaoLink> getAllByPermissaoId(Long id) {
-        return daoLink.findAllByPermissoesId(id);
+        return daoLink.findByPermissoesId(id);
     }
 
 }

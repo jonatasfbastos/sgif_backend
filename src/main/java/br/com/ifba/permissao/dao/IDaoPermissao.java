@@ -8,5 +8,6 @@ public interface IDaoPermissao extends JpaRepository<Permissao, Long> {
 
     boolean existsByNome(String url);
     List<Permissao> findByPerfisId(Long id);
+    List<Permissao> findByLinksId(Long id);
 
 }

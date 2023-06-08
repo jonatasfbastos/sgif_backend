@@ -10,5 +10,6 @@ public interface IServicePermissao {
     Permissao updatePermissao(Permissao permissao);
     List<Permissao> getAllPermissoes();
     List<Permissao> getAllByPerfilId(Long id);
+    List<Permissao> getAllByLinkId(Long id);
 
 }

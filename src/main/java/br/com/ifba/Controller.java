@@ -536,6 +536,16 @@ public class Controller {
         }
     }
 
+    @GetMapping("/listarPermissoesLink/{id}")
+    public ResponseEntity<Object> listarPermissoesByLinkId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePermissao.getAllByLinkId(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
+    }
+
     @PutMapping("/atualizarPermissao")
     public ResponseEntity<Object> atualizarPermissao(@RequestBody Permissao permissao) {
         try {
@@ -1068,6 +1078,16 @@ public class Controller {
     @RequestMapping(path = "/perfilusuario")
     public List<PerfilUsuario> salvarPerfilUsuario() {
         return (List<PerfilUsuario>) servicePerfilUsuario.getAllPerfilUsuario();
+    }
+
+    @GetMapping("/listarPerfisPermissoes/{id}")
+    public ResponseEntity<Object> listarPerfisByPermissaoId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(servicePerfilUsuario.findPerfisByPermissaoId(id));
+        } catch (Exception err) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage());
+        }
     }
 
     // ---------------------------------------------------

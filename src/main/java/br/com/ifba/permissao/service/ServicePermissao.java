@@ -15,6 +15,7 @@ public class ServicePermissao implements IServicePermissao {
     private final static String PERMISSAO_EXISTE = "A permissão informada já existe.";
     private final static String PERMISSAO_DELETADA = "Permissão deletada com sucesso.";
     private final static String HA_PERFIL_ASSOCIADO = "Não foi possível deletar a permissão, há perfil associado a esta permissão.";
+    private final static String HA_LINK_ASSOCIADO = "Não foi possível deletar a permissão, há link associado a esta permissão.";
 
     @Autowired
     private IDaoPermissao daoPermissao;
@@ -35,8 +36,12 @@ public class ServicePermissao implements IServicePermissao {
         if (daoPermissao.existsById(id) == false) {
             throw new BusinessException(PERMISSAO_NAO_EXISTE);
         }
-        if (daoPermissao.getReferenceById(id).getPerfis().isEmpty() == false) {
+        Permissao permissao = daoPermissao.getReferenceById(id);
+        if (permissao.getPerfis().isEmpty() == false) {
             throw new BusinessException(HA_PERFIL_ASSOCIADO);
+        }
+        if (permissao.getLinks().isEmpty() == false) {
+            throw new BusinessException(HA_LINK_ASSOCIADO);
         }
         daoPermissao.deleteById(id);
         return PERMISSAO_DELETADA;
@@ -58,6 +63,11 @@ public class ServicePermissao implements IServicePermissao {
     @Override
     public List<Permissao> getAllByPerfilId(Long id) {
         return daoPermissao.findByPerfisId(id);
+    }
+
+    @Override
+    public List<Permissao> getAllByLinkId(Long id) {
+        return daoPermissao.findByLinksId(id);
     }
 
 }

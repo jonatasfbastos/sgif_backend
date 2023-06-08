@@ -19,6 +19,7 @@ public class Permissao extends PersistenceEntity implements Serializable {
 
     private String nome;
     private boolean grupo;
+    private String icone;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "permissoes", fetch = FetchType.LAZY)

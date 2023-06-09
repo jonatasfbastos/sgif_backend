@@ -116,6 +116,14 @@ public class Controller {
         Avaliacao avaliacao = (Avaliacao) gson.fromJson(avaliacao1, Avaliacao.class);
         return serviceAvaliacao.saveAvaliacao(avaliacao);
     }
+    
+    @RequestMapping(path = "/atualizarAvaliacao", method = RequestMethod.POST)
+    public Avaliacao atualizarAvaliacao(@RequestBody String avaliacao) {
+        Avaliacao avl = (Avaliacao) gson.fromJson(avaliacao, Avaliacao.class);
+        if (avl.getId() == null)
+            return null;
+        return serviceAvaliacao.saveAvaliacao(avl);
+    }
 
     @RequestMapping(path = "/filtrarAvaliacao", method = RequestMethod.GET)
     public List<Avaliacao> filtrarAvaliacao(String dtInicio, String dtFim,
@@ -123,6 +131,7 @@ public class Controller {
         return (List<Avaliacao>) serviceAvaliacao.filtrarAvaliacao(dtInicio, dtFim, idDisciplina);
     }
 
+    
     // ------------------------------------------------------------------------------
     // --------------------------------- Aluno --------------------------------------
     // ------------------------------------------------------------------------------

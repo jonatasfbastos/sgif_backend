@@ -46,7 +46,15 @@ public class ServiceAvaliacao implements IServiceAvaliacao {
         if (avaliacao == null) {
             throw new BusinessException(AVALIACAO_NULL);
         }
-
+        // Transformação das strings em LocalDate para verificação.
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDate dataInicio = LocalDate.parse(avaliacao.getDataInicio(), parser);
+        LocalDate dataFim = LocalDate.parse(avaliacao.getDataFim(), parser);
+        // Verificação se a data final é antes da data inicial (não permitido).
+        if (dataFim.isBefore(dataInicio)) {
+            throw new BusinessException(AVALIACAO_INVALIDO);
+        }
         return avaliacaoDao.save(avaliacao);
     }
 
@@ -57,6 +65,15 @@ public class ServiceAvaliacao implements IServiceAvaliacao {
         }
         if (avaliacaoDao.existsById(avaliacao.getId()) == false) {
             throw new BusinessException(AVALIACAO_NAO_EXISTE);
+        }
+        // Transformação das strings em LocalDate para verificação.
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDate dataInicio = LocalDate.parse(avaliacao.getDataInicio(), parser);
+        LocalDate dataFim = LocalDate.parse(avaliacao.getDataFim(), parser);
+        // Verificação se a data final é antes da data inicial (não permitido).
+        if (dataFim.isBefore(dataInicio)) {
+            throw new BusinessException(AVALIACAO_INVALIDO);
         }
         return avaliacaoDao.save(avaliacao);
     }

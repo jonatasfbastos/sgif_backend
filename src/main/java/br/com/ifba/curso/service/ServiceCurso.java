@@ -27,14 +27,14 @@ public class ServiceCurso implements IServiceCurso{
     public final static String CURSO_INVALIDO = "As informaacoes do Curso nao sao validas";
     
     // Mensagem de erro se o Curso possuir matriz curricular
-    public final static String CURSO_POSSUI_MSTRIZ_CURRICULAR = "Curso possui matriz curricular";
+    public final static String CURSO_POSSUI_MATRIZ_CURRICULAR = "Curso possui matriz curricular";
     
     //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
     
     @Autowired
      private IDaoCurso cursoDao;
      
-    //-_-_-_-_-_-_-_-_-_- MÃ‰TODOS -_-_-_-_-_-_-_-_-_-
+    //-_-_-_-_-_-_-_-_-_- MÉTODOS -_-_-_-_-_-_-_-_-_-
     
     @Override
     public Curso saveCurso(Curso curso) {
@@ -64,7 +64,7 @@ public class ServiceCurso implements IServiceCurso{
             throw new BusinessException(CURSO_NULL);
         }else if(this.cursoDao.existsById(curso.getId()) == true) {
             if (curso.getMatrizCurricular() == null){
-                throw new BusinessException(CURSO_POSSUI_MSTRIZ_CURRICULAR);
+                throw new BusinessException(CURSO_POSSUI_MATRIZ_CURRICULAR);
             }
             this.cursoDao.delete(curso);
             return;

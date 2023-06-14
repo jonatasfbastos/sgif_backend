@@ -5,6 +5,7 @@
  */
 package br.com.ifba.opcao.model;
 
+import br.com.ifba.checkbox.model.CheckBox;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.multiplaescolha.model.MultiplaEscolha;
 import java.io.Serializable;
@@ -25,7 +26,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Opcao extends PersistenceEntity implements Serializable{
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "multiplaescolha_id", referencedColumnName = "ID")
     private MultiplaEscolha multiplaEscolha;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "checkbox_id", referencedColumnName = "ID")
+    private CheckBox checkBox;
+    
+    
 }

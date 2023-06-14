@@ -10,11 +10,13 @@ import br.com.ifba.multiplaescolha.dao.IDaoMultiplaEscolha;
 import br.com.ifba.multiplaescolha.model.MultiplaEscolha;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ellen Cristina
  */
+@Service
 public class ServiceMultiplaEscolha implements IServiceMultiplaEscolha{
     // Mensagem de erro se a MultiplaEscolha for null.
     public final static String MULTIPLA_ESCOLHA_NULL = "Dados do MultiplaEscolha nao preenchidos";
@@ -22,9 +24,7 @@ public class ServiceMultiplaEscolha implements IServiceMultiplaEscolha{
     public final static String MULTIPLA_ESCOLHA_EXISTE = "MultiplaEscolha ja existente no Banco de dados";
     // Mensagem de erro se o MultiplaEscolha não existir no banco.
     public final static String MULTIPLA_ESCOLHA_NAO_EXISTE = "MultiplaEscolha nao existente no Banco de dados";
-    // Mensagem de erro se o MultiplaEscolha for inválido.
-    public final static String MULTIPLA_ESCOLHA_INVALIDO = "As informações do MultiplaEscolha nao sao validas";
-     
+    
     
      //================= OBJETO =================================================
     @Autowired

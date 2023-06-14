@@ -22,12 +22,16 @@ import br.com.ifba.avaliacao.model.Avaliacao;
 import br.com.ifba.avaliacao.service.IServiceAvaliacao;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.aluno.service.IServiceAluno;
+import br.com.ifba.checkbox.model.CheckBox;
+import br.com.ifba.checkbox.service.IServiceCheckBox;
 import br.com.ifba.curso.model.Curso;
 import br.com.ifba.curso.service.IServiceCurso;
 import br.com.ifba.disciplina.model.Disciplina;
 import br.com.ifba.disciplina.service.IServiceDisciplina;
 import br.com.ifba.empenho.model.Empenho;
 import br.com.ifba.empenho.service.IServiceEmpenho;
+import br.com.ifba.escolhaunica.model.EscolhaUnica;
+import br.com.ifba.escolhaunica.service.IServiceEscolhaUnica;
 import br.com.ifba.etapacurso.model.EtapaCurso;
 import br.com.ifba.etapacurso.service.IServiceEtapaCurso;
 import br.com.ifba.formulario.model.Formulario;
@@ -47,6 +51,8 @@ import br.com.ifba.mensagem.model.Mensagem;
 import br.com.ifba.mensagem.service.IServiceMensagem;
 import br.com.ifba.modalidade.model.Modalidade;
 import br.com.ifba.modalidade.service.IServiceModalidade;
+import br.com.ifba.multiplaescolha.model.MultiplaEscolha;
+import br.com.ifba.multiplaescolha.service.IServiceMultiplaEscolha;
 import br.com.ifba.notification.model.Notification;
 import br.com.ifba.notification.service.IServiceNotification;
 import br.com.ifba.perfilusuario.model.PerfilUsuario;
@@ -59,6 +65,10 @@ import br.com.ifba.relatoriomensal.model.RelatorioMensal;
 import br.com.ifba.relatoriomensal.service.IServiceRelatorioMensal;
 import br.com.ifba.requisicao.model.Requisicao;
 import br.com.ifba.requisicao.service.IServiceRequisicao;
+import br.com.ifba.respostabinaria.model.RespostaBinaria;
+import br.com.ifba.respostabinaria.service.IServiceRespostaBinaria;
+import br.com.ifba.respostatextual.model.RespostaTextual;
+import br.com.ifba.respostatextual.service.IServiceRespostaTextual;
 import br.com.ifba.setor.model.Setor;
 import br.com.ifba.setor.service.IServiceSetor;
 import br.com.ifba.statusaluno.model.StatusAluno;
@@ -222,6 +232,51 @@ public class Controller {
     
     
     // ------------------------------------------------------------------------------
+    // ---------------------------------- Checkbox ----------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceCheckBox serviceCheckBox;
+
+    @GetMapping("/checkbox")
+    public ResponseEntity<Object> listarCheckBox() {
+        try {
+            return new ResponseEntity<Object>((List<CheckBox>) serviceCheckBox.getAllCheckBox(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarCheckBox")
+    public ResponseEntity<Object> salvarCheckBox(@RequestBody String checkBoxes) {
+        CheckBox checkBox = (CheckBox) gson.fromJson(checkBoxes, CheckBox.class);
+        try {
+            return new ResponseEntity<Object>(serviceCheckBox.saveCheckBox(checkBox), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarCheckBox")
+    public ResponseEntity<Object> atualizarCheckBox(@RequestBody String checkBoxes) {
+        CheckBox checkBox = (CheckBox) gson.fromJson(checkBoxes, CheckBox.class);
+        try {
+            return new ResponseEntity<Object>(serviceCheckBox.updateCheckBox(checkBox), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(path = "/deletarCheckBox", method = RequestMethod.GET)
+    public boolean deletarCheckBox(Long id) {
+        CheckBox checkBox = new CheckBox();
+        checkBox.setId(id);
+        serviceCheckBox.deleteCheckBox(checkBox);
+        return true;
+    }      
+    
+    
+    // ------------------------------------------------------------------------------
     // ------------------------------- Disciplina ----------------------------------
     // ------------------------------------------------------------------------------
 
@@ -268,7 +323,6 @@ public class Controller {
         }
     }
     
-
 
     // ------------------------------------------------------------------------------
     // ------------------------------- Empenho ----------------------------------
@@ -337,7 +391,54 @@ public class Controller {
             serviceNotification.saveNotification(notification);
         }
 }
+    
+    
+    // ------------------------------------------------------------------------------
+    // ------------------------------ Escolha Unica ----------------------------------
+    // ------------------------------------------------------------------------------
 
+    @Autowired
+    private IServiceEscolhaUnica serviceEscolhaUnica;
+
+    @GetMapping("/escolhaUnica")
+    public ResponseEntity<Object> listarEscolhaUnica() {
+        try {
+            return new ResponseEntity<Object>((List<EscolhaUnica>) serviceEscolhaUnica.getAllEscolhaUnica(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarEscolhaUnica")
+    public ResponseEntity<Object> salvarEscolhaUnica(@RequestBody String escolhaUnicas) {
+        EscolhaUnica escolhaUnica = (EscolhaUnica) gson.fromJson(escolhaUnicas, EscolhaUnica.class);
+        try {
+            return new ResponseEntity<Object>(serviceEscolhaUnica.saveEscolhaUnica(escolhaUnica), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarEscolhaUnica")
+    public ResponseEntity<Object> atualizarEscolhaUnica(@RequestBody String escolhaUnicas) {
+        EscolhaUnica escolhaUnica = (EscolhaUnica) gson.fromJson(escolhaUnicas, EscolhaUnica.class);
+        try {
+            return new ResponseEntity<Object>(serviceEscolhaUnica.updateEscolhaUnica(escolhaUnica), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(path = "/deletarEscolhaUnica", method = RequestMethod.GET)
+    public boolean deletarEscolhaUnica(Long id) {
+        EscolhaUnica escolhaUnica = new EscolhaUnica();
+        escolhaUnica.setId(id);
+        serviceEscolhaUnica.deleteEscolhaUnica(escolhaUnica);
+        return true;
+    }      
+    
+    
+    
     //--------------------------------------------------------
     //--------------- etapa curso ------------------------------
     //-------------------------------------------------------
@@ -803,7 +904,58 @@ public class Controller {
         System.out.println("Id " + id);
         return (Modalidade) this.serviceModalidade.findById(id);
     }
+    
+    
+    
+    // ------------------------------------------------------------------------------
+    // ---------------------------- Multipla Escolha --------------------------------
+    // ------------------------------------------------------------------------------
 
+    @Autowired
+    private IServiceMultiplaEscolha serviceMultiplaEscolha;
+
+    @GetMapping("/multiplaEscolha")
+    public ResponseEntity<Object> listarMultiplaEscolha() {
+        try {
+            return new ResponseEntity<Object>((List<MultiplaEscolha>) serviceMultiplaEscolha.getAllMultiplaEscolha(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarMultiplaEscolha")
+    public ResponseEntity<Object> salvarMultiplaEscolha(@RequestBody String multiplaEscolhas) {
+        MultiplaEscolha multiplaEscolha = (MultiplaEscolha) gson.fromJson(multiplaEscolhas, EscolhaUnica.class);
+        try {
+            return new ResponseEntity<Object>(serviceMultiplaEscolha.saveMultiplaEscolha(multiplaEscolha),
+                    HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarMultiplaEscolha")
+    public ResponseEntity<Object> atualizarMultiplaEscolha(@RequestBody String multiplaEscolhas) {
+        MultiplaEscolha multiplaEscolha = (MultiplaEscolha) gson.fromJson(multiplaEscolhas, MultiplaEscolha.class);
+        try {
+            return new ResponseEntity<Object>(serviceMultiplaEscolha.updateMultiplaEscolha(multiplaEscolha),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(path = "/deletarMultiplaEscolha", method = RequestMethod.GET)
+    public boolean deletarMultiplaEscolha(Long id) {
+        MultiplaEscolha multiplaEscolha = new MultiplaEscolha();
+        multiplaEscolha.setId(id);
+        serviceMultiplaEscolha.deleteMultiplaEscolha(multiplaEscolha);
+        return true;
+    }      
+    
+    
+    
     // ---------------------------------------------------
     // ------------- NOTIFICAÇÃO -------------------------
     // ---------------------------------------------------
@@ -923,6 +1075,106 @@ public class Controller {
             return null;
         return serviceRelatorio.saveRelatorioMensal(relatorio);
     }
+    
+    
+    
+    // ------------------------------------------------------------------------------
+    // ---------------------------- Resposta Binária --------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceRespostaBinaria serviceRespostaBinaria;
+
+    @GetMapping("/respostaBinaria")
+    public ResponseEntity<Object> listarRespostaBinaria() {
+        try {
+            return new ResponseEntity<Object>((List<RespostaBinaria>) serviceRespostaBinaria.getAllRespostaBinaria(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarRespostaBinaria")
+    public ResponseEntity<Object> salvarRespostaBinaria(@RequestBody String respostaBinarias) {
+        RespostaBinaria respostaBinaria = (RespostaBinaria) gson.fromJson(respostaBinarias, RespostaBinaria.class);
+        try {
+            return new ResponseEntity<Object>(serviceRespostaBinaria.saveRespostaBinaria(respostaBinaria),
+                    HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarRespostaBinaria")
+    public ResponseEntity<Object> atualizarRespostaBinaria(@RequestBody String respostaBinarias) {
+        RespostaBinaria respostaBinaria = (RespostaBinaria) gson.fromJson(respostaBinarias, RespostaBinaria.class);
+        try {
+            return new ResponseEntity<Object>(serviceRespostaBinaria.updateRespostaBinaria(respostaBinaria),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(path = "/deletarRespostaBinaria", method = RequestMethod.GET)
+    public boolean deletarRespostaBinaria(Long id) {
+        RespostaBinaria respostaBinaria = new RespostaBinaria();
+        respostaBinaria.setId(id);
+        serviceRespostaBinaria.deleteRespostaBinaria(respostaBinaria);
+        return true;
+    }      
+    
+    
+    
+    // ------------------------------------------------------------------------------
+    // ---------------------------- Resposta Textual --------------------------------
+    // ------------------------------------------------------------------------------
+
+    @Autowired
+    private IServiceRespostaTextual serviceRespostaTextual;
+
+    @GetMapping("/respostaTextual")
+    public ResponseEntity<Object> listarRespostaTextual() {
+        try {
+            return new ResponseEntity<Object>((List<RespostaTextual>) serviceRespostaTextual.getAllRespostaTextual(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/salvarRespostaTextual")
+    public ResponseEntity<Object> salvarRespostaTextual(@RequestBody String respostaTextuals) {
+        RespostaTextual respostaTextual = (RespostaTextual) gson.fromJson(respostaTextuals, RespostaTextual.class);
+        try {
+            return new ResponseEntity<Object>(serviceRespostaTextual.saveRespostaTextual(respostaTextual),
+                    HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/atualizarRespostaTextual")
+    public ResponseEntity<Object> atualizarRespostaTextual(@RequestBody String respostaTextuals) {
+        RespostaTextual respostaTextual = (RespostaTextual) gson.fromJson(respostaTextuals, RespostaTextual.class);
+        try {
+            return new ResponseEntity<Object>(serviceRespostaTextual.updateRespostaTextual(respostaTextual),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(path = "/deletarRespostaTextual", method = RequestMethod.GET)
+    public boolean deletarRespostaTextual(Long id) {
+        RespostaTextual respostaTextual = new RespostaTextual();
+        respostaTextual.setId(id);
+        serviceRespostaTextual.deleteRespostaTextual(respostaTextual);
+        return true;
+    }      
+    
+    
     
     // ------------------------------------------------------------------------------
     // --------------------------------- STATUS --------------------------------------

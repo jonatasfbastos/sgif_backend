@@ -10,11 +10,13 @@ import br.com.ifba.opcao.dao.IDaoOpcao;
 import br.com.ifba.opcao.model.Opcao;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ellen Cristina
  */
+@Service
 public class ServiceOpcao implements IServiceOpcao{
     // Mensagem de erro se o Opcao for null.
     public final static String OPCAO_NULL = "Dados do Opcao nao preenchidos";

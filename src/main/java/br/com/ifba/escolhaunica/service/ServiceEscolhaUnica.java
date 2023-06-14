@@ -10,11 +10,13 @@ import br.com.ifba.escolhaunica.model.EscolhaUnica;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ellen Cristina
  */
+@Service
 public class ServiceEscolhaUnica implements IServiceEscolhaUnica{
     // Mensagem de erro se a EscolhaUnica for null.
     public final static String ESCOLHA_UNICA_NULL = "Dados do EscolhaUnica nao preenchidos";
@@ -22,9 +24,7 @@ public class ServiceEscolhaUnica implements IServiceEscolhaUnica{
     public final static String ESCOLHA_UNICA_EXISTE = "EscolhaUnica ja existente no Banco de dados";
     // Mensagem de erro se a EscolhaUnica não existir no banco.
     public final static String ESCOLHA_UNICA_NAO_EXISTE = "EscolhaUnica nao existente no Banco de dados";
-    // Mensagem de erro se a EscolhaUnica for inválido.
-    public final static String ESCOLHA_UNICA_INVALIDO = "As informações da EscolhaUnica nao sao validas";
-     
+    
     
      //================= OBJETO =================================================
     @Autowired

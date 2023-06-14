@@ -10,11 +10,13 @@ import br.com.ifba.respostabinaria.dao.IDaoRespostaBinaria;
 import br.com.ifba.respostabinaria.model.RespostaBinaria;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ellen Cristina
  */
+@Service
 public class ServiceRespostaBinaria implements IServiceRespostaBinaria{
     // Mensagem de erro se o RespostaBinaria for null.
     public final static String RESPOSTA_BINARIA_NULL = "Dados do RespostaBinaria nao preenchidos";

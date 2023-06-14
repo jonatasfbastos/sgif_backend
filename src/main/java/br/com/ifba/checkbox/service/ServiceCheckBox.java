@@ -10,11 +10,13 @@ import br.com.ifba.checkbox.model.CheckBox;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ellen Cristina
  */
+@Service
 public class ServiceCheckBox implements IServiceCheckBox{
     // Mensagem de erro se o CheckBox for null.
     public final static String CHECKBOX_NULL = "Dados do CheckBox nao preenchidos";
@@ -22,9 +24,7 @@ public class ServiceCheckBox implements IServiceCheckBox{
     public final static String CHECKBOX_EXISTE = "CheckBox ja existente no Banco de dados";
     // Mensagem de erro se o CheckBox não existir no banco.
     public final static String CHECKBOX_NAO_EXISTE = "CheckBox nao existente no Banco de dados";
-    // Mensagem de erro se o CheckBox for inválido.
-    public final static String CHECKBOX_INVALIDO = "As informações do CheckBox nao sao validas";
-     
+   
     
      //================= OBJETO =================================================
     @Autowired

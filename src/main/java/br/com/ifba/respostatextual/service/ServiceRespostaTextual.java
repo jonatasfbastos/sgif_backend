@@ -10,11 +10,13 @@ import br.com.ifba.respostatextual.dao.IDaoRespostaTextual;
 import br.com.ifba.respostatextual.model.RespostaTextual;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ellen Cristina
  */
+@Service
 public class ServiceRespostaTextual implements IServiceRespostaTextual{
     // Mensagem de erro se o RespostaTextual for null.
     public final static String RESPOSTA_TEXTUAL_NULL = "Dados do RespostaTextual nao preenchidos";

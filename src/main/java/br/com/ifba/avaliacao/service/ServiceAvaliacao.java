@@ -117,11 +117,11 @@ public class ServiceAvaliacao implements IServiceAvaliacao {
         // Transfomação das strings em datas e verificação do período desejado.
         inicio = LocalDate.parse(dtInicio, parser);
         fim = LocalDate.parse(dtFim, parser);
-        inicio = inicio.plusDays(-1);
-        fim = fim.plusDays(1);
         if (fim.isBefore(inicio)) {
             throw new BusinessException(PERIODO_INVALIDO);
         }
+        inicio = inicio.plusDays(-1);
+        fim = fim.plusDays(1);
         // Verificação se todas as disciplinas devem ser incluídas.
         if (idDisciplina == 0) {
             for (Avaliacao avl : avaliacoes) {

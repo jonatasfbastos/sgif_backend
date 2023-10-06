@@ -3,12 +3,16 @@ package br.com.ifba;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import br.com.ifba.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
 import br.com.ifba.funcaotecnicoadministrativo.service.IServiceFuncaoTecnicoAdministrativo;
+
 import br.com.ifba.permissao.model.Permissao;
 import br.com.ifba.permissao.service.IServicePermissao;
+
 import br.com.ifba.permissaolink.model.PermissaoLink;
 import br.com.ifba.permissaolink.service.IServicePermissaoLink;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -91,6 +95,7 @@ import br.com.ifba.usuario.service.IServiceUsuario;
 @RestController
 @RequestMapping(path = "/api/v1/app")
 public class Controller {
+
     Gson gson = new Gson();
 
     @RequestMapping(path = "/hello")
@@ -108,7 +113,7 @@ public class Controller {
     @Autowired
     private IServiceAvaliacao serviceAvaliacao;
 
-    @RequestMapping(path = "deletarAvaliacao", method = RequestMethod.GET)
+    @GetMapping(path = "deletarAvaliacao")
     public boolean deletarAvaliacao(Long id) {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setId(id);
@@ -135,7 +140,7 @@ public class Controller {
         return serviceAvaliacao.saveAvaliacao(avl);
     }
 
-    @RequestMapping(path = "/filtrarAvaliacao", method = RequestMethod.GET)
+    @GetMapping(path = "/filtrarAvaliacao")
     public List<Avaliacao> filtrarAvaliacao(String dtInicio, String dtFim,
             Long idDisciplina) {
         return (List<Avaliacao>) serviceAvaliacao.filtrarAvaliacao(dtInicio, dtFim, idDisciplina);
@@ -160,7 +165,7 @@ public class Controller {
         return serviceAluno.saveAluno(aluno);
     }
 
-    @RequestMapping(path = "deletarAluno", method = RequestMethod.GET)
+    @GetMapping(path = "deletarAluno")
     public boolean deletarAluno(Long id) {
         Aluno aluno = new Aluno();
         aluno.setId(id);
@@ -168,7 +173,7 @@ public class Controller {
         return true;
     }
     
-    @RequestMapping(path = "/statusAlunos", method = RequestMethod.GET)
+    @GetMapping(path = "/statusAlunos")
     public List<Aluno> findAlunosStatus(Long id) {
         return serviceAluno.findByStatusAlunoId(id);
     }

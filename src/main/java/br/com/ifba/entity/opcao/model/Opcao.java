@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.ifba.entity.opcao.model;
+
+import br.com.ifba.entity.checkbox.model.CheckBox;
+import br.com.ifba.infrastructure.model.PersistenceEntity;
+import br.com.ifba.entity.multiplaescolha.model.MultiplaEscolha;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ *
+ * @author Ellen Cristina
+ */
+@Entity
+@Table(name = "opcao")
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Opcao extends PersistenceEntity implements Serializable{
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "multiplaescolha_id", referencedColumnName = "ID")
+    private MultiplaEscolha multiplaEscolha;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "checkbox_id", referencedColumnName = "ID")
+    private CheckBox checkBox;
+    
+    
+}

@@ -2,27 +2,38 @@ package br.com.ifba.entity.questao.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-import br.com.ifba.entity.resposta.model.Resposta;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Entity
-@Table(name = "questao")
+/**
+ * Esta classe representa uma questão de um formulário.
+ * Ela contém informações sobre o enunciado da questão e a resposta, sendo que a resposta inicialmente é nula.
+ */
+@Entity(name = "questao")
+@Table(name = "questoes")
 @Data
 @EqualsAndHashCode(callSuper = false)
-
 public class Questao extends PersistenceEntity implements Serializable{
-    
+
+    /**
+     * O enunciado da questão, não aceita valores nulos.
+     */
+    @Column(name = "enunciado")
     private String enunciado;
-    private boolean required;
-    // Uma questão possui uma resposta associada
-    @OneToOne(fetch = FetchType.EAGER)  
-    private Resposta resposta;
+
+    /**
+     * AVISO: futuramente este atributo será a instância de uma lista da classe 'Resposta',
+     * pois será necessário identificar o conteúdo da reposta e o dono da resposta.
+     * No contexto atual, não é considerada a hipotese que uma questão,
+     * que será distribuida pora diversos usuários, possui mais de uma resposta.
+     */
+    @Column(name = "resposta", nullable = false)
+    private String resposta;
     
 }

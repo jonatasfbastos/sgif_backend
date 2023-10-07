@@ -11,7 +11,7 @@ public interface IServiceServidor {
 
     public abstract Servidor saveServidor(Servidor servidor);
 
-    public abstract Servidor updateTecnicoAdministrativo(Servidor servidor);
+    public abstract Servidor updateServidor(Servidor servidor);
 
     public abstract void deleteServidor(Servidor servidor);
 

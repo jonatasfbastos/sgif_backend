@@ -44,7 +44,7 @@ public class ServiceServidor implements IServiceServidor{
     }
 
     @Override
-    public Servidor updateTecnicoAdministrativo(Servidor servidor) {
+    public Servidor updateServidor(Servidor servidor) {
         if(servidor == null) {
             throw new BusinessException(Servidor_NULL);
         }

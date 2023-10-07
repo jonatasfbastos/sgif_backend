@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.entity.aluno.model.Aluno;
 import br.com.ifba.entity.servidor.dao.IDaoServidor;
 import br.com.ifba.entity.servidor.model.Servidor;
 
@@ -36,28 +37,33 @@ public class ServiceServidor implements IServiceServidor{
        if(servidor == null) {
             throw new BusinessException(Servidor_NULL);
         } 
+        if(servidorDao.existsById(servidor.getId()) == false) {
+            throw new BusinessException(Servidor_NAO_EXISTE);
+        }
        return servidorDao.save(servidor);
     }
 
     @Override
-    public Servidor updateTecincoAdministrativo(Servidor servidor) {
+    public Servidor updateTecnicoAdministrativo(Servidor servidor) {
         if(servidor == null) {
             throw new BusinessException(Servidor_NULL);
         }
-        else if(servidorDao.findById(servidor.getId()) == null) {
+        if(servidorDao.findById(servidor.getId()) == null) {
             throw new BusinessException(Servidor_NAO_EXISTE);
         }
         return servidorDao.save(servidor);
     }
 
+
     @Override
     public void deleteServidor(Servidor servidor) {
         if (servidor == null) {
+            throw new BusinessException(Servidor_NULL);
+        } 
+        if(servidorDao.existsById(servidor.getId()) == false) {
             throw new BusinessException(Servidor_NAO_EXISTE);
-        } else{
-            this.servidorDao.delete(servidor);
-            return;
         }
+      servidorDao.delete(servidor);
     
     }
 
@@ -65,5 +71,5 @@ public class ServiceServidor implements IServiceServidor{
     public List<Servidor> getAllServidor() {
         return this.servidorDao.findAll();
     }
-    
+
 }

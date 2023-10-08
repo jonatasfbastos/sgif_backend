@@ -33,8 +33,12 @@ public class AlunoController {
 
     @PostMapping(path = "/alunos/aluno")
     public ResponseEntity<?> salvarAluno(@RequestBody String aluno1) {
+
         Aluno aluno = (Aluno) gson.fromJson(aluno1, Aluno.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(serviceAluno.salvarAluno(aluno));
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(serviceAluno.salvarAluno(aluno));
+
     }
 
     @DeleteMapping(path = "/alunos/aluno/{id}")

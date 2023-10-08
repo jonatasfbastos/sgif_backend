@@ -3,6 +3,7 @@ package br.com.ifba.entity.aluno.service;
 import java.util.List;
 
 import br.com.ifba.entity.aluno.dao.IDaoAluno;
+import br.com.ifba.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.entity.aluno.model.Aluno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,17 +53,19 @@ public class ServiceAluno implements IServiceAluno{
      * Salva um aluno na base de ddados.
      *
      * @param aluno - O Aluno que será salvo na base de dados.
-     * @return os dados do aluno salvo na base de dados,
+     * @return um objeto DTO com os dados do aluno salvo na base de dados,
      * caso a operação ocorra com sucesso.
      *
      */
     @Override
-    public Aluno salvarAluno(Aluno aluno) {
+    public AlunoResponseDto salvarAluno(Aluno aluno) {
+
        if(aluno == null) {
             throw new BusinessException(ALUNO_NULL);
        } else{
-            return alunoDao.save(aluno);
+            return alunoDao.save(aluno).toResponseDto();
        }
+
     }
 
     /**

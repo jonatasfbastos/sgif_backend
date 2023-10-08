@@ -2,6 +2,7 @@ package br.com.ifba.entity.aluno.service;
 
 import java.util.List;
 
+import br.com.ifba.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.entity.aluno.model.Aluno;
 
 public interface IServiceAluno {
@@ -15,11 +16,11 @@ public interface IServiceAluno {
      * Salva um aluno na base de ddados.
      *
      * @param aluno - O Aluno que será salvo na base de dados.
-     * @return os dados do aluno salvo na base de dados,
+     * @return um objeto DTO com os dados do aluno salvo na base de dados,
      * caso a operação ocorra com sucesso.
      *
      */
-    Aluno salvarAluno(Aluno aluno);
+    AlunoResponseDto salvarAluno(Aluno aluno);
 
     /**
      *

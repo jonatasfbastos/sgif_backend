@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.ifba.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.entity.pessoa.model.Pessoa;
 import br.com.ifba.entity.statusaluno.model.StatusAluno;
 import br.com.ifba.entity.turma.model.Turma;
@@ -50,5 +51,20 @@ public class Aluno extends Pessoa implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id", referencedColumnName = "ID")
     private StatusAluno statusAluno;
-    
+
+    // =========================================================== //
+    // =============== [        MÉTODOS         ] ================ //
+    // =========================================================== //
+
+    /**
+     *
+     * Converte o objeto atual para um DTO.
+     *
+     * @return uma instância da classe 'AlunoResponseDto'
+     * com os dados deste objeto.
+     */
+    public AlunoResponseDto toResponseDto(){
+
+        return new AlunoResponseDto(this.matricula, this.nome);
+    }
 }

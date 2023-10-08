@@ -26,6 +26,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Aluno extends Pessoa implements Serializable{
 
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
     /**
      * A matrícula do aluno, ela possui padronização,
      * é única e não pode ser nula.

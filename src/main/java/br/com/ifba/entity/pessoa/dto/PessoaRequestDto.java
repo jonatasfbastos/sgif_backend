@@ -1,6 +1,6 @@
 package br.com.ifba.entity.pessoa.dto;
 
-import br.com.ifba.entity.requisicao.dto.RequisicaoRequestDtoo;
+import br.com.ifba.entity.requisicao.dto.RequisicaoRequestDto;
 
 import java.util.List;
 
@@ -51,4 +51,5 @@ public record PessoaRequestDto (
         @JsonProperty(value = "requisicoes")
         List<RequisicaoRequestDto> requisicoes
 ){
+
 }

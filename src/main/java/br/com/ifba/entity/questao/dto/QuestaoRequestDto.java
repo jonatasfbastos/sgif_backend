@@ -1,5 +1,6 @@
 package br.com.ifba.entity.questao.dto;
 
+import br.com.ifba.entity.resposta.dto.RespostaRequestDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,9 @@ import javax.validation.constraints.NotNull;
  *
  * @param enunciado - O enunciado da questão.
  * @param resposta - A resposta da questão
+ *
+ * Veja também: {@link br.com.ifba.entity.questao.model.Questao}
+ *
  */
 public record QuestaoRequestDto(
     @JsonProperty(value = "enunciado")
@@ -22,8 +26,7 @@ public record QuestaoRequestDto(
 
     @JsonProperty(value = "resposta")
     @NotNull(message = "O enunciado é obrigatório.")
-    @NotBlank(message = "O enunciado não pode ser vazio.")
-    String resposta
+    RespostaRequestDto resposta
 
 ) {
 }

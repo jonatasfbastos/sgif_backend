@@ -12,9 +12,14 @@ import java.util.List;
  *
  * @author Giovane Neves
  *
+ * Entidade que recebe dados enviados por requisições
+ * direcionadas à entidade 'Formulário'.
+ *
  * @param titulo - O título do formulário.
  * @param descricao - A descrição do formulário.
  * @param questoes - As questões do formulário.
+ *
+ * Veja também: {@link br.com.ifba.entity.formulario.model.Formulario}
  */
 public record FormularioRequestDto(
         @JsonProperty(value = "titulo")

@@ -19,6 +19,8 @@ import java.util.List;
 /**
  * Esta classe representa um formulário que contém um título,
  * uma descrição e uma lista de questões associadas.
+ *
+ * veja também: {@link br.com.ifba.entity.questao.model.Questao}
  */
 @Entity(name = "formulario")
 @Table(name = "formularios")

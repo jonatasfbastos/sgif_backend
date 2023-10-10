@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
  *
  * @param login - O login do usuário (username)
  * @param senha - A senha do usuário
+ * @param perfilUsuario - Informações do perfil de usuário associado ao usuário.
  * 
  * Veja também: {@link br.com.ifba.entity.usuario.model.Usuario}
  */
@@ -32,7 +33,11 @@ public record UsuarioRequestDto(
         @JsonProperty(value = "senha")
         @NotNull(message = "A senha é obrigatória.")
         @NotBlank(message = "A senha não pode ser vazia.")
-        String senha
+        String senha,
+
+        @JsonProperty(value = "perfilUsuario")
+        PerfilUsuarioResponseDto perfilUsuario
+
 
 ) {
 }

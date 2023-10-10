@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
  *
  * @param login - O login do usuário (username)
  * @param senha - A senha do usuário
+ * 
+ * Veja também: {@link br.com.ifba.entity.usuario.model.Usuario}
  */
 public record UsuarioRequestDto(
 

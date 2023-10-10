@@ -2,24 +2,48 @@ package br.com.ifba.entity.resposta.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.ifba.entity.usuario.model.Usuario;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.questao.model.Questao;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Entity
-@Table(name = "resposta")
+/**
+ * Entidade que representa as resposta dos enunciados do formulário.
+ * veja também: {@link br.com.ifba.entity.formulario.model.Formulario}
+ * veja também: {@link br.com.ifba.entity.questao.model.Questao}
+ *
+ */
+@Entity(name = "resposta")
+@Table(name = "respostas")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Resposta extends PersistenceEntity implements Serializable{
-    //Cada resposta possui uma questão associada
-    @OneToOne(fetch = FetchType.EAGER)
+
+    /**
+     * O conteúdo da resposta, não pode ser nulo.
+     */
+    @Column(name = "texto", nullable = false)
+    String texto;
+
+
+    /**
+     * A questão a qual a resposta pertence.
+     */
+    @ManyToOne
     @JoinColumn(name = "questao_id", referencedColumnName = "ID")
     private Questao questao;
+
+    /**
+     * O dono da resposta.
+     */
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "ID")
+    private Usuario usuario;
 }

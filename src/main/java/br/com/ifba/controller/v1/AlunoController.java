@@ -1,4 +1,4 @@
-package br.com.ifba.controller;
+package br.com.ifba.controller.v1;
 
 import br.com.ifba.entity.aluno.model.Aluno;
 import br.com.ifba.entity.aluno.service.IServiceAluno;

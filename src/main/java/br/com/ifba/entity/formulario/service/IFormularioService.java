@@ -2,31 +2,33 @@ package br.com.ifba.entity.formulario.service;
 
 import java.util.List;
 
+import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.model.Formulario;
 
-public interface IServiceFormulario {
-    
-    // Salva o Formulario
-    public abstract Formulario saveFormulario(Formulario formulario);
-    
+public interface IFormularioService {
+
+    /**
+     * Salva um formulário na base de dados.
+     *
+     * @param formulario - O formulário que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do formulário
+     * salvo.
+     */
+    FormularioResponseDto salvarFormulario(Formulario formulario);
+
     // Atualiza o Formulario
-    public abstract Formulario updateFormulario(Formulario formulario);
-    
-    /*
-    // Deleta o Formulario
-    public abstract void deleteFormulario(Formulario formulario);
-    */    
+    Formulario atualizarFormulario(Formulario formulario);
 
     // Deleta o formulário por id
-    public abstract void deleteFormulario(Long id);
+    void deletarFormulario(Long id);
     
     // Metodo que retorna todos os Formularios da base de dados
-    public abstract List<Formulario> getAllFormulario();
+    List<Formulario> listarFormularios();
     
     // MÃ©todo que retorna o Formulario com o id informado
-    public Formulario findById(Long id);
+    Formulario encontrarFormularioPorId(Long id);
     
     // MÃ©todo que retorna a lista com os Formularios com o nome informado
-    public List<Formulario> findByTitulo(String titulo);
+    List<Formulario> encontrarFormularioPorTitulo(String titulo);
     
 }

@@ -4,6 +4,7 @@ import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
 import br.com.ifba.entity.avaliacao.model.Avaliacao;
 import java.util.List;
 
+import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.model.Formulario;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,7 +13,11 @@ import br.com.ifba.infrastructure.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServiceFormulario implements IServiceFormulario {
+public class FormularioService implements IFormularioService {
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
     //mensagem de erro caso o Formulario seja nulo;
     public final static String FORMULARIO_NULL = "Dados do Formulario nao preenchidos";
@@ -32,28 +37,33 @@ public class ServiceFormulario implements IServiceFormulario {
     //mensagem de erro em remoção de Formulário que tenha uma Avaliação atrelada
     public final static String IMPOSSIVEL_REMOVER = "Existe uma avaliacao atrelada ao formulario";
 
-    //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
     @Autowired
     private IDaoFormulario formularioDao;
     
     @Autowired
     private IDaoAvaliacao avaliacaoDao;
 
-    //-_-_-_-_-_-_-_-_-_- MÃ‰TODOS -_-_-_-_-_-_-_-_-_-
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================ //
+    // =========================================================== //
+
+    /**
+     *
+     * Salva um formulário na base de dados.
+     *
+     * @param formulario - O formulário que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do formulário
+     * salvo.
+     */
     @Override
-    public Formulario saveFormulario(Formulario formulario) {
-        if (formulario == null) {
-            throw new BusinessException(FORMULARIO_NULL);
-        }
-        if (formulario.getTitulo().isEmpty() || formulario.getDescricao().isEmpty()) {
-            throw new BusinessException(CAMPO_VAZIO);
-        } else {
-            return formularioDao.save(formulario);
-        }
+    public FormularioResponseDto salvarFormulario(Formulario formulario) {
+
+        return formularioDao.save(formulario).toResponseDto();
+
     }
 
     @Override
-    public Formulario updateFormulario(Formulario formulario) {
+    public Formulario atualizarFormulario(Formulario formulario) {
         if (formulario == null) {
             throw new BusinessException(FORMULARIO_NULL);
         } else if (formularioDao.existsById(formulario.getId()) == false) {
@@ -81,7 +91,7 @@ public class ServiceFormulario implements IServiceFormulario {
     */
     
     @Override
-    public void deleteFormulario(Long id) {
+    public void deletarFormulario(Long id) {
         if (this.formularioDao.existsById(id) == false) {
             throw new BusinessException(FORMULARIO_NAO_EXISTE);
         }
@@ -94,17 +104,17 @@ public class ServiceFormulario implements IServiceFormulario {
     }
 
     @Override
-    public List<Formulario> getAllFormulario() {
+    public List<Formulario> listarFormularios() {
         return this.formularioDao.findAll();
     }
 
     @Override
-    public Formulario findById(Long id) {
+    public Formulario encontrarFormularioPorId(Long id) {
         return formularioDao.getReferenceById(id);
     }
 
     @Override
-    public List<Formulario> findByTitulo(String titulo) {
+    public List<Formulario> encontrarFormularioPorTitulo(String titulo) {
         if (titulo == null) {
             throw new BusinessException("Dados do titulo nao preenchidos");
         } else if (titulo.isEmpty()) {

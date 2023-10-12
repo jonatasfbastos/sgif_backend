@@ -17,13 +17,34 @@
 <details> <!-- Formulário -->
 <summary>Detalhar</summary>
 
-### ``POST`` /formularios/formulario
+### **``POST`` /formularios/formulario**
 <details>
 <summary>Detalhar</summary>
 
 > Endpoint para cadastro de formulários.
 **Parâmetros**: N/A.
-**Corpo da Requisição:** N/A.
+**Corpo da Requisição:** 
+```
+{
+    "titulo" : "título do formulário",
+    "descricao" : "descrição do formulário",
+    "questoes" : [
+        {
+            "enunciado" : "enunciado 01",
+            "respostas" : [
+                {
+                    "texto" : "conteúdo da resposta 01",
+                    "usuario_login" : "login_do_usuario_01"
+                },
+                {
+                    "texto" : "conteúdo da resposta 02",
+                    "usuario_login" : "login_do_usuario_02"
+                }
+            ]
+        }
+    ]
+}
+```
 **Corpo da Resposta:** 
 ```
 {

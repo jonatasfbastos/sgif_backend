@@ -27,12 +27,18 @@ public class UsuarioController {
     @Autowired
     IUsuarioService usuarioService;
 
-
-
     @RequestMapping(path = "/usuarios")
-    public List<Usuario> getUsuarios() {
-        return usuarioService.getAllUsuarios();
+    public ResponseEntity<?> getUsuarios() {
+        try {
+            List<UsuarioResponseDto> usuarios = usuarioService.getAllUsuariosDto();
+            return ResponseEntity.ok(usuarios);
+        } catch (Exception e) {
+            HashMap<String, String> erro = new HashMap<>();
+            erro.put("error", "Não foi possível obter a lista de usuários.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+        }
     }
+
 
     @PostMapping(path = "/usuarios/usuario")
     public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioRequestDto usuarioDto, BindingResult result) {
@@ -50,3 +56,5 @@ public class UsuarioController {
                 .body(Usuario.fromRequestDto(usuarioDto).toResponseDto());
     }
 }
+
+

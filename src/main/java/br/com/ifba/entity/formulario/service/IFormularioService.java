@@ -7,6 +7,8 @@ import br.com.ifba.entity.formulario.model.Formulario;
 
 public interface IFormularioService {
 
+    List<FormularioResponseDto> listarFormularios();
+
     /**
      * Salva um formulário na base de dados.
      *
@@ -16,15 +18,18 @@ public interface IFormularioService {
      */
     FormularioResponseDto salvarFormulario(Formulario formulario);
 
-    // Atualiza o Formulario
-    Formulario atualizarFormulario(Formulario formulario);
+    /**
+     * Atualiza um formulário existente na base de dados
+     * @param formulario - O formulário que será atualizado.
+     * @return dados do formulário atualizado.
+     */
+    FormularioResponseDto atualizarFormulario(Formulario formulario);
 
     // Deleta o formulário por id
     void deletarFormulario(Long id);
-    
+
     // Metodo que retorna todos os Formularios da base de dados
-    List<Formulario> listarFormularios();
-    
+
     // MÃ©todo que retorna o Formulario com o id informado
     Formulario encontrarFormularioPorId(Long id);
     

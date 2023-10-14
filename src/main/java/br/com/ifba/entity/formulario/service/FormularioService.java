@@ -3,9 +3,12 @@ package br.com.ifba.entity.formulario.service;
 import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
 import br.com.ifba.entity.avaliacao.model.Avaliacao;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.model.Formulario;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.ifba.entity.formulario.dao.IDaoFormulario;
@@ -44,8 +47,16 @@ public class FormularioService implements IFormularioService {
     private IDaoAvaliacao avaliacaoDao;
 
     // =========================================================== //
-    // =============== [        MÉTODOS       ] ================ //
+    // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
+
+    @Override
+    public List<FormularioResponseDto> listarFormularios() {
+        return this.formularioDao.findAll()
+                .stream()
+                .map(Formulario::toResponseDto)
+                .collect(Collectors.toList());
+    }
 
     /**
      *
@@ -62,15 +73,19 @@ public class FormularioService implements IFormularioService {
 
     }
 
+    /**
+     * Atualiza um formulário existente na base de dados.
+     *
+     * @param formulario - O formulário que será atualizado.
+     * @return dados do formulário atualizado.
+     */
     @Override
-    public Formulario atualizarFormulario(Formulario formulario) {
-        if (formulario == null) {
-            throw new BusinessException(FORMULARIO_NULL);
-        } else if (formularioDao.existsById(formulario.getId()) == false) {
-            throw new BusinessException(FORMULARIO_NAO_EXISTE);
-        } else {
-            return formularioDao.save(formulario);
-        }
+    public FormularioResponseDto atualizarFormulario(Formulario formulario) {
+
+        formularioDao.findById(formulario.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return formularioDao.save(formulario).toResponseDto();
     }
 
     /*
@@ -89,7 +104,7 @@ public class FormularioService implements IFormularioService {
         throw new BusinessException(FORMULARIO_NAO_EXISTE);
     }
     */
-    
+
     @Override
     public void deletarFormulario(Long id) {
         if (this.formularioDao.existsById(id) == false) {
@@ -103,10 +118,6 @@ public class FormularioService implements IFormularioService {
         }
     }
 
-    @Override
-    public List<Formulario> listarFormularios() {
-        return this.formularioDao.findAll();
-    }
 
     @Override
     public Formulario encontrarFormularioPorId(Long id) {

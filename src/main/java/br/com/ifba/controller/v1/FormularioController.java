@@ -9,11 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -37,7 +33,6 @@ public class FormularioController {
 
     /**
      * @author Giovane Neves
-     *
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
      * Salva um formulário.
@@ -53,7 +48,6 @@ public class FormularioController {
 
     /**
      * @author Giovane Neves
-     *
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
      * Atualiza um formulário.
@@ -64,8 +58,22 @@ public class FormularioController {
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.CREATED).body(formularioService.atualizarFormulario(Formulario.fromRequestDto(formDto)));
+                : ResponseEntity.status(HttpStatus.OK).body(formularioService.atualizarFormulario(Formulario.fromRequestDto(formDto)));
 
+    }
+
+    /**
+     * @author Giovane Neves
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Deleta o formulário atrelado ao ID passado por parâmetro.
+     * @return uma entidade de resposta generica.
+     */
+    @DeleteMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
+    public ResponseEntity<?> deletarFormularioPorId(@PathVariable("id") Long id){
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(formularioService.deletarFormulario(id));
     }
 
 

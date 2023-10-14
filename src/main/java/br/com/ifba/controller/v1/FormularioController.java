@@ -73,7 +73,7 @@ public class FormularioController {
     public ResponseEntity<?> deletarFormularioPorId(@PathVariable("id") Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(formularioService.deletarFormulario(id));
+                .body(formularioService.deletarFormularioPorId(id));
     }
 
 

@@ -1,5 +1,8 @@
 package br.com.ifba.controller.v1;
 
+import br.com.ifba.controller.v1.util.ResultError;
+import br.com.ifba.entity.formulario.dto.FormularioRequestDto;
+import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.entity.usuario.dto.UsuarioRequestDto;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 import br.com.ifba.entity.usuario.model.Usuario;
@@ -26,6 +29,7 @@ import javax.validation.Valid;
  * 
  * 
  * @author Andesson reis
+ *         Desde V1.0.1
  */
 
 @RestController
@@ -63,22 +67,23 @@ public class UsuarioController {
         }
     }
 
-
-    @PostMapping(path = "/usuarios/usuario")
+    /**
+     * @author Andesson Reis
+     *
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Salva um Usuario.
+     * @return uma entidade de resposta generica.
+     */
+ 
+    @PostMapping(path = "/usuarios/usuario", consumes = "application/json")
     public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioRequestDto usuarioDto, BindingResult result) {
-        if (result.hasErrors()) {
-            HashMap<String, String> erros = new HashMap<>();
 
-            for (FieldError erro : result.getFieldErrors()) {
-                erros.put(erro.getField(), erro.getDefaultMessage());
-            }
+       return result.hasErrors() 
+            ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+            : ResponseEntity.status(HttpStatus.CREATED)
+                .body(usuarioService.saveUsuario(Usuario.fromRequestDto(usuarioDto)));
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Usuario.fromRequestDto(usuarioDto).toResponseDto());
     }
+
 }
-
-

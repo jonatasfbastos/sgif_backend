@@ -91,6 +91,26 @@
 ```
 </details>
 
+<details>
+<summary><h3><code>DELETE</code> /formularios/formulario/{id}</h3></summary>
+
+> Endpoint para a deletar formulários pelo ID.
+
+**Parâmetros**:
+| Nome    | Descrição                            | Obrigatório? |
+| ------- | ------------------------------------ | ------------ |
+| ID      | O ID do formulário que será deletado | Sim          | <br>
+**Corpo da Requisição:** N/A. <br>
+**Corpo da Resposta:**
+```json
+{
+    "titulo" : "título do formulário",
+    "descricao" : "descrição do formulário"
+}
+```
+
+</details>
+
 </details> <!-- Formulário -->
 
 </details><!-- V1 -->

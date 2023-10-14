@@ -99,6 +99,32 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     /**
+     *
+     * Trata a exceção 'BusinessException'.
+     *
+     * @param businessException - A instância de 'BusinessException'.
+     * @param request - A requisição HTTP.
+     * @return uma entidade generica com a mensagem de erro.
+     */
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> handleBusinessException(
+            BusinessException businessException,
+            WebRequest request) {
+
+        final String mensagemErro = businessException.getMessage();
+
+        log.error(mensagemErro, businessException);
+
+        return construirMensagemDeErro(
+                businessException,
+                mensagemErro,
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                request);
+    }
+
+
+    /**
      * Constroi uma mensagem de erro.
      *
      * @param exception  A exceção.

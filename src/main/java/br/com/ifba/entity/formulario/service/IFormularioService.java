@@ -25,8 +25,13 @@ public interface IFormularioService {
      */
     FormularioResponseDto atualizarFormulario(Formulario formulario);
 
-    // Deleta o formulário por id
-    void deletarFormulario(Long id);
+    /**
+     * Deleta um formulário.
+     *
+     * @param id O ID do formulário a ser deletado.
+     * @return objeto DTO com os dados do formulário deletado.
+     */
+    FormularioResponseDto deletarFormularioPorId(Long id);
 
     // Metodo que retorna todos os Formularios da base de dados
 

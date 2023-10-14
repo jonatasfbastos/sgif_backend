@@ -15,30 +15,16 @@ import br.com.ifba.entity.formulario.dao.IDaoFormulario;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Giovane Neves
+ * Desde V1.0.1
+ */
 @Service
 public class FormularioService implements IFormularioService {
 
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //
     // =========================================================== //
-
-    //mensagem de erro caso o Formulario seja nulo;
-    public final static String FORMULARIO_NULL = "Dados do Formulario nao preenchidos";
-
-    //mensagem de erro caso o Formulario jÃ¡ exista no banco de dados;
-    public final static String FORMULARIO_EXISTE = "Formulario ja existente no Banco de dados";
-
-    //mensagem de erro caso o Formulario nÃ£o exista no banco de dados;
-    public final static String FORMULARIO_NAO_EXISTE = "Formulario nao existente no Banco de dados";
-
-    //mensagem de erro caso o Formulario seja invÃ¡lido;
-    public final static String FORMULARIO_INVALIDO = "As informacoes do Formulario nao sao validas";
-    
-    //mensagem de erro caso o Formulario seja invÃ¡lido;
-    public final static String CAMPO_VAZIO = "Campos nao preenchidos";
-    
-    //mensagem de erro em remoção de Formulário que tenha uma Avaliação atrelada
-    public final static String IMPOSSIVEL_REMOVER = "Existe uma avaliacao atrelada ao formulario";
 
     @Autowired
     private IDaoFormulario formularioDao;
@@ -88,36 +74,25 @@ public class FormularioService implements IFormularioService {
         return formularioDao.save(formulario).toResponseDto();
     }
 
-    /*
+    /**
+     * Deleta um formulário.
+     *
+     * @param id O ID do formulário a ser deletado.
+     * @return objeto DTO com os dados do formulário deletado.
+     */
     @Override
-    public void deleteFormulario(Formulario formulario) {
-        if (formulario == null) {
-            throw new BusinessException(FORMULARIO_NULL);
-        } else if (this.formularioDao.existsById(formulario.getId()) == true) {
-            Avaliacao avaliacao = formulario.getAvaliacao();
-            if (avaliacao.equals(this.avaliacaoDao.getReferenceById(avaliacao.getId()))) {
-                throw new BusinessException(IMPOSSIVEL_REMOVER);
-            } else {
-                this.formularioDao.delete(formulario);
-            }
-        }
-        throw new BusinessException(FORMULARIO_NAO_EXISTE);
-    }
-    */
+    public FormularioResponseDto deletarFormularioPorId(Long id) {
 
-    @Override
-    public void deletarFormulario(Long id) {
-        if (this.formularioDao.existsById(id) == false) {
-            throw new BusinessException(FORMULARIO_NAO_EXISTE);
-        }
-        Avaliacao avaliacao = this.formularioDao.getReferenceById(id).getAvaliacao();
-        if (avaliacao.equals(this.avaliacaoDao.getReferenceById(avaliacao.getId()))) {
-            throw new BusinessException(IMPOSSIVEL_REMOVER);
-        } else {
-            this.formularioDao.delete(formularioDao.getReferenceById(id));
-        }
-    }
+        Formulario formulario = formularioDao.findById(id)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
+        // TODO: Analisar se é preciso adicionar uma lógica para verificar se existe uma avaliação atrelada ao formulário.
+
+        formularioDao.delete(formulario);
+
+        return formulario.toResponseDto();
+
+    }
 
     @Override
     public Formulario encontrarFormularioPorId(Long id) {

@@ -39,17 +39,25 @@ public class UsuarioController {
     @Autowired
     IUsuarioService usuarioService;
 
-    @RequestMapping(path = "/usuarios")
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Obtém a lista de todos os usuários.
+     * 
+     * @return Uma lista de usuários ou uma resposta de erro em caso de falha.
+     * 
+     * @author Andesson Reis
+     */
+    @RequestMapping(path = "/usuarios", produces = "application/json")
     public ResponseEntity<?> getUsuarios() {
         try {
             List<UsuarioResponseDto> usuarios = usuarioService.getAllUsuariosDto();
             return ResponseEntity.ok(usuarios);
         } catch (Exception e) {
-            HashMap<String, String> erro = new HashMap<>();
-            erro.put("error", "Não foi possível obter a lista de usuários.");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResultError.getResultErrors(null));
         }
     }
+    
 
     @RequestMapping(path = "/usuario/{id}")
     public ResponseEntity<?> getUsuario(@PathVariable Long id) {
@@ -72,17 +80,17 @@ public class UsuarioController {
      *
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
-     * Salva um Usuario.
+     *          Salva um Usuario.
      * @return uma entidade de resposta generica.
      */
- 
+
     @PostMapping(path = "/usuarios/usuario", consumes = "application/json")
     public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioRequestDto usuarioDto, BindingResult result) {
 
-       return result.hasErrors() 
-            ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-            : ResponseEntity.status(HttpStatus.CREATED)
-                .body(usuarioService.saveUsuario(Usuario.fromRequestDto(usuarioDto)));
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED)
+                        .body(usuarioService.saveUsuario(Usuario.fromRequestDto(usuarioDto)));
 
     }
 

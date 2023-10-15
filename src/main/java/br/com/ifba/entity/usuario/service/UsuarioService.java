@@ -88,12 +88,19 @@ public class UsuarioService implements IUsuarioService {
             .map(Usuario::toResponseDto)
             .collect(Collectors.toList());
     }
-
+    /**
+     * Encontra um usuário pelo ID.
+     *
+     * @param id - O ID do usuário a ser encontrado.
+     * @return um objeto DTO com os dados resumidos do usuário encontrado.
+     */
     @Override
-    public Usuario findById(Long id) {
-        Optional<Usuario> user = daoUsuario.findById(id);
-        return user.isPresent() ? user.get() : null;
+    public UsuarioResponseDto findById(Long id) {
+        return daoUsuario.findById(id)
+            .map(Usuario::toResponseDto)
+            .orElse(null);
     }
+
 
     @Override
     public Usuario findByLoginAndSenha(String login, String senha) {

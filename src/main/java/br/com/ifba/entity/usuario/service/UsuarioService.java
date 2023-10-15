@@ -98,14 +98,16 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioResponseDto findById(Long id) {
         return daoUsuario.findById(id)
             .map(Usuario::toResponseDto)
-            .orElse(null);
+            .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
+    
+
 
 
     @Override
-    public Usuario findByLoginAndSenha(String login, String senha) {
-        Optional<Usuario> user = daoUsuario.findByLoginAndSenha(login, senha);
-        return user.isPresent() ? user.get() : null;
+    public UsuarioResponseDto findByLoginAndSenha(String login, String senha) {
+        
+        return daoUsuario.findByLoginAndSenha(login, senha);
     }
 
 }

@@ -12,4 +12,5 @@ public interface IDaoUsuario extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findById(Long id);
     Optional<Usuario> findByLoginAndSenha(String login, String senha);
+    Optional<Usuario> findByLogin(String login);
 }

@@ -23,10 +23,11 @@ public interface IUsuarioService {
      */
     UsuarioResponseDto saveUsuario(Usuario usuario);
 
-    /**
-     * Deleta um Usuario da base de dados.
+      /**
+     * Deleta um Usuario.
      *
-     * @param usuario - O Usuario que será deletado da base de dados.
+     * @param id O ID do usuario a ser deletado.
+     * @return objeto DTO com os dados do usuario deletado.
      */
     UsuarioResponseDto deleteUsuario(Long id);
 
@@ -35,7 +36,7 @@ public interface IUsuarioService {
      *
      * @return uma lista de objetos DTO representando os usuários.
      */
-    List<UsuarioResponseDto> getAllUsuariosDto();
+    List<UsuarioResponseDto> getAllUsuarios();
 
     /**
      * Encontra um usuário pelo ID.

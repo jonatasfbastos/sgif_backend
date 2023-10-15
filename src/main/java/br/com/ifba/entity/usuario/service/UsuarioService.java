@@ -2,6 +2,7 @@ package br.com.ifba.entity.usuario.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -58,6 +59,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
 
+    /**
+     * Deleta um Usuario.
+     *
+     * @param id O ID do usuario a ser deletado.
+     * @return objeto DTO com os dados do usuario deletado.
+     */
     @Override
     public UsuarioResponseDto deleteUsuario(Long id) {
        
@@ -69,9 +76,17 @@ public class UsuarioService implements IUsuarioService {
         return usuario.toResponseDto();
     }
 
+    /**
+     * Obtém uma lista de todos os usuários como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os usuários.
+     */
     @Override
-    public List<Usuario> getAllUsuarios() {
-        return (List<Usuario>) this.daoUsuario.findAll();
+    public List<UsuarioResponseDto> getAllUsuarios() {
+        
+    return this.daoUsuario.findAll().stream()
+            .map(Usuario::toResponseDto)
+            .collect(Collectors.toList());
     }
 
     @Override

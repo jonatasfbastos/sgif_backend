@@ -28,7 +28,7 @@ public interface IUsuarioService {
      *
      * @param usuario - O Usuario que será deletado da base de dados.
      */
-    void deleteUsuario(Usuario usuario);
+    UsuarioResponseDto deleteUsuario(Usuario usuario);
 
     /**
      * Obtém uma lista de todos os usuários como objetos DTO.

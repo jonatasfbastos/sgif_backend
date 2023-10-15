@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.entity.usuario.dao.IDaoUsuario;
 import br.com.ifba.entity.usuario.dto.UsuarioRequestDto;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
@@ -18,7 +19,7 @@ import br.com.ifba.infrastructure.support.StringUtil;
 
 /**
  * @author Andesson Reis
- *         Desde V1.0.1
+ * Desde V1.0.1
  */
 @Service
 public class UsuarioService implements IUsuarioService {
@@ -58,13 +59,14 @@ public class UsuarioService implements IUsuarioService {
 
 
     @Override
-    public void deleteUsuario(Usuario usuario) {
-        if (usuario == null) {
-            throw new BusinessException(USUARIO_NULL);
-        } else {
-            this.daoUsuario.delete(usuario);
-            return;
-        }
+    public UsuarioResponseDto deleteUsuario(Long id) {
+       
+        Usuario usuario = daoUsuario.findById(id)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        daoUsuario.delete(usuario);
+
+        return usuario.toResponseDto();
     }
 
     @Override

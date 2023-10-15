@@ -76,6 +76,7 @@ public class UsuarioService implements IUsuarioService {
         return usuario.toResponseDto();
     }
 
+
     /**
      * Obtém uma lista de todos os usuários como objetos DTO.
      *
@@ -88,6 +89,8 @@ public class UsuarioService implements IUsuarioService {
             .map(Usuario::toResponseDto)
             .collect(Collectors.toList());
     }
+
+    
     /**
      * Encontra um usuário pelo ID.
      *
@@ -102,12 +105,20 @@ public class UsuarioService implements IUsuarioService {
     }
     
 
-
-
+    /**
+     * Encontra um usuário pelo login e senha.
+     *
+     * @param login - O login do usuário.
+     * @param senha - A senha do usuário.
+     * @return um objeto DTO com os dados resumidos do usuário encontrado.
+     */
     @Override
     public UsuarioResponseDto findByLoginAndSenha(String login, String senha) {
         
-        return daoUsuario.findByLoginAndSenha(login, senha);
+        return daoUsuario.findByLoginAndSenha(login, senha)
+                .map(Usuario::toResponseDto)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
     }
 
 }

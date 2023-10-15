@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.entity.usuario.dao.IDaoUsuario;
-import br.com.ifba.entity.usuario.dto.UsuarioRequestDto;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 import br.com.ifba.entity.usuario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +22,16 @@ import br.com.ifba.infrastructure.support.StringUtil;
  */
 @Service
 public class UsuarioService implements IUsuarioService {
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
     @Autowired
     private IDaoUsuario daoUsuario;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
 
     /**
      * Salva um Usuario na base de dados e retorna um objeto DTO com os dados
@@ -90,7 +95,7 @@ public class UsuarioService implements IUsuarioService {
             .collect(Collectors.toList());
     }
 
-    
+
     /**
      * Encontra um usuário pelo ID.
      *
@@ -102,8 +107,7 @@ public class UsuarioService implements IUsuarioService {
         return daoUsuario.findById(id)
             .map(Usuario::toResponseDto)
             .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-    }
-    
+    }    
 
     /**
      * Encontra um usuário pelo login e senha.

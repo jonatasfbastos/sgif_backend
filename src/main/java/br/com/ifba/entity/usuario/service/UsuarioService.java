@@ -55,39 +55,11 @@ public class UsuarioService implements IUsuarioService {
                 throw new BusinessException("O login já está em uso.");
             }
         }
-        //Todo: Provavelente adcionar mais validações
+        //Todo: Provavelente adicionar mais validações
 
         return usuario.toResponseDto();
     }
 
-}
-
-    /*
-     * if (usuario == null) {
-     * throw new BusinessException(USUARIO_NULL);
-     * }
-     * 
-     * // O usuario já existe e está atualizando o usuário
-     * Long id = usuario.getId();
-     * if (id != null) {
-     * Usuario oldUser = this.findById(usuario.getId());
-     * System.out.println("O usuario está sendo atualizado " + usuario.getId());
-     * // Busca o usuário salvo no banco para atualizar a senha somente se mudar
-     * 
-     * // Verifica se a senha foi atualizada
-     * if (oldUser.getSenha() != StringUtil.toMD5(usuario.getSenha())) {
-     * usuario.setSenha(StringUtil.toMD5(usuario.getSenha()));
-     * }
-     * } else {
-     * // O usuario está sendo inserido
-     * System.out.println("O usuario está sendo inserido");
-     * usuario.setSenha(StringUtil.toMD5(usuario.getSenha()));
-     * }
-     * 
-     * return daoUsuario.save(usuario);
-     */
-
-    }
 
     @Override
     public void deleteUsuario(Usuario usuario) {

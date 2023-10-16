@@ -14,8 +14,6 @@ import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.entity.perfilusuario.dao.IDaoPerfilUsuario;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
-import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
-import br.com.ifba.entity.usuario.model.Usuario;
 
 /**
  * Service que fornece operações relacionadas a perfis de usuário
@@ -51,14 +49,19 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
     }
 
     /**
+     * 
+     * @author Andesson Reis
+     * Desde V1.0.1
+     * 
      * Atualiza um perfil de usuário (Response DTO) na base de dados.
      *
-     * @param perfilUsuarioResponseDTO O perfil de usuário (Response DTO) a ser atualizado.
+     * @param perfilUsuarioResponseDTO O perfil de usuário (Response DTO) a ser
+     *                                 atualizado.
      * @return O perfil de usuário (Response DTO) atualizado.
      */
     @Override
     public PerfilUsuarioResponseDto updatePerfilDeUsuario(PerfilUsuario perfilUsuario) {
-    
+
         return daoPerfilUsuario.findById(perfilUsuario.getId())
                 .map(perfilUsuarioAtual -> {
                     perfilUsuarioAtual.setNome(perfilUsuario.getNome());
@@ -66,23 +69,29 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
                 })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-    
 
+    /**
+     * @author Andesson Reis
+     *Desde V1.0.1
+     *
+     *Deleta um perfil de usuário (Response DTO) da base de dados.
+     *
+     * @param Id id do perfil de usuário a ser deletado.
+     */
     @Override
-    public void deletePerfilUsuario(PerfilUsuario perfilDeUsuario) {
-        if (perfilDeUsuario == null) {
-            throw new BusinessException(USUARIO_NULL);
-        } else {
-            this.daoPerfilDeUsuario.delete(perfilDeUsuario);
-            return;
-        }
+    public PerfilUsuarioResponseDto deletePerfilUsuario(Long id) {
+        PerfilUsuario perfilUsuario = daoPerfilUsuario.findById(id)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        daoPerfilUsuario.delete(perfilUsuario);
+
+        return perfilUsuario.toResponseDto();
     }
 
     @Override
     public List<PerfilUsuario> getAllPerfilUsuario() {
         return (List<PerfilUsuario>) this.daoPerfilDeUsuario.findAll();
     }
-
 
     @Override
     public List<PerfilUsuario> findByNome(String name) {

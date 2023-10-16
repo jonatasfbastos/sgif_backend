@@ -3,12 +3,12 @@ package br.com.ifba.entity.formulario.service;
 import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.ifba.entity.formulario.dao.IDaoFormulario;
@@ -28,6 +28,9 @@ public class FormularioService implements IFormularioService {
 
     @Autowired
     private IDaoFormulario formularioDao;
+
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
     
     @Autowired
     private IDaoAvaliacao avaliacaoDao;
@@ -39,10 +42,12 @@ public class FormularioService implements IFormularioService {
 
     @Override
     public List<FormularioSimpleResponseDto> listarFormularios() {
-        return this.formularioDao.findAll()
-                .stream()
-                .map(Formulario::toSimpleResponseDto)
-                .collect(Collectors.toList());
+
+        return objectMapperUtil.mapAll(
+                this.formularioDao.findAll(),
+                FormularioSimpleResponseDto.class
+        );
+
     }
 
     /**
@@ -57,9 +62,12 @@ public class FormularioService implements IFormularioService {
     @Override
     public FormularioResponseDto encontrarFormularioPorId(Long id) {
 
-        return formularioDao.findById(id)
-                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()))
-                .toResponseDto();
+        return objectMapperUtil.map(
+                formularioDao.findById(id)
+                        .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())),
+                FormularioResponseDto.class
+        );
+
     }
 
     /**
@@ -67,14 +75,17 @@ public class FormularioService implements IFormularioService {
      * Desde V1.0.1
      * Salva um formulário na base de dados.
      *
-     * @param formulario - O formulário que será salvo na base de dados.
+     * @param formulario O formulário que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do formulário
      * salvo.
      */
     @Override
     public FormularioSimpleResponseDto salvarFormulario(Formulario formulario) {
 
-        return formularioDao.save(formulario).toSimpleResponseDto();
+        return objectMapperUtil.map(
+                this.formularioDao.save(formulario),
+                FormularioSimpleResponseDto.class
+        );
 
     }
 
@@ -92,7 +103,10 @@ public class FormularioService implements IFormularioService {
         formularioDao.findById(formulario.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
-        return formularioDao.save(formulario).toSimpleResponseDto();
+        return objectMapperUtil.map(
+                formularioDao.save(formulario),
+                FormularioSimpleResponseDto.class
+        );
     }
 
     /**
@@ -114,7 +128,7 @@ public class FormularioService implements IFormularioService {
 
         formularioDao.delete(formulario);
 
-        return formulario.toSimpleResponseDto();
+        return objectMapperUtil.map(formulario, FormularioSimpleResponseDto.class);
 
     }
 

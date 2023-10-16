@@ -1,17 +1,13 @@
 package br.com.ifba.entity.perfilusuario.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
-import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.entity.perfilusuario.dao.IDaoPerfilUsuario;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
@@ -39,6 +35,8 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
     // =========================================================== //
 
     /**
+     * @author Andesson Reis
+     * Desde V1.0.1
      * Salva um perfil de usuário (Response DTO) na base de dados.
      *
      * @param perfilUsuario perfil de usuário (Response DTO) a ser salvo.
@@ -46,7 +44,7 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
      */
     @Override
     public PerfilUsuarioResponseDto savePerfilUsuario(PerfilUsuario perfilUsuario) {
-        return daoPerfilDeUsuario.save()
+        return daoPerfilUsuario.save(perfilUsuario).toResponseDto();
     }
 
     /**
@@ -73,9 +71,9 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
     /**
      * @author Andesson Reis
-     *Desde V1.0.1
+     * Desde V1.0.1
      *
-     *Deleta um perfil de usuário (Response DTO) da base de dados.
+     * Deleta um perfil de usuário (Response DTO) da base de dados.
      *
      * @param Id id do perfil de usuário a ser deletado.
      */
@@ -88,9 +86,10 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
         return perfilUsuario.toResponseDto();
     }
-     /**
+
+    /**
      * @author Andesson Reis
-     *Desde V1.0.1
+     * Desde V1.0.1
      *
      * Obtém uma lista de todos os perfis de usuário (Response DTO).
      *
@@ -99,11 +98,17 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
     @Override
     public List<PerfilUsuarioResponseDto> getAllPerfilUsuario() {
         return this.daoPerfilUsuario.findAll().stream()
-            .map(PerfilUsuario::toResponseDto)
-            .collect(Collectors.toList());
+                .map(PerfilUsuario::toResponseDto)
+                .collect(Collectors.toList());
     }
-
-
+     /**
+     * @author Andesson Reis
+     * Desde V1.0.1
+     * Encontra perfis de usuário (Response DTO) pelo nome.
+     *
+     * @param name O nome a ser pesquisado.
+     * @return Uma lista de perfis de usuário (Response DTO) com o nome especificado.
+     */
     @Override
     public List<PerfilUsuario> findByNome(String name) {
         if (name == null) {
@@ -111,13 +116,19 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
         } else if (name.isEmpty()) {
             throw new BusinessException("Nome vazio");
         } else {
-            return daoPerfilDeUsuario.findByNome(name);
+            return daoPerfilUsuario.findByNome(name);
         }
     }
-
-    @Override
-    public List<PerfilUsuario> findPerfisByPermissaoId(Long id) {
-        return daoPerfilDeUsuario.findByPermissoesId(id);
-    }
-
+    /**
+     * Encontra perfis de usuário (Response DTO) por ID de permissão.
+     *
+     * @param id O ID da permissão a ser pesquisada.
+     * @return Uma lista de perfis de usuário (Response DTO) com a permissão especificada.
+     */
+    /*
+      @Override
+      public List<PerfilUsuario> findPerfisByPermissaoId(Long id) {
+      return daoPerfilDeUsuario.findByPermissoesId(id);
+      }
+    */
 }

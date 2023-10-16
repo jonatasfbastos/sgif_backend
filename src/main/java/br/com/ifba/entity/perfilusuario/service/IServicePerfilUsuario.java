@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 /**
  * Interface que define os serviços relacionados a perfis de usuários (Response DTOs).
  *
- * @author Igor Lopes
- * @author Eduarda
- * @edited by Andesson Reis
+ * @author Andesson Reis
  * @since V1.0.1
  */
 @Service
@@ -54,7 +52,7 @@ public interface IServicePerfilUsuario {
      * @param name O nome a ser pesquisado.
      * @return Uma lista de perfis de usuário (Response DTO) com o nome especificado.
      */
-    List<PerfilUsuarioResponseDto> findByNome(String name);
+    List<PerfilUsuario> findByNome(String name);
 
     /**
      * Encontra perfis de usuário (Response DTO) por ID de permissão.
@@ -62,5 +60,5 @@ public interface IServicePerfilUsuario {
      * @param id O ID da permissão a ser pesquisada.
      * @return Uma lista de perfis de usuário (Response DTO) com a permissão especificada.
      */
-    List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(Long id);
+   // List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(Long id);
 }

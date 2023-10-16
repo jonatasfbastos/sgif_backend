@@ -2,6 +2,7 @@ package br.com.ifba.entity.perfilusuario.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -87,11 +88,21 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
         return perfilUsuario.toResponseDto();
     }
-
+     /**
+     * @author Andesson Reis
+     *Desde V1.0.1
+     *
+     * Obtém uma lista de todos os perfis de usuário (Response DTO).
+     *
+     * @return Uma lista de perfis de usuário (Response DTO).
+     */
     @Override
-    public List<PerfilUsuario> getAllPerfilUsuario() {
-        return (List<PerfilUsuario>) this.daoPerfilDeUsuario.findAll();
+    public List<PerfilUsuarioResponseDto> getAllPerfilUsuario() {
+        return this.daoPerfilUsuario.findAll().stream()
+            .map(PerfilUsuario::toResponseDto)
+            .collect(Collectors.toList());
     }
+
 
     @Override
     public List<PerfilUsuario> findByNome(String name) {

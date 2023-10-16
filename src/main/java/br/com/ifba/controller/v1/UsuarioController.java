@@ -1,8 +1,6 @@
 package br.com.ifba.controller.v1;
 
 import br.com.ifba.controller.v1.util.ResultError;
-import br.com.ifba.entity.formulario.dto.FormularioRequestDto;
-import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.entity.usuario.dto.UsuarioRequestDto;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 import br.com.ifba.entity.usuario.model.Usuario;
@@ -29,7 +27,7 @@ import javax.validation.Valid;
  * 
  * 
  * @author Andesson reis
- *         Desde V1.0.1
+ * Desde V1.0.1
  */
 
 @RestController
@@ -42,7 +40,7 @@ public class UsuarioController {
     /**
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
-     * Obtém a lista de todos os usuários.
+     *Obtém a lista de todos os usuários.
      * 
      * @return Uma lista de usuários ou uma resposta de erro em caso de falha.
      * 
@@ -51,27 +49,31 @@ public class UsuarioController {
     @RequestMapping(path = "/usuarios", produces = "application/json")
     public ResponseEntity<?> getUsuarios() {
         try {
-            List<UsuarioResponseDto> usuarios = usuarioService.getAllUsuariosDto();
+            List<UsuarioResponseDto> usuarios = usuarioService.getAllUsuarios();
             return ResponseEntity.ok(usuarios);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResultError.getResultErrors(null));
         }
     }
-    
 
+     /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     *Obtém um usuário.
+     * 
+     * @return Um usuário ou uma resposta de erro em caso de falha.
+     * 
+     * @author Andesson Reis
+     */
     @RequestMapping(path = "/usuario/{id}")
-    public ResponseEntity<?> getUsuario(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponseDto> getUsuario(@Valid @PathVariable Long id) {
         try {
             UsuarioResponseDto usuario = usuarioService.findById(id);
             return ResponseEntity.ok(usuario);
         } catch (NoSuchElementException e) {
-            HashMap<String, String> erro = new HashMap<>();
-            erro.put("error", "Usuário não encontrado");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } catch (Exception e) {
-            HashMap<String, String> erro = new HashMap<>();
-            erro.put("error", "Não foi possível obter o usuário.");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
@@ -80,7 +82,7 @@ public class UsuarioController {
      *
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
-     *          Salva um Usuario.
+     * Salva um Usuario.
      * @return uma entidade de resposta generica.
      */
 

@@ -6,10 +6,14 @@ import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.entity.formulario.service.IFormularioService;
 
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,16 +48,31 @@ public class FormularioController {
 
     /**
      * @author Giovane Neves
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Lista todos os formulários cadastrados na base de dados.
+     * @return uma entidade de resposta genérica.
+     */
+    @GetMapping(path = "/formularios", consumes="application/json")
+    public ResponseEntity<?> listarFormularios(){
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(formularioService.listarFormularios());
+
+    }
+
+    /**
+     * @author Giovane Neves
      * @apiNote  Endpoint criado desde a versão 1.0.1
      *
      * Procura um formulário na base de dados pelo ID passado
      * como parâmetro da requisição.
-     * @return um entidade de resposta generica.
+     * @return uma entidade de resposta generica.
      */
     @GetMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
     public ResponseEntity<?> encontrarFormularioPorId(@PathVariable("id") Long id){
 
-        return ResponseEntity.status(HttpStatus.FOUND)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(formularioService.encontrarFormularioPorId(id));
 
     }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.support.StringUtil;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
  * @author Andesson Reis
@@ -29,6 +30,9 @@ public class UsuarioService implements IUsuarioService {
     @Autowired
     private IDaoUsuario daoUsuario;
 
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
@@ -41,26 +45,15 @@ public class UsuarioService implements IUsuarioService {
      * @return um objeto DTO com os dados resumidos do usuario salvo.
      */
 
-    @Override
+   @Override
     public UsuarioResponseDto saveUsuario(@Valid Usuario usuario) {
+
         usuario.setPassword(StringUtil.toMD5(usuario.getPassword()));
 
-        // Verifica se o login(username) do usuário já existe no banco de dados
-        Optional<Usuario> usuarioExistente = daoUsuario.findByLogin(usuario.getLogin());
-
-        if (usuarioExistente.isPresent()) {
-            // O usuário já existe
-            if (usuario.getId() != null) {
-                // O usuário já existe e está sendo atualizado
-                throw new BusinessException(BusinessExceptionMessage.LOGIN_ALREADY_IN_USE.getMensagem());
-            } else {
-                // O usuário já existe e está sendo inserido
-                throw new BusinessException("O login já está em uso.");
-            }
-        }
-        //Todo: Provavelente adicionar mais validações
-
-        return usuario.toResponseDto();
+        return objectMapperUtil.map(
+            daoUsuario.save(usuario),
+            UsuarioResponseDto.class
+        );
     }
 
 
@@ -72,15 +65,15 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public UsuarioResponseDto deleteUsuario(Long id) {
-       
+    
         Usuario usuario = daoUsuario.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-
+    
         daoUsuario.delete(usuario);
-
-        return usuario.toResponseDto();
+    
+        return objectMapperUtil.map(usuario, UsuarioResponseDto.class);
     }
-
+    
 
     /**
      * Obtém uma lista de todos os usuários como objetos DTO.
@@ -89,12 +82,12 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public List<UsuarioResponseDto> getAllUsuarios() {
-        
-    return this.daoUsuario.findAll().stream()
-            .map(Usuario::toResponseDto)
-            .collect(Collectors.toList());
+    
+        return daoUsuario.findAll().stream()
+                .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
+                .collect(Collectors.toList());
     }
-
+    
 
     /**
      * Encontra um usuário pelo ID.
@@ -104,10 +97,11 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public UsuarioResponseDto findById(Long id) {
+
         return daoUsuario.findById(id)
-            .map(Usuario::toResponseDto)
+            .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
             .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-    }    
+    }   
 
     /**
      * Encontra um usuário pelo login e senha.
@@ -118,11 +112,11 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public UsuarioResponseDto findByLoginAndSenha(String login, String senha) {
-        
+    
         return daoUsuario.findByLoginAndSenha(login, senha)
-                .map(Usuario::toResponseDto)
+                .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-
-    }
+    
+    }    
 
 }

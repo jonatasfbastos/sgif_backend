@@ -4,10 +4,13 @@ import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioRequestDto;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.permissao.model.Permissao;
+import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -17,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Esta classe representa um perfil de usuário.
@@ -44,9 +46,8 @@ public class PerfilUsuario extends PersistenceEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Permissao> permissoes;
 
-    // @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.LAZY, cascade = {
-    // CascadeType.PERSIST, CascadeType.MERGE })
-    // private List<Usuario> usuarios;
+    @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE })
+    private List<UsuarioResponseDto> usuarios;
 
 
     public PerfilUsuario(String nome, String descricao) {

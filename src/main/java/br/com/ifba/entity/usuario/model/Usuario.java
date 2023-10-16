@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
@@ -92,6 +93,21 @@ public class Usuario extends PersistenceEntity {
         );
     
         return new UsuarioResponseDto(this.login, this.password, perfilDto);
+    }
+
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     *
+     * Cria um objeto de resposta DTO simples para ser enviado no ResponseBody
+     * das requisições direcionada à entidade 'Usuario'.
+     *
+     * @return um objeto UsuarioSimpleResponseDto com dados do formulário.
+     */
+    public UsuarioSimpleResponseDto toSimpleResponseDto(){
+
+         return new UsuarioSimpleResponseDto(this.login);
+
     }
     
 

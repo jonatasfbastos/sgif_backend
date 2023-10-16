@@ -5,6 +5,7 @@ import br.com.ifba.entity.formulario.dto.FormularioRequestDto;
 import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.entity.formulario.service.IFormularioService;
 
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,9 @@ public class FormularioController {
 
     @Autowired
     IFormularioService formularioService;
+
+    @Autowired
+    ObjectMapperUtil objectMapperUtil;
 
     // =========================================================== //
     // =============== [        ENDPOINTS       ] ================ //
@@ -66,7 +70,7 @@ public class FormularioController {
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.CREATED).body(formularioService.salvarFormulario(Formulario.fromRequestDto(formDto)));
+                : ResponseEntity.status(HttpStatus.CREATED).body(formularioService.salvarFormulario(objectMapperUtil.map(formDto, Formulario.class)));
     }
 
     /**
@@ -81,7 +85,7 @@ public class FormularioController {
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.OK).body(formularioService.atualizarFormulario(Formulario.fromRequestDto(formDto)));
+                : ResponseEntity.status(HttpStatus.OK).body(formularioService.atualizarFormulario(objectMapperUtil.map(formDto, Formulario.class)));
 
     }
 

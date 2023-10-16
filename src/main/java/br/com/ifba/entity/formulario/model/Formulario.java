@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.com.ifba.entity.formulario.dto.FormularioRequestDto;
-import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.questao.model.Questao;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 
@@ -26,7 +24,6 @@ import java.util.stream.Collectors;
  * uma descrição e uma lista de questões associadas.
  *
  * Veja também: {@link br.com.ifba.entity.questao.model.Questao}
- * Veja também: {@link br.com.ifba.entity.formulario.dto.FormularioRequestDto}
  *
  */
 @Entity(name = "formulario")
@@ -64,40 +61,5 @@ public class Formulario extends PersistenceEntity implements Serializable{
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
-
-    /**
-     *
-     * @author Giovane Neves
-     *
-     * Fábrica de objeto Formulario.
-     *
-     * @param formDto - O objeto de transferência com dados do formulário;
-     * @return um objeto Formulário.
-     */
-    public static Formulario fromRequestDto(FormularioRequestDto formDto){
-
-        return new Formulario(
-                formDto.titulo(),
-                formDto.descricao(),
-                formDto.questoes().stream()
-                        .map(Questao::fromRequestDto)
-                        .collect(Collectors.toList())
-        );
-
-    }
-
-    /**
-     * @author Giovane Neves
-     *
-     * Cria um objeto de resposta DTO para ser enviado no ResponseBody
-     * das requisições direcionada à entidade 'Formulário'.
-     *
-     * @return um objeto FormularioResponseDto com dados do formulário.
-     */
-    public FormularioResponseDto toResponseDto(){
-
-        return new FormularioResponseDto(this.titulo, this.descricao);
-
-    }
 
 }

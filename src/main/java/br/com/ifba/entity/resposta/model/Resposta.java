@@ -8,11 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.ifba.entity.resposta.dto.RespostaRequestDto;
 import br.com.ifba.entity.usuario.model.Usuario;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.questao.model.Questao;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Entidade que representa as resposta dos enunciados do formulário.
@@ -23,8 +26,14 @@ import lombok.EqualsAndHashCode;
 @Entity(name = "resposta")
 @Table(name = "respostas")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Resposta extends PersistenceEntity implements Serializable{
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
     /**
      * O conteúdo da resposta, não pode ser nulo.
@@ -46,4 +55,9 @@ public class Resposta extends PersistenceEntity implements Serializable{
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "ID")
     private Usuario usuario;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+
 }

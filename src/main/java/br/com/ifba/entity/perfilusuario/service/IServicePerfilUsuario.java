@@ -1,24 +1,65 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package br.com.ifba.entity.perfilusuario.service;
 
 import java.util.List;
 
-import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
+import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
+
+import org.springframework.stereotype.Service;
 
 /**
+ * Interface que define os serviços relacionados a perfis de usuários (Response DTOs).
  *
- * @author Igor Lopes e Eduarda
+ * @author Igor Lopes
+ * @author Eduarda
+ * @edited by Andesson Reis
+ * @since V1.0.1
  */
+@Service
 public interface IServicePerfilUsuario {
 
-    PerfilUsuario savePerfilUsuario(PerfilUsuario perfilDeUsuario);
-    PerfilUsuario updatePerfilDeUsuario(PerfilUsuario perfilDeUsuario);
-    void deletePerfilUsuario(PerfilUsuario perfilDeUsuario);
-    List<PerfilUsuario> getAllPerfilUsuario();
-    List<PerfilUsuario> findByNome(String name);
-    List<PerfilUsuario> findPerfisByPermissaoId(Long id);
+    /**
+     * Salva um perfil de usuário (Response DTO) na base de dados.
+     *
+     * @param perfilUsuarioResponseDTO O perfil de usuário (Response DTO) a ser salvo.
+     * @return O perfil de usuário (Response DTO) salvo.
+     */
+    PerfilUsuarioResponseDto savePerfilUsuario(PerfilUsuarioResponseDto perfilUsuarioResponseDTO);
 
+    /**
+     * Atualiza um perfil de usuário (Response DTO) na base de dados.
+     *
+     * @param perfilUsuarioResponseDTO O perfil de usuário (Response DTO) a ser atualizado.
+     * @return O perfil de usuário (Response DTO) atualizado.
+     */
+    PerfilUsuarioResponseDto updatePerfilDeUsuario(PerfilUsuarioResponseDto perfilUsuarioResponseDTO);
+
+    /**
+     * Deleta um perfil de usuário (Response DTO) da base de dados.
+     *
+     * @param Id id do perfil de usuário a ser deletado.
+     */
+    PerfilUsuarioResponseDto deletePerfilUsuario(Long ID);
+
+    /**
+     * Obtém uma lista de todos os perfis de usuário (Response DTO).
+     *
+     * @return Uma lista de perfis de usuário (Response DTO).
+     */
+    List<PerfilUsuarioResponseDto> getAllPerfilUsuario();
+
+    /**
+     * Encontra perfis de usuário (Response DTO) pelo nome.
+     *
+     * @param name O nome a ser pesquisado.
+     * @return Uma lista de perfis de usuário (Response DTO) com o nome especificado.
+     */
+    List<PerfilUsuarioResponseDto> findByNome(String name);
+
+    /**
+     * Encontra perfis de usuário (Response DTO) por ID de permissão.
+     *
+     * @param id O ID da permissão a ser pesquisada.
+     * @return Uma lista de perfis de usuário (Response DTO) com a permissão especificada.
+     */
+    List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(Long id);
 }

@@ -1,12 +1,12 @@
 package br.com.ifba.entity.formulario.service;
 
 import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
-import br.com.ifba.entity.avaliacao.model.Avaliacao;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
+import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.formulario.model.Formulario;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +36,35 @@ public class FormularioService implements IFormularioService {
     // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
 
+
     @Override
-    public List<FormularioResponseDto> listarFormularios() {
+    public List<FormularioSimpleResponseDto> listarFormularios() {
         return this.formularioDao.findAll()
                 .stream()
-                .map(Formulario::toResponseDto)
+                .map(Formulario::toSimpleResponseDto)
                 .collect(Collectors.toList());
     }
 
     /**
+     * @author Giovane Neves
+     * Desde V1.0.1
      *
+     * Encontra um formulário pelo ID passado por parâmetro.
+     *
+     * @param id O ID do formulário a ser buscado na base de dados.
+     * @return os dados do formulário atrelados àquele ID.
+     */
+    @Override
+    public FormularioResponseDto encontrarFormularioPorId(Long id) {
+
+        return formularioDao.findById(id)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()))
+                .toResponseDto();
+    }
+
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
      * Salva um formulário na base de dados.
      *
      * @param formulario - O formulário que será salvo na base de dados.
@@ -53,35 +72,40 @@ public class FormularioService implements IFormularioService {
      * salvo.
      */
     @Override
-    public FormularioResponseDto salvarFormulario(Formulario formulario) {
+    public FormularioSimpleResponseDto salvarFormulario(Formulario formulario) {
 
-        return formularioDao.save(formulario).toResponseDto();
+        return formularioDao.save(formulario).toSimpleResponseDto();
 
     }
 
     /**
+     * @author Giovane Neves
+     * Desde V1.0.1
      * Atualiza um formulário existente na base de dados.
      *
      * @param formulario - O formulário que será atualizado.
      * @return dados do formulário atualizado.
      */
     @Override
-    public FormularioResponseDto atualizarFormulario(Formulario formulario) {
+    public FormularioSimpleResponseDto atualizarFormulario(Formulario formulario) {
 
         formularioDao.findById(formulario.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
-        return formularioDao.save(formulario).toResponseDto();
+        return formularioDao.save(formulario).toSimpleResponseDto();
     }
 
     /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     *
      * Deleta um formulário.
      *
      * @param id O ID do formulário a ser deletado.
      * @return objeto DTO com os dados do formulário deletado.
      */
     @Override
-    public FormularioResponseDto deletarFormularioPorId(Long id) {
+    public FormularioSimpleResponseDto deletarFormularioPorId(Long id) {
 
         Formulario formulario = formularioDao.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
@@ -90,14 +114,10 @@ public class FormularioService implements IFormularioService {
 
         formularioDao.delete(formulario);
 
-        return formulario.toResponseDto();
+        return formulario.toSimpleResponseDto();
 
     }
 
-    @Override
-    public Formulario encontrarFormularioPorId(Long id) {
-        return formularioDao.getReferenceById(id);
-    }
 
     @Override
     public List<Formulario> encontrarFormularioPorTitulo(String titulo) {

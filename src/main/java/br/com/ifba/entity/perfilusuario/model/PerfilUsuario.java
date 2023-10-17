@@ -74,35 +74,4 @@ public class PerfilUsuario extends PersistenceEntity {
     // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
 
-    /**
-     *
-     * @author Andesson reis
-     *
-     * Fábrica de objeto PerfilUsuario.
-     *
-     * @param perfilUsuarioDto - O objeto de transferência com dados do Perfil Usuario;
-     * @return um objeto PerfilUsuario.
-     */
-    public static PerfilUsuario fromRequestDto(PerfilUsuarioRequestDto perfilUsuarioDto){
-
-        return new PerfilUsuario(
-                perfilUsuarioDto.nome(),
-                perfilUsuarioDto.descricao()
-        );
-
-    }
-
-    /**
-     * @author Andesson Reis
-     *
-     * Cria um objeto de resposta DTO para ser enviado no ResponseBody
-     * das requisições direcionada à entidade 'PerfilUsuario'.
-     *
-     * @return um objeto PerfilUsuarioResponseDto com dados do formulário.
-     */
-    public PerfilUsuarioResponseDto toResponseDto(){
-
-        return new PerfilUsuarioResponseDto(this.nome, this.descricao);
-    }
-
 }

@@ -10,7 +10,7 @@ import br.com.ifba.infrastructure.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServiceCurso implements IServiceCurso{
+public class CursoService implements ICursoService {
     
     //-_-_-_-_-_-_-_-_-_- CONSTANTES -_-_-_-_-_-_-_-_-_-
     

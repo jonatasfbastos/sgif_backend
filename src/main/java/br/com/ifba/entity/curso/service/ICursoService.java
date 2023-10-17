@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.entity.curso.model.Curso;
 
 @Service
-public interface IServiceCurso {
+public interface ICursoService {
     
     public abstract Curso saveCurso(Curso curso);
     

@@ -76,6 +76,22 @@ public class UsuarioController {
                 .body(usuarioService.findById(id));
     }
 
+     /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Obtém um usuario por login(username) e senha.
+     * 
+     * @return Uma lista um usuário ou uma resposta de erro em caso de falha.
+     * 
+     * @author Andesson Reis
+     */
+    @GetMapping(path = "/usuarios/login", consumes = "application/json")
+    public ResponseEntity<?> getUsuarioByLoginAndSenha(@PathVariable("login") String login, @PathVariable("senha") String senha) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(usuarioService.findByLoginAndSenha(login, senha));
+    }
+
     /**
      * @author Andesson Reis
      *

@@ -28,21 +28,36 @@ import java.util.List;
  * @edited by tarciiz
  * @edited by Andesson Reis
  * 
+ * @since V1.0.1
+ * 
+ * Veja também: {@link br.com.ifba.entity.usuario}
  */
-@Entity
-@Table(name = "perfilusuario")
+@Entity(name = "perfilusuario")
+@Table(name = "perfilusuarios")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class PerfilUsuario extends PersistenceEntity {
-
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+    
+    /**
+     * O nome de usuário do perfil.
+     */
     @NotBlank(message = "O nome do perfil não pode ser vazio.")
     private String nome;
 
+    /**
+     * Descrição do usuario
+     */
     @NotBlank(message = "A descrição do perfil não pode ser vazia.")
     private String descricao;
 
+     /**
+     *Permissões do usuario
+     */
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Permissao> permissoes;
 
@@ -55,6 +70,9 @@ public class PerfilUsuario extends PersistenceEntity {
         this.descricao = descricao;
     }
 
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
 
     /**
      *

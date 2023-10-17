@@ -19,17 +19,26 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
+ * @author Andesson Reis
+ * @since V1.0.1
+ * 
  * Esta classe, descendente da classe Pessoa, representa um usuario.
  * Nenhum dos atributos desta classes pode ser nulo.
+ * 
+ *  Veja também: {@link br.com.ifba.entity.perfilusuario}
  */
 
-@Entity
-@Table(name = "usuario")
+@Entity(name = "usuario")
+@Table(name = "usuarios")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Usuario extends PersistenceEntity {
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
     /**
      * O nome de usuário do usuário. Não pode ser nulo.
@@ -52,6 +61,11 @@ public class Usuario extends PersistenceEntity {
     @JoinColumn(name = "perfil_usuario_id", referencedColumnName = "ID")
     @JsonIgnoreProperties("usuarios")
     private PerfilUsuario perfilUsuario;
+
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
 
     /**
      * @author Giovane Neves

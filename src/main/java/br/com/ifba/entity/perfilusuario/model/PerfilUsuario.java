@@ -1,8 +1,6 @@
 package br.com.ifba.entity.perfilusuario.model;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioRequestDto;
-import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.permissao.model.Permissao;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 

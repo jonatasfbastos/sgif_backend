@@ -40,25 +40,27 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
     /**
      * @author Andesson Reis
-     *         Desde V1.0.1
-     *         Salva um perfil de usuário (Response DTO) na base de dados.
+     * Desde V1.0.1
+     * 
+     *Salva um perfil de usuário (Response DTO) na base de dados.
      *
      * @param perfilUsuario perfil de usuário (Response DTO) a ser salvo.
+     * 
      * @return O perfil de usuário (Response DTO) salvo.
      */
     @Override
     public PerfilUsuarioResponseDto savePerfilUsuario(PerfilUsuario perfilUsuario) {
         return objectMapperUtil.map(
-            daoPerfilUsuario.save(perfilUsuario),
-            PerfilUsuarioResponseDto.class);
+                daoPerfilUsuario.save(perfilUsuario),
+                PerfilUsuarioResponseDto.class);
     }
 
     /**
      * 
      * @author Andesson Reis
-     *         Desde V1.0.1
+     * Desde V1.0.1
      * 
-     *         Atualiza um perfil de usuário (Response DTO) na base de dados.
+     * Atualiza um perfil de usuário (Response DTO) na base de dados.
      *
      * @param perfilUsuarioResponseDTO O perfil de usuário (Response DTO) a ser
      *                                 atualizado.
@@ -67,19 +69,19 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
     @Override
     public PerfilUsuarioResponseDto updatePerfilDeUsuario(PerfilUsuario perfilUsuario) {
 
-        return daoPerfilUsuario.findById(perfilUsuario.getId())
-                .map(perfilUsuarioAtual -> {
-                    perfilUsuarioAtual.setNome(perfilUsuario.getNome());
-                    return daoPerfilUsuario.save(perfilUsuarioAtual).toResponseDto();
-                })
+        daoPerfilUsuario.findById(perfilUsuario.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                daoPerfilUsuario.save(perfilUsuario),
+                PerfilUsuarioResponseDto.class);
     }
 
     /**
      * @author Andesson Reis
-     *         Desde V1.0.1
+     * Desde V1.0.1
      *
-     *         Deleta um perfil de usuário (Response DTO) da base de dados.
+     * Deleta um perfil de usuário (Response DTO) da base de dados.
      *
      * @param Id id do perfil de usuário a ser deletado.
      */
@@ -90,43 +92,43 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
         daoPerfilUsuario.delete(perfilUsuario);
 
-        return ObjectMapperUtil.map(perfilUsuario, 
-            PerfilUsuarioResponseDto.class);
+        return objectMapperUtil.map(perfilUsuario,
+                PerfilUsuarioResponseDto.class);
     }
 
     /**
      * @author Andesson Reis
-     *         Desde V1.0.1
+     * Desde V1.0.1
      *
-     *         Obtém uma lista de todos os perfis de usuário (Response DTO).
+     * Obtém uma lista de todos os perfis de usuário (Response DTO).
      *
      * @return Uma lista de perfis de usuário (Response DTO).
      */
     @Override
     public List<PerfilUsuarioResponseDto> getAllPerfilUsuario() {
-        return this.daoPerfilUsuario.findAll().stream()
-                .map(PerfilUsuario::toResponseDto)
+           return daoPerfilUsuario.findAll().stream()
+                .map(objectMapperUtil.mapFn(PerfilUsuarioResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     /**
      * @author Andesson Reis
-     *         Desde V1.0.1
-     *         Encontra perfis de usuário (Response DTO) pelo nome.
+     * Desde V1.0.1
+     * 
+     * Encontra perfis de usuário (Response DTO) pelo nome.
      *
      * @param name O nome a ser pesquisado.
      * @return Uma lista de perfis de usuário (Response DTO) com o nome
      *         especificado.
      */
     @Override
-    public List<PerfilUsuario> findByNome(String name) {
-        if (name == null) {
-            throw new BusinessException("Nome null");
-        } else if (name.isEmpty()) {
-            throw new BusinessException("Nome vazio");
-        } else {
-            return daoPerfilUsuario.findByNome(name);
-        }
+    public List<PerfilUsuarioResponseDto> findByNome(String name) {
+        
+        return daoPerfilUsuario.findByNome(name)
+        .stream()
+        .map(objectMapperUtil.mapFn(PerfilUsuarioResponseDto.class))
+                .collect(Collectors.toList());
+    
     }
     /**
      * Encontra perfis de usuário (Response DTO) por ID de permissão.

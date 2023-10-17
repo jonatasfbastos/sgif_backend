@@ -52,7 +52,7 @@ public interface IServicePerfilUsuario {
      * @param name O nome a ser pesquisado.
      * @return Uma lista de perfis de usuário (Response DTO) com o nome especificado.
      */
-    List<PerfilUsuario> findByNome(String name);
+    List<PerfilUsuarioResponseDto> findByNome(String name);
 
     /**
      * Encontra perfis de usuário (Response DTO) por ID de permissão.

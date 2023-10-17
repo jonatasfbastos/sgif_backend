@@ -40,6 +40,13 @@ public class FormularioService implements IFormularioService {
     // =========================================================== //
 
 
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     *
+     * Lista todos os formulários da base de dados.
+     * @return uma lista com todos os formulário na base de dados.
+     */
     @Override
     public List<FormularioSimpleResponseDto> listarFormularios() {
 
@@ -130,17 +137,5 @@ public class FormularioService implements IFormularioService {
 
         return objectMapperUtil.map(formulario, FormularioSimpleResponseDto.class);
 
-    }
-
-
-    @Override
-    public List<Formulario> encontrarFormularioPorTitulo(String titulo) {
-        if (titulo == null) {
-            throw new BusinessException("Dados do titulo nao preenchidos");
-        } else if (titulo.isEmpty()) {
-            throw new BusinessException("O Campo titulo esta vazio");
-        } else {
-            return formularioDao.findByTitulo(titulo);
-        }
     }
 }

@@ -8,6 +8,13 @@ import br.com.ifba.entity.formulario.model.Formulario;
 
 public interface IFormularioService {
 
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     *
+     * Lista todos os formulários da base de dados.
+     * @return uma lista com todos os formulário na base de dados.
+     */
     List<FormularioSimpleResponseDto> listarFormularios();
 
     /**
@@ -54,10 +61,5 @@ public interface IFormularioService {
      * @return objeto DTO com os dados do formulário deletado.
      */
     FormularioSimpleResponseDto deletarFormularioPorId(Long id);
-
-
-
-    // MÃ©todo que retorna a lista com os Formularios com o nome informado
-    List<Formulario> encontrarFormularioPorTitulo(String titulo);
     
 }

@@ -25,7 +25,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * 
  * 
  * @author Andesson reis
- *         Desde V1.0.1
+ * Desde V1.0.1
  */
 
 @RestController
@@ -61,6 +61,25 @@ public class PerfilUsuarioController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(perfilUsuarioService.getAllPerfilUsuario());
+    }
+
+
+    /**
+     * @author Andesson Reis
+     * Desde V1.0.1
+     * 
+     * Encontra perfis de usuário (Response DTO) pelo nome.
+     *
+     * @param name O nome a ser pesquisado.
+     * @return Uma lista de perfis de usuário (Response DTO) com o nome especificado ou uma resposta de erro em caso de falha
+     *        
+     */
+    @GetMapping(path = "/perfilUsuarios/login", consumes = "application/json")
+    public ResponseEntity<?> getPerfilUsuariosPorNome(@PathVariable String nome) {
+        
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(perfilUsuarioService.findByNome(nome));
+   
     }
 
       /**

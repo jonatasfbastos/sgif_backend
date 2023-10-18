@@ -58,9 +58,9 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
     /**
      * 
      * @author Andesson Reis
-     * Desde V1.0.1
+     *         Desde V1.0.1
      * 
-     * Atualiza um perfil de usuário (Response DTO) na base de dados.
+     *         Atualiza um perfil de usuário (Response DTO) na base de dados.
      *
      * @param perfilUsuarioResponseDTO O perfil de usuário (Response DTO) a ser
      *                                 atualizado.
@@ -79,9 +79,9 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
     /**
      * @author Andesson Reis
-     * Desde V1.0.1
+     *         Desde V1.0.1
      *
-     * Deleta um perfil de usuário (Response DTO) da base de dados.
+     *         Deleta um perfil de usuário (Response DTO) da base de dados.
      *
      * @param Id id do perfil de usuário a ser deletado.
      */
@@ -98,9 +98,9 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
 
     /**
      * @author Andesson Reis
-     * Desde V1.0.1
+     *         Desde V1.0.1
      *
-     * Obtém uma lista de todos os perfis de usuário (Response DTO).
+     *         Obtém uma lista de todos os perfis de usuário (Response DTO).
      *
      * @return Uma lista de perfis de usuário (Response DTO).
      */

@@ -3,6 +3,7 @@ package br.com.ifba.entity.usuario.service;
 import java.util.List;
 
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
+import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
 import br.com.ifba.entity.usuario.model.Usuario;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public interface IUsuarioService {
      * @param usuario - O Usuario que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do usuario salvo.
      */
-    UsuarioResponseDto saveUsuario(Usuario usuario);
+    UsuarioSimpleResponseDto saveUsuario(Usuario usuario);
 
       /**
      * Deleta um Usuario.
@@ -29,14 +30,14 @@ public interface IUsuarioService {
      * @param id O ID do usuario a ser deletado.
      * @return objeto DTO com os dados do usuario deletado.
      */
-    UsuarioResponseDto deleteUsuario(Long id);
+    UsuarioSimpleResponseDto deleteUsuario(Long id);
 
     /**
      * Obtém uma lista de todos os usuários como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os usuários.
      */
-    List<UsuarioResponseDto> getAllUsuarios();
+    List<UsuarioSimpleResponseDto> getAllUsuarios();
 
     /**
      * Encontra um usuário pelo ID.

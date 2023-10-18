@@ -23,8 +23,6 @@ public record UsuarioResponseDto(
             String login,
             /**
              * A senha do usuário.
-             * AVISO: A senha será removida ou criptografada posteriormente por motivos de
-             * segurança.
              */
             @JsonProperty(value = "senha") 
             String senha,

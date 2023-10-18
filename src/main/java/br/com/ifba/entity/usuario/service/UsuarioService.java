@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import br.com.ifba.entity.usuario.dao.IDaoUsuario;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
+import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
 import br.com.ifba.entity.usuario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,13 +46,13 @@ public class UsuarioService implements IUsuarioService {
      */
 
    @Override
-    public UsuarioResponseDto saveUsuario(@Valid Usuario usuario) {
+    public UsuarioSimpleResponseDto saveUsuario(@Valid Usuario usuario) {
 
         usuario.setPassword(StringUtil.toMD5(usuario.getPassword()));
 
         return objectMapperUtil.map(
             daoUsuario.save(usuario),
-            UsuarioResponseDto.class
+            UsuarioSimpleResponseDto.class
         );
     }
 
@@ -63,14 +64,14 @@ public class UsuarioService implements IUsuarioService {
      * @return objeto DTO com os dados do usuario deletado.
      */
     @Override
-    public UsuarioResponseDto deleteUsuario(Long id) {
+    public UsuarioSimpleResponseDto deleteUsuario(Long id) {
     
         Usuario usuario = daoUsuario.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     
         daoUsuario.delete(usuario);
     
-        return objectMapperUtil.map(usuario, UsuarioResponseDto.class);
+        return objectMapperUtil.map(usuario, UsuarioSimpleResponseDto.class);
     }
     
 
@@ -80,10 +81,10 @@ public class UsuarioService implements IUsuarioService {
      * @return uma lista de objetos DTO representando os usuários.
      */
     @Override
-    public List<UsuarioResponseDto> getAllUsuarios() {
+    public List<UsuarioSimpleResponseDto> getAllUsuarios() {
     
         return daoUsuario.findAll().stream()
-                .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
+                .map(objectMapperUtil.mapFn(UsuarioSimpleResponseDto.class))
                 .collect(Collectors.toList());
     }
     

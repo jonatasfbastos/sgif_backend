@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,10 +48,10 @@ public class PerfilUsuarioController {
     /**
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
-     *          Obtém a lista de todos os Perfis de usuários.
+     * Obtém a lista de todos os Perfis de usuários.
      * 
-     * @return Uma lista de perfis de usuários ou uma resposta de erro em caso de
-     *         falha.
+     * @return Uma lista de perfis de usuários ou uma resposta de erro em caso de falha.
+     *         
      * 
      * @author Andesson Reis
      */
@@ -60,6 +61,23 @@ public class PerfilUsuarioController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(perfilUsuarioService.getAllPerfilUsuario());
+    }
+
+      /**
+     * @author Andesson Reis
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Atualiza um perfil de usuario.
+     * @return uma entidade de resposta generica.
+     */
+    @PutMapping(path = "/perfilUsuarios/perfilUsuario", consumes = "application/json")
+    public ResponseEntity<?> atualizarPerfilUsuario(@RequestBody PerfilUsuarioRequestDto perfilUsuarioDto, BindingResult result){
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.OK).body(perfilUsuarioService
+                .updatePerfilDeUsuario(objectMapperUtil.map(perfilUsuarioDto, PerfilUsuario.class)));
+
     }
 
     /**
@@ -83,7 +101,6 @@ public class PerfilUsuarioController {
 
     }
 
-
      /**
      * @author Andesson Reis
      * @apiNote Endpoint criado desde a versão 1.0.1
@@ -92,7 +109,7 @@ public class PerfilUsuarioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/perfilUsuarios/perfilUsuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> delataPerfilUsuarioId(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletaPerfilUsuarioId(@PathVariable("id") Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(perfilUsuarioService.deletePerfilUsuario(id));

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
+import br.com.ifba.entity.permissaolink.dto.PermissaoLinkResponseDto;
 
 /**
  * Classe de transferência de dados (DTO) para representar dados de resposta relacionados à entidade "Permissão".
@@ -55,12 +56,12 @@ public record PermissaoResponseDto(
          * Lista de perfis de usuário associados à permissão.
          */
         @JsonProperty(value = "perfis")
-        List<PerfilUsuarioResponseDto> perfis
+        List<PerfilUsuarioResponseDto> perfis,
 
         /**
          * Lista de links associados à permissão.
          */
-       // @JsonProperty(value = "links")
-        //List<PermissaoLinkResponseDto> links
+        @JsonProperty(value = "links")
+        List<PermissaoLinkResponseDto> links
 ) {
 }

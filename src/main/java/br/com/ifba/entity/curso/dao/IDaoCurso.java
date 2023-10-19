@@ -50,4 +50,14 @@ public interface IDaoCurso extends JpaRepository<Curso, Long>{
      */
     boolean existsById(UUID id);
 
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     * <p>
+     * Deleta o curso na base de dados atrelado ao id
+     * passado por parâmetro.
+     * @param id O ID do curso a ser deletado.
+     */
+    void deleteById(UUID id);
+
 }

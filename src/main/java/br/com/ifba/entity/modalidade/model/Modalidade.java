@@ -19,7 +19,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Modalidade extends PersistenceEntity implements Serializable{
-    //Atributos
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
     private String nome;
     private String descricao;
 

@@ -3,14 +3,8 @@ package br.com.ifba.entity.permissao.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import java.util.List;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.permissaolink.dto.PermissaoLinkResponseDto;
 

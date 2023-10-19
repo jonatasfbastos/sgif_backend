@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -70,7 +73,7 @@ public class UsuarioController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/usuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> getUsuario(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getUsuario(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(usuarioService.findById(id));
@@ -86,7 +89,7 @@ public class UsuarioController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/usuarios/login", consumes = "application/json")
-    public ResponseEntity<?> getUsuarioByLoginAndSenha(@PathVariable("login") String login, @PathVariable("senha") String senha) {
+    public ResponseEntity<?> getUsuarioByLoginAndSenha(@Valid @PathVariable("login") String login, @PathVariable("senha") String senha) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(usuarioService.findByLoginAndSenha(login, senha));
@@ -119,7 +122,7 @@ public class UsuarioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/usuarios/usuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarUsuarioPorID(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletarUsuarioPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(usuarioService.deleteUsuario(id));

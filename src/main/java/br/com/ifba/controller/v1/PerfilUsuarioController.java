@@ -1,6 +1,9 @@
 package br.com.ifba.controller.v1;
 
+import java.util.UUID;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -75,7 +78,7 @@ public class PerfilUsuarioController {
      *        
      */
     @GetMapping(path = "/perfilUsuarios/login", consumes = "application/json")
-    public ResponseEntity<?> getPerfilUsuariosPorNome(@PathVariable String nome) {
+    public ResponseEntity<?> getPerfilUsuariosPorNome(@Valid @PathVariable String nome) {
         
         return ResponseEntity.status(HttpStatus.OK)
                 .body(perfilUsuarioService.findByNome(nome));
@@ -90,7 +93,7 @@ public class PerfilUsuarioController {
      * @return uma entidade de resposta generica.
      */
     @PutMapping(path = "/perfilUsuarios/perfilUsuario", consumes = "application/json")
-    public ResponseEntity<?> atualizarPerfilUsuario(@RequestBody PerfilUsuarioRequestDto perfilUsuarioDto, BindingResult result){
+    public ResponseEntity<?> atualizarPerfilUsuario(@Valid @RequestBody PerfilUsuarioRequestDto perfilUsuarioDto, BindingResult result){
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
@@ -128,7 +131,7 @@ public class PerfilUsuarioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/perfilUsuarios/perfilUsuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletaPerfilUsuarioId(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletaPerfilUsuarioId(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(perfilUsuarioService.deletePerfilUsuario(id));

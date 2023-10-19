@@ -107,9 +107,10 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
      */
     @Override
     public List<PerfilUsuarioResponseDto> getAllPerfilUsuario() {
-           return daoPerfilUsuario.findAll().stream()
-                .map(objectMapperUtil.mapFn(PerfilUsuarioResponseDto.class))
-                .collect(Collectors.toList());
+
+        return objectMapperUtil.mapAll(
+                this.daoPerfilUsuario.findAll(),
+                PerfilUsuarioResponseDto.class);
     }
 
     /**

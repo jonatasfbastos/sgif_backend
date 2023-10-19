@@ -1,6 +1,7 @@
 package br.com.ifba.entity.usuario.service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -64,7 +65,7 @@ public class UsuarioService implements IUsuarioService {
      * @return objeto DTO com os dados do usuario deletado.
      */
     @Override
-    public UsuarioSimpleResponseDto deleteUsuario(Long id) {
+    public UsuarioSimpleResponseDto deleteUsuario(UUID id) {
     
         Usuario usuario = daoUsuario.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
@@ -96,7 +97,7 @@ public class UsuarioService implements IUsuarioService {
      * @return um objeto DTO com os dados resumidos do usuário encontrado.
      */
     @Override
-    public UsuarioResponseDto findById(Long id) {
+    public UsuarioResponseDto findById(UUID id) {
 
         return daoUsuario.findById(id)
             .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))

@@ -21,7 +21,6 @@ import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
  *
  * DTO para representar dados de resposta da entidade 'Permissão'.
  *
- * @param id - O identificador único da permissão.
  * @param nome - O nome da permissão.
  * @param grupo - Indica se a permissão é um grupo.
  * @param icone - O ícone associado à permissão.

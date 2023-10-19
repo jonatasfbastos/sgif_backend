@@ -1,6 +1,7 @@
 package br.com.ifba.entity.perfilusuario.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
@@ -37,7 +38,7 @@ public interface IServicePerfilUsuario {
      *
      * @param Id id do perfil de usuário a ser deletado.
      */
-    PerfilUsuarioResponseDto deletePerfilUsuario(Long ID);
+    PerfilUsuarioResponseDto deletePerfilUsuario(UUID ID);
 
     /**
      * Obtém uma lista de todos os perfis de usuário (Response DTO).
@@ -60,5 +61,5 @@ public interface IServicePerfilUsuario {
      * @param id O ID da permissão a ser pesquisada.
      * @return Uma lista de perfis de usuário (Response DTO) com a permissão especificada.
      */
-   // List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(Long id);
+   // List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(UUID id);
 }

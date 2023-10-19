@@ -1,6 +1,7 @@
 package br.com.ifba.entity.usuario.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
@@ -30,7 +31,7 @@ public interface IUsuarioService {
      * @param id O ID do usuario a ser deletado.
      * @return objeto DTO com os dados do usuario deletado.
      */
-    UsuarioSimpleResponseDto deleteUsuario(Long id);
+    UsuarioSimpleResponseDto deleteUsuario(UUID id);
 
     /**
      * Obtém uma lista de todos os usuários como objetos DTO.
@@ -45,7 +46,7 @@ public interface IUsuarioService {
      * @param id - O ID do usuário a ser encontrado.
      * @return um objeto DTO com os dados resumidos do usuário encontrado.
      */
-    UsuarioResponseDto findById(Long id);
+    UsuarioResponseDto findById(UUID id);
 
     /**
      * Encontra um usuário pelo login e senha.

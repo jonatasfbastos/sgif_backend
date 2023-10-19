@@ -10,6 +10,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -42,7 +43,7 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public PermissaoResponseDto deletePermissao(Long id) {
+    public PermissaoResponseDto deletePermissao(UUID id) {
         Permissao permissao =  daoPermissao.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
@@ -70,7 +71,7 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public List<PermissaoResponseDto> getAllByPerfilId(Long id) {
+    public List<PermissaoResponseDto> getAllByPerfilId(UUID id) {
 
         return daoPermissao.findByPerfisId(id)
             .stream()
@@ -79,7 +80,7 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public List<PermissaoResponseDto> getAllByLinkId(Long id) {
+    public List<PermissaoResponseDto> getAllByLinkId(UUID id) {
         return daoPermissao.findByLinksId(id)
             .stream()
             .map(permissao -> objectMapperUtil.map(permissao, PermissaoResponseDto.class))

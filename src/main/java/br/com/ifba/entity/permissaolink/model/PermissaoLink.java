@@ -12,6 +12,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/* 
+ * @author Andesson Reis
+ * @since V1.0.1
+ */
+
 @Entity(name = "permissaoLink")
 @Table(name = "permissao_links")
 @AllArgsConstructor

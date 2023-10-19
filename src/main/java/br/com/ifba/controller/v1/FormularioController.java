@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * @author Giovane Neves
@@ -70,7 +73,7 @@ public class FormularioController {
      * @return uma entidade de resposta generica.
      */
     @GetMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
-    public ResponseEntity<?> encontrarFormularioPorId(@PathVariable("id") Long id){
+    public ResponseEntity<?> encontrarFormularioPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(formularioService.encontrarFormularioPorId(id));
@@ -85,7 +88,7 @@ public class FormularioController {
      * @return uma entidade de resposta generica.
      */
     @PostMapping(path = "/formularios/formulario", consumes = "application/json")
-    public ResponseEntity<?> salvarFormulario(@RequestBody FormularioRequestDto formDto, BindingResult result){
+    public ResponseEntity<?> salvarFormulario(@Valid @RequestBody FormularioRequestDto formDto, BindingResult result){
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
@@ -100,7 +103,7 @@ public class FormularioController {
      * @return uma entidade de resposta generica.
      */
     @PutMapping(path = "/formularios/formulario", consumes = "application/json")
-    public ResponseEntity<?> atualizarFormulario(@RequestBody FormularioRequestDto formDto, BindingResult result){
+    public ResponseEntity<?> atualizarFormulario(@Valid @RequestBody FormularioRequestDto formDto, BindingResult result){
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
@@ -116,7 +119,7 @@ public class FormularioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarFormularioPorId(@PathVariable("id") Long id){
+    public ResponseEntity<?> deletarFormularioPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(formularioService.deletarFormularioPorId(id));

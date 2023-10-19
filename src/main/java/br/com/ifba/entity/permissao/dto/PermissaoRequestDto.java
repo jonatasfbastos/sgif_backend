@@ -17,6 +17,7 @@ import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioRequestDto;
  * Classe de transferência de dados (DTO) para receber dados de requisições relacionadas à entidade "Permissão".
  *
  * @author Andesson Reis
+ * Desde V1.0.1
  *
  * DTO para receber dados de requisições direcionadas à entidade 'Permissão'.
  *

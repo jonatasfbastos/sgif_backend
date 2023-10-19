@@ -1,13 +1,10 @@
 package br.com.ifba.entity.permissao.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 
 import java.util.List;
 

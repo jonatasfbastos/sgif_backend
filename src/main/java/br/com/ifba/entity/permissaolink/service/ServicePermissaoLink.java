@@ -2,7 +2,6 @@ package br.com.ifba.entity.permissaolink.service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
-import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.permissaolink.dao.IDaoPermissaoLink;
 import br.com.ifba.entity.permissaolink.dto.PermissaoLinkResponseDto;
@@ -36,13 +35,6 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
     // =========================================================== //
     // ====================== [ MÉTODOS ] ======================== //
     // =========================================================== //
-
-    private boolean validarCampos(PermissaoLink permissaoLink) {
-        if (StringUtil.getInstance().isNullOrEmpty(permissaoLink.getNome())) {
-            return true;
-        }
-        return StringUtil.getInstance().isNullOrEmpty(permissaoLink.getUrl());
-    }
 
     /**
      * Salva um PermissaoLink na base de dados e retorna um objeto DTO com os dados
@@ -121,9 +113,18 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
                 PermissaoLinkResponseDto.class);
     }
 
+    /**
+     * Obtém uma lista de PermissaoLinks por ID da Permissao associada como objetos DTO.
+     *
+     * @param id - O ID da Permissao associada.
+     * @return uma lista de objetos DTO representando os PermissaoLinks associados à
+     *         Permissao.
+     */
     @Override
-    public List<PermissaoLink> getAllByPermissaoId(Long id) {
-        return daoLink.findByPermissoesId(id);
+    public List<PermissaoLinkResponseDto> getAllByPermissaoId(UUID id) {
+        return objectMapperUtil.mapAll(
+                this.daoLink.findByPermissoesId(id),
+                PermissaoLinkResponseDto.class);
     }
 
 }

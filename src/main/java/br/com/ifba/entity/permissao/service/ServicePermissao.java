@@ -10,6 +10,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Andesson Reis
@@ -62,8 +63,10 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public List<Permissao> getAllPermissoes() {
-        return daoPermissao.findAll();
+    public List<PermissaoResponseDto> getAllPermissoes() {
+         return daoPermissao.findAll().stream()
+                .map(objectMapperUtil.mapFn(PermissaoResponseDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

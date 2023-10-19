@@ -13,7 +13,7 @@
 
 	<groupId>br.com.ifba</groupId>
 	<artifactId>sgif</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>sgif</name>
 	<description>sgif</description>
 	

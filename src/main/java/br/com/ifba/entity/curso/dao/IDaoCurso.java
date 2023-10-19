@@ -25,5 +25,29 @@ public interface IDaoCurso extends JpaRepository<Curso, Long>{
      */
     Optional<Curso> findById(UUID id);
 
+    @Deprecated
     List <Curso> findByNome (String nome);
+
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     * <p>
+     * Verifica se há um curso cadastrado na base de dados
+     * com o código passado por parâmetro.
+     * @param codigoCurso O código a ser verificado.
+     * @return 'true' caso exista, 'false' caso contrário.
+     */
+    boolean existsByCodigoCurso(String codigoCurso);
+
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     * <p>
+     * Verifica se há um curso cadastrado na base de dados
+     * com o ID passado por parâmetro.
+     * @param id O ID a ser verificado.
+     * @return 'true' caso exista, 'false' caso contrário.
+     */
+    boolean existsById(UUID id);
+
 }

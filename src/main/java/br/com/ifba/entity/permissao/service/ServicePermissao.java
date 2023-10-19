@@ -70,8 +70,12 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public List<Permissao> getAllByPerfilId(Long id) {
-        return daoPermissao.findByPerfisId(id);
+    public List<PermissaoResponseDto> getAllByPerfilId(Long id) {
+
+        return daoPermissao.findByPerfisId(id)
+        .stream()
+        .map(permissao -> objectMapperUtil.map(permissao, PermissaoResponseDto.class))
+        .collect(Collectors.toList());
     }
 
     @Override

@@ -49,7 +49,7 @@ public interface IServicePermissao {
      * @param id O id do perfil de usuario a ser pesquisado.
      * @return Uma lista de permissões atrelado ao perfil.
      */
-    List<Permissao> getAllByPerfilId(Long id);
+    List<PermissaoResponseDto> getAllByPerfilId(Long id);
 
     /**
      * 

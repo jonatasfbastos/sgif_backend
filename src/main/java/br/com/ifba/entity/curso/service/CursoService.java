@@ -24,22 +24,9 @@ public class CursoService implements ICursoService {
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //
     // =========================================================== //
-    
-    //mensagem de erro caso o Curso seja nulo;
-    public final static String CURSO_NULL = "Dados do Curso nao preenchidos";
-    
-    //mensagem de erro caso o Curso exista no banco de dados;
-    public final static String CURSO_EXISTE = "Curso ja existente no Banco de dados";
-    
-    //mensagem de erro caso o Curso não exista no banco de dados;
-    public final static String CURSO_NAO_EXISTE = "Curso nao existente no Banco de dados";
 
-    // Mensagem de erro se o Curso possuir matriz curricular
-    public final static String CURSO_POSSUI_MATRIZ_CURRICULAR = "Curso possui matriz curricular";
-
-    
     @Autowired
-     private IDaoCurso cursoDao;
+    private IDaoCurso cursoDao;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
@@ -51,7 +38,7 @@ public class CursoService implements ICursoService {
     /**
      * @author Giovane Neves
      * Desde V1.0.1
-     *
+     * <p>
      * Lista todos os cursos cadastrados na base de dados.
      * @return uma lista com todos os cursos da base de dados.
      */
@@ -67,7 +54,7 @@ public class CursoService implements ICursoService {
     /**
      * @author Giovane Neves
      * Desde V1.0.1
-     *
+     * <p>
      * Busca o curso cadastrado na base de dados atrelado ao ID
      * passado por parâmetro.
      * @param id O ID do curso a ser buscado.
@@ -85,43 +72,85 @@ public class CursoService implements ICursoService {
 
     }
 
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     * <p>
+     * Cadastra um curso na base de dados.
+     * @param curso O curso a ser cadastrado.
+     * @return dados básicos do curso cadastrado.
+     */
     @Override
-    public Curso salvarCurso(Curso curso) {
-        if(curso == null){
-            throw new BusinessException(CURSO_NULL);
-        } else if(cursoDao.existsById(curso.getId()) == true){
-            throw new BusinessException(CURSO_EXISTE);
-        } else {
-            return cursoDao.save(curso);
-        }
+    public CursoResponseDto salvarCurso(Curso curso) {
+
+
+        // >>>>> TODO: Analisar regra de negócios para salvar cursos.
+
+        if (cursoDao.existsByCodigoCurso(curso.getCodigoCurso()))
+            throw new BusinessException(
+                    BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS
+                            .getMensagemValorJaExiste("código curso")
+            );
+
+
+        return objectMapperUtil.map(
+                curso,
+                CursoResponseDto.class
+        );
+
     }
 
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     * <p>
+     * Atualiza um curso existente na base de dados.
+     * @param curso O curso a ser atualizado.
+     * @return dados básicos do curso atualizado.
+     */
     @Override
-    public Curso atualizarCurso(Curso curso) {
-        if(curso == null){
-            throw new BusinessException(CURSO_NULL);
-        } else if(cursoDao.existsById(curso.getId()) == false) {
-            throw new BusinessException(CURSO_NAO_EXISTE);
-        } else {
-            return cursoDao.save(curso);
-        }
+    public CursoResponseDto atualizarCurso(Curso curso) {
+
+        if (!cursoDao.existsByCodigoCurso(curso.getCodigoCurso()))
+            throw new BusinessException(
+                    BusinessExceptionMessage.NOT_FOUND.getMensagem()
+            );
+
+        return objectMapperUtil.map(
+                this.cursoDao.save(curso),
+                CursoResponseDto.class
+        );
+
+
     }
 
+    /**
+     * @author Giovane Neves
+     * Desde V1.0.1
+     * <p>
+     * Deleta o formulário atrelado ao ID passado por parâmetro.
+     * @param id O ID do formulário a ser deletado.
+     * @return dados básicos do formulário deletado.
+     */
     @Override
-    public void deletarCurso(Curso curso) {
-        if(curso == null){
-            throw new BusinessException(CURSO_NULL);
-        }else if(this.cursoDao.existsById(curso.getId()) == true) {
-            if (curso.getMatrizesCurriculares() == null){
-                throw new BusinessException(CURSO_POSSUI_MATRIZ_CURRICULAR);
-            }
-            this.cursoDao.delete(curso);
-            return;
-        }
-            throw new BusinessException(CURSO_NAO_EXISTE);
+    public CursoResponseDto deletarCursoPorId(UUID id) {
 
-}
+        // TODO: Analisar regra de negócio atual.
 
+        if (!this.cursoDao.existsById(id))
+            throw new BusinessException(
+                    BusinessExceptionMessage.NOT_FOUND.getMensagem()
+            );
+
+
+        this.cursoDao.deleteById(id);
+
+        return objectMapperUtil.map(
+                this.cursoDao.findById(id),
+                CursoResponseDto.class
+        );
+
+    }
 
 }
 

@@ -27,7 +27,7 @@ public interface IServicePermissaoLink {
      * @param id - O ID do PermissaoLink a ser deletado.
      * @return uma mensagem de confirmação de exclusão.
      */
-    String deleteLink(UUID id);
+    PermissaoLinkResponseDto deleteLink(UUID id);
 
     /**
      * Atualiza um PermissaoLink na base de dados.

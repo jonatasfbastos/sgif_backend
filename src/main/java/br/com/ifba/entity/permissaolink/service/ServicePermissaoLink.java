@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
 /**
  * @author Andesson Reis
- *         Desde V1.0.1
+ * Desde V1.0.1
  */
 @Service
 public class ServicePermissaoLink implements IServicePermissaoLink {
@@ -62,16 +63,30 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
                 PermissaoLinkResponseDto.class);
     }
 
+    /**
+     * Deleta um PermissaoLink pelo ID.
+     *
+     * @param id - O ID do PermissaoLink a ser deletado.
+     * @return um objeto DTO com os dados do PermissaoLink deletado.
+     * @throws BusinessException se o PermissaoLink não for encontrado ou se estiver  associado a Permissoes.
+     *                          
+     */
     @Override
-    public String deleteLink(Long id) {
-        if (daoLink.existsById(id) == false) {
-            throw new BusinessException(LINK_NAO_EXISTE);
+    public PermissaoLinkResponseDto deleteLink(UUID id) {
+        // Busca o PermissaoLink pelo ID ou lança uma exceção se não for encontrado
+        PermissaoLink permissaoLink = daoLink.findById(id)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        // Verifica se o PermissaoLink está associado a Permissoes
+        if (!permissaoLink.getPermissoes().isEmpty()) {
+            throw new BusinessException(BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagem());
         }
-        if (daoLink.getReferenceById(id).getPermissoes().isEmpty() == false) {
-            throw new BusinessException(HA_PERMISSAO_ASSOCIADA);
-        }
-        daoLink.deleteById(id);
-        return LINK_DELETADO;
+
+        daoLink.delete(permissaoLink);
+
+        return objectMapperUtil.map(
+                permissaoLink,
+                PermissaoLinkResponseDto.class);
     }
 
     @Override

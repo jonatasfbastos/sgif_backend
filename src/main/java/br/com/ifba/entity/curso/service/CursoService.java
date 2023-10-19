@@ -111,7 +111,7 @@ public class CursoService implements ICursoService {
     @Override
     public CursoResponseDto atualizarCurso(Curso curso) {
 
-        if (!cursoDao.existsByCodigoCurso(curso.getCodigoCurso()))
+        if (!cursoDao.existsById(curso.getId()))
             throw new BusinessException(
                     BusinessExceptionMessage.NOT_FOUND.getMensagem()
             );

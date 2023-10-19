@@ -4,6 +4,7 @@ import br.com.ifba.entity.permissao.dao.IDaoPermissao;
 import br.com.ifba.entity.permissao.dto.PermissaoResponseDto;
 import br.com.ifba.entity.permissao.model.Permissao;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +41,14 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public String deletePermissao(Long id) {
-        if (daoPermissao.existsById(id) == false) {
-            throw new BusinessException(PERMISSAO_NAO_EXISTE);
-        }
-        Permissao permissao = daoPermissao.getReferenceById(id);
-        if (permissao.getPerfis().isEmpty() == false) {
-            throw new BusinessException(HA_PERFIL_ASSOCIADO);
-        }
-        if (permissao.getLinks().isEmpty() == false) {
-            throw new BusinessException(HA_LINK_ASSOCIADO);
-        }
-        daoPermissao.deleteById(id);
-        return PERMISSAO_DELETADA;
+    public PermissaoResponseDto deletePermissao(Long id) {
+        Permissao permissao =  daoPermissao.findById(id)
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        daoPermissao.delete(permissao);
+
+        return objectMapperUtil.map(permissao,
+                PermissaoResponseDto.class);
     }
 
     @Override

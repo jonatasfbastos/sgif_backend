@@ -52,11 +52,13 @@ public class ServicePermissao implements IServicePermissao {
     }
 
     @Override
-    public Permissao updatePermissao(Permissao permissao) {
-        if (permissao.getNome().isEmpty()) {
-            throw new BusinessException(CAMPO_VAZIO);
-        }
-        return daoPermissao.save(permissao);
+    public PermissaoResponseDto updatePermissao(Permissao permissao) {
+        daoPermissao.findById(permissao.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                daoPermissao.save(permissao),
+                PermissaoResponseDto.class);
     }
 
     @Override

@@ -1,34 +1,42 @@
 package br.com.ifba.entity.permissao.service;
 
 import br.com.ifba.entity.permissao.dao.IDaoPermissao;
+import br.com.ifba.entity.permissao.dto.PermissaoResponseDto;
 import br.com.ifba.entity.permissao.model.Permissao;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+/**
+ * @author Andesson Reis
+ * Desde V1.0.1
+ */
 @Service
 public class ServicePermissao implements IServicePermissao {
 
-    private final static String CAMPO_VAZIO = "Há campo vazio, preencha e tente novamente.";
-    private final static String PERMISSAO_NAO_EXISTE = "A permissão informada não existe.";
-    private final static String PERMISSAO_EXISTE = "A permissão informada já existe.";
-    private final static String PERMISSAO_DELETADA = "Permissão deletada com sucesso.";
-    private final static String HA_PERFIL_ASSOCIADO = "Não foi possível deletar a permissão, há perfil associado a esta permissão.";
-    private final static String HA_LINK_ASSOCIADO = "Não foi possível deletar a permissão, há link associado a esta permissão.";
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
     @Autowired
     private IDaoPermissao daoPermissao;
 
+
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+
     @Override
-    public Permissao savePermissao(Permissao permissao) {
-        if (permissao.getNome().isEmpty()) {
-            throw new BusinessException(CAMPO_VAZIO);
-        }
-        if (daoPermissao.existsByNome(permissao.getNome())) {
-            throw new BusinessException(PERMISSAO_EXISTE);
-        }
-        return daoPermissao.save(permissao);
+    public PermissaoResponseDto savePermissao(Permissao permissao) {
+
+        return objectMapperUtil.map(
+            daoPermissao.save(permissao),PermissaoResponseDto.class);
     }
 
     @Override

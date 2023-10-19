@@ -1,6 +1,7 @@
 package br.com.ifba.entity.perfilusuario.service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,7 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
      * @param Id id do perfil de usuário a ser deletado.
      */
     @Override
-    public PerfilUsuarioResponseDto deletePerfilUsuario(Long id) {
+    public PerfilUsuarioResponseDto deletePerfilUsuario(UUID id) {
         PerfilUsuario perfilUsuario = daoPerfilUsuario.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 

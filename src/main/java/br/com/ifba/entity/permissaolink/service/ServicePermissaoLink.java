@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 /**
  * @author Andesson Reis
- * Desde V1.0.1
+ *         Desde V1.0.1
  */
 @Service
 public class ServicePermissaoLink implements IServicePermissaoLink {
@@ -68,8 +68,9 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
      *
      * @param id - O ID do PermissaoLink a ser deletado.
      * @return um objeto DTO com os dados do PermissaoLink deletado.
-     * @throws BusinessException se o PermissaoLink não for encontrado ou se estiver  associado a Permissoes.
-     *                          
+     * @throws BusinessException se o PermissaoLink não for encontrado ou se estiver
+     *                           associado a Permissoes.
+     * 
      */
     @Override
     public PermissaoLinkResponseDto deleteLink(UUID id) {
@@ -89,12 +90,23 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
                 PermissaoLinkResponseDto.class);
     }
 
+    /**
+     * Atualiza um PermissaoLink na base de dados.
+     *
+     * @param permissaoLink - O PermissaoLink a ser atualizado.
+     * @return um objeto DTO com os dados do PermissaoLink atualizado.
+     * @throws BusinessException se o PermissaoLink com o ID especificado não for
+     *                           encontrado.
+     */
     @Override
-    public PermissaoLink updateLink(PermissaoLink permissaoLink) {
-        if (validarCampos(permissaoLink)) {
-            throw new BusinessException(CAMPO_VAZIO);
-        }
-        return daoLink.save(permissaoLink);
+    public PermissaoLinkResponseDto updateLink(PermissaoLink permissaoLink) {
+        // Busca o PermissaoLink pelo ID ou lança uma exceção se não for encontrado
+        daoLink.findById(permissaoLink.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                daoLink.save(permissaoLink),
+                PermissaoLinkResponseDto.class);
     }
 
     @Override

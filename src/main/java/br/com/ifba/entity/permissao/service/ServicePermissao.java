@@ -73,14 +73,17 @@ public class ServicePermissao implements IServicePermissao {
     public List<PermissaoResponseDto> getAllByPerfilId(Long id) {
 
         return daoPermissao.findByPerfisId(id)
-        .stream()
-        .map(permissao -> objectMapperUtil.map(permissao, PermissaoResponseDto.class))
-        .collect(Collectors.toList());
+            .stream()
+            .map(permissao -> objectMapperUtil.map(permissao, PermissaoResponseDto.class))
+            .collect(Collectors.toList());
     }
 
     @Override
-    public List<Permissao> getAllByLinkId(Long id) {
-        return daoPermissao.findByLinksId(id);
+    public List<PermissaoResponseDto> getAllByLinkId(Long id) {
+        return daoPermissao.findByLinksId(id)
+            .stream()
+            .map(permissao -> objectMapperUtil.map(permissao, PermissaoResponseDto.class))
+            .collect(Collectors.toList());
     }
 
 }

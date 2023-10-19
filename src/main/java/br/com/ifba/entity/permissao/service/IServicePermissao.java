@@ -57,6 +57,6 @@ public interface IServicePermissao {
      * @param id
      * @return
      */
-    List<Permissao> getAllByLinkId(Long id);
+    List<PermissaoResponseDto> getAllByLinkId(Long id);
 
 }

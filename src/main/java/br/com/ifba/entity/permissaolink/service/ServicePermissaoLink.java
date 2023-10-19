@@ -109,9 +109,16 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
                 PermissaoLinkResponseDto.class);
     }
 
+    /**
+     * Obtém uma lista de todos os PermissaoLinks como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os PermissaoLinks.
+     */
     @Override
-    public List<PermissaoLink> getAllLinks() {
-        return daoLink.findAll();
+    public List<PermissaoLinkResponseDto> getAllLinks() {
+        return objectMapperUtil.mapAll(
+                this.daoLink.findAll(),
+                PermissaoLinkResponseDto.class);
     }
 
     @Override

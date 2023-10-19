@@ -1,26 +1,49 @@
 package br.com.ifba.entity.permissaolink.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.ifba.entity.permissao.model.Permissao;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
+@Entity(name = "permissaoLink")
+@Table(name = "permissao_links")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-@Table(name = "permissao_link")
+@EqualsAndHashCode(callSuper = false)
 public class PermissaoLink extends PersistenceEntity implements Serializable {
 
+    /**
+     * O nome do link de permissão.
+     */
+
+    @Column(nullable = false)
     private String nome;
+
+    /**
+     * A URL associada ao link de permissão.
+     */
+
+    @Column(nullable = false)
     private String url;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "links")
+    /**
+     * Permissões relacionadas a este link.
+     */
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "link_permissao",
+        joinColumns = @JoinColumn(name = "link_id"),
+        inverseJoinColumns = @JoinColumn(name = "permissao_id"))
+    @JsonIgnoreProperties("links")
     private List<Permissao> permissoes;
 
 }

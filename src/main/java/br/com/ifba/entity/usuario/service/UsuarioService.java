@@ -2,7 +2,6 @@ package br.com.ifba.entity.usuario.service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -83,10 +82,10 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public List<UsuarioSimpleResponseDto> getAllUsuarios() {
-    
-        return daoUsuario.findAll().stream()
-                .map(objectMapperUtil.mapFn(UsuarioSimpleResponseDto.class))
-                .collect(Collectors.toList());
+
+        return objectMapperUtil.mapAll(
+                this.daoUsuario.findAll(),
+                UsuarioSimpleResponseDto.class);
     }
     
 

@@ -2,6 +2,7 @@ package br.com.ifba.entity.formulario.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.ifba.entity.formulario.model.Formulario;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ public interface IDaoFormulario extends JpaRepository<Formulario, Long>{
      * @return um objeto opcional do tipo formulário,
      * que será nulo caso o formulário não exista na base de dados.
      */
-    Optional<Formulario> findById(Long id);
+    Optional<Formulario> findById(UUID id);
 
     List<Formulario> findByTitulo(String titulo);
     boolean existsByTitulo(String titulo);

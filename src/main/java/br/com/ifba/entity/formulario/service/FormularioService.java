@@ -3,6 +3,7 @@ package br.com.ifba.entity.formulario.service;
 import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
@@ -45,7 +46,7 @@ public class FormularioService implements IFormularioService {
      * Desde V1.0.1
      *
      * Lista todos os formulários da base de dados.
-     * @return uma lista com todos os formulário na base de dados.
+     * @return uma lista com todos os formulários na base de dados.
      */
     @Override
     public List<FormularioSimpleResponseDto> listarFormularios() {
@@ -67,7 +68,7 @@ public class FormularioService implements IFormularioService {
      * @return os dados do formulário atrelados àquele ID.
      */
     @Override
-    public FormularioResponseDto encontrarFormularioPorId(Long id) {
+    public FormularioResponseDto encontrarFormularioPorId(UUID id) {
 
         return objectMapperUtil.map(
                 formularioDao.findById(id)
@@ -126,7 +127,7 @@ public class FormularioService implements IFormularioService {
      * @return objeto DTO com os dados do formulário deletado.
      */
     @Override
-    public FormularioSimpleResponseDto deletarFormularioPorId(Long id) {
+    public FormularioSimpleResponseDto deletarFormularioPorId(UUID id) {
 
         Formulario formulario = formularioDao.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));

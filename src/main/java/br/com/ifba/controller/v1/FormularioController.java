@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 
 /**
@@ -73,7 +74,7 @@ public class FormularioController {
      * @return uma entidade de resposta generica.
      */
     @GetMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
-    public ResponseEntity<?> encontrarFormularioPorId(@PathVariable("id") @NotNull Long id){
+    public ResponseEntity<?> encontrarFormularioPorId(@PathVariable("id") @NotNull UUID id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(formularioService.encontrarFormularioPorId(id));
@@ -119,7 +120,7 @@ public class FormularioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarFormularioPorId(@PathVariable("id") @NotNull Long id){
+    public ResponseEntity<?> deletarFormularioPorId(@PathVariable("id") @NotNull UUID id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(formularioService.deletarFormularioPorId(id));

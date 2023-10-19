@@ -1,6 +1,7 @@
 package br.com.ifba.entity.formulario.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
@@ -13,7 +14,7 @@ public interface IFormularioService {
      * Desde V1.0.1
      *
      * Lista todos os formulários da base de dados.
-     * @return uma lista com todos os formulário na base de dados.
+     * @return uma lista com todos os formulários na base de dados.
      */
     List<FormularioSimpleResponseDto> listarFormularios();
 
@@ -26,7 +27,7 @@ public interface IFormularioService {
      * @param id O ID do formulário a ser buscado na base de dados.
      * @return os dados do formulário atrelados àquele ID.
      */
-    FormularioResponseDto encontrarFormularioPorId(Long id);
+    FormularioResponseDto encontrarFormularioPorId(UUID id);
 
     /**
      * @author Giovane Neves
@@ -60,6 +61,6 @@ public interface IFormularioService {
      * @param id O ID do formulário a ser deletado.
      * @return objeto DTO com os dados do formulário deletado.
      */
-    FormularioSimpleResponseDto deletarFormularioPorId(Long id);
+    FormularioSimpleResponseDto deletarFormularioPorId(UUID id);
     
 }

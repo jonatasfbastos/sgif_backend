@@ -1,5 +1,6 @@
 package br.com.ifba.entity.requisicao.dao;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,5 +25,15 @@ public interface IDaoRequisicao extends JpaRepository<Requisicao, Long> {
      */
     boolean existsById(UUID id);
 
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Encontra uma requisição pelo ID passado por parâmetro.
+     * @param id O ID da requisição a ser enconotrado.
+     * @return um objeto opcional do tipo requisição,
+     * que será nulo caso o requisição não exista na base de dados.
+     */
+    Optional<Requisicao> findById(UUID id);
 
 }

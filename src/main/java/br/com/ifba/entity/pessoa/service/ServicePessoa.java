@@ -6,6 +6,7 @@ import java.util.Optional;
 import br.com.ifba.entity.pessoa.dao.IDaoPessoa;  
 import br.com.ifba.entity.pessoa.dto.PessoaResponseDto;
 import br.com.ifba.entity.pessoa.model.Pessoa;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,13 +66,17 @@ public class ServicePessoa implements IServicePessoa {
         }
     }
 
+    /**
      * Obtém uma lista de todas as pessoas como objetos DTO.
      *
      * @return uma lista de objetos DTO representando as pessoas.
      */
     @Override
-    public List<Pessoa> getAllPessoas() {
-        return (List<Pessoa>) this.daoPessoa.findAll();
+    public List<PessoaResponseDto> getAllPessoas() {
+
+        return objectMapperUtil.mapAll(
+                this.daoPessoa.findAll(),
+                PessoaResponseDto.class);
     }
 
     @Override

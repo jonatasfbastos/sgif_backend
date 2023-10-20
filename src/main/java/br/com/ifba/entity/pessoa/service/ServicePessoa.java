@@ -2,6 +2,7 @@ package br.com.ifba.entity.pessoa.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.ifba.entity.pessoa.dao.IDaoPessoa;  
 import br.com.ifba.entity.pessoa.dto.PessoaResponseDto;
@@ -65,7 +66,6 @@ public class ServicePessoa implements IServicePessoa {
             return;
         }
     }
-
     /**
      * Obtém uma lista de todas as pessoas como objetos DTO.
      *
@@ -79,6 +79,12 @@ public class ServicePessoa implements IServicePessoa {
                 PessoaResponseDto.class);
     }
 
+     /**
+     * Encontra pessoas pelo nome.
+     *
+     * @param name - O nome das pessoas a serem encontradas.
+     * @return uma lista de objetos DTO representando as pessoas encontradas.
+     */
     @Override
     public List<PessoaResponseDto> findByNome(String name) {
 
@@ -88,10 +94,17 @@ public class ServicePessoa implements IServicePessoa {
        
     }
 
+    /**
+     * Encontra uma pessoa pelo ID.
+     *
+     * @param id - O ID da pessoa a ser encontrada.
+     * @return um objeto DTO com os dados da pessoa encontrada.
+     */
     @Override
-    public Pessoa findById(Long id) {
-        Optional<Pessoa> pessoa = daoPessoa.findById(id);
-        return pessoa.isPresent() ? pessoa.get() : null;
+    public PessoaResponseDto findById(UUID id) {
+          return daoPessoa.findById(id)
+            .map(objectMapperUtil.mapFn(PessoaResponseDto.class))
+            .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     /*

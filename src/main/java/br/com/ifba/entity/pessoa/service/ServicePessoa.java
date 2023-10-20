@@ -1,47 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.pessoa.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import br.com.ifba.entity.pessoa.dao.IDaoPessoa;
+import br.com.ifba.entity.pessoa.dao.IDaoPessoa;  
+import br.com.ifba.entity.pessoa.dto.PessoaResponseDto;
 import br.com.ifba.entity.pessoa.model.Pessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
- *
  * @author matheus lima
+ * Editado por Andesson Reis
+ * Desde V1.0.1
  */
 @Service
 public class ServicePessoa implements IServicePessoa {
 
-    // OBJETO
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
     @Autowired
     private IDaoPessoa daoPessoa;
 
-    // CONSTANTES
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
 
-    // mensagem de erro se o Pessoa for null;
-    public final static String Pessoa_NULL = "Usuário null";
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
 
-    // mensagem de erro se o Pessoa já existir;
-    public final static String Pessoa_EXISTE = "O Usuário já existe,";
-
-    // mensagem de erro se o Pessoa não existir no banco;
-    public final static String Pessoa_NAO_EXISTE = "O Usuário não existe na base de dados";
-
-    // mensagem de erro se o Pessoa for inválido;
-    public final static String Pessoa_INVALIDO = "Usuário inválido";
-
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Salva uma pessoa na base de dados.
+     * @param pessoa A pessoa que será salvo na base de dados.
+     * @return um objeto DTO com os dados da pessoa salvo
+     * 
+     */
     @Override
-    public Pessoa savePessoa(Pessoa pessoa) {
-        return daoPessoa.save(pessoa);
+    public PessoaResponseDto savePessoa(Pessoa pessoa) {
+
+        return Optional.of(pessoa)
+                .filter(form -> !this.daoPessoa.existsByCpf(form.getCpf()))
+                .map(form -> objectMapperUtil.map(this.daoPessoa.save(form), PessoaResponseDto.class))
+                .orElseThrow(() -> new BusinessException(
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("CPF"))
+                );
     }
 
     @Override
@@ -54,6 +65,10 @@ public class ServicePessoa implements IServicePessoa {
         }
     }
 
+     * Obtém uma lista de todas as pessoas como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as pessoas.
+     */
     @Override
     public List<Pessoa> getAllPessoas() {
         return (List<Pessoa>) this.daoPessoa.findAll();

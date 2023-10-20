@@ -2,6 +2,7 @@ package br.com.ifba.entity.pessoa.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public interface IDaoPessoa extends JpaRepository<Pessoa, Long> {
 
     List<Pessoa> findByNome(String name);
 
-    Optional<Pessoa> findById(Long id);
+    Optional<Pessoa> findById(UUID id);
 
     void delete(Pessoa pessoa);
 

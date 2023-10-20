@@ -3,6 +3,7 @@ package br.com.ifba.entity.formulario.service;
 import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
@@ -12,8 +13,8 @@ import br.com.ifba.entity.formulario.dao.IDaoFormulario;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.infrastructure.exception.BusinessException;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -89,15 +90,13 @@ public class FormularioService implements IFormularioService {
     @Override
     public FormularioSimpleResponseDto salvarFormulario(Formulario formulario) {
 
-        if(this.formularioDao.existsByTitulo(formulario.getTitulo()))
-            throw new BusinessException(
-                    BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("título")
-            );
+        return Optional.of(formulario)
+                .filter(form -> !this.formularioDao.existsByTitulo(form.getTitulo()))
+                .map(form -> objectMapperUtil.map(this.formularioDao.save(form), FormularioSimpleResponseDto.class))
+                .orElseThrow(() -> new BusinessException(
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("título"))
+                );
 
-        return objectMapperUtil.map(
-                this.formularioDao.save(formulario),
-                FormularioSimpleResponseDto.class
-        );
 
     }
 
@@ -112,13 +111,13 @@ public class FormularioService implements IFormularioService {
     @Override
     public FormularioSimpleResponseDto atualizarFormulario(Formulario formulario) {
 
-        formularioDao.findById(formulario.getId())
-                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+        return Optional.of(formulario)
+                        .filter(form -> this.formularioDao.existsById(formulario.getId()))
+                        .map(form -> objectMapperUtil.map(this.formularioDao.save(form), FormularioSimpleResponseDto.class))
+                        .orElseThrow(
+                                () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                        );
 
-        return objectMapperUtil.map(
-                formularioDao.save(formulario),
-                FormularioSimpleResponseDto.class
-        );
     }
 
     /**
@@ -132,14 +131,15 @@ public class FormularioService implements IFormularioService {
     @Override
     public FormularioSimpleResponseDto deletarFormularioPorId(UUID id) {
 
-        Formulario formulario = formularioDao.findById(id)
-                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-
         // TODO: Analisar se é preciso adicionar uma lógica para verificar se existe uma avaliação atrelada ao formulário.
 
-        formularioDao.delete(formulario);
+        return this.formularioDao.findById(id)
+                .map(form -> {
+                    formularioDao.delete(form);
+                    return objectMapperUtil.map(form, FormularioSimpleResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
-        return objectMapperUtil.map(formulario, FormularioSimpleResponseDto.class);
 
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
  * Editado por Andesson Reis
  * Desde V1.0.1
  */
+
 @Service
 public interface IServicePessoa {
 
@@ -55,5 +56,4 @@ public interface IServicePessoa {
      */
     List<PessoaResponseDto> findByNome(String name);
 
-    // Outros métodos podem ser adicionados conforme necessário.
 }

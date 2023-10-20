@@ -88,13 +88,13 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
      */
     @Override
     public PerfilUsuarioResponseDto deletePerfilUsuario(UUID id) {
-        PerfilUsuario perfilUsuario = daoPerfilUsuario.findById(id)
+        
+           return this.daoPerfilUsuario.findById(id)
+                .map(perfil -> {
+                    daoPerfilUsuario.delete(perfil);
+                    return objectMapperUtil.map(perfil, PerfilUsuarioResponseDto.class);
+                })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-
-        daoPerfilUsuario.delete(perfilUsuario);
-
-        return objectMapperUtil.map(perfilUsuario,
-                PerfilUsuarioResponseDto.class);
     }
 
     /**

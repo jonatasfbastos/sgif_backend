@@ -42,13 +42,13 @@ public class ServicePermissao implements IServicePermissao {
 
     @Override
     public PermissaoResponseDto deletePermissao(UUID id) {
-        Permissao permissao = daoPermissao.findById(id)
+
+           return this.daoPermissao.findById(id)
+                .map(permissao -> {
+                    daoPermissao.delete(permissao);
+                    return objectMapperUtil.map(permissao, PermissaoResponseDto.class);
+                })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-
-        daoPermissao.delete(permissao);
-
-        return objectMapperUtil.map(permissao,
-                PermissaoResponseDto.class);
     }
 
     @Override

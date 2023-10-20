@@ -8,11 +8,17 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ifba.controller.v1.util.ResultError;
+import br.com.ifba.entity.permissao.dto.PermissaoRequestDto;
+import br.com.ifba.entity.permissao.model.Permissao;
 import br.com.ifba.entity.permissao.service.IServicePermissao;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
@@ -88,6 +94,22 @@ public class PermissaoController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(permissaoService.getAllByLinkId(id));
+    }
+
+    /**
+     * @author Andesson Reis
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Atualiza uma permissao.
+     * @return uma entidade de resposta generica.
+     */
+    @PutMapping(path = "/permissoes/permissao", consumes = "application/json")
+    public ResponseEntity<?> atualizarPermissao(@Valid @RequestBody PermissaoRequestDto permissaoDto, BindingResult result){
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.OK).body(permissaoService.updatePermissao(objectMapperUtil.map(permissaoDto, Permissao.class)));
+
     }
 
 }

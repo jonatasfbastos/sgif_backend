@@ -1,6 +1,9 @@
 package br.com.ifba.controller.v1;
 
+import java.util.UUID;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,5 +68,21 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(pessoaService.findByNome(nome));
    
+    }
+
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Obtém uma pessoa.
+     *
+     * @return Uma pessoa ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @GetMapping(path = "/pessoa/{id}", consumes = "application/json")
+    public ResponseEntity<?> getPessoa(@Valid @PathVariable("id") @NotNull UUID id) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(pessoaService.findById(id));
     }
 }

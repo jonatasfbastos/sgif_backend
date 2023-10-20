@@ -1,50 +1,54 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.requisicao.service;
 
 import java.util.List;
 
 import br.com.ifba.entity.requisicao.dao.IDaoRequisicao;
+import br.com.ifba.entity.requisicao.dto.RequisicaoResponseDto;
 import br.com.ifba.entity.requisicao.model.Requisicao;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Vitor
+ * @author Vitor 
+ * @Editado por Andesson Reis
+ * Desde V1.0.1
  */
 @Service
 public class ServiceRequisicao implements IServiceRequisicao {
 
-    // CONSTANTES
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
-    // mensagem de erro se a requisição for null;
-    public final static String REQUISICAO_NULL = "Requisição null";
-
-    // mensagem de erro se a Requisição já existir;
-    public final static String REQUISICAO_EXISTE = "Requisição já existe,";
-
-    // mensagem de erro se a Requisição não existir no banco;
-    public final static String REQUISICAO_NAO_EXISTE = "Requisição não existe na base de dados";
-
-    // mensagem de erro se a Requisição for inválido;
-    public final static String REQUISICAO_INVALIDO = "Requisição inválida";
-
-    // OBJETO
     @Autowired
     private IDaoRequisicao daoRequisicao;
 
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== /
+
+
+    /**
+     * @author Andesson Reis
+     * Desde V1.0.1
+
+     * Salva uma permissão na base de dados e retorna um objeto DTO com os dados da permissão salva.
+     *
+     * @param requisicao - A permissão que será salva na base de dados.
+     * @return um objeto DTO com os dados da permissão salva.
+     */
     @Override
-    public Requisicao saveRequisicao(Requisicao requisicao) {
-        if (requisicao == null) {
-            throw new BusinessException(REQUISICAO_NULL);
-        } else {
-            return daoRequisicao.save(requisicao);
-        }
+    public RequisicaoResponseDto saveRequisicao(Requisicao requisicao) {
+        return objectMapperUtil.map(
+                daoRequisicao.save(requisicao),
+                RequisicaoResponseDto.class);
     }
 
     @Override

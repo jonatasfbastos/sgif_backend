@@ -8,8 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ifba.entity.pessoa.model.Pessoa;
 
+/**
+ * @author Unknown
+ * Editado por Giovane Neves
+ * @since Desde V1.0.1
+ */
 @Repository
 public interface IDaoPessoa extends JpaRepository<Pessoa, Long> {
+
+    // =========================================================== //
+    // =============== [ ASSINATURAS DE MÉTODOS ] ================ //
+    // =========================================================== //
 
     List<Pessoa> findByNome(String name);
 
@@ -17,6 +26,15 @@ public interface IDaoPessoa extends JpaRepository<Pessoa, Long> {
 
     void delete(Pessoa pessoa);
 
-    // public abstract Optional<Pessoa> findByLoginOrEmailAndSenha(String login,
-    // String email, String senha);
+    /**
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * <p>
+     * Verifica se há uma pessoa com o CPF passado por parâmetro
+     * na base de dados.
+     * @param cpf O CPF a ser consultado
+     * @return 'true' caso haja uma pessoa com o CPF em questão,
+     * 'false' caso contrário.
+     */
+    boolean existsByCpf(String cpf);
 }

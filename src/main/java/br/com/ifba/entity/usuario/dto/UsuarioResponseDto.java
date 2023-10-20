@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 
 /**
+ * @author Andesson Reis
+ * Desde V1.0.1
+ * 
  * DTO para resposta às requisições direcionadas à entidade 'Usuário'.
  * Este DTO representa informações públicas do usuário, incluindo o login.
  *

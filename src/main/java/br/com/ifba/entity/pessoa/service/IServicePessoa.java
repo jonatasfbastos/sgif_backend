@@ -28,9 +28,9 @@ public interface IServicePessoa {
     /**
      * Deleta uma Pessoa.
      *
-     * @param pessoa - A Pessoa a ser deletada.
+     * @param Id - O ID da pessoa a ser deletada.
      */
-    void delete(Pessoa pessoa);
+    PessoaResponseDto deleteById(UUID Id);
 
     /**
      * Obtém uma lista de todas as pessoas como objetos DTO.

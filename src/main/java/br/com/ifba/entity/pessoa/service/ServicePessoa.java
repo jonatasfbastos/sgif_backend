@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import br.com.ifba.entity.pessoa.dao.IDaoPessoa;  
+import br.com.ifba.entity.pessoa.dao.IDaoPessoa;
 import br.com.ifba.entity.pessoa.dto.PessoaResponseDto;
 import br.com.ifba.entity.pessoa.model.Pessoa;
 
@@ -17,14 +17,14 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
  * @author matheus lima
- * Editado por Andesson Reis
- * Desde V1.0.1
+ *         Editado por Andesson Reis
+ *         Desde V1.0.1
  */
 @Service
 public class ServicePessoa implements IServicePessoa {
 
     // =========================================================== //
-    // =============== [        ATRIBUTOS       ] ================ //
+    // =============== [ ATRIBUTOS ] ================ //
     // =========================================================== //
 
     @Autowired
@@ -34,14 +34,14 @@ public class ServicePessoa implements IServicePessoa {
     private ObjectMapperUtil objectMapperUtil;
 
     // =========================================================== //
-    // =============== [        MÉTODOS       ] ================== //
+    // =============== [ MÉTODOS ] ================== //
     // =========================================================== //
 
     /**
      * @author Andesson Reis
      * @since Desde V1.0.1
      * 
-     * Salva uma pessoa na base de dados.
+     *        Salva uma pessoa na base de dados.
      * @param pessoa A pessoa que será salvo na base de dados.
      * @return um objeto DTO com os dados da pessoa salvo
      * 
@@ -53,19 +53,30 @@ public class ServicePessoa implements IServicePessoa {
                 .filter(form -> !this.daoPessoa.existsByCpf(form.getCpf()))
                 .map(form -> objectMapperUtil.map(this.daoPessoa.save(form), PessoaResponseDto.class))
                 .orElseThrow(() -> new BusinessException(
-                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("CPF"))
-                );
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("CPF")));
     }
 
+    /**
+     * @author Andesson Reis
+     *         Desde V1.0.1
+     * 
+     *         Deleta uma pessoa atrelado ao ID passado por parâmetro.
+     * @param id O ID do pessoa a ser deletado.
+     * 
+     * @return Dados de uma pessoa deletada deletado.
+     */
     @Override
-    public void delete(Pessoa pessoa) {
-        if (pessoa == null) {
-            throw new BusinessException(Pessoa_NULL);
-        } else {
-            this.daoPessoa.delete(pessoa);
-            return;
-        }
+    public PessoaResponseDto deleteById(UUID id) {
+
+        return this.daoPessoa.findById(id)
+                .map(pessoa -> {
+                    daoPessoa.delete(pessoa);
+                    return objectMapperUtil.map(pessoa, PessoaResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
     }
+
     /**
      * Obtém uma lista de todas as pessoas como objetos DTO.
      *
@@ -79,7 +90,7 @@ public class ServicePessoa implements IServicePessoa {
                 PessoaResponseDto.class);
     }
 
-     /**
+    /**
      * Encontra pessoas pelo nome.
      *
      * @param name - O nome das pessoas a serem encontradas.
@@ -89,9 +100,9 @@ public class ServicePessoa implements IServicePessoa {
     public List<PessoaResponseDto> findByNome(String name) {
 
         return objectMapperUtil.mapAll(
-                        this.daoPessoa.findByNome(name),
-                        PessoaResponseDto.class);
-       
+                this.daoPessoa.findByNome(name),
+                PessoaResponseDto.class);
+
     }
 
     /**
@@ -102,9 +113,9 @@ public class ServicePessoa implements IServicePessoa {
      */
     @Override
     public PessoaResponseDto findById(UUID id) {
-          return daoPessoa.findById(id)
-            .map(objectMapperUtil.mapFn(PessoaResponseDto.class))
-            .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+        return daoPessoa.findById(id)
+                .map(objectMapperUtil.mapFn(PessoaResponseDto.class))
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     /*

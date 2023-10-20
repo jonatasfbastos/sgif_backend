@@ -1,32 +1,59 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package br.com.ifba.entity.pessoa.service;
 
 import java.util.List;
+import java.util.UUID;
 
+import br.com.ifba.entity.pessoa.dto.PessoaResponseDto;
 import br.com.ifba.entity.pessoa.model.Pessoa;
 import org.springframework.stereotype.Service;
 
 /**
+ * Serviço para operações relacionadas à entidade 'Pessoa'.
  *
  * @author matheus lima
+ * Editado por Andesson Reis
+ * Desde V1.0.1
  */
 @Service
 public interface IServicePessoa {
 
-    public abstract Pessoa savePessoa(Pessoa pessoa);
+    /**
+     * Salva uma Pessoa na base de dados e retorna um objeto DTO com os dados da pessoa salva.
+     *
+     * @param pessoa - A Pessoa que será salva na base de dados.
+     * @return um objeto DTO com os dados da pessoa salva.
+     */
+    PessoaResponseDto savePessoa(Pessoa pessoa);
 
-    public abstract void delete(Pessoa pessoa);
+    /**
+     * Deleta uma Pessoa.
+     *
+     * @param pessoa - A Pessoa a ser deletada.
+     */
+    void delete(Pessoa pessoa);
 
-    public abstract List<Pessoa> getAllPessoas();
+    /**
+     * Obtém uma lista de todas as pessoas como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as pessoas.
+     */
+    List<PessoaResponseDto> getAllPessoas();
 
-    public List<Pessoa> findByNome(String name);
+    /**
+     * Encontra uma pessoa pelo ID.
+     *
+     * @param id - O ID da pessoa a ser encontrada.
+     * @return um objeto DTO com os dados da pessoa encontrada.
+     */
+    PessoaResponseDto findById(UUID id);
 
-    public Pessoa findById(Long id);
+    /**
+     * Encontra pessoas pelo nome.
+     *
+     * @param name - O nome das pessoas a serem encontradas.
+     * @return uma lista de objetos DTO representando as pessoas encontradas.
+     */
+    List<PessoaResponseDto> findByNome(String name);
 
-    // public Pessoa findByLoginOrEmailAndSenha(String login, String email, String
-    // senha);
-
+    // Outros métodos podem ser adicionados conforme necessário.
 }

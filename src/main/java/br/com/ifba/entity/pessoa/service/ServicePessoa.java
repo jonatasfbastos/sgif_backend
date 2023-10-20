@@ -17,8 +17,8 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
  * @author matheus lima
- *         Editado por Andesson Reis
- *         Desde V1.0.1
+ *Editado por Andesson Reis
+ *Desde V1.0.1
  */
 @Service
 public class ServicePessoa implements IServicePessoa {
@@ -41,7 +41,7 @@ public class ServicePessoa implements IServicePessoa {
      * @author Andesson Reis
      * @since Desde V1.0.1
      * 
-     *        Salva uma pessoa na base de dados.
+     * Salva uma pessoa na base de dados.
      * @param pessoa A pessoa que será salvo na base de dados.
      * @return um objeto DTO com os dados da pessoa salvo
      * 
@@ -58,9 +58,9 @@ public class ServicePessoa implements IServicePessoa {
 
     /**
      * @author Andesson Reis
-     *         Desde V1.0.1
+     * @since Desde V1.0.1
      * 
-     *         Deleta uma pessoa atrelado ao ID passado por parâmetro.
+     *Deleta uma pessoa atrelado ao ID passado por parâmetro.
      * @param id O ID do pessoa a ser deletado.
      * 
      * @return Dados de uma pessoa deletada deletado.
@@ -78,6 +78,9 @@ public class ServicePessoa implements IServicePessoa {
     }
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
      * Obtém uma lista de todas as pessoas como objetos DTO.
      *
      * @return uma lista de objetos DTO representando as pessoas.
@@ -91,6 +94,9 @@ public class ServicePessoa implements IServicePessoa {
     }
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
      * Encontra pessoas pelo nome.
      *
      * @param name - O nome das pessoas a serem encontradas.
@@ -106,6 +112,9 @@ public class ServicePessoa implements IServicePessoa {
     }
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
      * Encontra uma pessoa pelo ID.
      *
      * @param id - O ID da pessoa a ser encontrada.
@@ -117,14 +126,4 @@ public class ServicePessoa implements IServicePessoa {
                 .map(objectMapperUtil.mapFn(PessoaResponseDto.class))
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-
-    /*
-     * @Override
-     * public Pessoa findByLoginOrEmailAndSenha(String login, String email, String
-     * senha) {
-     * Optional<Pessoa> pessoa = daoPessoa.findByLoginOrEmailAndSenha(login, email,
-     * senha);
-     * return pessoa.isPresent() ? pessoa.get() : null;
-     * }
-     */
 }

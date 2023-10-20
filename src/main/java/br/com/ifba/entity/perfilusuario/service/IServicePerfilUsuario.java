@@ -61,5 +61,5 @@ public interface IServicePerfilUsuario {
      * @param id O ID da permissão a ser pesquisada.
      * @return Uma lista de perfis de usuário (Response DTO) com a permissão especificada.
      */
-   // List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(UUID id);
+    List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(UUID id);
 }

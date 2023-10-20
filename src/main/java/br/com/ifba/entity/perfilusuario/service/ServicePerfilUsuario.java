@@ -139,10 +139,14 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
      * @return Uma lista de perfis de usuário (Response DTO) com a permissão
      *         especificada.
      */
-    /*
-     * @Override
-     * public List<PerfilUsuario> findPerfisByPermissaoId(Long id) {
-     * return daoPerfilDeUsuario.findByPermissoesId(id);
-     * }
-     */
+
+      @Override
+      public List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(UUID id) {
+
+          return objectMapperUtil.mapAll(
+                this.daoPerfilUsuario.findByPermissoesId(id),
+                PerfilUsuarioResponseDto.class);
+     
+      }
+     
 }

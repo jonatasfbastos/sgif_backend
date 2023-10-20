@@ -58,7 +58,7 @@ public class PermissaoController {
                 .body(permissaoService.getAllPermissoes());
     }
 
-       /**
+    /**
      * @apiNote Endpoint criado desde a versão 1.0.1
      *
      * Obtém a lista de todas as permissões por ID.
@@ -72,6 +72,22 @@ public class PermissaoController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(permissaoService.getAllByPerfilId(id));
+    }
+
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Obtém a lista de todas as permissões por Link ID.
+     *
+     * @return Uma lista de permissoes ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @GetMapping(path = "/permissoes/{id}", consumes = "application/json")
+    public ResponseEntity<?> listarPermissoesPorLinkId(@Valid @PathVariable("id") @NotNull UUID id) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(permissaoService.getAllByLinkId(id));
     }
 
 }

@@ -80,14 +80,12 @@ public class ServicePessoa implements IServicePessoa {
     }
 
     @Override
-    public List<Pessoa> findByNome(String name) {
-        if (name == null) {
-            throw new BusinessException("Nome null");
-        } else if (name.isEmpty()) {
-            throw new BusinessException("Nome vazio");
-        } else {
-            return daoPessoa.findByNome(name);
-        }
+    public List<PessoaResponseDto> findByNome(String name) {
+
+        return objectMapperUtil.mapAll(
+                        this.daoPessoa.findByNome(name),
+                        PessoaResponseDto.class);
+       
     }
 
     @Override

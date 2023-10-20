@@ -7,7 +7,6 @@ import java.util.UUID;
 import br.com.ifba.entity.requisicao.dao.IDaoRequisicao;
 import br.com.ifba.entity.requisicao.dto.RequisicaoResponseDto;
 import br.com.ifba.entity.requisicao.model.Requisicao;
-import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
@@ -96,9 +95,20 @@ public class ServiceRequisicao implements IServiceRequisicao {
 
     }
 
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Obtém uma lista de todas as requisição como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as requisição.
+     */
     @Override
-    public List<Requisicao> getAllRequisicao() {
-        return this.daoRequisicao.findAll();
+    public List<RequisicaoResponseDto> getAllRequisicao() {
+
+        return objectMapperUtil.mapAll(
+                this.daoRequisicao.findAll(),
+                RequisicaoResponseDto.class);
     }
 
 }

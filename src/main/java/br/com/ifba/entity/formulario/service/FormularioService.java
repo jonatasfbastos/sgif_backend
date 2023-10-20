@@ -8,17 +8,17 @@ import java.util.UUID;
 import br.com.ifba.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.formulario.model.Formulario;
+import br.com.ifba.entity.formulario.dao.IDaoFormulario;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+import br.com.ifba.infrastructure.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.ifba.entity.formulario.dao.IDaoFormulario;
-import br.com.ifba.infrastructure.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Giovane Neves
- * Desde V1.0.1
+ * @since Desde V1.0.1
  */
 @Service
 public class FormularioService implements IFormularioService {
@@ -44,7 +44,7 @@ public class FormularioService implements IFormularioService {
     /**
      * @author Giovane Neves
      * Desde V1.0.1
-     *
+     *<p>
      * Lista todos os formulários da base de dados.
      * @return uma lista com todos os formulários na base de dados.
      */
@@ -60,10 +60,9 @@ public class FormularioService implements IFormularioService {
 
     /**
      * @author Giovane Neves
-     * Desde V1.0.1
-     *
+     * @since Desde V1.0.1
+     * <p>
      * Encontra um formulário pelo ID passado por parâmetro.
-     *
      * @param id O ID do formulário a ser buscado na base de dados.
      * @return os dados do formulário atrelados àquele ID.
      */
@@ -80,15 +79,20 @@ public class FormularioService implements IFormularioService {
 
     /**
      * @author Giovane Neves
-     * Desde V1.0.1
+     * @since Desde V1.0.1
+     * <p>
      * Salva um formulário na base de dados.
-     *
      * @param formulario O formulário que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do formulário
      * salvo.
      */
     @Override
     public FormularioSimpleResponseDto salvarFormulario(Formulario formulario) {
+
+        if(this.formularioDao.existsByTitulo(formulario.getTitulo()))
+            throw new BusinessException(
+                    BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("título")
+            );
 
         return objectMapperUtil.map(
                 this.formularioDao.save(formulario),
@@ -99,9 +103,9 @@ public class FormularioService implements IFormularioService {
 
     /**
      * @author Giovane Neves
-     * Desde V1.0.1
+     * @since Desde V1.0.1
+     * <p>
      * Atualiza um formulário existente na base de dados.
-     *
      * @param formulario - O formulário que será atualizado.
      * @return dados do formulário atualizado.
      */
@@ -119,10 +123,9 @@ public class FormularioService implements IFormularioService {
 
     /**
      * @author Giovane Neves
-     * Desde V1.0.1
-     *
+     * @since Desde V1.0.1
+     *<p>
      * Deleta um formulário.
-     *
      * @param id O ID do formulário a ser deletado.
      * @return objeto DTO com os dados do formulário deletado.
      */

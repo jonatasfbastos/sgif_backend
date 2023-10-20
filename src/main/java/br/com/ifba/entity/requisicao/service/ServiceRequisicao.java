@@ -2,10 +2,12 @@ package br.com.ifba.entity.requisicao.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.ifba.entity.requisicao.dao.IDaoRequisicao;
 import br.com.ifba.entity.requisicao.dto.RequisicaoResponseDto;
 import br.com.ifba.entity.requisicao.model.Requisicao;
+import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
@@ -58,7 +60,7 @@ public class ServiceRequisicao implements IServiceRequisicao {
      * @since Desde V1.0.1
      * 
      * Atualiza uma requisição existente na base de dados.
-     * @param requisicao - A requisição que será atualizado.
+     * @param requisicao - A c que será atualizado.
      * @return dados da requisição atualizado.
      */
     @Override
@@ -73,15 +75,24 @@ public class ServiceRequisicao implements IServiceRequisicao {
 
     }
     
-
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Deleta uma requisição .
+     *
+     * @param id O ID da requisição a ser deletado.
+     * @return objeto DTO com os dados da requisição deletado.
+     */
     @Override
-    public void deleteRequisicao(Requisicao requisicao) {
-        if (requisicao == null) {
-            throw new BusinessException(REQUISICAO_NULL);
-        } else {
-            this.daoRequisicao.delete(requisicao);
-            return;
-        }
+    public RequisicaoResponseDto deleteRequisicao(UUID id) {
+
+           return this.daoRequisicao.findById(id)
+                .map(req -> {
+                    daoRequisicao.delete(req);
+                    return objectMapperUtil.map(req, RequisicaoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
     }
 

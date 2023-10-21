@@ -1,9 +1,15 @@
 package br.com.ifba.controller.v1;
 
+import java.util.UUID;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,9 +18,9 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
  * @author Andesson reis
- * Desde V1.0.1
+ *         Desde V1.0.1
  * 
- *Veja também: {@link br.com.ifba.entity.item.model.Item}
+ *         Veja também: {@link br.com.ifba.entity.item.model.Item}
  */
 
 @RestController
@@ -48,6 +54,23 @@ public class ItemController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.getAllItens());
+    }
+
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Obtém um item por ID.
+     *
+     * @param id O ID do item a ser obtido.
+     * @return Um item ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @GetMapping(path = "/item/{id}", consumes = "application/json")
+    public ResponseEntity<?> getItem(@Valid @PathVariable("id") @NotNull UUID id) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(itemService.getItemById(id));
     }
 
 }

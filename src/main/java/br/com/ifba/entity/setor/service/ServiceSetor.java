@@ -1,6 +1,7 @@
 package br.com.ifba.entity.setor.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -82,13 +83,25 @@ public class ServiceSetor implements IServiceSetor {
                 SetorResponseDto.class);
     }
 
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     *
+     * Deleta um setor da base de dados.
+     *
+     * @param Id id do setor a ser deletado.
+     */
     @Override
-    public void deleteSetor(Setor setor) {
-        if (setor == null) {
-            throw new BusinessException(SETOR_NULL);
-        } else {
-            daoSetor.delete(setor);
-        }
+    public SetorResponseDto deleteSetor(UUID id) {
+        
+           return this.daoSetor.findById(id)
+                .map(setor -> {
+                    daoSetor.delete(setor);
+                    return objectMapperUtil.map(setor, SetorResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+    }
+
     }
 
     @Override

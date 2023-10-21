@@ -8,6 +8,7 @@ import br.com.ifba.entity.setor.dao.IDaoSetor;
 import br.com.ifba.entity.setor.dto.SetorResponseDto;
 import br.com.ifba.entity.setor.model.Setor;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,10 @@ public class ServiceSetor implements IServiceSetor {
     // =========================================================== //
 
     /**
+     * 
+     * @author Andesson Reis
+     * @since V1.0.1
+     * 
      * Salva um setor na base de dados e retorna um objeto DTO com os dados
      * do setor salvo.
      *
@@ -55,15 +60,26 @@ public class ServiceSetor implements IServiceSetor {
                 SetorResponseDto.class);
     }
 
+    /**
+     * 
+     * @author Andesson Reis
+     * @since V1.0.1
+     * 
+     * Atualiza um setor na base de dados.
+     *
+     * @param perfilUsuarioResponseDTO O setor a ser atualizado.
+     *                                
+     * @return O setor atualizado.
+     */
     @Override
-    public Setor updateSetor(Setor setor) {
-        if (setor == null) {
-            throw new BusinessException(SETOR_NULL);
-        } else if (daoSetor.findById(setor.getId()) == null) {
-            throw new BusinessException(SETOR_NAO_EXISTE);
-        } else {
-            return daoSetor.save(setor);
-        }
+    public SetorResponseDto updateSetor(@Valid Setor setor) {
+
+        daoSetor.findById(setor.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                daoSetor.save(setor),
+                SetorResponseDto.class);
     }
 
     @Override

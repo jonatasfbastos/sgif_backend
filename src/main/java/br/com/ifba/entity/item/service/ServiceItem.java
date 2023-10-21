@@ -11,6 +11,7 @@ import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.item.dao.IDaoItem;
+import br.com.ifba.entity.item.dto.ItemResponseDto;
 import br.com.ifba.entity.item.dto.ItemSimpleResponseDto;
 import br.com.ifba.entity.item.model.Item;
 
@@ -168,6 +169,23 @@ public class ServiceItem implements IServiceItem {
         return objectMapperUtil.mapAll(
                 this.daoItem.validadeAfter(validade),
                 ItemSimpleResponseDto.class);
+    }
+
+     /**
+     * Obtém um item por ID e mapeia para um objeto DTO.
+     *
+     * @param id - O ID do item a ser obtido.
+     * @return um objeto DTO com os dados do item encontrado.
+     * 
+     * @throws BusinessException se o item não for encontrado.
+     */
+    @Override
+    public ItemResponseDto getItemById(UUID id) {
+     return objectMapperUtil.map(
+                daoItem.findById(id)
+                        .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())),
+                ItemResponseDto.class
+        );
     }
 
 }

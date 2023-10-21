@@ -40,6 +40,12 @@ public class ServiceItem implements IServiceItem {
     // ======================== [ MÉTODOS ] ====================== //
     // =========================================================== //
 
+    /**
+     * Salva um item na base de dados e retorna um objeto DTO com os dados do item salvo.
+     *
+     * @param item - O item que será salvo na base de dados.
+     * @return um objeto DTO com os dados do item salvo.
+     */
     @Override
     public ItemSimpleResponseDto saveItem(Item item) {
 
@@ -52,6 +58,13 @@ public class ServiceItem implements IServiceItem {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Deleta um item pelo ID.
+     *
+     * @param id - O ID do item a ser deletado.
+     * @return um objeto DTO com os dados do item deletado.
+     * @throws BusinessException se o item não for encontrado.
+     */
     @Override
     public ItemSimpleResponseDto deleteItem(UUID id) {
 
@@ -64,6 +77,12 @@ public class ServiceItem implements IServiceItem {
 
     }
 
+
+    /**
+     * Obtém uma lista de todos os itens como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os itens.
+     */
     @Override
     public List<ItemSimpleResponseDto> getAllItens() {
 
@@ -72,6 +91,12 @@ public class ServiceItem implements IServiceItem {
                 ItemSimpleResponseDto.class);
     }
 
+    /**
+     * Obtém uma lista de itens por nome como objetos DTO.
+     *
+     * @param name - O nome a ser pesquisado.
+     * @return uma lista de objetos DTO representando os itens encontrados.
+     */
     @Override
     public List<ItemSimpleResponseDto> findByNome(String name) {
         return daoItem.findByNome(name)
@@ -80,6 +105,7 @@ public class ServiceItem implements IServiceItem {
                 .collect(Collectors.toList());
     }
 
+    
     public Date getDataAjuste(Date data, int num) {
 
         Calendar calendar = Calendar.getInstance();
@@ -89,17 +115,27 @@ public class ServiceItem implements IServiceItem {
         return calendar.getTime();
     }
 
+
+    /**
+     * Atualiza um item na base de dados.
+     *
+     * @param item - O item a ser atualizado.
+     * @return um objeto DTO com os dados do item atualizado.
+     * @throws BusinessException se o item com o ID especificado não for encontrado.
+     */    
     @Override
-    public Item updateItem(Item item) {
-        if (item == null) {
-            throw new BusinessException(ITEM_NULL);
-        } else if (daoItem.findById(item.getId()) == null) {
-            throw new BusinessException(ITEM_EXISTE);
-        } else {
-            item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
-            return daoItem.save(item);
-        }
+    public ItemSimpleResponseDto updateItem(Item item) {
+    
+        return Optional.ofNullable(item)
+                    .filter(itemToSave -> daoItem.existsById(itemToSave.getId()))
+                    .map(itemToSave -> {
+                        itemToSave.setDataNot(getDataAjuste(itemToSave.getValidade(), itemToSave.getAlerta()));
+                        return daoItem.save(itemToSave);
+                    })
+                    .map(savedItem -> objectMapperUtil.map(savedItem, ItemSimpleResponseDto.class))
+                    .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
+    
 
     @Override
     public List<Item> dataNotBefore(Date dataNot) {

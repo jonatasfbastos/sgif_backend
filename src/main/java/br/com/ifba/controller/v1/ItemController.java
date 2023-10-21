@@ -73,4 +73,21 @@ public class ItemController {
                 .body(itemService.getItemById(id));
     }
 
+    /**
+    * @apiNote Endpoint criado desde a versão 1.0.1
+    *
+    * Obtém um item por nome.
+    *
+    * @param nome O nome do item a ser obtido.
+    * @return Um item ou uma resposta de erro em caso de falha.
+    *
+    * @author Andesson Reis
+    */
+    @GetMapping(path = "/itens/item", consumes = "application/json")
+    public ResponseEntity<?> getItemPorNome(@Valid @PathVariable String nome) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(itemService.findByNome(nome));
+    }
+
 }

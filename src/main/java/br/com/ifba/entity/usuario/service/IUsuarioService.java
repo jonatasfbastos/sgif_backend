@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author Andesson Reis
- * Desde V1.0.1
+ * @since Desde V1.0.1
  */
 @Service
 public interface IUsuarioService {

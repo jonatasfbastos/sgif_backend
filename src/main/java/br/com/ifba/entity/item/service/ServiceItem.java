@@ -105,7 +105,13 @@ public class ServiceItem implements IServiceItem {
                 .collect(Collectors.toList());
     }
 
-    
+    /**
+     * Obtém uma data ajustada com base na data de validade e no período de alerta.
+     *
+     * @param data - A data de validade.
+     * @param num - O período de alerta em dias.
+     * @return a data ajustada.
+     */
     public Date getDataAjuste(Date data, int num) {
 
         Calendar calendar = Calendar.getInstance();

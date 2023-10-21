@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +74,25 @@ public class RequisicaoController {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.OK).body(requisicaoService.updateRequisicao(objectMapperUtil.map(reqDto, Requisicao.class)));
+
+    }
+
+    /**
+     * @author Andesson Reis
+     *
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Salva uma requisição.
+     * @return uma entidade de resposta generica.
+     */
+
+    @PostMapping(path = "/requisicoes/requisicao", consumes = "application/json")
+    public ResponseEntity<?> salvarRequisicao(@Valid @RequestBody RequisicaoRequestDto reqDto, BindingResult result) {
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED)
+                        .body(requisicaoService.saveRequisicao(objectMapperUtil.map(reqDto, Requisicao.class)));
 
     }
 

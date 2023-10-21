@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
@@ -12,7 +13,6 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.item.dao.IDaoItem;
 import br.com.ifba.entity.item.dto.ItemSimpleResponseDto;
 import br.com.ifba.entity.item.model.Item;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,13 +64,20 @@ public class ServiceItem implements IServiceItem {
 
     }
 
-
     @Override
     public List<ItemSimpleResponseDto> getAllItens() {
-        
+
         return objectMapperUtil.mapAll(
                 this.daoItem.findAll(),
                 ItemSimpleResponseDto.class);
+    }
+
+    @Override
+    public List<ItemSimpleResponseDto> findByNome(String name) {
+        return daoItem.findByNome(name)
+                .stream()
+                .map(objectMapperUtil.mapFn(ItemSimpleResponseDto.class))
+                .collect(Collectors.toList());
     }
 
     public Date getDataAjuste(Date data, int num) {
@@ -95,19 +102,8 @@ public class ServiceItem implements IServiceItem {
     }
 
     @Override
-    public List<Item> findByNome(String name) {
-        if (name == null) {
-            throw new BusinessException("Nome null");
-        } else if (name.isEmpty()) {
-            throw new BusinessException("Nome vazio");
-        } else {
-            return daoItem.findByNome(name);
-        }
-    }
-
-    @Override
     public List<Item> dataNotBefore(Date dataNot) {
-        return daoItem.dataNotBefore(dataNot);
+        return daoItem.dataNotBeforae(dataNot);
     }
 
     @Override

@@ -136,10 +136,18 @@ public class ServiceItem implements IServiceItem {
                     .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
     
-
+      /**
+     * Obtém uma lista de itens com data anterior à data especificada.
+     *
+     * @param dataNot - A data de referência.
+     * @return uma lista de itens com data anterior à data especificada.
+     */
     @Override
-    public List<Item> dataNotBefore(Date dataNot) {
-        return daoItem.dataNotBeforae(dataNot);
+    public List<ItemSimpleResponseDto> findByDataNotBefore(Date dataNot) {
+
+         return objectMapperUtil.mapAll(
+                this.daoItem.dataNotBefore(dataNot),
+                ItemSimpleResponseDto.class);
     }
 
     @Override

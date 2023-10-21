@@ -25,10 +25,10 @@ import br.com.ifba.entity.perfilusuario.service.IServicePerfilUsuario;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
- * 
- * 
  * @author Andesson reis
  * Desde V1.0.1
+ * 
+ *Veja também: {@link br.com.ifba.entity.perfilusuario.model.PerfilUsuario}
  */
 
 @RestController

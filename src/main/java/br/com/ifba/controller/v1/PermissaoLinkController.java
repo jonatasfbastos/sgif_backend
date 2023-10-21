@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifba.controller.v1.util.ResultError;
 import br.com.ifba.entity.permissaolink.dto.PermissaoLinkRequestDto;
@@ -22,6 +24,15 @@ import br.com.ifba.entity.permissaolink.model.PermissaoLink;
 import br.com.ifba.entity.permissaolink.service.IServicePermissaoLink;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
+/**
+ * @author Andesson reis
+ * Desde V1.0.1
+ * 
+ *Veja também: {@link br.com.ifba.entity.permissaolink.model.PermissaoLink}
+ */
+
+@RestController
+@RequestMapping(path = "/apif/v1")
 public class PermissaoLinkController {
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //

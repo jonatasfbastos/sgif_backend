@@ -1,77 +1,114 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.requisicao.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import br.com.ifba.entity.requisicao.dao.IDaoRequisicao;
+import br.com.ifba.entity.requisicao.dto.RequisicaoResponseDto;
 import br.com.ifba.entity.requisicao.model.Requisicao;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Vitor
+ * @author Vitor 
+ * @Editado por Andesson Reis
+ * Desde V1.0.1
  */
 @Service
 public class ServiceRequisicao implements IServiceRequisicao {
 
-    // CONSTANTES
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
-    // mensagem de erro se a requisição for null;
-    public final static String REQUISICAO_NULL = "Requisição null";
-
-    // mensagem de erro se a Requisição já existir;
-    public final static String REQUISICAO_EXISTE = "Requisição já existe,";
-
-    // mensagem de erro se a Requisição não existir no banco;
-    public final static String REQUISICAO_NAO_EXISTE = "Requisição não existe na base de dados";
-
-    // mensagem de erro se a Requisição for inválido;
-    public final static String REQUISICAO_INVALIDO = "Requisição inválida";
-
-    // OBJETO
     @Autowired
     private IDaoRequisicao daoRequisicao;
 
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== /
+
+
+    /**
+     * @author Andesson Reis
+     * @since V1.0.1
+
+     * Salva uma requisição na base de dados e retorna um objeto DTO com os dados da requisição salva.
+     *
+     * @param requisicao - A requisição que será salva na base de dados.
+     * @return um objeto DTO com os dados da requisição salva.
+     */
     @Override
-    public Requisicao saveRequisicao(Requisicao requisicao) {
-        if (requisicao == null) {
-            throw new BusinessException(REQUISICAO_NULL);
-        } else {
-            return daoRequisicao.save(requisicao);
-        }
+    public RequisicaoResponseDto saveRequisicao(Requisicao requisicao) {
+        return objectMapperUtil.map(
+                daoRequisicao.save(requisicao),
+                RequisicaoResponseDto.class);
     }
 
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Atualiza uma requisição existente na base de dados.
+     * @param requisicao - A c que será atualizado.
+     * @return dados da requisição atualizado.
+     */
     @Override
-    public Requisicao updateRequisicao(Requisicao requisicao) {
-        if (requisicao == null) {
-            throw new BusinessException(REQUISICAO_NULL);
-        } else if (daoRequisicao.findById(requisicao.getId()) == null) {
-            throw new BusinessException(REQUISICAO_NAO_EXISTE);
-        } else {
-            return daoRequisicao.save(requisicao);
-        }
-    }
+    public RequisicaoResponseDto updateRequisicao(Requisicao requisicao) {
 
-    @Override
-    public void deleteRequisicao(Requisicao requisicao) {
-        if (requisicao == null) {
-            throw new BusinessException(REQUISICAO_NULL);
-        } else {
-            this.daoRequisicao.delete(requisicao);
-            return;
-        }
+        return Optional.of(requisicao)
+                        .filter(req -> this.daoRequisicao.existsById(requisicao.getId()))
+                        .map(req -> objectMapperUtil.map(this.daoRequisicao.save(req), RequisicaoResponseDto.class))
+                        .orElseThrow(
+                                () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                        );
 
     }
-
+    
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Deleta uma requisição .
+     *
+     * @param id O ID da requisição a ser deletado.
+     * @return objeto DTO com os dados da requisição deletado.
+     */
     @Override
-    public List<Requisicao> getAllRequisicao() {
-        return this.daoRequisicao.findAll();
+    public RequisicaoResponseDto deleteRequisicao(UUID id) {
+
+           return this.daoRequisicao.findById(id)
+                .map(req -> {
+                    daoRequisicao.delete(req);
+                    return objectMapperUtil.map(req, RequisicaoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+    }
+
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Obtém uma lista de todas as requisição como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as requisição.
+     */
+    @Override
+    public List<RequisicaoResponseDto> getAllRequisicao() {
+
+        return objectMapperUtil.mapAll(
+                this.daoRequisicao.findAll(),
+                RequisicaoResponseDto.class);
     }
 
 }

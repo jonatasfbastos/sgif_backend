@@ -11,7 +11,7 @@ import br.com.ifba.entity.pessoa.model.Pessoa;
 
 /**
  * @author Unknown
- * Editado por Giovane Neves
+ * Editado por Giovane Neves, Andesson Reis
  * @since Desde V1.0.1
  */
 @Repository

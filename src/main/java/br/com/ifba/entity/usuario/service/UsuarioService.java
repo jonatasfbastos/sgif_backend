@@ -65,16 +65,16 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public UsuarioSimpleResponseDto deleteUsuario(UUID id) {
-    
-        Usuario usuario = daoUsuario.findById(id)
+
+           return this.daoUsuario.findById(id)
+                .map(user -> {
+                    daoUsuario.delete(user);
+                    return objectMapperUtil.map(user, UsuarioSimpleResponseDto.class);
+                })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-    
-        daoUsuario.delete(usuario);
-    
-        return objectMapperUtil.map(usuario, UsuarioSimpleResponseDto.class);
+
     }
     
-
     /**
      * Obtém uma lista de todos os usuários como objetos DTO.
      *

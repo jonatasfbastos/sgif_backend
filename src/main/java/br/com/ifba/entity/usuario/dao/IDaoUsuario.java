@@ -8,6 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.ifba.entity.usuario.model.Usuario;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Andesson reis
+ * Desde V1.0.1
+ * 
+ *Veja também: {@link br.com.ifba.entity.usuario.model.Usuario}
+ */
+
 @Repository
 public interface IDaoUsuario extends JpaRepository<Usuario, Long> {
 

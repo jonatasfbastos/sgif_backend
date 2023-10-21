@@ -24,10 +24,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * 
- * 
  * @author Andesson reis
  * Desde V1.0.1
+ * 
+ *Veja também: {@link br.com.ifba.entity.usuario.model.Usuario}
  */
 
 @RestController

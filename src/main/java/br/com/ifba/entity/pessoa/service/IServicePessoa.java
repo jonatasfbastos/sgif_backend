@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
  * Editado por Andesson Reis
  * Desde V1.0.1
  */
+
 @Service
 public interface IServicePessoa {
 
@@ -28,9 +29,9 @@ public interface IServicePessoa {
     /**
      * Deleta uma Pessoa.
      *
-     * @param pessoa - A Pessoa a ser deletada.
+     * @param Id - O ID da pessoa a ser deletada.
      */
-    void delete(Pessoa pessoa);
+    PessoaResponseDto deleteById(UUID Id);
 
     /**
      * Obtém uma lista de todas as pessoas como objetos DTO.
@@ -55,5 +56,4 @@ public interface IServicePessoa {
      */
     List<PessoaResponseDto> findByNome(String name);
 
-    // Outros métodos podem ser adicionados conforme necessário.
 }

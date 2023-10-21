@@ -102,11 +102,20 @@ public class ServiceSetor implements IServiceSetor {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
-    }
 
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     *
+     * Obtém uma lista de todos os setores
+     *
+     * @return Uma lista setores.
+     */
     @Override
-    public List<Setor> getAllSetor() {
-        return this.daoSetor.findAll();
-    }
+    public List<SetorResponseDto> getAllSetor() {
 
+        return objectMapperUtil.mapAll(
+                this.daoSetor.findAll(),
+                SetorResponseDto.class);
+    }
 }

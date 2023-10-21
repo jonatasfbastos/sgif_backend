@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -147,7 +148,27 @@ public class ItemController {
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.OK).body(itemService.updateItem(objectMapperUtil.map(itemDto, Item.class));
+                : ResponseEntity.status(HttpStatus.OK).body(itemService.updateItem(objectMapperUtil.map(itemDto, Item.class)));
+
+    }
+
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Salva um novo item com os dados fornecidos.
+     *
+     * @param itemDto Os dados do item a ser salvo.
+     * @param result O resultado da validação dos dados do item.
+     * @return O item salvo ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @PostMapping(path = "/itens/item", consumes = "application/json")
+    public ResponseEntity<?> salvarItem(@Valid @RequestBody ItemRequestDto itemDto, BindingResult result){
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.OK).body(itemService.saveItem(objectMapperUtil.map(itemDto, Item.class)));
 
     }
 

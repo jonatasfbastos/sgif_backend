@@ -2,6 +2,7 @@ package br.com.ifba.entity.requisicao.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
+import br.com.ifba.entity.setor.dto.SetorResponseDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

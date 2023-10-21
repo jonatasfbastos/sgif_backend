@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.requisicao.model;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.item.model.Item;
 import br.com.ifba.entity.setor.model.Setor;
 import br.com.ifba.entity.usuario.model.Usuario;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,11 +21,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  * @author Vitor
  */
-@Entity
-@Table(name = "requisicao")
+@Entity(name = "requisicao")
+@Table(name = "requisicoes")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Requisicao extends PersistenceEntity {
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
     private String codigoSaida;
     private boolean status;
     private int quantidadeItensReq;

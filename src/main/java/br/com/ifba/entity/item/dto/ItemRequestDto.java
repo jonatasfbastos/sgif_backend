@@ -1,5 +1,6 @@
 package br.com.ifba.entity.item.dto;
 
+import br.com.ifba.entity.fornecedor.dto.FornecedorRequestDto;
 import br.com.ifba.entity.requisicao.dto.RequisicaoRequestDto;
 import br.com.ifba.entity.usuario.dto.UsuarioRequestDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  *
  * @author Andesson Reis
+ * @since V1.0.1
  *
  * Entidade que recebe dados enviados por requisições
  * direcionadas à entidade 'Item'.

@@ -63,6 +63,8 @@ public class ServiceFornecedor implements IServiceFornecedor {
      * @param fornecedor O fornecedor (Response DTO) a ser atualizado.
      * @return O fornecedor (Response DTO) atualizado.
      * @throws BusinessException se o fornecedor não existe na base de dados.
+     * @author Andesson Reis
+     * @since V1.0.1
      */
     @Override
     public FornecedorResponseDto updateFornecedor(Fornecedor fornecedor) {
@@ -81,6 +83,9 @@ public class ServiceFornecedor implements IServiceFornecedor {
      * @param id O ID do fornecedor a ser deletado.
      * @return O fornecedor (Response DTO) que foi deletado.
      * @throws BusinessException se o fornecedor com o ID especificado não existe.
+     * 
+     * @author Andesson Reis
+     * @since V1.0.1
      */
     @Override
     public FornecedorResponseDto deleteFornecedor(UUID id) {
@@ -92,10 +97,21 @@ public class ServiceFornecedor implements IServiceFornecedor {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
-
+    
+    /**
+     * Obtém uma lista de todos os fornecedores (Response DTOs) cadastrados na base de dados.
+     *
+     * @return Uma lista de fornecedores (Response DTOs).
+     * @throws BusinessException se ocorrer um erro ao recuperar a lista de fornecedores.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Fornecedor> getAllFornecedor() {
-        return daoFornecedor.findAll();
+    public List<FornecedorResponseDto> getAllFornecedores() {
+        return objectMapperUtil.mapAll(
+                this.daoFornecedor.findAll(),
+                FornecedorResponseDto.class);
     }
+
 
 }

@@ -9,19 +9,25 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ifba.controller.v1.util.ResultError;
+import br.com.ifba.entity.item.dto.ItemRequestDto;
+import br.com.ifba.entity.item.model.Item;
 import br.com.ifba.entity.item.service.IServiceItem;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
  * @author Andesson reis
- *         Desde V1.0.1
+ * Desde V1.0.1
  * 
- *         Veja também: {@link br.com.ifba.entity.item.model.Item}
+ * Veja também: {@link br.com.ifba.entity.item.model.Item}
  */
 
 @RestController
@@ -123,6 +129,26 @@ public class ItemController {
 
          return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.findByValidadeAfter(validade));
+    }
+
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Atualiza um item com os dados fornecidos.
+     *
+     * @param itemDto Os dados do item a ser atualizado.
+     * @param result O resultado da validação dos dados do item.
+     * @return O item atualizado ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @PutMapping(path = "/itens/item", consumes = "application/json")
+    public ResponseEntity<?> atualizarItem(@Valid @RequestBody ItemRequestDto itemDto, BindingResult result){
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.OK).body(itemService.updateItem(objectMapperUtil.map(itemDto, Item.class));
+
     }
 
 

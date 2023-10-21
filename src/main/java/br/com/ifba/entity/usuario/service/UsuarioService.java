@@ -48,7 +48,7 @@ public class UsuarioService implements IUsuarioService {
    @Override
     public UsuarioSimpleResponseDto saveUsuario(@Valid Usuario usuario) {
 
-        usuario.setPassword(StringUtil.toMD5(usuario.getPassword()));
+        usuario.setSenha(StringUtil.toMD5(usuario.getSenha()));
 
         return objectMapperUtil.map(
             daoUsuario.save(usuario),

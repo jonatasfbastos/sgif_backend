@@ -52,7 +52,7 @@ public class Usuario extends PersistenceEntity {
      */
 
     @NotNull
-    private String password;
+    private String senha;
 
     /**
      * Perfil do usuario.

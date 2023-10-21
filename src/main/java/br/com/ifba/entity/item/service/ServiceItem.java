@@ -13,6 +13,7 @@ import br.com.ifba.entity.item.dao.IDaoItem;
 import br.com.ifba.entity.item.dto.ItemSimpleResponseDto;
 import br.com.ifba.entity.item.model.Item;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +64,15 @@ public class ServiceItem implements IServiceItem {
 
     }
 
+
+    @Override
+    public List<ItemSimpleResponseDto> getAllItens() {
+        
+        return objectMapperUtil.mapAll(
+                this.daoItem.findAll(),
+                ItemSimpleResponseDto.class);
+    }
+
     public Date getDataAjuste(Date data, int num) {
 
         Calendar calendar = Calendar.getInstance();
@@ -82,11 +92,6 @@ public class ServiceItem implements IServiceItem {
             item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
             return daoItem.save(item);
         }
-    }
-
-    @Override
-    public List<Item> getAllItens() {
-        return daoItem.findAll();
     }
 
     @Override

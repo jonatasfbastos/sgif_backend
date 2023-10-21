@@ -1,5 +1,6 @@
 package br.com.ifba.controller.v1;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -89,5 +90,20 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.findByNome(nome));
     }
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Obtém uma lista de itens cuja data não seja anterior à data fornecida.
+     *
+     * @param dataNot A data de referência para filtrar os itens.
+     * @return Uma lista de itens ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @GetMapping(path = "/itens/dataNotBefore", consumes = "application/json")
+    public ResponseEntity<?> findByDataNotBefore(@Valid Date dataNot) {
 
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(itemService.findByDataNotBefore(dataNot));
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -168,8 +169,25 @@ public class ItemController {
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.OK).body(itemService.saveItem(objectMapperUtil.map(itemDto, Item.class)));
+                : ResponseEntity.status(HttpStatus.CREATED).body(itemService.saveItem(objectMapperUtil.map(itemDto, Item.class)));
 
+    }
+    
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     *
+     * Deleta um item por ID.
+     *
+     * @param id O ID do item a ser excluído.
+     * @return Uma resposta de aceitação (202 Accepted) em caso de sucesso ou uma resposta de erro em caso de falha.
+     *
+     * @author Andesson Reis
+     */
+    @DeleteMapping(path = "/Itens/Item/{id}", consumes = "application/json")
+    public ResponseEntity<?> deletarItemPorId(@PathVariable("id") @NotNull UUID id){
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(itemService.deleteItem(id));
     }
 
 

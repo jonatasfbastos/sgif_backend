@@ -2,15 +2,17 @@ package br.com.ifba.entity.fornecedor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
+  
 import br.com.ifba.entity.fornecedor.dao.IDaoFornecedor;
 import br.com.ifba.entity.fornecedor.dto.FornecedorResponseDto;
 import br.com.ifba.entity.fornecedor.model.Fornecedor;
 import br.com.ifba.entity.perfilusuario.dao.IDaoPerfilUsuario;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
@@ -56,16 +58,23 @@ public class ServiceFornecedor implements IServiceFornecedor {
                 FornecedorResponseDto.class);
     }
 
+    /**
+     * Atualiza um fornecedor (Response DTO) na base de dados.
+     *
+     * @param fornecedor O fornecedor (Response DTO) a ser atualizado.
+     * @return O fornecedor (Response DTO) atualizado.
+     * @throws BusinessException se o fornecedor não existe na base de dados.
+     */
     @Override
-    public Fornecedor updateFornecedor(Fornecedor fornecedor) {
-        if (fornecedor == null) {
-            throw new BusinessException(FORNECEDOR_NULL);
-        } else if (daoFornecedor.findById(fornecedor.getId()) == null) {
-            throw new BusinessException(FORNECEDOR_EXISTE);
-        } else {
-            return daoFornecedor.save(fornecedor);
-        }
+    public FornecedorResponseDto updateFornecedor(Fornecedor fornecedor) {
+        return Optional.of(fornecedor)
+                .filter(forn -> this.daoFornecedor.existsById(fornecedor.getId()))
+                .map(forn -> objectMapperUtil.map(this.daoFornecedor.save(forn), FornecedorResponseDto.class))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
     }
+
 
     @Override
     public void deleteFornecedor(Fornecedor fornecedor) {

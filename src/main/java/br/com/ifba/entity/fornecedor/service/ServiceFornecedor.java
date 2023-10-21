@@ -3,14 +3,13 @@ package br.com.ifba.entity.fornecedor.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
   
 import br.com.ifba.entity.fornecedor.dao.IDaoFornecedor;
 import br.com.ifba.entity.fornecedor.dto.FornecedorResponseDto;
 import br.com.ifba.entity.fornecedor.model.Fornecedor;
-import br.com.ifba.entity.perfilusuario.dao.IDaoPerfilUsuario;
-import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
@@ -76,15 +75,23 @@ public class ServiceFornecedor implements IServiceFornecedor {
     }
 
 
+    /**
+     * Deleta um fornecedor (Response DTO) com base no seu ID.
+     *
+     * @param id O ID do fornecedor a ser deletado.
+     * @return O fornecedor (Response DTO) que foi deletado.
+     * @throws BusinessException se o fornecedor com o ID especificado não existe.
+     */
     @Override
-    public void deleteFornecedor(Fornecedor fornecedor) {
-        if (fornecedor == null) {
-            throw new BusinessException(FORNECEDOR_NULL);
-        } else {
-            this.daoFornecedor.delete(fornecedor);
-            return;
-        }
+    public FornecedorResponseDto deleteFornecedor(UUID id) {
+        return this.daoFornecedor.findById(id)
+                .map(forn -> {
+                    daoFornecedor.delete(forn);
+                    return objectMapperUtil.map(forn, FornecedorResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
+
 
     @Override
     public List<Fornecedor> getAllFornecedor() {

@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
@@ -50,7 +51,18 @@ public class ServiceItem implements IServiceItem {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
-    
+    @Override
+    public ItemSimpleResponseDto deleteItem(UUID id) {
+
+        return this.daoItem.findById(id)
+                .map(DeletItem -> {
+                    daoItem.delete(DeletItem);
+                    return objectMapperUtil.map(DeletItem, ItemSimpleResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+    }
+
     public Date getDataAjuste(Date data, int num) {
 
         Calendar calendar = Calendar.getInstance();
@@ -70,17 +82,6 @@ public class ServiceItem implements IServiceItem {
             item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
             return daoItem.save(item);
         }
-    }
-
-    @Override
-    public void deleteItem(Item item) {
-        if (item == null) {
-            throw new BusinessException(ITEM_NULL);
-        } else {
-            this.daoItem.delete(item);
-            return;
-        }
-
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,5 +64,18 @@ public class FornecedorController {
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.OK).body(fornecedorService.updateFornecedor(objectMapperUtil.map(fornecedorDto, Fornecedor.class)));
 
+    }
+
+    /**
+     * Salva um fornecedor.
+     * 
+     * @return Uma entidade de resposta genérica.
+     */
+    @PostMapping(path = "/fornecedores/fornecedor", consumes = "application/json")
+    public ResponseEntity<?> salvarFornecedor(@Valid @RequestBody FornecedorRequestDto fornecedorDto, BindingResult result) {
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED).body(fornecedorService.saveFornecedor(objectMapperUtil.map(fornecedorDto, Fornecedor.class)));
     }
 }

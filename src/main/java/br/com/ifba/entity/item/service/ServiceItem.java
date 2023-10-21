@@ -136,7 +136,7 @@ public class ServiceItem implements IServiceItem {
                     .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
     
-      /**
+    /**
      * Obtém uma lista de itens com data anterior à data especificada.
      *
      * @param dataNot - A data de referência.
@@ -150,9 +150,18 @@ public class ServiceItem implements IServiceItem {
                 ItemSimpleResponseDto.class);
     }
 
+    /**
+     * Obtém uma lista de itens com validade posterior à data especificada.
+     *
+     * @param validade - A data de validade de referência.
+     * @return uma lista de itens com validade posterior à data especificada.
+     */
     @Override
-    public List<Item> validadeAfter(Date validade) {
-        return daoItem.validadeAfter(validade);
+    public List<ItemSimpleResponseDto> findByValidadeAfter(Date validade) {
+
+        return objectMapperUtil.mapAll(
+                this.daoItem.validadeAfter(validade),
+                ItemSimpleResponseDto.class);
     }
 
 }

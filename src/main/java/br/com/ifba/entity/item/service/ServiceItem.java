@@ -107,23 +107,6 @@ public class ServiceItem implements IServiceItem {
     }
 
     /**
-     * Obtém uma data ajustada com base na data de validade e no período de alerta.
-     *
-     * @param data - A data de validade.
-     * @param num - O período de alerta em dias.
-     * @return a data ajustada.
-     */
-    public Date getDataAjuste(Date data, int num) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(data);
-        calendar.add(Calendar.DATE, -num);
-
-        return calendar.getTime();
-    }
-
-
-    /**
      * Atualiza um item na base de dados.
      *
      * @param item - O item a ser atualizado.
@@ -186,6 +169,22 @@ public class ServiceItem implements IServiceItem {
                         .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())),
                 ItemResponseDto.class
         );
+    }
+
+    /**
+     * Obtém uma data ajustada com base na data de validade e no período de alerta.
+     *
+     * @param data - A data de validade.
+     * @param num - O período de alerta em dias.
+     * @return a data ajustada.
+     */
+    public Date getDataAjuste(Date data, int num) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+        calendar.add(Calendar.DATE, -num);
+
+        return calendar.getTime();
     }
 
 }

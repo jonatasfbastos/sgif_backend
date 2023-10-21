@@ -91,7 +91,7 @@ public interface IServiceItem {
 
     /**
      * Busca itens com data de validade posterior à data fornecida.
-     *
+     * 
      * @param validade A data de validade de referência.
      * @return uma lista de itens com data de validade posterior à data especificada.
      * @author Andesson Reis

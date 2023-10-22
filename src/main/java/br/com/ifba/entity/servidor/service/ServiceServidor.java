@@ -1,46 +1,59 @@
 package br.com.ifba.entity.servidor.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.entity.aluno.model.Aluno;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.servidor.dao.IDaoServidor;
+import br.com.ifba.entity.servidor.dto.ServidorResponseDto;
 import br.com.ifba.entity.servidor.model.Servidor;
+/**
+ * Service que fornece operações relacionadas a Servidor.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
 
 @Service
 public class ServiceServidor implements IServiceServidor{
-    //================= CONSTANTES =============================================
-    
-    // Mensagem de erro se o Tecnico Administrativo for null.
-    public final static String Servidor_NULL = "Dados do Servidor nao preenchidos";
-    
-    // Mensagem de erro se o Tecnico Administrativo já existe.
-    public final static String Servidor_EXISTE = "Servidor ja existente no Banco de dados";
-    
-    // Mensagem de erro se o Tecnico Administrativo não existir no banco.
-    public final static String Servidor_NAO_EXISTE = "Servidor nao existente no Banco de dados";
-    
-    // Mensagem de erro se o Tecnico Administrativo for inválido.
-    public final static String Servidor_INVALIDO = "As informaçoes do Servidor nao sao validas";
-    
-   
-     //================= OBJETO =================================================
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
     @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+    
+   @Autowired
     private IDaoServidor servidorDao;
 
-     //================= MÉTODOS ================================================
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+    
+    /**
+     * Salva um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor salvo.
+     *
+     * @param servidor - O Servidor que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do Servidor salvo.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Servidor saveServidor(Servidor servidor) {
-       if(servidor == null) {
-            throw new BusinessException(Servidor_NULL);
-        } 
-        if(servidorDao.existsById(servidor.getId()) == false) {
-            throw new BusinessException(Servidor_NAO_EXISTE);
-        }
-       return servidorDao.save(servidor);
+    public ServidorResponseDto saveServidor(Servidor servidor) {
+
+        return Optional.of(servidor)
+                .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
+                .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
+                .orElseThrow(() -> new BusinessException(
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("título"))
+                );
     }
 
     @Override

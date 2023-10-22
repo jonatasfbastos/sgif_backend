@@ -32,4 +32,18 @@ public interface IDaoServidor extends JpaRepository<Servidor, Long>{
      * que será nulo caso o Servidor não exista na base de dados.
      */
     Optional<Servidor> findById(UUID id);
+
+
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
+     * Verifica se existe um servidor com o siape passado por parâmetro
+     * na base de dados.
+     * @param siape O siape do servidor a ser consultado
+     * @return 'true' caso haja um servidor com o siape
+     * passado por parâmetro na base de dados,
+     * 'false' caso contrário.
+     */
+    boolean existsBySiape(String siape);
 }

@@ -18,8 +18,9 @@ import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
- * @author Andesson Reis
- * Desde V1.0.1
+ * @author vitor
+ * @since V1.0.1
+ * @Editado por Andesson Reis
  */
 @Service
 public class UsuarioService implements IUsuarioService {

@@ -9,8 +9,9 @@ import java.util.UUID;
 /**
  * Interface que define os serviços relacionados à entidade "PermissaoLink".
  *
- * @author Andesson Reis
+ * @author unknown
  * @since V1.0.1
+ * @Editado por Andesson Reis
  */
 public interface IServicePermissaoLink {
     /**

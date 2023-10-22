@@ -19,8 +19,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Andesson Reis
+ * @author vitor
  * @since V1.0.1
+ * @Editado por Andesson Reis
  * 
  * Esta classe, descendente da classe Pessoa, representa um usuario.
  * Nenhum dos atributos desta classes pode ser nulo.

@@ -3,35 +3,48 @@ package br.com.ifba.entity.relatoriomensal.service;
 import java.util.List;
 
 import br.com.ifba.entity.relatoriomensal.dao.IDaoRelatorioMensal;
+import br.com.ifba.entity.relatoriomensal.dto.RelatorioMensalResponseDto;
 import br.com.ifba.entity.relatoriomensal.model.RelatorioMensal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 @Service
 public class ServiceRelatorioMensal implements IServiceRelatorioMensal{
 
+    // =========================================================== //
+    // ======================= [ ATRIBUTOS ] ===================== //
+    // =========================================================== //
+
     @Autowired
-    private IDaoRelatorioMensal daoRelatorio;
+    private IDaoRelatorioMensal relatorioMensalDao;
 
-    // mensagem de erro se o Pessoa for null;
-    public final static String Relatorio_NULL = "Relatório null";
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
 
-    // mensagem de erro se o Pessoa já existir;
-    public final static String Relatorio_EXISTE = "O Relatório já existe,";
+    // =========================================================== //
+    // ========================= [ MÉTODOS ] ===================== //
+    // =========================================================== //
 
-    // mensagem de erro se o Pessoa não existir no banco;
-    public final static String Relatorio_NAO_EXISTE = "O Relatorio não existe na base de dados";
 
-    // mensagem de erro se o Pessoa for inválido;
-    public final static String Relatorio_INVALIDO = "Relatório inválido";
-
+    /**
+     * Salva um Relatório Mensal na base de dados e retorna um objeto DTO com os dados resumidos do Relatório Mensal salvo.
+     *
+     * @param relatorio - O Relatório Mensal que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do Relatório Mensal salvo.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public RelatorioMensal saveRelatorioMensal(RelatorioMensal relatorio) {
-        return daoRelatorio.save(relatorio);
+    public RelatorioMensalResponseDto saveRelatorioMensal(RelatorioMensal relatorio) {
+        
+        return objectMapperUtil.map(
+                relatorioMensalDao.save(relatorio),
+                RelatorioMensalResponseDto.class);
     }
-
     @Override
     public List<RelatorioMensal> getAllRelatorioMensal() {
         return (List<RelatorioMensal>) this.daoRelatorio.findAll();

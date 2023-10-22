@@ -2,6 +2,7 @@ package br.com.ifba.entity.item.dto;
 
 import br.com.ifba.entity.empenho.dto.EmpenhoResponseDto;
 import br.com.ifba.entity.fornecedor.dto.FornecedorResponseDto;
+import br.com.ifba.entity.relatoriomensal.dto.RelatorioMensalResponseDto;
 import br.com.ifba.entity.requisicao.dto.RequisicaoResponseDto;
 import br.com.ifba.entity.tipodeitem.dto.TipoDeItemResponseDto;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;

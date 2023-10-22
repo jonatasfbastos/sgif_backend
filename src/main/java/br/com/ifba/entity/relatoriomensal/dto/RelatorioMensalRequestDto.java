@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
  * @param valorTotal - O valor total.
  * @param valorTotalSairam - O valor total das saídas.
  * @param data - A data do relatório mensal.
+ * @param item - Informações do item associado ao relatório.
  */
 public record RelatorioMensalRequestDto(
         @JsonProperty(value = "nome")

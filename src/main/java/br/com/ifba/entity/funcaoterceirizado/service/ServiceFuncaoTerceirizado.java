@@ -78,9 +78,18 @@ public class ServiceFuncaoTerceirizado implements IServiceFuncaoTerceirizado {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todas as Funções de Terceirizado como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Funções de Terceirizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<FuncaoTerceirizado> getAllFuncoesTerceirizado() {
-        return daoFuncaoTerceirizado.findAll();
+    public List<FuncaoTerceirizadoResponseDto> getAllFuncoesTerceirizado() {
+        return objectMapperUtil.mapAll(
+                this.daoFuncaoTerceirizado.findAll(),
+                FuncaoTerceirizadoResponseDto.class);
     }
 
 }

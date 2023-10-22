@@ -1,6 +1,7 @@
 package br.com.ifba.entity.relatoriomensal.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.relatoriomensal.dao.IDaoRelatorioMensal;
 import br.com.ifba.entity.relatoriomensal.dto.RelatorioMensalResponseDto;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 @Service
@@ -55,19 +57,29 @@ public class ServiceRelatorioMensal implements IServiceRelatorioMensal{
      */
     @Override
     public List<RelatorioMensalResponseDto> getAllRelatorioMensal() {
-        
+
         return objectMapperUtil.mapAll(
                 this.relatorioMensalDao.findAll(),
                 RelatorioMensalResponseDto.class);
     }
+
+    /**
+     * Deleta um Relatório Mensal com base no ID.
+     *
+     * @param id - O ID do Relatório Mensal a ser deletado.
+     * @return um objeto DTO com os dados do Relatório Mensal deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void delete(RelatorioMensal relatorio) {
-        if (relatorio == null) {
-            throw new BusinessException(Relatorio_NULL);
-        } else {
-            this.daoRelatorio.delete(relatorio);
-            return;
-        }
+    public RelatorioMensalResponseDto delete(UUID id) {
+        
+        return this.relatorioMensalDao.findById(id)
+                .map(relatorioMensal -> {
+                    relatorioMensalDao.delete(relatorioMensal);
+                    return objectMapperUtil.map(relatorioMensal, RelatorioMensalResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
     
 }

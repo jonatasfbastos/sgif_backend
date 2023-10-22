@@ -92,9 +92,18 @@ public class TipoDeItemService implements ITipoDeItemService{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os TiposDeItem como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os TiposDeItem.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<TipoDeItem> getAlltipoDeItem() {
-        return (List<TipoDeItem>)this.daoTipoDeItem.findAll();
+    public List<TipoDeItemResponseDto> getAllTiposDeItem() {
+        return objectMapperUtil.mapAll(
+                this.daoTipoDeItem.findAll(),
+                TipoDeItemResponseDto.class);
     }
     
 }

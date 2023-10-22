@@ -55,6 +55,15 @@ public interface IQuestaoService {
      */
     QuestaoResponseDto salvarQuestao(Questao questao);
 
+
+    /**
+     * Atualiza uma questão existente na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param questao A questão a ser atualizada.
+     * @return DTO com dados da questão atualizada.
+     */
     QuestaoResponseDto atualizarQuestao(Questao questao);
 
     /**

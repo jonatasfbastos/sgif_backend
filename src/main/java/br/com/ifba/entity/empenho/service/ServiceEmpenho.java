@@ -55,8 +55,24 @@ public class ServiceEmpenho implements IServiceEmpenho {
                 EmpenhoResponseDto.class);
     }
 
+    /**
+     * Atualiza um empenho (Response DTO) na base de dados.
+     *
+     * @param empenho O empenho (Response DTO) a ser atualizado.
+     * @return O empenho (Response DTO) atualizado.
+     * @throws BusinessException se o empenho com o ID especificado não existe.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
+    @Override
+    public EmpenhoResponseDto updateEmpenho(Empenho empenho) {
 
-
+        return Optional.of(empenho)
+                .filter(emp -> this.daoEmpenho.existsById(empenho.getId()))
+                .map(emp -> objectMapperUtil.map(this.daoEmpenho.save(emp), EmpenhoResponseDto.class))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+    }
 
     @Override
     public void deleteEmpenho(Empenho empenho) {

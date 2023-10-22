@@ -2,6 +2,7 @@ package br.com.ifba.entity.servidor.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,16 +79,22 @@ public class ServiceServidor implements IServiceServidor{
 
 
 
+    /**
+     * Deleta um Servidor com base no ID.
+     *
+     * @param id - O ID do Servidor a ser deletado.
+     * @return um objeto DTO com os dados do Servidor deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteServidor(Servidor servidor) {
-        if (servidor == null) {
-            throw new BusinessException(Servidor_NULL);
-        } 
-        if(servidorDao.existsById(servidor.getId()) == false) {
-            throw new BusinessException(Servidor_NAO_EXISTE);
-        }
-      servidorDao.delete(servidor);
-    
+    public ServidorResponseDto deleteServidor(UUID id) {
+        return this.servidorDao.findById(id)
+                .map(servidor -> {
+                    servidorDao.delete(servidor);
+                    return objectMapperUtil.map(servidor, ServidorResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

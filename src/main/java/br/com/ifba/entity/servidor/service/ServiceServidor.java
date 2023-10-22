@@ -89,6 +89,7 @@ public class ServiceServidor implements IServiceServidor{
      */
     @Override
     public ServidorResponseDto deleteServidor(UUID id) {
+
         return this.servidorDao.findById(id)
                 .map(servidor -> {
                     servidorDao.delete(servidor);
@@ -97,9 +98,18 @@ public class ServiceServidor implements IServiceServidor{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os Servidores como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Servidores.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Servidor> getAllServidor() {
-        return this.servidorDao.findAll();
-    }
+    public List<ServidorResponseDto> getAllServidor() {
 
+        return objectMapperUtil.mapAll(
+                this.servidorDao.findAll(),
+                ServidorResponseDto.class);
+    }
 }

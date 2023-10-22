@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.setor.dao.IDaoSetor;
 import br.com.ifba.entity.tipodeitem.dao.IDaoTipoItem;
@@ -53,16 +54,24 @@ public class TipoDeItemService implements ITipoDeItemService{
                 TipoDeItemResponseDto.class);
     }
 
+    /**
+     * Atualiza um TipoDeItem na base de dados e retorna um objeto DTO com os dados resumidos do TipoDeItem atualizado.
+     *
+     * @param tipoDeItem - O TipoDeItem que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do TipoDeItem atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public TipoDeItem updatetipoDeItem(TipoDeItem tipoDeItem) {
-        if(tipoDeItem == null){
-            throw new BusinessException(tipoDeItem_NULL);
-        }else if(daoTipoDeItem.findById(tipoDeItem.getId()) == null){
-            throw new BusinessException(tipoDeItem_NAO_EXISTE);
-        }else{
-            return daoTipoDeItem.save(tipoDeItem);
-        }
+    public TipoDeItemResponseDto updateTipoDeItem(TipoDeItem tipoDeItem) {
+        daoTipoDeItem.findById(tipoDeItem.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                daoTipoDeItem.save(tipoDeItem),
+                TipoDeItemResponseDto.class);
     }
+
 
     @Override
     public void deletetipoDeItem(TipoDeItem tipoDeItem) {

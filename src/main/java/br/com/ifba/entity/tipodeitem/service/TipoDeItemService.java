@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
-import br.com.ifba.entity.setor.dao.IDaoSetor;
 import br.com.ifba.entity.tipodeitem.dao.IDaoTipoItem;
 import br.com.ifba.entity.tipodeitem.dto.TipoDeItemResponseDto;
 

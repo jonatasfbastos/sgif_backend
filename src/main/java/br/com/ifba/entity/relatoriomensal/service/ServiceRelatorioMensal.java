@@ -40,17 +40,26 @@ public class ServiceRelatorioMensal implements IServiceRelatorioMensal{
      */
     @Override
     public RelatorioMensalResponseDto saveRelatorioMensal(RelatorioMensal relatorio) {
-        
+
         return objectMapperUtil.map(
                 relatorioMensalDao.save(relatorio),
                 RelatorioMensalResponseDto.class);
     }
+
+    /**
+     * Obtém uma lista de todos os Relatórios Mensais como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Relatórios Mensais.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<RelatorioMensal> getAllRelatorioMensal() {
-        return (List<RelatorioMensal>) this.daoRelatorio.findAll();
-
+    public List<RelatorioMensalResponseDto> getAllRelatorioMensal() {
+        
+        return objectMapperUtil.mapAll(
+                this.relatorioMensalDao.findAll(),
+                RelatorioMensalResponseDto.class);
     }
-
     @Override
     public void delete(RelatorioMensal relatorio) {
         if (relatorio == null) {

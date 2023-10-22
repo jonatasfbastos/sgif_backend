@@ -1,104 +1,178 @@
 package br.com.ifba.entity.avaliacao.service;
 
-import java.util.List;
-
-import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
+import br.com.ifba.entity.avaliacao.dao.IAvaliacaoDao;
+import br.com.ifba.entity.avaliacao.dto.AvaliacaoResponseDto;
 import br.com.ifba.entity.avaliacao.model.Avaliacao;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+import br.com.ifba.infrastructure.exception.BusinessException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ifba.infrastructure.exception.BusinessException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.ArrayList;
-import java.util.Objects;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+/**
+ * @author Unknown
+ * Editado por Giovane Neves
+ * @since Desde V1.0.1
+ */
 @Service
-public class ServiceAvaliacao implements IServiceAvaliacao {
+public class AvaliacaoService implements IAvaliacaoService {
 
-    //================= CONSTANTES =============================================
-    // Mensagem de erro se Avaliacao for null.
-    public final static String AVALIACAO_NULL = "Dados da Avaliacao nao preenchidos";
+    // =========================================================== //
+    // =============== [       ATRIBUTOS        ] ================ //
+    // =========================================================== //
 
-    // Mensagem de erro se  Avaliacao já existe.
-    public final static String AVALIACAO_EXISTE = "Avaliacao ja existente no Banco de dados";
-
-    // Mensagem de erro se Avaliacao não existir no banco.
-    public final static String AVALIACAO_NAO_EXISTE = "Avaliacao nao existente no Banco de dados";
-
-    // Mensagem de erro se Avaliacao for inválida.
-    public final static String AVALIACAO_INVALIDO = "As informacoes da Avaliacao nao sao validas";
-    
-    // Mensagem de erro em caso de dados null para filtrar Avaliacao.
-    public final static String DADOS_NULL = "Dados invalidos para filtrar";
-    
-    // Mensagem de erro em caso de período inválido para filtrar Avaliacao.
-    public final static String PERIODO_INVALIDO = "Periodo invalido para filtrar";
-
-    //================= OBJETO =================================================
     @Autowired
-    private IDaoAvaliacao avaliacaoDao;
+    private IAvaliacaoDao avaliacaoDao;
 
-    //================= MÉTODOS ================================================
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+
+    /**
+     * Lista todas as avaliações cadastradas na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @return uma lista com todas as turmas da base de dados, ou nulo, caso não exista nenhuma.
+     */
     @Override
-    public Avaliacao saveAvaliacao(Avaliacao avaliacao) {
-        if (avaliacao == null) {
-            throw new BusinessException(AVALIACAO_NULL);
-        }
-        // Transformação das strings em LocalDate para verificação.
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+    public List<AvaliacaoResponseDto> listarAvaliacoes() {
+
+        return this.objectMapperUtil.mapAll(
+                this.avaliacaoDao.findAll(),
+                AvaliacaoResponseDto.class
+        );
+
+    }
+
+    /**
+     * Busca uma avaliacao na base de dados com base no ID passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param id O ID da avaliação a ser buscada.
+     * @return a avaliação atrelada ao ID passado por parâmetro.
+     */
+    @Override
+    public AvaliacaoResponseDto encontrarAvaliacaoPorId(UUID id) {
+
+        return avaliacaoDao.findById(id)
+                .map(av -> this.objectMapperUtil.map(av, AvaliacaoResponseDto.class))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
+
+    }
+
+    /**
+     * Salva uma avaliação na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param avaliacao A avaliação a ser salva na base de dados.
+     * @return DTO com dados da avaliação salva.
+     */
+    @Override
+    public AvaliacaoResponseDto salvarAvaliacao(Avaliacao avaliacao) {
+
+        return Optional.of(avaliacao)
+                .filter(av -> this.validarDataFim(av.getDataInicio(), av.getDataFim()))
+                .map(av -> this.objectMapperUtil.map(this.avaliacaoDao.save(av), AvaliacaoResponseDto.class))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.INVALID_DATE.getMensagem())
+                );
+
+    }
+
+    /**
+     * Atualiza uma avaliação existente na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param avaliacao A avaliação a ser atualizada.
+     * @return DTO com dados da avaliação atualizada.
+     */
+    @Override
+    public AvaliacaoResponseDto atualizarAvaliacao(Avaliacao avaliacao) {
+
+
+        return this.avaliacaoDao.findById(avaliacao.getId())
+                .filter(av -> this.avaliacaoDao.existsById(av.getId()))
+                .map(av -> Optional.of(av)
+                        .filter(a -> this.validarDataFim(a.getDataInicio(), a.getDataFim()))
+                        .map(a -> this.objectMapperUtil.map(this.avaliacaoDao.save(a), AvaliacaoResponseDto.class))
+                        .orElseThrow(
+                                () -> new BusinessException(BusinessExceptionMessage.INVALID_DATE.getMensagem())
+                        ))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
+
+
+    }
+
+    /**
+     * Deleta uma avaliação na base de dados com base no ID passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param id O ID da avaliação a ser deletada.
+     * @return DTO om dados da avaliação deletada.
+     */
+    @Override
+    public AvaliacaoResponseDto deletarAvaliacaoPorId(UUID id) {
+
+        return this.avaliacaoDao.findById(id)
+                .map(av -> {
+                    this.avaliacaoDao.delete(av);
+                    return this.objectMapperUtil.map(av, AvaliacaoResponseDto.class);
+                })
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
+
+    }
+
+    /**
+     * Valida a data de fim da avaliação.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param dataInicio A data de inicio da avaliacao.
+     * @param dataFim A data de fim da avaliacao.
+     * @return 'true' caso a data de fim seja válida, 'false' caso contrário.
+     */
+    private boolean validarDataFim(String dataInicio, String dataFim) {
+
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                 .withResolverStyle(ResolverStyle.STRICT);
-        LocalDate dataInicio = LocalDate.parse(avaliacao.getDataInicio(), parser);
-        LocalDate dataFim = LocalDate.parse(avaliacao.getDataFim(), parser);
-        // Verificação se a data final é antes da data inicial (não permitido).
-        if (dataFim.isBefore(dataInicio)) {
-            throw new BusinessException(AVALIACAO_INVALIDO);
-        }
-        return avaliacaoDao.save(avaliacao);
+
+        Stream.of(dataInicio, dataFim)
+                .map(dataStr -> LocalDate.parse(dataStr, parser))
+                .reduce((dInicio, dFim) -> dFim.isBefore(dInicio) ? dFim : dInicio)
+                .map(dataMenor -> false);
+
+        return true;
+
     }
 
-    @Override
-    public Avaliacao updateAvaliacao(Avaliacao avaliacao) {
-        if (avaliacao == null) {
-            throw new BusinessException(AVALIACAO_NULL);
-        }
-        if (avaliacaoDao.existsById(avaliacao.getId()) == false) {
-            throw new BusinessException(AVALIACAO_NAO_EXISTE);
-        }
-        // Transformação das strings em LocalDate para verificação.
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/uuuu")
-                .withResolverStyle(ResolverStyle.STRICT);
-        LocalDate dataInicio = LocalDate.parse(avaliacao.getDataInicio(), parser);
-        LocalDate dataFim = LocalDate.parse(avaliacao.getDataFim(), parser);
-        // Verificação se a data final é antes da data inicial (não permitido).
-        if (dataFim.isBefore(dataInicio)) {
-            throw new BusinessException(AVALIACAO_INVALIDO);
-        }
-        return avaliacaoDao.save(avaliacao);
-    }
 
-    @Override
-    public void deleteAvaliacao(Avaliacao avaliacao) {
-        if (avaliacao == null) {
-            throw new BusinessException(AVALIACAO_NULL);
-        }
-        if (avaliacaoDao.existsById(avaliacao.getId()) == false) {
-            throw new BusinessException(AVALIACAO_NAO_EXISTE);
-        }
-        avaliacaoDao.delete(avaliacao);
-    }
-
-    @Override
-    public List<Avaliacao> getAllAvaliacao() {
-        return this.avaliacaoDao.findAll();
-    }
-
-    @Override
-    public Avaliacao findById(Long id) {
-        return avaliacaoDao.getReferenceById(id);
-    }
-    
+    // Temporariamente desabilitado
+    /*
     @Override
     public List<Avaliacao> filtrarAvaliacao(String dtInicio, String dtFim, Long idDisciplina) {
         // Verificações se dados são null.
@@ -147,4 +221,6 @@ public class ServiceAvaliacao implements IServiceAvaliacao {
         }
         return filtro;
     }
+    */
+
 }

@@ -17,7 +17,7 @@ public interface IAvaliacaoService {
      *
      * @author Giovane Neves
      * @since Desde V1.0.1
-     * @return uma lista com todas as turmas da base de dados, ou nulo, caso não exista nenhuma.
+     * @return uma lista com todas as avaliações da base de dados, ou nulo, caso não exista nenhuma.
      */
     List<AvaliacaoResponseDto> listarAvaliacoes();
 
@@ -27,7 +27,7 @@ public interface IAvaliacaoService {
      * @author Giovane Neves
      * @since Desde V1.0.1
      * @param id O ID da avaliação a ser buscada.
-     * @return DTO com dados da avaliação atrelada ao ID passado por parâmetro.
+     * @return a avaliação atrelada ao ID passado por parâmetro.
      */
     AvaliacaoResponseDto encontrarAvaliacaoPorId(UUID id);
 
@@ -57,7 +57,7 @@ public interface IAvaliacaoService {
      * @author Giovane Neves
      * @since Desde V1.0.1
      * @param id O ID da avaliação a ser deletada.
-     * @return DTO om dados da avaliação deletada.
+     * @return DTO com dados da avaliação deletada.
      */
     AvaliacaoResponseDto deletarAvaliacaoPorId(UUID id);
 

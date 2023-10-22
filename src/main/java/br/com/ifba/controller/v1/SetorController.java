@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,5 +71,18 @@ public class SetorController {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.OK).body(setorService.updateSetor(objectMapperUtil.map(setorDto, Setor.class)));
+    }
+
+    /**
+     * Salva um setor.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @PostMapping(path = "/setores/setor", consumes = "application/json")
+    public ResponseEntity<?> salvarSetor(@Valid @RequestBody SetorRequestDto setorDto, BindingResult result) {
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED).body(setorService.saveSetor(objectMapperUtil.map(setorDto, Setor.class)));
     }
 }

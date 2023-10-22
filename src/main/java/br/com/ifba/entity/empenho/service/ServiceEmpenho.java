@@ -7,6 +7,7 @@ import br.com.ifba.entity.empenho.model.Empenho;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -74,14 +75,23 @@ public class ServiceEmpenho implements IServiceEmpenho {
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Deleta um empenho com base no seu ID.
+     *
+     * @param id O ID do empenho a ser excluído.
+     * @return O empenho (Response DTO) que foi deletado.
+     * @throws BusinessException se o empenho com o ID especificado não existe.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteEmpenho(Empenho empenho) {
-        if (empenho == null) {
-            throw new BusinessException(empenho_NULL);
-        } else {
-            this.daoEmpenho.delete(empenho);
-            return;
-        }
+    public EmpenhoResponseDto deleteEmpenho(UUID id) {
+        return this.daoEmpenho.findById(id)
+                .map(empenho -> {
+                    daoEmpenho.delete(empenho);
+                    return objectMapperUtil.map(empenho, EmpenhoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

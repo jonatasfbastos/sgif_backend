@@ -10,10 +10,9 @@ public enum BusinessExceptionMessage {
     // =============== [        ATRIBUTOS       ] ================ //
     // =========================================================== //
 
-    NOT_FOUND("A instância em questão não existe na base de dados"),
-    @Deprecated
-    LOGIN_ALREADY_IN_USE("O login já está em uso"),
-    ATTRIBUTE_VALUE_ALREADY_EXISTS( "O valor do atributo %s já está em uso");
+    NOT_FOUND("A instância em questão não existe na base de dados."),
+    INVALID_DATE("A data não é válida."),
+    ATTRIBUTE_VALUE_ALREADY_EXISTS( "O valor do atributo %s já está em uso.");
 
     private final String mensagem;
 

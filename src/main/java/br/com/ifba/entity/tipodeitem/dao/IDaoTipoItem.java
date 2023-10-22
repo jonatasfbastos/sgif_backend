@@ -3,8 +3,6 @@ package br.com.ifba.entity.tipodeitem.dao;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import br.com.ifba.entity.requisicao.model.Requisicao;
 import br.com.ifba.entity.tipodeitem.model.TipoDeItem;
 
 import org.springframework.data.jpa.repository.JpaRepository;

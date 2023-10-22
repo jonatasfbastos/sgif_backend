@@ -92,29 +92,18 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os Terceirizados como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Terceirizados.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Terceirizado> getAllterceirizado() {
-        return this.terceirizadoDao.findAll();
+    public List<TerceirizadoResponseDto> getAllTerceirizados() {
+        return objectMapperUtil.mapAll(
+                this.terceirizadoDao.findAll(),
+                TerceirizadoResponseDto.class);
     }
     
-    @Override
-    public List<Terceirizado> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException(NOME_NULL);
-        } 
-        if(nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return terceirizadoDao.findByNome(nome); 
-    }
-    
-    @Override
-    public Terceirizado findById(Long id) {
-        return terceirizadoDao.getReferenceById(id);
-    }
-
-    @Override
-    public List<Terceirizado> getByFuncao(Long id) {
-        return terceirizadoDao.findFuncaoTerceirizadoById(id);
-    }
 }

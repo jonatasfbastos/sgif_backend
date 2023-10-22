@@ -1,12 +1,17 @@
 package br.com.ifba.controller.v1;
 
+import java.util.UUID;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +74,18 @@ public class FuncaoTerceirizadoController {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.CREATED).body(funcaoTerceirizadoService.saveFuncaoTerceirizado(objectMapperUtil.map(funcaoTerceirizadoDto, FuncaoTerceirizado.class)));
+    }
+
+    /**
+     * Deleta uma função de terceirizado com base no seu ID.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @DeleteMapping(path = "/funcoes-terceirizados/funcao-terceirizado/{id}", consumes = "application.json")
+    public ResponseEntity<?> deletarFuncaoTerceirizadoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(funcaoTerceirizadoService.deleteFuncaoTerceirizado(id));
     }
 
 }

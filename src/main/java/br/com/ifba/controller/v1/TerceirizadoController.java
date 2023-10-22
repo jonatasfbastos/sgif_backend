@@ -1,6 +1,9 @@
 package br.com.ifba.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,4 +36,16 @@ public class TerceirizadoController {
     // =========================================================== //
     // =============== [        ENDPOINTS       ] ================ //
     // =========================================================== //
+
+    /**
+     * Obtém a lista de todos os terceirizados.
+     *
+     * @return Uma lista de terceirizados ou uma resposta de erro em caso de falha.
+     */
+    @GetMapping(path = "/terceirizados", consumes = "application/json")
+    public ResponseEntity<?> getTerceirizados() {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(terceirizadoService.getAllTerceirizados());
+    }
 }

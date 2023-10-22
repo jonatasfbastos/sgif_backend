@@ -36,7 +36,7 @@ public class ServiceServidor implements IServiceServidor{
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
-    
+
     /**
      * Salva um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor salvo.
      *
@@ -52,20 +52,30 @@ public class ServiceServidor implements IServiceServidor{
                 .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
                 .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
                 .orElseThrow(() -> new BusinessException(
-                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("título"))
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("siape"))
                 );
     }
 
+    /**
+     * Atualiza um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor atualizado.
+     *
+     * @param servidor - O Servidor que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do Servidor atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Servidor updateServidor(Servidor servidor) {
-        if(servidor == null) {
-            throw new BusinessException(Servidor_NULL);
-        }
-        if(servidorDao.findById(servidor.getId()) == null) {
-            throw new BusinessException(Servidor_NAO_EXISTE);
-        }
-        return servidorDao.save(servidor);
+    public ServidorResponseDto updateServidor(Servidor servidor) {
+            
+        return Optional.of(servidor)
+                    .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
+                    .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
+                    .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
+
     }
+
 
 
     @Override

@@ -1,41 +1,59 @@
 package br.com.ifba.entity.terceirizado.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.ifba.entity.terceirizado.model.Terceirizado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.terceirizado.dao.IDaoTerceirizado;
+import br.com.ifba.entity.terceirizado.dto.TerceirizadoResponseDto;
+
+/**
+ * Service que fornece operações relacionadas a Terceirizado
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
 
 @Service
 public class ServiceTerceirizado implements IServiceTerceirizado{
-    
-    public final static String TERCEIRIZADO_NULL = "Dados do Terceirizado nao preenchidos";
-   
-    public final static String TERCEIRIZADO_EXISTE = "Terceirizado ja existente no Banco de dados";
-    
-    public final static String TERCEIRIZADO_NAO_EXISTE = "Terceirizado nao existente no Banco de dados";
-   
-    public final static String TERCEIRIZADO_INVALIDO = "As informaçoes do Terceirizado nao sao validas";
-     
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-  
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-    @Autowired
+
+    // =========================================================== //
+    // ======================= [ ATRIBUTOS ] ===================== //
+    // =========================================================== //
+
+   @Autowired
     private IDaoTerceirizado terceirizadoDao;
+
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
     
+    
+    // =========================================================== //
+    // ========================= [ MÉTODOS ] ===================== //
+    // =========================================================== //
+    
+    /**
+     * Salva um Terceirizado na base de dados e retorna um objeto DTO com os dados resumidos do Terceirizado salvo.
+     *
+     * @param terceirizado - O Terceirizado que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do Terceirizado salvo.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Terceirizado saveTerceirizado(Terceirizado terceirizado) {
-       if(terceirizado == null) {
-            throw new BusinessException(TERCEIRIZADO_NULL);
-        }
-       if(terceirizadoDao.existsByNome(terceirizado.getNome()) == true) {
-            throw new BusinessException(TERCEIRIZADO_EXISTE);
-        }
-       return terceirizadoDao.save(terceirizado);
+    public TerceirizadoResponseDto saveTerceirizado(Terceirizado terceirizado) {
+        
+        return objectMapperUtil.map(
+                terceirizadoDao.save(terceirizado),
+                TerceirizadoResponseDto.class);
     }
 
     @Override

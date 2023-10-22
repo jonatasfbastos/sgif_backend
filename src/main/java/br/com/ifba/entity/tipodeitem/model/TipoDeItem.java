@@ -11,7 +11,8 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * @author Andesson Reis
+ * @author unknown
+ * @Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa um tipo de item.

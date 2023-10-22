@@ -21,9 +21,7 @@ import java.util.List;
  * Esta classe representa uma permissão.
  *
  * @author unknown
- * @since V1.0.1
  * @Editado por Andesson Reis
- * 
  * @since V1.0.1
  * 
  * Veja também: {@link br.com.ifba.entity.permissao.model.PermissaoLink}

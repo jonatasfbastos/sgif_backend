@@ -1,75 +1,114 @@
 package br.com.ifba.entity.servidor.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.entity.aluno.model.Aluno;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.servidor.dao.IDaoServidor;
+import br.com.ifba.entity.servidor.dto.ServidorResponseDto;
 import br.com.ifba.entity.servidor.model.Servidor;
+
+/**
+ * Service que fornece operações relacionadas a Servidor.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
 
 @Service
 public class ServiceServidor implements IServiceServidor{
-    //================= CONSTANTES =============================================
-    
-    // Mensagem de erro se o Tecnico Administrativo for null.
-    public final static String Servidor_NULL = "Dados do Servidor nao preenchidos";
-    
-    // Mensagem de erro se o Tecnico Administrativo já existe.
-    public final static String Servidor_EXISTE = "Servidor ja existente no Banco de dados";
-    
-    // Mensagem de erro se o Tecnico Administrativo não existir no banco.
-    public final static String Servidor_NAO_EXISTE = "Servidor nao existente no Banco de dados";
-    
-    // Mensagem de erro se o Tecnico Administrativo for inválido.
-    public final static String Servidor_INVALIDO = "As informaçoes do Servidor nao sao validas";
-    
-   
-     //================= OBJETO =================================================
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
     @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+    
+   @Autowired
     private IDaoServidor servidorDao;
 
-     //================= MÉTODOS ================================================
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+
+    /**
+     * Salva um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor salvo.
+     *
+     * @param servidor - O Servidor que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do Servidor salvo.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Servidor saveServidor(Servidor servidor) {
-       if(servidor == null) {
-            throw new BusinessException(Servidor_NULL);
-        } 
-        if(servidorDao.existsById(servidor.getId()) == false) {
-            throw new BusinessException(Servidor_NAO_EXISTE);
-        }
-       return servidorDao.save(servidor);
+    public ServidorResponseDto saveServidor(Servidor servidor) {
+
+        return Optional.of(servidor)
+                .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
+                .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
+                .orElseThrow(() -> new BusinessException(
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("siape"))
+                );
     }
 
+    /**
+     * Atualiza um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor atualizado.
+     *
+     * @param servidor - O Servidor que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do Servidor atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Servidor updateServidor(Servidor servidor) {
-        if(servidor == null) {
-            throw new BusinessException(Servidor_NULL);
-        }
-        if(servidorDao.findById(servidor.getId()) == null) {
-            throw new BusinessException(Servidor_NAO_EXISTE);
-        }
-        return servidorDao.save(servidor);
+    public ServidorResponseDto updateServidor(Servidor servidor) {
+            
+        return Optional.of(servidor)
+                    .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
+                    .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
+                    .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
+
     }
 
-
+    /**
+     * Deleta um Servidor com base no ID.
+     *
+     * @param id - O ID do Servidor a ser deletado.
+     * @return um objeto DTO com os dados do Servidor deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteServidor(Servidor servidor) {
-        if (servidor == null) {
-            throw new BusinessException(Servidor_NULL);
-        } 
-        if(servidorDao.existsById(servidor.getId()) == false) {
-            throw new BusinessException(Servidor_NAO_EXISTE);
-        }
-      servidorDao.delete(servidor);
-    
+    public ServidorResponseDto deleteServidor(UUID id) {
+
+        return this.servidorDao.findById(id)
+                .map(servidor -> {
+                    servidorDao.delete(servidor);
+                    return objectMapperUtil.map(servidor, ServidorResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os Servidores como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Servidores.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Servidor> getAllServidor() {
-        return this.servidorDao.findAll();
-    }
+    public List<ServidorResponseDto> getAllServidor() {
 
+        return objectMapperUtil.mapAll(
+                this.servidorDao.findAll(),
+                ServidorResponseDto.class);
+    }
 }

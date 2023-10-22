@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
-import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.servidor.dao.IDaoServidor;
 import br.com.ifba.entity.servidor.dto.ServidorResponseDto;
 import br.com.ifba.entity.servidor.model.Servidor;
+
 /**
  * Service que fornece operações relacionadas a Servidor.
  *
@@ -24,6 +24,7 @@ import br.com.ifba.entity.servidor.model.Servidor;
 
 @Service
 public class ServiceServidor implements IServiceServidor{
+
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //
     // =========================================================== //
@@ -76,8 +77,6 @@ public class ServiceServidor implements IServiceServidor{
                 );
 
     }
-
-
 
     /**
      * Deleta um Servidor com base no ID.

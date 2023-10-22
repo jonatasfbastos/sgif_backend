@@ -34,10 +34,9 @@ public record RequisicaoResponseDto(
         SetorResponseDto setor,
 
         @JsonProperty(value = "requisitante")
-        String requisitante,
+        String requisitante
 
-        @JsonProperty(value = "itens")
-        ItemResponseDto itens
+        // TODO: Adicionar ResponseDto de Item
 ) {
 
 }

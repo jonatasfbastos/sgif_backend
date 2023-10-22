@@ -2,6 +2,8 @@ package br.com.ifba.entity.funcaoterceirizado.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.com.ifba.entity.terceirizado.dto.TerceirizadoResponseDto;
+
 import java.util.List;
 
 /**

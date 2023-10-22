@@ -2,6 +2,10 @@ package br.com.ifba.entity.funcaoterceirizado.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.com.ifba.entity.terceirizado.dto.TerceirizadoRequestDto;
+
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
-import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.terceirizado.dao.IDaoTerceirizado;
 import br.com.ifba.entity.terceirizado.dto.TerceirizadoResponseDto;
 
@@ -50,21 +49,28 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
      */
     @Override
     public TerceirizadoResponseDto saveTerceirizado(Terceirizado terceirizado) {
-        
+
         return objectMapperUtil.map(
                 terceirizadoDao.save(terceirizado),
                 TerceirizadoResponseDto.class);
     }
-
+    
+    /**
+     * Atualiza um Terceirizado na base de dados e retorna um objeto DTO com os dados resumidos do Terceirizado atualizado.
+     *
+     * @param terceirizado - O Terceirizado que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do Terceirizado atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Terceirizado updateTerceirizado(Terceirizado terceirizado) {
-        if(terceirizado == null) {
-            throw new BusinessException(TERCEIRIZADO_NULL);
-        } 
-        if(terceirizadoDao.existsById(terceirizado.getId()) == false) {
-            throw new BusinessException(TERCEIRIZADO_NAO_EXISTE);
-        }
-        return terceirizadoDao.save(terceirizado);
+    public TerceirizadoResponseDto updateTerceirizado(Terceirizado terceirizado) {
+          return Optional.of(terceirizado)
+                        .filter(terc -> this.terceirizadoDao.existsById(terceirizado.getId()))
+                        .map(terc -> objectMapperUtil.map(this.terceirizadoDao.save(terc), TerceirizadoResponseDto.class))
+                        .orElseThrow(
+                                () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                        );
     }
 
     @Override

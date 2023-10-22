@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +62,19 @@ public class EmpenhoController {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.OK).body(empenhoService.updateEmpenho(objectMapperUtil.map(empenhoDto, Empenho.class)));
+    }
+
+    /**
+     * Salva um empenho.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @PostMapping(path = "/empenhos/empenho", consumes = "application/json")
+    public ResponseEntity<?> salvarEmpenho(@Valid @RequestBody EmpenhoRequestDto empenhoDto, BindingResult result) {
+
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED).body(empenhoService.saveEmpenho(objectMapperUtil.map(empenhoDto, Empenho.class)));
     }
 
    

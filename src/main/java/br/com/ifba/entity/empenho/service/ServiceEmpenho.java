@@ -22,7 +22,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * @Editado por Andesson Reis
  * @since V1.0.1
  * 
- *        Veja também: {@link br.com.ifba.entity.empenho.model.Empenho}
+ *Veja também: {@link br.com.ifba.entity.empenho.model.Empenho}
  */
 @Service
 public class ServiceEmpenho implements IServiceEmpenho {
@@ -86,6 +86,7 @@ public class ServiceEmpenho implements IServiceEmpenho {
      */
     @Override
     public EmpenhoResponseDto deleteEmpenho(UUID id) {
+        
         return this.daoEmpenho.findById(id)
                 .map(empenho -> {
                     daoEmpenho.delete(empenho);
@@ -94,9 +95,21 @@ public class ServiceEmpenho implements IServiceEmpenho {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os empenhos (Response DTOs) cadastrados na base de
+     * dados.
+     *
+     * @return Uma lista de empenhos (Response DTOs).
+     * @throws BusinessException se ocorrer um erro ao recuperar a lista de empenhos.
+     * @author Andesson Reis                          
+     * @since V1.0.1
+     */
     @Override
-    public List<Empenho> getAllEmpenho() {
-        return daoEmpenho.findAll();
+    public List<EmpenhoResponseDto> getAllEmpenho() {
+
+        return objectMapperUtil.mapAll(
+                this.daoEmpenho.findAll(),
+                EmpenhoResponseDto.class);
     }
 
 }

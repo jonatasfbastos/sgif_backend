@@ -1,15 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.item.service;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.item.dao.IDaoItem;
+import br.com.ifba.entity.item.dto.ItemResponseDto;
+import br.com.ifba.entity.item.dto.ItemSimpleResponseDto;
 import br.com.ifba.entity.item.model.Item;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,94 +21,170 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author vitor
+ * @Editado por Andesson Reis
+ * @since Desde V1.0.1
  */
 @Service
 public class ServiceItem implements IServiceItem {
 
-    // Constantes para condições de erro
+    // =========================================================== //
+    // ======================== [ ATRIBUTOS ] ==================== //
+    // =========================================================== //
 
-    // Item Null
-    public final static String ITEM_NULL = "Item null";
-
-    // Item já existe
-    public final static String ITEM_EXISTE = "Item já existe";
-
-    // Item não existente
-    public final static String ITEM_NAO_EXISTE = "O item já existe na base de dados";
-
-    // Item inválido
-    public final static String ITEM_INVALIDO = "Item inválido";
-
-    // Criando objeto de instância
     @Autowired
     private IDaoItem daoItem;
 
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // ======================== [ MÉTODOS ] ====================== //
+    // =========================================================== //
+
+    /**
+     * Salva um item na base de dados e retorna um objeto DTO com os dados do item salvo.
+     *
+     * @param item - O item que será salvo na base de dados.
+     * @return um objeto DTO com os dados do item salvo.
+     */
     @Override
-    public Item saveItem(Item item) {
-        if (item == null) {
-            throw new BusinessException(ITEM_NULL);
-        } else {
-            item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
-            return daoItem.save(item);
-        }
+    public ItemSimpleResponseDto saveItem(Item item) {
+
+        return Optional.of(item)
+                .map(savedItem -> {
+                    savedItem.setDataNot(getDataAjuste(savedItem.getValidade(), savedItem.getAlerta()));
+                    return daoItem.save(savedItem);
+                })
+                .map(savedItem -> objectMapperUtil.map(savedItem, ItemSimpleResponseDto.class))
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
-    public Date getDataAjuste(Date data, int num){
+    /**
+     * Deleta um item pelo ID.
+     *
+     * @param id - O ID do item a ser deletado.
+     * @return um objeto DTO com os dados do item deletado.
+     * @throws BusinessException se o item não for encontrado.
+     */
+    @Override
+    public ItemSimpleResponseDto deleteItem(UUID id) {
+
+        return this.daoItem.findById(id)
+                .map(DeletItem -> {
+                    daoItem.delete(DeletItem);
+                    return objectMapperUtil.map(DeletItem, ItemSimpleResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+    }
+
+
+    /**
+     * Obtém uma lista de todos os itens como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os itens.
+     */
+    @Override
+    public List<ItemSimpleResponseDto> getAllItens() {
+
+        return objectMapperUtil.mapAll(
+                this.daoItem.findAll(),
+                ItemSimpleResponseDto.class);
+    }
+
+    /**
+     * Obtém uma lista de itens por nome como objetos DTO.
+     *
+     * @param name - O nome a ser pesquisado.
+     * @return uma lista de objetos DTO representando os itens encontrados.
+     */
+    @Override
+    public List<ItemSimpleResponseDto> findByNome(String name) {
+        return daoItem.findByNome(name)
+                .stream()
+                .map(objectMapperUtil.mapFn(ItemSimpleResponseDto.class))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Atualiza um item na base de dados.
+     *
+     * @param item - O item a ser atualizado.
+     * @return um objeto DTO com os dados do item atualizado.
+     * @throws BusinessException se o item com o ID especificado não for encontrado.
+     */    
+    @Override
+    public ItemSimpleResponseDto updateItem(Item item) {
+    
+        return Optional.ofNullable(item)
+                    .filter(itemToSave -> daoItem.existsById(itemToSave.getId()))
+                    .map(itemToSave -> {
+                        itemToSave.setDataNot(getDataAjuste(itemToSave.getValidade(), itemToSave.getAlerta()));
+                        return daoItem.save(itemToSave);
+                    })
+                    .map(savedItem -> objectMapperUtil.map(savedItem, ItemSimpleResponseDto.class))
+                    .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+    }
+    
+    /**
+     * Obtém uma lista de itens com data anterior à data especificada.
+     *
+     * @param dataNot - A data de referência.
+     * @return uma lista de itens com data anterior à data especificada.
+     */
+    @Override
+    public List<ItemSimpleResponseDto> findByDataNotBefore(Date dataNot) {
+
+         return objectMapperUtil.mapAll(
+                this.daoItem.dataNotBefore(dataNot),
+                ItemSimpleResponseDto.class);
+    }
+
+    /**
+     * Obtém uma lista de itens com validade posterior à data especificada.
+     *
+     * @param validade - A data de validade de referência.
+     * @return uma lista de itens com validade posterior à data especificada.
+     */
+    @Override
+    public List<ItemSimpleResponseDto> findByValidadeAfter(Date validade) {
+
+        return objectMapperUtil.mapAll(
+                this.daoItem.validadeAfter(validade),
+                ItemSimpleResponseDto.class);
+    }
+
+     /**
+     * Obtém um item por ID e mapeia para um objeto DTO.
+     *
+     * @param id - O ID do item a ser obtido.
+     * @return um objeto DTO com os dados do item encontrado.
+     * 
+     * @throws BusinessException se o item não for encontrado.
+     */
+    @Override
+    public ItemResponseDto getItemById(UUID id) {
+     return objectMapperUtil.map(
+                daoItem.findById(id)
+                        .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())),
+                ItemResponseDto.class
+        );
+    }
+
+    /**
+     * Obtém uma data ajustada com base na data de validade e no período de alerta.
+     *
+     * @param data - A data de validade.
+     * @param num - O período de alerta em dias.
+     * @return a data ajustada.
+     */
+    public Date getDataAjuste(Date data, int num) {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(data);
         calendar.add(Calendar.DATE, -num);
-        
+
         return calendar.getTime();
-   }
-
-    @Override
-    public Item updateItem(Item item) {
-        if (item == null) {
-            throw new BusinessException(ITEM_NULL);
-        } else if (daoItem.findById(item.getId()) == null) {
-            throw new BusinessException(ITEM_EXISTE);
-        } else {
-            item.setDataNot(getDataAjuste(item.getValidade(), item.getAlerta()));
-            return daoItem.save(item);
-        }
-    }
-
-    @Override
-    public void deleteItem(Item item) {
-        if (item == null) {
-            throw new BusinessException(ITEM_NULL);
-        } else {
-            this.daoItem.delete(item);
-            return;
-        }
-
-    }
-
-    @Override
-    public List<Item> getAllItens() {
-        return daoItem.findAll();
-    }
-
-    @Override
-    public List<Item> findByNome(String name) {
-        if (name == null) {
-            throw new BusinessException("Nome null");
-        } else if (name.isEmpty()) {
-            throw new BusinessException("Nome vazio");
-        } else {
-            return daoItem.findByNome(name);
-        }
-    }
-
-    @Override
-    public List<Item> dataNotBefore(Date dataNot) {
-        return daoItem.dataNotBefore(dataNot);
-    }
-
-    @Override
-    public List<Item> validadeAfter(Date validade) {
-        return daoItem.validadeAfter(validade);
     }
 
 }

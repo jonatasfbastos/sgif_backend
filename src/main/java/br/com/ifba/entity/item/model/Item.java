@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.item.model;
 
 import javax.persistence.Entity;
@@ -12,6 +8,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,19 +27,37 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * Classe que representa um item.
  *
  * @author vitor
+ * @Editado por Andesson Reis
+ * @since V1.0.1
+ * 
+ * Esta classe representa um item utilizado na organização.
+ * 
+ * Veja também: {@link br.com.ifba.entity.requisicao.model.Requisicao}
+ * Veja também: {@link br.com.ifba.entity.tipodeitem.model.TipoDeItem}
+ * Veja também: {@link br.com.ifba.entity.fornecedor.model.Fornecedor}
  */
-
-@Entity
-@Table(name = "item")
+@Entity(name = "item")
+@Table(name = "itens")
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Item extends PersistenceEntity implements Serializable{
+public class Item extends PersistenceEntity implements Serializable {
+ 
+    @NotNull
     private String nome;
+
+    @NotNull
     private String unidadeMedida;
+
+    @NotNull
     private int alerta;
+
+    @NotNull
     private int quantidade;
+
+    @NotNull
     private int quantidadeMinima;
 
     @OneToOne
@@ -58,7 +73,7 @@ public class Item extends PersistenceEntity implements Serializable{
 
     @Temporal(TemporalType.DATE)
     private Date dataNot;
-    
+
     private double valorItem;
     private String perecivel;
 
@@ -66,7 +81,6 @@ public class Item extends PersistenceEntity implements Serializable{
     @JoinColumn(name = "empenho_id")
     @JsonIgnoreProperties("itens")
     private Empenho codigoItem;
-
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")

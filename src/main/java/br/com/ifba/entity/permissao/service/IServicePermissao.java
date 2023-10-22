@@ -8,8 +8,9 @@ import java.util.UUID;
 
 /**
  *
- * @author Andesson Reis
- * Desde V1.0.1
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
  */
 public interface IServicePermissao {
     /**

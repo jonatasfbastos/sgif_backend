@@ -12,9 +12,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-/* 
- * @author Andesson Reis
+/**
+ * @author unknown
  * @since V1.0.1
+ * @Editado por Andesson Reis
  */
 
 @Entity(name = "permissaoLink")

@@ -16,8 +16,9 @@ import java.util.UUID;
 /**
  * Serviço para manipulação de permissões.
  * 
- * @author Andesson Reis
+ * @author unknown
  * @since V1.0.1
+ * @Editado por Andesson Reis
  */
 @Service
 public class ServicePermissao implements IServicePermissao {

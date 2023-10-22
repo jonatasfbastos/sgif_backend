@@ -1,5 +1,6 @@
 package br.com.ifba.entity.requisicao.dto;
 
+import br.com.ifba.entity.item.dto.ItemResponseDto;
 import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 import br.com.ifba.entity.setor.dto.SetorResponseDto;
 import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;

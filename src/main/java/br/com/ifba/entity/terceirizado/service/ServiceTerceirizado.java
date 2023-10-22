@@ -2,6 +2,7 @@ package br.com.ifba.entity.terceirizado.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.ifba.entity.terceirizado.model.Terceirizado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
                 terceirizadoDao.save(terceirizado),
                 TerceirizadoResponseDto.class);
     }
-    
+
     /**
      * Atualiza um Terceirizado na base de dados e retorna um objeto DTO com os dados resumidos do Terceirizado atualizado.
      *
@@ -73,15 +74,22 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
                         );
     }
 
+    /**
+     * Deleta um Terceirizado.
+     *
+     * @param Id - O ID do Terceirizado a ser deletado.
+     * @return objeto DTO com os dados do Terceirizado deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteTerceirizado(Terceirizado terceirizado) {
-        if(terceirizado == null) {
-            throw new BusinessException(TERCEIRIZADO_NULL);
-        } 
-        if(terceirizadoDao.existsById(terceirizado.getId()) == false) {
-            throw new BusinessException(TERCEIRIZADO_NAO_EXISTE);
-        }
-        terceirizadoDao.delete(terceirizado);
+    public TerceirizadoResponseDto deleteTerceirizado(UUID id) {
+        return this.terceirizadoDao.findById(id)
+                .map(terc -> {
+                    terceirizadoDao.delete(terc);
+                    return objectMapperUtil.map(terc, TerceirizadoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

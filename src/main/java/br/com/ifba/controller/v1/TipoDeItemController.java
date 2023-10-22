@@ -1,6 +1,9 @@
 package br.com.ifba.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +36,17 @@ public class TipoDeItemController {
     // =========================================================== //
     // =============== [ ENDPOINTS ] ============================= //
     // =========================================================== //
+
+    /**
+     * Obtém a lista de todos os tipos de item.
+     *
+     * @return Uma lista de tipos de item ou uma resposta de erro em caso de falha.
+     */
+    @GetMapping(path = "/tiposdeitem", consumes = "application/json")
+    public ResponseEntity<?> getTiposDeItem() {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(tipoDeItemService.getAllTiposDeItem());
+    }
 }
 

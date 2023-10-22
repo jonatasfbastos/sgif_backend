@@ -1,5 +1,6 @@
 package br.com.ifba.entity.item.dto;
 
+import br.com.ifba.entity.empenho.dto.EmpenhoRequestDto;
 import br.com.ifba.entity.fornecedor.dto.FornecedorRequestDto;
 import br.com.ifba.entity.requisicao.dto.RequisicaoRequestDto;
 import br.com.ifba.entity.usuario.dto.UsuarioRequestDto;

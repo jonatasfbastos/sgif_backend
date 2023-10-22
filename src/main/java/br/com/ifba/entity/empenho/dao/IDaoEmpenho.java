@@ -5,14 +5,40 @@
 
 package br.com.ifba.entity.empenho.dao;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.ifba.entity.empenho.model.Empenho;
+
 
 /**
  *
  * @author rocki.julius
  */
 public interface IDaoEmpenho extends JpaRepository<Empenho, Long> {
-    
+       /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Encontra um Empenho pelo ID passado por parâmetro.
+     * @param id O ID do Empenho a ser enconotrado.
+     * @return um objeto opcional do tipo Empenho,
+     * que será nulo caso o Empenho não exista na base de dados.
+     */
+    Optional<Empenho> findById(UUID id);
+
+      /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * 
+     * Verifica se existe um Empenho com o ID passado por parâmetro
+     * na base de dados.
+     * @param id O id do Empenho a ser consultado.
+     * @return 'true' caso haja um Empenho com o Id
+     * passado por parâmetro na base de dados,
+     * 'false' caso contrário.
+     */
+    boolean existsById(UUID id);
 }

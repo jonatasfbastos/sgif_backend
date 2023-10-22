@@ -1,6 +1,7 @@
 package br.com.ifba.entity.tipodeitem.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.tipodeitem.model.TipoDeItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,14 +74,22 @@ public class TipoDeItemService implements ITipoDeItemService{
     }
 
 
+   /**
+     * Deleta um TipoDeItem.
+     *
+     * @param ID - O id a ser deletado.
+     * @return objeto DTO com os dados do TipoDeItem deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deletetipoDeItem(TipoDeItem tipoDeItem) {
-        if(tipoDeItem == null){
-            throw new BusinessException(tipoDeItem_NULL);
-        }else{
-            this.daoTipoDeItem.delete(tipoDeItem);
-        }
-        
+    public TipoDeItemResponseDto deleteTipoDeItem(UUID id) {
+        return this.daoTipoDeItem.findById(id)
+                .map(tipoDeItem -> {
+                    daoTipoDeItem.delete(tipoDeItem);
+                    return objectMapperUtil.map(tipoDeItem, TipoDeItemResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

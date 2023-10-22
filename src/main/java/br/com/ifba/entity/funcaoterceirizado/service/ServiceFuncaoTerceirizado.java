@@ -10,6 +10,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,13 +59,23 @@ public class ServiceFuncaoTerceirizado implements IServiceFuncaoTerceirizado {
                         BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("nome")));
     }
 
+    /**
+     * Deleta uma Função de Terceirizado.
+     *
+     * @param id - O ID da Função de Terceirizado a ser deletada.
+     * @return um objeto DTO com os dados da Função de Terceirizado deletada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public String deleteFuncaoTerceirizado(Long id) {
-        if (daoFuncaoTerceirizado.existsById(id) == false) {
-            throw new BusinessException(FUNCAO_NAO_EXISTE);
-        }
-        daoFuncaoTerceirizado.delete(daoFuncaoTerceirizado.getReferenceById(id));
-        return FUNCAO_DELETADA;
+    public FuncaoTerceirizadoResponseDto deleteFuncaoTerceirizado(UUID id) {
+
+        return this.daoFuncaoTerceirizado.findById(id)
+                .map(fun -> {
+                    daoFuncaoTerceirizado.delete(fun);
+                    return objectMapperUtil.map(fun, FuncaoTerceirizadoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

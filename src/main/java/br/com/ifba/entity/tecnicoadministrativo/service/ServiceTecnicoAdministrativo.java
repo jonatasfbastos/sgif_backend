@@ -6,91 +6,93 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
 import br.com.ifba.entity.tecnicoadministrativo.dao.IDaoTecnicoAdministrativo;
+import br.com.ifba.entity.tecnicoadministrativo.dto.TecnicoAdministrativoResponseDto;
 import br.com.ifba.entity.tecnicoadministrativo.model.TecnicoAdministrativo;
 
+/**
+ * Service que fornece operações relacionadas a Técnico Administrativo.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
 @Service
-public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrativo{
-    //================= CONSTANTES =============================================
-    
-    // Mensagem de erro se o Tecnico Administrativo for null.
-    public final static String TECNICO_ADM_NULL = "Dados do Tecnico Administrativo nao preenchidos";
-    
-    // Mensagem de erro se o Tecnico Administrativo já existe.
-    public final static String TECNICO_ADM_EXISTE = "Tecnico Administrativo ja existente no Banco de dados";
-    
-    // Mensagem de erro se o Tecnico Administrativo não existir no banco.
-    public final static String TECNICO_ADM_NAO_EXISTE = "Tecnico Administrativo nao existente no Banco de dados";
-    
-    // Mensagem de erro se o Tecnico Administrativo for inválido.
-    public final static String TECNICO_ADM_INVALIDO = "As informaçoes do Tecnico Administrativo nao sao validas";
-    
-     // Mensagem de erro caso o nome esteja vazio.
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-    
-    // Mensagem de erro caso o nome seja null.
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-    // Mensagem que foi deletado.
-    private final static String TECNICO_DELETA = "Tecnico administrativo deletada com sucesso";
-    
-   
-     //================= OBJETO =================================================
+public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrativo {
+    // =========================================================== //
+    // =============== [ ATRIBUTOS ] ================ //
+    // =========================================================== //
+
     @Autowired
     private IDaoTecnicoAdministrativo tecnicoAdministrativoDao;
 
-     //================= MÉTODOS ================================================
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [ MÉTODOS ] ================== //
+    // =========================================================== //
+
+    /**
+     * Salva um Técnico Administrativo na base de dados e retorna um objeto DTO com os dados resumidos do Técnico Administrativo salvo.
+     *
+     * @param tecnicoAdministrativo - O Técnico Administrativo que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do Técnico Administrativo salvo.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public TecnicoAdministrativo saveTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-       if(tecnicoAdministrativo == null) {
-            throw new BusinessException(TECNICO_ADM_NULL);
-        } else{
-       return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
-       }
+    public TecnicoAdministrativoResponseDto saveTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
+        return objectMapperUtil.map(
+                tecnicoAdministrativoDao.save(tecnicoAdministrativo),
+                TecnicoAdministrativoResponseDto.class);
     }
 
-//    @Override
-//    public TecnicoAdministrativo updateTecincoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-//        if(tecnicoAdministrativo == null) {
-//            throw new BusinessException(TECNICO_ADM_NULL);
-//        }
-//        if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
-//            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
-//        }
-//        return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
-//    }
+    // @Override
+    // public TecnicoAdministrativo
+    // updateTecincoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
+    // if(tecnicoAdministrativo == null) {
+    // throw new BusinessException(TECNICO_ADM_NULL);
+    // }
+    // if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) ==
+    // false) {
+    // throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
+    // }
+    // return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
+    // }
 
     @Override
     public List<TecnicoAdministrativo> getAllTecnicoAdministrativo() {
         return this.tecnicoAdministrativoDao.findAll();
     }
-    
+
     @Override
     public List<TecnicoAdministrativo> findByNome(String nome) {
-        if(nome == null) {
+        if (nome == null) {
             throw new BusinessException(NOME_NULL);
         }
-        if(nome.isEmpty()) {
+        if (nome.isEmpty()) {
             throw new BusinessException(NOME_VAZIO);
         }
         return tecnicoAdministrativoDao.findByNome(nome);
     }
-    
-     @Override
-     public TecnicoAdministrativo findById(Long id) {
-          return tecnicoAdministrativoDao.getReferenceById(id);
-     }
+
+    @Override
+    public TecnicoAdministrativo findById(Long id) {
+        return tecnicoAdministrativoDao.getReferenceById(id);
+    }
 
     @Override
     public void deleteTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-        if(tecnicoAdministrativo == null) {
+        if (tecnicoAdministrativo == null) {
             throw new BusinessException(TECNICO_ADM_NULL);
-        } 
-        if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
+        }
+        if (tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
             throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
         }
         tecnicoAdministrativoDao.delete(tecnicoAdministrativo);
     }
 
-    
 }

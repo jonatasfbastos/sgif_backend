@@ -86,7 +86,7 @@ public class ServiceModalidade implements IServiceModalidade{
      */
     @Override
     public ModalidadeResponseDto deleteModalidade(UUID id) {
-        
+
         return this.modalidadeDao.findById(id)
                 .map(modalidade -> {
                     modalidadeDao.delete(modalidade);
@@ -95,24 +95,18 @@ public class ServiceModalidade implements IServiceModalidade{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todas as Modalidades como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Modalidades.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Modalidade> getAllModalidade() {
-        return this.modalidadeDao.findAll();    
-    }
-    
-    @Override
-    public Modalidade findById(Long id) {
-        return modalidadeDao.getReferenceById(id);
-    }  
-
-    @Override
-    public List<Modalidade> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException("Dados do nome nao preenchidos");
-        } else if(nome.isEmpty()) {
-            throw new BusinessException("O Campo Nome esta vazio");
-        } else {
-            return modalidadeDao.findByNome(nome);
-        }
+    public List<ModalidadeResponseDto> getAllModalidade() {
+        
+        return objectMapperUtil.mapAll(
+                this.modalidadeDao.findAll(),
+                ModalidadeResponseDto.class);
     }
 }

@@ -82,7 +82,7 @@ public class ServiceMensagem implements IServiceMensagem{
      */
     @Override
     public MensagemResponseDto deleteMensagem(UUID id) {
-        
+
         return this.mensagemDao.findById(id)
                 .map(mensagem -> {
                     mensagemDao.delete(mensagem);
@@ -91,26 +91,20 @@ public class ServiceMensagem implements IServiceMensagem{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todas as Mensagens como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Mensagens.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Mensagem> getAllMensagem() {
-        return this.mensagemDao.findAll();
+    public List<MensagemResponseDto> getAllMensagem() {
+        
+        return objectMapperUtil.mapAll(
+                this.mensagemDao.findAll(),
+                MensagemResponseDto.class);
     }
-    
-    @Override
-    public List<Mensagem> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException(NOME_NULL);
-        } 
-        if(nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return this.mensagemDao.findByNome(nome);
-    }
-    
-     @Override
-     public Mensagem findById(Long id) {
-          return this.mensagemDao.getReferenceById(id);
-     }
 }
 
 

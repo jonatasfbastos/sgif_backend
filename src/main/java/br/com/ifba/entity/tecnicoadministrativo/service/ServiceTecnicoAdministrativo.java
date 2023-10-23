@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import br.com.ifba.entity.tecnicoadministrativo.dao.IDaoTecnicoAdministrativo;
@@ -50,18 +51,23 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
                 TecnicoAdministrativoResponseDto.class);
     }
 
-    // @Override
-    // public TecnicoAdministrativo
-    // updateTecincoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-    // if(tecnicoAdministrativo == null) {
-    // throw new BusinessException(TECNICO_ADM_NULL);
-    // }
-    // if(tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) ==
-    // false) {
-    // throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
-    // }
-    // return tecnicoAdministrativoDao.save(tecnicoAdministrativo);
-    // }
+    /**
+     * Atualiza um Técnico Administrativo na base de dados e retorna um objeto DTO com os dados resumidos do Técnico Administrativo atualizado.
+     *
+     * @param tecnicoAdministrativo - O Técnico Administrativo que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do Técnico Administrativo atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
+    @Override
+    public TecnicoAdministrativoResponseDto updateTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
+        tecnicoAdministrativoDao.findById(tecnicoAdministrativo.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                tecnicoAdministrativoDao.save(tecnicoAdministrativo),
+                TecnicoAdministrativoResponseDto.class);
+    }
 
     @Override
     public List<TecnicoAdministrativo> getAllTecnicoAdministrativo() {

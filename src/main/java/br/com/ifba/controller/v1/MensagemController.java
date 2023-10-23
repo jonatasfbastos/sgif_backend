@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,5 +59,17 @@ public class MensagemController {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.OK).body(mensagemService.updateMensagem(objectMapperUtil.map(mensagemDto, Mensagem.class)));
+    }
+
+    /**
+     * Salva uma mensagem.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<?> salvarMensagem(@Valid @RequestBody MensagemRequestDto mensagemDto, BindingResult result) {
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.saveMensagem(objectMapperUtil.map(mensagemDto, Mensagem.class)));
     }
 }

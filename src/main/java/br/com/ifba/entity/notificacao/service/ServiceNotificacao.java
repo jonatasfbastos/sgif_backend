@@ -4,6 +4,7 @@ package br.com.ifba.entity.notificacao.service;
 import br.com.ifba.entity.notificacao.dao.IDaoNotification;
 import br.com.ifba.entity.notificacao.model.Notificacao;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import java.util.List;
@@ -88,15 +89,22 @@ public class NotificacaoService implements IServiceNotificacao {
                 NotificacaoResponseDto.class);
     }
 
+    /**
+     * Atualiza uma Notificação na base de dados e retorna um objeto DTO com os dados resumidos da Notificação atualizada.
+     *
+     * @param notificacao - A Notificação que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Notificação atualizada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Notification updateNotification(Notification notification) {
-        if (notification == null) {
-            throw new BusinessException(notification_NULL);
-        } else if (daoNotification.findById(notification.getId()) == null) {
-            throw new BusinessException(notification_EXIST);
-        } else {
-            return daoNotification.save(notification);
-        }
+    public NotificacaoResponseDto updateNotification(Notificacao notificacao) {
+        notificacaoDao.findById(notificacao.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                notificacaoDao.save(notificacao),
+                NotificacaoResponseDto.class);
     }
 
     @Override

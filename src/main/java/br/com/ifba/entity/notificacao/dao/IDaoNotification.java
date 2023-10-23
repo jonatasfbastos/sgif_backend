@@ -1,12 +1,13 @@
 
-package br.com.ifba.entity.notification.dao;
+package br.com.ifba.entity.notificacao.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.ifba.entity.notification.model.Notification;
+import br.com.ifba.entity.notificacao.model.Notificacao;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Repository;
  * @author tarciiz
  */
 @Repository
-public interface IDaoNotification extends JpaRepository<Notification, Long> {
+public interface IDaoNotification extends JpaRepository<Notificacao, Long> {
 
-    List<Notification> findByReaded(boolean readed);
+    List<Notificacao> findByReaded(boolean readed);
 
-    Optional<Notification> findById(Long id);
+    Optional<Notificacao> findById(UUID id);
 
-    Notification findByWhatIdAndWhatObjectName(Long whatId, String whatObjectName);
+    Notificacao findByWhatIdAndWhatObjectName(UUID whatId, String whatObjectName);
 }

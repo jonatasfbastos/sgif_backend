@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Esta classe representa uma notificação.
@@ -29,7 +30,7 @@ public class Notificacao extends PersistenceEntity {
     private String body;
 
     @Column(nullable = false, updatable = false)
-    private Long whatId;
+    private UUID whatId;
 
     @Column(nullable = false, updatable = false)
     private String whatObjectName;

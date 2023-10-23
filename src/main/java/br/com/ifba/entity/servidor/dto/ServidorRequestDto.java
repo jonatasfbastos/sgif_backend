@@ -2,6 +2,8 @@ package br.com.ifba.entity.servidor.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.com.ifba.entity.funcaoservidor.dto.FuncaoServidorRequestDto;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 

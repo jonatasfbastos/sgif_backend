@@ -1,6 +1,7 @@
 package br.com.ifba.entity.tecnicoadministrativo.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,15 +91,23 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
         return tecnicoAdministrativoDao.getReferenceById(id);
     }
 
+    /**
+     * Deleta um Técnico Administrativo com base no ID.
+     *
+     * @param id - O ID do Técnico Administrativo a ser deletado.
+     * @return um objeto DTO com os dados do Técnico Administrativo deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
-        if (tecnicoAdministrativo == null) {
-            throw new BusinessException(TECNICO_ADM_NULL);
-        }
-        if (tecnicoAdministrativoDao.existsById(tecnicoAdministrativo.getId()) == false) {
-            throw new BusinessException(TECNICO_ADM_NAO_EXISTE);
-        }
-        tecnicoAdministrativoDao.delete(tecnicoAdministrativo);
+    public TecnicoAdministrativoResponseDto deleteTecnicoAdministrativo(UUID id) {
+        
+        return this.tecnicoAdministrativoDao.findById(id)
+                .map(tecnicoAdministrativo -> {
+                    tecnicoAdministrativoDao.delete(tecnicoAdministrativo);
+                    return objectMapperUtil.map(tecnicoAdministrativo, TecnicoAdministrativoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
 }

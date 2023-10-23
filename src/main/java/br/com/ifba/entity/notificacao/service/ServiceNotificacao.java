@@ -125,25 +125,19 @@ public class NotificacaoService implements IServiceNotificacao {
                 })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-    
-    @Override
-    public List<Notification> getAllNotification() {
-        return daoNotification.findAll();
-    }
 
+    /**
+     * Obtém uma lista de todas as Notificações como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Notificações.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Notification> findByReaded(boolean readed) {
-        return daoNotification.findByReaded(readed);
-    }
-
-    @Override
-    public Notification findById(Long id) {
-        Optional<Notification> not = daoNotification.findById(id);
-        return not.isPresent() ? not.get() : null;
-    }
-
-    @Override
-    public Notification findByWhatIdAndWhatObjectName(Long whatId, String whatObjectName) {
-        return daoNotification.findByWhatIdAndWhatObjectName(whatId, whatObjectName);
+    public List<NotificacaoResponseDto> getAllNotification() {
+        
+        return objectMapperUtil.mapAll(
+                this.notificacaoDao.findAll(),
+                NotificacaoResponseDto.class);
     }
 }

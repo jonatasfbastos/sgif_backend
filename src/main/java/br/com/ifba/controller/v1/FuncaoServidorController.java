@@ -1,6 +1,9 @@
 package br.com.ifba.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,4 +39,15 @@ public class FuncaoServidorController {
     // =============== [         ENDPOINTS      ] ================ //
     // =========================================================== //
     
+    /**
+     * Obtém a lista de todas as funções de servidor.
+     *
+     * @return Uma lista de funções de servidor ou uma resposta de erro em caso de falha.
+     */
+    @GetMapping(path = "/funcoes_servidor", consumes = "application/json")
+    public ResponseEntity<?> getFuncoesServidor() {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(funcaoServidorService.getAllFuncaoServidor());
+    }
 }

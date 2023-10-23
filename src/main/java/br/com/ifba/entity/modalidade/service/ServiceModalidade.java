@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import br.com.ifba.entity.curso.dao.IDaoCurso;
-import br.com.ifba.entity.item.dao.IDaoItem;
 import br.com.ifba.entity.modalidade.dao.IDaoModalidade;
 import br.com.ifba.entity.modalidade.dto.ModalidadeResponseDto;
 import br.com.ifba.entity.modalidade.model.Modalidade;
@@ -30,9 +29,6 @@ public class ServiceModalidade implements IServiceModalidade{
 
    @Autowired
     private IDaoModalidade modalidadeDao;
-
-    @Autowired
-    private IDaoCurso cursoDao;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
@@ -104,7 +100,7 @@ public class ServiceModalidade implements IServiceModalidade{
      */
     @Override
     public List<ModalidadeResponseDto> getAllModalidade() {
-        
+
         return objectMapperUtil.mapAll(
                 this.modalidadeDao.findAll(),
                 ModalidadeResponseDto.class);

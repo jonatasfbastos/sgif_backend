@@ -1,6 +1,8 @@
 package br.com.ifba.entity.modalidade.service;
 
 import java.util.List;
+import java.util.UUID;
+
 import br.com.ifba.entity.curso.dao.IDaoCurso;
 import br.com.ifba.entity.item.dao.IDaoItem;
 import br.com.ifba.entity.modalidade.dao.IDaoModalidade;
@@ -65,7 +67,7 @@ public class ServiceModalidade implements IServiceModalidade{
      */
     @Override
     public ModalidadeResponseDto updateModalidade(Modalidade modalidade) {
-        
+
         modalidadeDao.findById(modalidade.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
@@ -74,18 +76,24 @@ public class ServiceModalidade implements IServiceModalidade{
                 ModalidadeResponseDto.class);
     }
 
+    /**
+     * Deleta uma Modalidade com base no ID.
+     *
+     * @param id - O ID da Modalidade a ser deletada.
+     * @return um objeto DTO com os dados da Modalidade deletada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteModalidade(Modalidade modalidade) {
-        if(modalidade == null){
-            throw new BusinessException(MODALIDADE_NULL);
-        }else if(this.modalidadeDao.existsById(modalidade.getId()) == true) {
-            this.modalidadeDao.delete(modalidade);
-            return;
-        }else if(modalidadeDao.getReferenceById(modalidade.getId()).getCursos().isEmpty() == false){
-            throw new BusinessException(CURSO_EXISTE);
-        }
-            throw new BusinessException(MODALIDADE_NAO_EXISTE);    
-}
+    public ModalidadeResponseDto deleteModalidade(UUID id) {
+        
+        return this.modalidadeDao.findById(id)
+                .map(modalidade -> {
+                    modalidadeDao.delete(modalidade);
+                    return objectMapperUtil.map(modalidade, ModalidadeResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+    }
 
     @Override
     public List<Modalidade> getAllModalidade() {

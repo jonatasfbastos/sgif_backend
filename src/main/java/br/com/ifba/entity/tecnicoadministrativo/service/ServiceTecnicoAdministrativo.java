@@ -70,25 +70,19 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
                 TecnicoAdministrativoResponseDto.class);
     }
 
+    /**
+     * Obtém uma lista de todos os Técnicos Administrativos como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Técnicos Administrativos.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<TecnicoAdministrativo> getAllTecnicoAdministrativo() {
-        return this.tecnicoAdministrativoDao.findAll();
-    }
-
-    @Override
-    public List<TecnicoAdministrativo> findByNome(String nome) {
-        if (nome == null) {
-            throw new BusinessException(NOME_NULL);
-        }
-        if (nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return tecnicoAdministrativoDao.findByNome(nome);
-    }
-
-    @Override
-    public TecnicoAdministrativo findById(Long id) {
-        return tecnicoAdministrativoDao.getReferenceById(id);
+    public List<TecnicoAdministrativoResponseDto> getAllTecnicoAdministrativo() {
+        
+        return objectMapperUtil.mapAll(
+                this.tecnicoAdministrativoDao.findAll(),
+                TecnicoAdministrativoResponseDto.class);
     }
 
     /**
@@ -101,7 +95,7 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
      */
     @Override
     public TecnicoAdministrativoResponseDto deleteTecnicoAdministrativo(UUID id) {
-        
+
         return this.tecnicoAdministrativoDao.findById(id)
                 .map(tecnicoAdministrativo -> {
                     tecnicoAdministrativoDao.delete(tecnicoAdministrativo);

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * @author Andesson Reis
  * DTO para receber dados de requisições direcionadas à entidade 'FuncaoTecnicoAdministrativo'.
  *
  * @param nome - O nome da função de técnico administrativo (não pode ser nulo).

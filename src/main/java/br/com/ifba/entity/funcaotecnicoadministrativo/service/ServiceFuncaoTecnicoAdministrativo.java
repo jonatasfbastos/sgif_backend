@@ -41,7 +41,7 @@ public class ServiceFuncaoTecnicoAdministrativo implements IServiceFuncaoTecnico
      */
     @Override
     public FuncaoTecnicoAdministrativoResponseDto saveFuncaoTecnicoAdm(FuncaoTecnicoAdministrativo funcaoTecnicoAdm) {
-        
+
         return objectMapperUtil.map(
                 funcaoTecnicoAdministrativoDao.save(funcaoTecnicoAdm),
                 FuncaoTecnicoAdministrativoResponseDto.class);
@@ -65,10 +65,19 @@ public class ServiceFuncaoTecnicoAdministrativo implements IServiceFuncaoTecnico
                 })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-
+    /**
+     * Obtém uma lista de todas as Funções Técnico Administrativo como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Funções Técnico Administrativo.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<FuncaoTecnicoAdministrativo> getAllFuncoesTecnicoAdm() {
-        return daoFuncaoTecnicoAdministrativo.findAll();
+    public List<FuncaoTecnicoAdministrativoResponseDto> getAllFuncoesTecnicoAdm() {
+        
+        return objectMapperUtil.mapAll(
+                this.funcaoTecnicoAdministrativoDao.findAll(),
+                FuncaoTecnicoAdministrativoResponseDto.class);
     }
 
 }

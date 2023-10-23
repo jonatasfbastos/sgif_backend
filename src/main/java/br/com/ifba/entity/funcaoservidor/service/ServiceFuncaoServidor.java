@@ -5,6 +5,7 @@ import br.com.ifba.entity.funcaoservidor.dao.IDaoFuncaoServidor;
 import br.com.ifba.entity.funcaoservidor.dto.FuncaoServidorResponseDto;
 import br.com.ifba.entity.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.tecnicoadministrativo.dao.IDaoTecnicoAdministrativo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,15 +76,23 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
         return daoFuncaoServidor.findAll();
     }
 
+    /**
+     * Atualiza uma Função de Servidor na base de dados e retorna um objeto DTO com os dados resumidos da Função de Servidor atualizada.
+     *
+     * @param funcaoServidor - A Função de Servidor que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Função de Servidor atualizada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public FuncaoServidor updateFuncaoServidor(FuncaoServidor funcaoServidor) {
-        if (funcaoServidor == null) {
-            throw new BusinessException(FUNCAO_NULL);
-        } else if (daoFuncaoServidor.findById(funcaoServidor.getId()) == null) {
-            throw new BusinessException(FUNCAO_EXISTE);
-        } else {
-            return daoFuncaoServidor.save(funcaoServidor);
-        }
+    public FuncaoServidorResponseDto updateFuncaoServidor(FuncaoServidor funcaoServidor) {
+        
+        funcaoServidorDao.findById(funcaoServidor.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                funcaoServidorDao.save(funcaoServidor),
+                FuncaoServidorResponseDto.class);
     }
 
 }

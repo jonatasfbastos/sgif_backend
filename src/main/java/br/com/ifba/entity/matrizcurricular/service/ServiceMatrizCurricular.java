@@ -83,24 +83,17 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todas as Matrizes Curriculares como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Matrizes Curriculares.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<MatrizCurricular> getAllMatrizCurricular() {
-        return this.matrizCurricularDao.findAll();
+    public List<MatrizCurricularResponseDto> getAllMatrizCurricular() {
+        return objectMapperUtil.mapAll(
+                this.matrizCurricularDao.findAll(),
+                MatrizCurricularResponseDto.class);
     }
-    
-    @Override
-    public List<MatrizCurricular> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException(NOME_NULL);
-        }
-        if(nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return matrizCurricularDao.findByNome(nome);
-    }
-    
-     @Override
-     public MatrizCurricular findById(Long id) {
-          return matrizCurricularDao.getReferenceById(id);
-     }
 }

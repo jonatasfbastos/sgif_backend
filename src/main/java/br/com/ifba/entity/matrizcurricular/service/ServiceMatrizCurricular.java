@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
@@ -39,19 +40,28 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
      */
     @Override
     public MatrizCurricularResponseDto saveMatrizCurricular(MatrizCurricular matrizCurricular) {
+        
         return objectMapperUtil.map(
                 matrizCurricularDao.save(matrizCurricular),
                 MatrizCurricularResponseDto.class);
     }
+    
+    /**
+     * Atualiza uma Matriz Curricular na base de dados e retorna um objeto DTO com os dados resumidos da Matriz Curricular atualizada.
+     *
+     * @param matrizCurricular - A Matriz Curricular que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Matriz Curricular atualizada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public MatrizCurricular updateMatrizCurricular(MatrizCurricular matrizCurricular) {
-        if(matrizCurricular == null) {
-            throw new BusinessException(MATRIZ_CURRICULAR_NULL);
-        }
-        if(matrizCurricularDao.existsById(matrizCurricular.getId()) == false) {
-            throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
-        }
-        return matrizCurricularDao.save(matrizCurricular);
+    public MatrizCurricularResponseDto updateMatrizCurricular(MatrizCurricular matrizCurricular) {
+        matrizCurricularDao.findById(matrizCurricular.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                matrizCurricularDao.save(matrizCurricular),
+                MatrizCurricularResponseDto.class);
     }
 
     @Override

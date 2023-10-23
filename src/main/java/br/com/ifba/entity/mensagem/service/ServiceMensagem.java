@@ -1,51 +1,54 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.ifba.entity.mensagem.service;
 
 import br.com.ifba.entity.mensagem.model.Mensagem;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.mensagem.dao.IDaoMensagem;
+import br.com.ifba.entity.mensagem.dto.MensagemResponseDto;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Service que fornece operações relacionadas a Mensagem.
  *
  * @author felipe
+ * @since V1.0.1
+ * @Editado por Andesson Reis
  */
 @Service
 public class ServiceMensagem implements IServiceMensagem{
-    // Mensagem de erro se a Mensagem for null
-    private final static String MENSAGEM_NULL = "Dados da Mensagem nao preenchidos";
-    // Mensagem de erro se a Mensagem ja existir
-    private final static String MENSAGEM_EXISTE = "Mensagem ja existente no Banco de dados";
-    // Mensagem de erro se a Mensagem nao existir no banco
-    private final static String MENSAGEM_NAO_EXISTE = "Mensagem nao existente no Banco de dados";
-    // Mensagem de erro caso o nome esteja vazio
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-    // Mensagem de erro caso o nome seja null
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-    
-     //================= OBJETO =================================================
+    // =========================================================== //
+    // =============== [ ATRIBUTOS ] ================ //
+    // =========================================================== //
+
     @Autowired
     private IDaoMensagem mensagemDao;
 
-     //================= METODOS ================================================
-    @Override
-    public Mensagem saveMensagem(Mensagem mensagem) {
-       if(mensagem == null){
-            throw new BusinessException(MENSAGEM_NULL);
-        }
-       if(mensagemDao.existsByNome(mensagem.getNome()) == true) {
-            throw new BusinessException(MENSAGEM_EXISTE);
-        }
-       return this.mensagemDao.save(mensagem);
-    }
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
 
+    // =========================================================== //
+    // =============== [ MÉTODOS ] ================== //
+    // =========================================================== //
+    
+
+    /**
+     * Salva uma Mensagem na base de dados e retorna um objeto DTO com os dados resumidos da Mensagem salva.
+     *
+     * @param mensagem - A Mensagem que será salva na base de dados.
+     * @return um objeto DTO com os dados resumidos da Mensagem salva.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
+    @Override
+    public MensagemResponseDto saveMensagem(Mensagem mensagem) {
+        
+        return objectMapperUtil.map(
+                mensagemDao.save(mensagem),
+                MensagemResponseDto.class);
+    }
     @Override
     public Mensagem updateMensagem(Mensagem mensagem) {
         if(mensagem == null){

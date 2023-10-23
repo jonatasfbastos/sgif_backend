@@ -23,11 +23,19 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 @Service
 public class NotificacaoService implements IServiceNotificacao {
 
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
     @Autowired
     private IDaoNotification notificacaoDao;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
 
     /**
      * Salva uma Notificação na base de dados e retorna um objeto DTO com os dados resumidos da Notificação salva.

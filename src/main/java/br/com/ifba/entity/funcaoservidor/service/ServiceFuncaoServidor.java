@@ -71,9 +71,19 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
         daoFuncaoServidor.delete(funcaoServidor);
     }
 
+    /**
+     * Obtém uma lista de todas as Funções de Servidor como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Funções de Servidor.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<FuncaoServidor> getAllFuncaoServidor() {
-        return daoFuncaoServidor.findAll();
+    public List<FuncaoServidorResponseDto> getAllFuncaoServidor() {
+        
+        return objectMapperUtil.mapAll(
+                this.funcaoServidorDao.findAll(),
+                FuncaoServidorResponseDto.class);
     }
 
     /**
@@ -86,7 +96,7 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
      */
     @Override
     public FuncaoServidorResponseDto updateFuncaoServidor(FuncaoServidor funcaoServidor) {
-        
+
         funcaoServidorDao.findById(funcaoServidor.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 

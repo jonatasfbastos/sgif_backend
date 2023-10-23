@@ -1,51 +1,3 @@
-
-package br.com.ifba.entity.notificacao.service;
-
-import br.com.ifba.entity.notificacao.dao.IDaoNotification;
-import br.com.ifba.entity.notificacao.model.Notificacao;
-import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
-import br.com.ifba.infrastructure.util.ObjectMapperUtil;
-
-import java.util.List;
-import java.util.Optional;
-
-import javax.management.Notification;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-/**
- * Service que fornece operações relacionadas a Notificação.
- *
- * @author tarciiz
- * @since V1.0.1
- * @Editado por Andesson Reis
- */
-@Service
-public class ServiceNotificacao implements IServiceNotificacao {
-
-    // =========================================================== //
-    // =============== [        ATRIBUTOS       ] ================ //
-    // =========================================================== //
-
-    @Autowired
-    private IDaoNotification notificacaoDao;
-
-    @Autowired
-    private ObjectMapperUtil objectMapperUtil;
-
-    // =========================================================== //
-    // =============== [        MÉTODOS       ] ================== //
-    // =========================================================== //
-
-
-
-Aqui está o código para o serviço Notificacao com a documentação Javadoc e a mesma regra de negócio:
-
-java
-Copy code
 package br.com.ifba.entity.notificacao.service;
 
 import java.util.List;
@@ -54,8 +6,12 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifba.entity.notificacao.dao.IDaoNotification;
 import br.com.ifba.entity.notificacao.dto.NotificacaoResponseDto;
 import br.com.ifba.entity.notificacao.model.Notificacao;
+import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
  * Service que fornece operações relacionadas a Notificação.
@@ -125,7 +81,7 @@ public class NotificacaoService implements IServiceNotificacao {
                 })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-
+    
     /**
      * Obtém uma lista de todas as Notificações como objetos DTO.
      *
@@ -135,7 +91,6 @@ public class NotificacaoService implements IServiceNotificacao {
      */
     @Override
     public List<NotificacaoResponseDto> getAllNotification() {
-        
         return objectMapperUtil.mapAll(
                 this.notificacaoDao.findAll(),
                 NotificacaoResponseDto.class);

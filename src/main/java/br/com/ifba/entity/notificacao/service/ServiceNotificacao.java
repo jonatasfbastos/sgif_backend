@@ -107,16 +107,25 @@ public class NotificacaoService implements IServiceNotificacao {
                 NotificacaoResponseDto.class);
     }
 
+    /**
+     * Deleta uma Notificação com base no objeto Notificação.
+     *
+     * @param id - O objeto Notificação a ser deletado.
+     * @return um objeto DTO com os dados da Notificação deletada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteNotification(Notification notification) {
-        if (notification == null) {
-            throw new BusinessException(notification_NULL);
-        } else {
-            this.daoNotification.delete(notification);
-            return;
-        }
-    }
+    public NotificacaoResponseDto deleteNotification(UUID id) {
 
+        return this.notificacaoDao.findById(id)
+                .map(notificacao -> {
+                    notificacaoDao.delete(notificacao);
+                    return objectMapperUtil.map(notificacao, NotificacaoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+    }
+    
     @Override
     public List<Notification> getAllNotification() {
         return daoNotification.findAll();

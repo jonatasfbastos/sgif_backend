@@ -2,6 +2,7 @@ package br.com.ifba.entity.mensagem.service;
 
 import br.com.ifba.entity.mensagem.model.Mensagem;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import br.com.ifba.entity.mensagem.dao.IDaoMensagem;
 import br.com.ifba.entity.mensagem.dto.MensagemResponseDto;
@@ -44,22 +45,30 @@ public class ServiceMensagem implements IServiceMensagem{
      */
     @Override
     public MensagemResponseDto saveMensagem(Mensagem mensagem) {
-        
+
         return objectMapperUtil.map(
                 mensagemDao.save(mensagem),
                 MensagemResponseDto.class);
     }
-    @Override
-    public Mensagem updateMensagem(Mensagem mensagem) {
-        if(mensagem == null){
-            throw new BusinessException(MENSAGEM_NULL);
-        } 
-        if(mensagemDao.existsById(mensagem.getId()) == false) {
-            throw new BusinessException(MENSAGEM_NAO_EXISTE);
-        }
-        return this.mensagemDao.save(mensagem);        
-    }
 
+    /**
+     * Atualiza uma Mensagem na base de dados e retorna um objeto DTO com os dados resumidos da Mensagem atualizada.
+     *
+     * @param mensagem - A Mensagem que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Mensagem atualizada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
+    @Override
+    public MensagemResponseDto updateMensagem(Mensagem mensagem) {
+        
+        mensagemDao.findById(mensagem.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                mensagemDao.save(mensagem),
+                MensagemResponseDto.class);
+    }
     @Override
     public void deleteMensagem(Mensagem mensagem) {
         if(mensagem == null){

@@ -8,6 +8,8 @@ import br.com.ifba.entity.mensagem.dao.IDaoMensagem;
 import br.com.ifba.entity.mensagem.dto.MensagemResponseDto;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +63,7 @@ public class ServiceMensagem implements IServiceMensagem{
      */
     @Override
     public MensagemResponseDto updateMensagem(Mensagem mensagem) {
-        
+
         mensagemDao.findById(mensagem.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
@@ -69,15 +71,24 @@ public class ServiceMensagem implements IServiceMensagem{
                 mensagemDao.save(mensagem),
                 MensagemResponseDto.class);
     }
+
+    /**
+     * Deleta uma Mensagem com base no ID.
+     *
+     * @param id - O ID da Mensagem a ser deletada.
+     * @return um objeto DTO com os dados da Mensagem deletada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteMensagem(Mensagem mensagem) {
-        if(mensagem == null){
-            throw new BusinessException(MENSAGEM_NULL);
-        } 
-        if(mensagemDao.existsById(mensagem.getId()) == false) {
-            throw new BusinessException(MENSAGEM_NAO_EXISTE);
-        }
-        this.mensagemDao.delete(mensagem);
+    public MensagemResponseDto deleteMensagem(UUID id) {
+        
+        return this.mensagemDao.findById(id)
+                .map(mensagem -> {
+                    mensagemDao.delete(mensagem);
+                    return objectMapperUtil.map(mensagem, MensagemResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

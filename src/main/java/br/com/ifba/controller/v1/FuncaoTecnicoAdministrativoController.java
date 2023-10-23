@@ -63,4 +63,16 @@ public class FuncaoTecnicoAdministrativoController {
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.CREATED).body(funcaoTecnicoAdministrativoService.saveFuncaoTecnicoAdm(objectMapperUtil.map(funcaoTecnicoAdmDto, FuncaoTecnicoAdministrativo.class)));
     }
+
+    /**
+     * Deleta uma função de técnico administrativo com base no seu ID.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @DeleteMapping(path = "/funcoes_tecnico_administrativo/funcao_tecnico_adm/{id}", consumes = "application.json")
+    public ResponseEntity<?> deletarFuncaoTecnicoAdministrativoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(funcaoTecnicoAdministrativoService.deleteFuncaoTecnicoAdm(id));
+    }
 }

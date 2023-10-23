@@ -1,25 +1,49 @@
 package br.com.ifba.entity.modalidade.service;
 
 import java.util.List;
+import java.util.UUID;
 
+import br.com.ifba.entity.modalidade.dto.ModalidadeResponseDto;
 import br.com.ifba.entity.modalidade.model.Modalidade;
 
+/**
+ * Interface de serviço para Modalidade.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ * 
+ */
 public interface IServiceModalidade {
-    //salva a Modalidade
-    public abstract Modalidade saveModalidade(Modalidade modalidade);
-    
-    //atualiza a Modalidade
-    public abstract Modalidade updateModalidade(Modalidade modalidade);
-    
-    //deleta a Modalidade
-    public abstract void deleteModalidade(Modalidade modalidade);
-    
-    // Metodo que retorna todas as Modalidades da base de dados
-    public abstract List<Modalidade> getAllModalidade();
-    
-    // Metodo que retorna a Modalidade com o id informado
-    public Modalidade findById(Long id);
-    
-    // Metodo que retorna a lista com as Modalidades com o nome informado
-    public List<Modalidade> findByNome(String nome);
+
+    /**
+     * Salva uma Modalidade na base de dados e retorna um objeto DTO com os dados resumidos da Modalidade salva.
+     *
+     * @param modalidade - A Modalidade que será salva na base de dados.
+     * @return um objeto DTO com os dados resumidos da Modalidade salva.
+     */
+    ModalidadeResponseDto saveModalidade(Modalidade modalidade);
+
+    /**
+     * Atualiza uma Modalidade na base de dados e retorna um objeto DTO com os dados resumidos da Modalidade atualizada.
+     *
+     * @param modalidade - A Modalidade que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Modalidade atualizada.
+     */
+    ModalidadeResponseDto updateModalidade(Modalidade modalidade);
+
+    /**
+     * Deleta uma Modalidade com base no ID.
+     *
+     * @param id - O ID da Modalidade a ser deletada.
+     * @return um objeto DTO com os dados da Modalidade deletada.
+     */
+    ModalidadeResponseDto deleteModalidade(UUID id);
+
+    /**
+     * Obtém uma lista de todas as Modalidades como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Modalidades.
+     */
+    List<ModalidadeResponseDto> getAllModalidade();
 }

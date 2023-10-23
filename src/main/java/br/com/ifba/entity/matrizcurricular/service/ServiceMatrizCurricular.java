@@ -1,57 +1,48 @@
 package br.com.ifba.entity.matrizcurricular.service;
 
-import br.com.ifba.entity.etapacurso.dao.IDaoEtapaCurso;
 import java.util.List;
 
 import br.com.ifba.entity.matrizcurricular.dao.IDaoMatrizCurricular;
+import br.com.ifba.entity.matrizcurricular.dto.MatrizCurricularResponseDto;
 import br.com.ifba.entity.matrizcurricular.model.MatrizCurricular;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
+/**
+ * Service que fornece operações relacionadas a Matriz Curricular.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
 
 @Service
 public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
     
-    // Mensagem de erro se a Matriz Curricular for null.
-    public final static String MATRIZ_CURRICULAR_NULL = "Dados da Matriz Curricular nao preenchidos";
-    
-    // Mensagem de erro se a Matriz Curricular jÃ¡ existe.
-    public final static String MATRIZ_CURRICULAR_EXISTE = "Matriz Curricular ja existente no Banco de dados";
-    
-    // Mensagem de erro se a Matriz Curricular nÃ£o existir no banco.
-    public final static String MATRIZ_CURRICULAR_NAO_EXISTE = "Matriz Curricular nao existente no Banco de dados";
-    
-    // Mensagem de erro se a Matriz Curricular for invÃ¡lida.
-    public final static String MATRIZ_CURRICULAR_INVALIDO = "As informaÃ§oes da Matriz Curricular nao sao validas";
-    
-     // Mensagem de erro caso o nome esteja vazio.
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-    
-    // Mensagem de erro caso o nome seja null.
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-    //Mensagem de erro caso exista Etapa Curso
-    private final static String ETAPA_CURSO_EXISTE = "Não é possível excluir com uma Etapa Curso existente";
-    
-     //================= OBJETO =================================================
+  
     @Autowired
     private IDaoMatrizCurricular matrizCurricularDao;
+
     @Autowired
-    private IDaoEtapaCurso etapaCursoDao;
+    private ObjectMapperUtil objectMapperUtil;
 
-     //================= MÃ‰TODOS ================================================
+    /**
+     * Salva uma Matriz Curricular na base de dados e retorna um objeto DTO com os dados resumidos da Matriz Curricular salva.
+     *
+     * @param matrizCurricular - A Matriz Curricular que será salva na base de dados.
+     * @return um objeto DTO com os dados resumidos da Matriz Curricular salva.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public MatrizCurricular saveMatrizCurricular(MatrizCurricular matrizCurricular) {
-       if(matrizCurricular == null) {
-            throw new BusinessException(MATRIZ_CURRICULAR_NULL);
-        } 
-       if(matrizCurricularDao.existsByNome(matrizCurricular.getNome()) == true) {
-            throw new BusinessException(MATRIZ_CURRICULAR_EXISTE);
-        }
-       return matrizCurricularDao.save(matrizCurricular);
+    public MatrizCurricularResponseDto saveMatrizCurricular(MatrizCurricular matrizCurricular) {
+        return objectMapperUtil.map(
+                matrizCurricularDao.save(matrizCurricular),
+                MatrizCurricularResponseDto.class);
     }
-
     @Override
     public MatrizCurricular updateMatrizCurricular(MatrizCurricular matrizCurricular) {
         if(matrizCurricular == null) {

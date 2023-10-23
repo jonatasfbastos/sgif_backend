@@ -1,34 +1,48 @@
 package br.com.ifba.entity.funcaotecnicoadministrativo.service;
 
 import br.com.ifba.entity.funcaotecnicoadministrativo.dao.IDaoFuncaoTecnicoAdministrativo;
+import br.com.ifba.entity.funcaotecnicoadministrativo.dto.FuncaoTecnicoAdministrativoResponseDto;
 import br.com.ifba.entity.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+/**
+ * Service que fornece operações relacionadas a Função de Técnico Administrativo.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
+
 @Service
 public class ServiceFuncaoTecnicoAdministrativo implements IServiceFuncaoTecnicoAdministrativo {
 
-    private final static String FUNCAO_NULL = "A função do técnico está vazia, preencha e tente novamente.";
-    private final static String FUNCAO_NAO_EXISTE = "A função informada não existe.";
-    private final static String FUNCAO_DELETADA = "Função deletada com sucesso.";
-    private final static String CAMPO_VAZIO = "Há campo vazio, preencha e tente novamente.";
 
     @Autowired
-    private IDaoFuncaoTecnicoAdministrativo daoFuncaoTecnicoAdministrativo;
+    private IDaoFuncaoTecnicoAdministrativo funcaoTecnicoAdministrativoDao;
 
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+
+
+    /**
+     * Salva uma Função Técnico Administrativo na base de dados e retorna um objeto DTO com os dados resumidos da Função Técnico Administrativo salva.
+     *
+     * @param funcaoTecnicoAdm - A Função Técnico Administrativo que será salva na base de dados.
+     * @return um objeto DTO com os dados resumidos da Função Técnico Administrativo salva.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public FuncaoTecnicoAdministrativo saveFuncaoTecnicoAdm(FuncaoTecnicoAdministrativo funcaoTecnicoAdm) {
-        if (funcaoTecnicoAdm == null) {
-            throw new BusinessException(FUNCAO_NULL);
-        }
-        if (funcaoTecnicoAdm.getNome().isEmpty() || funcaoTecnicoAdm.getDescricao().isEmpty()) {
-            throw new BusinessException(CAMPO_VAZIO);
-        }
-        return daoFuncaoTecnicoAdministrativo.save(funcaoTecnicoAdm);
+    public FuncaoTecnicoAdministrativoResponseDto saveFuncaoTecnicoAdm(FuncaoTecnicoAdministrativo funcaoTecnicoAdm) {
+        return objectMapperUtil.map(
+                funcaoTecnicoAdministrativoDao.save(funcaoTecnicoAdm),
+                FuncaoTecnicoAdministrativoResponseDto.class);
     }
-
     @Override
     public String deleteFuncaoTecnicoAdm(Long id) {
         if (daoFuncaoTecnicoAdministrativo.existsById(id) == false) {

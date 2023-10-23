@@ -1,6 +1,7 @@
 package br.com.ifba.entity.matrizcurricular.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import br.com.ifba.entity.matrizcurricular.dao.IDaoMatrizCurricular;
 import br.com.ifba.entity.matrizcurricular.dto.MatrizCurricularResponseDto;
@@ -45,7 +46,7 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
                 matrizCurricularDao.save(matrizCurricular),
                 MatrizCurricularResponseDto.class);
     }
-    
+
     /**
      * Atualiza uma Matriz Curricular na base de dados e retorna um objeto DTO com os dados resumidos da Matriz Curricular atualizada.
      *
@@ -64,24 +65,22 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
                 MatrizCurricularResponseDto.class);
     }
 
+    /**
+     * Deleta uma Matriz Curricular com base no ID.
+     *
+     * @param id - O ID da Matriz Curricular a ser deletada.
+     * @return um objeto DTO com os dados da Matriz Curricular deletada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    /*public void deleteMatrizCurricular(Long id) {
-        if (matrizCurricularDao.existsById(id) == false) {
-            throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
-        }
-        matrizCurricularDao.delete(matrizCurricularDao.getReferenceById(id)); 
-    }*/
-    public void deleteMatrizCurricular(MatrizCurricular matrizCurricular) {
-        if(matrizCurricular == null) {
-            throw new BusinessException(MATRIZ_CURRICULAR_NULL);
-        }
-        if(matrizCurricularDao.existsById(matrizCurricular.getId()) == false) {
-            throw new BusinessException(MATRIZ_CURRICULAR_NAO_EXISTE);
-        }
-        if(matrizCurricularDao.getReferenceById(matrizCurricular.getId()).getEtapacurso().isEmpty() == false) {
-            throw new BusinessException(ETAPA_CURSO_EXISTE);
-        }
-        matrizCurricularDao.delete(matrizCurricular);
+    public MatrizCurricularResponseDto deleteMatrizCurricular(UUID id) {
+        return this.matrizCurricularDao.findById(id)
+                .map(matrizCurricular -> {
+                    matrizCurricularDao.delete(matrizCurricular);
+                    return objectMapperUtil.map(matrizCurricular, MatrizCurricularResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

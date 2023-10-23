@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class MatrizCurricularController {
      *
      * @return Uma lista de matrizes curriculares ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(consumes = "application/json")
+    @GetMapping(path = "/matrizesCurriculares", consumes = "application/json")
     public ResponseEntity<?> getMatrizesCurriculares() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -52,11 +53,22 @@ public class MatrizCurricularController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(consumes = "application/json")
+    @PostMapping(path = "/matrizCurricular", consumes = "application/json")
     public ResponseEntity<?> salvarMatrizCurricular(@Valid @RequestBody MatrizCurricularRequestDto matrizCurricularDto, BindingResult result) {
-        
+
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.CREATED).body(matrizCurricularService.saveMatrizCurricular(objectMapperUtil.map(matrizCurricularDto, MatrizCurricular.class)));
+    }
+    /**
+     * Atualiza uma matriz curricular.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @PutMapping(path = "/matrizesCurriculares/matrizCurricular",consumes = "application/json")
+    public ResponseEntity<?> atualizarMatrizCurricular(@Valid @RequestBody MatrizCurricularRequestDto matrizCurricularDto, BindingResult result) {
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.OK).body(matrizCurricularService.updateMatrizCurricular(objectMapperUtil.map(matrizCurricularDto, MatrizCurricular.class)));
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 /**
  * Service que fornece operações relacionadas a Modalidade.
@@ -48,22 +49,29 @@ public class ServiceModalidade implements IServiceModalidade{
      */
     @Override
     public ModalidadeResponseDto saveModalidade(Modalidade modalidade) {
-        
+
         return objectMapperUtil.map(
                 modalidadeDao.save(modalidade),
                 ModalidadeResponseDto.class);
     }
 
-
+    /**
+     * Atualiza uma Modalidade na base de dados e retorna um objeto DTO com os dados resumidos da Modalidade atualizada.
+     *
+     * @param modalidade - A Modalidade que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Modalidade atualizada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Modalidade updateModalidade(Modalidade modalidade) {
-        if(modalidade == null){
-            throw new BusinessException(MODALIDADE_NULL);
-        } else if(modalidadeDao.existsById(modalidade.getId()) == false) {
-            throw new BusinessException(MODALIDADE_NAO_EXISTE);
-        } else {
-            return modalidadeDao.save(modalidade);
-        }    
+    public ModalidadeResponseDto updateModalidade(Modalidade modalidade) {
+        
+        modalidadeDao.findById(modalidade.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                modalidadeDao.save(modalidade),
+                ModalidadeResponseDto.class);
     }
 
     @Override

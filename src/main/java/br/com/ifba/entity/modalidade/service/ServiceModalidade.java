@@ -3,7 +3,6 @@ package br.com.ifba.entity.modalidade.service;
 import java.util.List;
 import java.util.UUID;
 
-import br.com.ifba.entity.curso.dao.IDaoCurso;
 import br.com.ifba.entity.modalidade.dao.IDaoModalidade;
 import br.com.ifba.entity.modalidade.dto.ModalidadeResponseDto;
 import br.com.ifba.entity.modalidade.model.Modalidade;

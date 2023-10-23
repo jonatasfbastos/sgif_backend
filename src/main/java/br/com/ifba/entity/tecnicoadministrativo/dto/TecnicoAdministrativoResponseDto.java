@@ -1,8 +1,8 @@
 package br.com.ifba.entity.tecnicoadministrativo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import br.com.ifba.entity.servidor.dto.ServidorResponseDto;
 import br.com.ifba.entity.funcaoservidor.dto.FuncaoServidorResponseDto;
+import br.com.ifba.entity.funcaotecnicoadministrativo.dto.FuncaoTecnicoAdministrativoResponseDto;
 
 /**
  * @author Andesson Reis

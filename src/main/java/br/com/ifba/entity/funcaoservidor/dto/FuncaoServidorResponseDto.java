@@ -1,7 +1,10 @@
 package br.com.ifba.entity.funcaoservidor.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.ifba.entity.servidor.dto.ServidorResponseDto;
+import br.com.ifba.entity.tecnicoadministrativo.dto.TecnicoAdministrativoResponseDto;
 
 
 /**

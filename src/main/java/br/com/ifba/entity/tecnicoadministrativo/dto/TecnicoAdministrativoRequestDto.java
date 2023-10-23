@@ -1,8 +1,8 @@
 package br.com.ifba.entity.tecnicoadministrativo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import br.com.ifba.entity.servidor.dto.ServidorRequestDto;
 import br.com.ifba.entity.funcaoservidor.dto.FuncaoServidorRequestDto;
+import br.com.ifba.entity.funcaotecnicoadministrativo.dto.FuncaoTecnicoAdministrativoRequestDto;
 
 import javax.validation.constraints.NotNull;
 

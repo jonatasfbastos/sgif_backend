@@ -14,7 +14,7 @@ import br.com.ifba.entity.questao.model.Questao;
  * @since V1.0.1
  */
 @Repository
-public interface IDaoQuestao extends JpaRepository<Questao, Long>{
+public interface IQuestaoDao extends JpaRepository<Questao, Long>{
 
     /**
      * Busca uma questão na base de dados com base no ID
@@ -35,7 +35,7 @@ public interface IDaoQuestao extends JpaRepository<Questao, Long>{
      * @author Giovane Neves
      * @since Desde V1.0.1
      * @param enunciado O enunciado das questões a serem buscadas.
-     * @return Lista de DTO com dados das questões que possuem o enunciado passado por parâmetro.
+     * @return Lista das questões que possuem o enunciado passado por parâmetro.
      */
     List<Questao> findByEnunciado(String enunciado);
 

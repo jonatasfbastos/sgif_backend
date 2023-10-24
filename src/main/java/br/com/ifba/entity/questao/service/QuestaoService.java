@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-import br.com.ifba.entity.questao.dao.IDaoQuestao;
+import br.com.ifba.entity.questao.dao.IQuestaoDao;
 import br.com.ifba.entity.questao.model.Questao;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +28,7 @@ public class QuestaoService implements IQuestaoService {
     // =========================================================== //
     
     @Autowired
-     private IDaoQuestao questaoDao;
+     private IQuestaoDao questaoDao;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
@@ -83,6 +83,8 @@ public class QuestaoService implements IQuestaoService {
      */
     @Override
     public List<QuestaoResponseDto> encontrarQuestaoPorEnunciado(String enunciado) {
+
+        // TODO: Verificar 'findByEnunciado' no repositório
 
          return this.questaoDao.findByEnunciado(enunciado)
                  .stream()

@@ -3,6 +3,7 @@ package br.com.ifba.entity.matrizcurricular.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.ifba.entity.curso.dto.CursoResponseDto;
+import br.com.ifba.entity.etapacurso.dto.EtapaCursoResponseDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

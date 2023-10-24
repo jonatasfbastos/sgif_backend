@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  *
  * @author felipe
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Service
 public class ServiceMensagem implements IServiceMensagem{

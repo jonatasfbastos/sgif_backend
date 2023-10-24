@@ -10,7 +10,7 @@ import br.com.ifba.entity.mensagem.model.Mensagem;
  * Interface de serviço para Mensagem.
  *
  * @author felipe
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 public interface IServiceMensagem {

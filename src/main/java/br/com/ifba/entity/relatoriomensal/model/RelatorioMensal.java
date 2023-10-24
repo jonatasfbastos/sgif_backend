@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * Esta classe representa um relatório mensal.
  *
  * @author unknown
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 @Entity

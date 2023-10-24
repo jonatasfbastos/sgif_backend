@@ -17,7 +17,7 @@ import java.util.Date;
  * Esta classe representa uma mensagem.
  *
  * @author felipe
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa uma mensagem da aplicação.

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * Interface de serviço para Relatório Mensal.
  *
  * @author unknown
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 @Service

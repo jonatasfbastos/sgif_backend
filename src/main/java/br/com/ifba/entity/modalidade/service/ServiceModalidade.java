@@ -1,94 +1,107 @@
 package br.com.ifba.entity.modalidade.service;
 
 import java.util.List;
-import br.com.ifba.entity.curso.dao.IDaoCurso;
+import java.util.UUID;
 
 import br.com.ifba.entity.modalidade.dao.IDaoModalidade;
+import br.com.ifba.entity.modalidade.dto.ModalidadeResponseDto;
 import br.com.ifba.entity.modalidade.model.Modalidade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
-
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+/**
+ * Service que fornece operações relacionadas a Modalidade.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * @Editado por Andesson Reis
+ */
 @Service
 public class ServiceModalidade implements IServiceModalidade{
-    //-_-_-_-_-_-_-_-_-_- CONSTANTES -_-_-_-_-_-_-_-_-_-
-    
-    //mensagem de erro caso a Modalidade seja nula;
-    public final static String MODALIDADE_NULL = "Dados da Modalidade nao preenchidos";
-    
-    //mensagem de erro caso a Modalidade ja exista no banco de dados;
-    public final static String MODALIDADE_EXISTE = "Modalidade ja existente no Banco de dados";
-    
-    //mensagem de erro caso a Modalidade nao exista no banco de dados;
-    public final static String MODALIDADE_NAO_EXISTE = "Modalidade nao existente no Banco de dados";
-    
-    //mensagem de erro caso a Modalidade seja invalida;
-    public final static String MODALIDADE_INVALIDO = "As informaÃ§oes da Modalidade nao sao validas";
 
-    //mensagem de erro caso ja exista um ou mais cursos atrelados a essa modalidade
-    public final static String CURSO_EXISTE = "Nao e possivel excluir modalidade com curso atrelado a ela";
-    
-    //-_-_-_-_-_-_-_-_-_- OBJETO -_-_-_-_-_-_-_-_-_-
-    
-    @Autowired
+    // =========================================================== //
+    // ======================== [ ATRIBUTOS ] ==================== //
+    // =========================================================== //
+
+   @Autowired
     private IDaoModalidade modalidadeDao;
+
     @Autowired
-    private IDaoCurso cursoDao;
-     
-    //-_-_-_-_-_-_-_-_-_- METODOS -_-_-_-_-_-_-_-_-_-
-    
+    private ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // ======================== [ MÉTODOS ] ====================== //
+    // =========================================================== //
+
+    /**
+     * Salva uma Modalidade na base de dados e retorna um objeto DTO com os dados resumidos da Modalidade salva.
+     *
+     * @param modalidade - A Modalidade que será salva na base de dados.
+     * @return um objeto DTO com os dados resumidos da Modalidade salva.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Modalidade saveModalidade(Modalidade modalidade) {
-        if(modalidade == null){
-            throw new BusinessException(MODALIDADE_NULL);
-        } else {
-            return modalidadeDao.save(modalidade);
-        }
+    public ModalidadeResponseDto saveModalidade(Modalidade modalidade) {
+
+        return objectMapperUtil.map(
+                modalidadeDao.save(modalidade),
+                ModalidadeResponseDto.class);
     }
 
+    /**
+     * Atualiza uma Modalidade na base de dados e retorna um objeto DTO com os dados resumidos da Modalidade atualizada.
+     *
+     * @param modalidade - A Modalidade que será atualizada na base de dados.
+     * @return um objeto DTO com os dados resumidos da Modalidade atualizada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public Modalidade updateModalidade(Modalidade modalidade) {
-        if(modalidade == null){
-            throw new BusinessException(MODALIDADE_NULL);
-        } else if(modalidadeDao.existsById(modalidade.getId()) == false) {
-            throw new BusinessException(MODALIDADE_NAO_EXISTE);
-        } else {
-            return modalidadeDao.save(modalidade);
-        }    
+    public ModalidadeResponseDto updateModalidade(Modalidade modalidade) {
+
+        modalidadeDao.findById(modalidade.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                modalidadeDao.save(modalidade),
+                ModalidadeResponseDto.class);
     }
 
+    /**
+     * Deleta uma Modalidade com base no ID.
+     *
+     * @param id - O ID da Modalidade a ser deletada.
+     * @return um objeto DTO com os dados da Modalidade deletada.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteModalidade(Modalidade modalidade) {
-        if(modalidade == null){
-            throw new BusinessException(MODALIDADE_NULL);
-        }else if(this.modalidadeDao.existsById(modalidade.getId()) == true) {
-            this.modalidadeDao.delete(modalidade);
-            return;
-        }else if(modalidadeDao.getReferenceById(modalidade.getId()).getCursos().isEmpty() == false){
-            throw new BusinessException(CURSO_EXISTE);
-        }
-            throw new BusinessException(MODALIDADE_NAO_EXISTE);    
-}
+    public ModalidadeResponseDto deleteModalidade(UUID id) {
 
-    @Override
-    public List<Modalidade> getAllModalidade() {
-        return this.modalidadeDao.findAll();    
+        return this.modalidadeDao.findById(id)
+                .map(modalidade -> {
+                    modalidadeDao.delete(modalidade);
+                    return objectMapperUtil.map(modalidade, ModalidadeResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-    
-    @Override
-    public Modalidade findById(Long id) {
-        return modalidadeDao.getReferenceById(id);
-    }  
 
+    /**
+     * Obtém uma lista de todas as Modalidades como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando as Modalidades.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<Modalidade> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException("Dados do nome nao preenchidos");
-        } else if(nome.isEmpty()) {
-            throw new BusinessException("O Campo Nome esta vazio");
-        } else {
-            return modalidadeDao.findByNome(nome);
-        }
+    public List<ModalidadeResponseDto> getAllModalidade() {
+
+        return objectMapperUtil.mapAll(
+                this.modalidadeDao.findAll(),
+                ModalidadeResponseDto.class);
     }
 }

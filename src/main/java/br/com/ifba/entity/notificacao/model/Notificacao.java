@@ -1,55 +1,48 @@
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package br.com.ifba.entity.notification.model;
+package br.com.ifba.entity.notificacao.model;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
-
-import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
+ * Esta classe representa uma notificação.
  *
  * @author tarciiz
+ * @Editado por Andesson Reis
+ * @since V1.0.1
+ * 
+ * Esta classe representa uma notificação da aplicação.
+ * Nenhum dos atributos desta classe pode ser nulo.
  */
-
 @Entity
-@Table(name = "notification")
-@Data
-@EqualsAndHashCode(callSuper = false)
-
-public class Notification extends PersistenceEntity {
+@Table(name = "notificacao")
+public class Notificacao extends PersistenceEntity {
 
     @Column(nullable = false)
-    String title;
+    private String title;
 
     @Column(nullable = false)
-    String body;
+    private String body;
 
     @Column(nullable = false, updatable = false)
-    Long whatId;
+    private UUID whatId;
 
     @Column(nullable = false, updatable = false)
-    String whatObjectName;
+    private String whatObjectName;
 
     @Column(nullable = false)
-    boolean readed = false;
+    private boolean read = false;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    LocalDateTime sendDateTime;
-
-    public Notification() {
-    }
+    private LocalDateTime sendDateTime;
+/*
+    //Todo  Revisar essa criação
 
     public Notification(String title, String body, PersistenceEntity entity) {
         this.buildNotification(title, body, entity);
@@ -63,11 +56,12 @@ public class Notification extends PersistenceEntity {
     }
 
     public static Notification createNotification(String title, String body, PersistenceEntity entity) {
-        Notification not = new Notification();
-        not.title = title;
-        not.body = body;
-        not.whatId = entity.getId();
-        not.whatObjectName = entity.getClass().getSimpleName();
-        return not;
+        Notification notification = new Notification();
+        notification.title = title;
+        notification.body = body;
+        notification.whatId = entity.getId();
+        notification.whatObjectName = entity.getClass().getSimpleName();
+        return notification;
     }
+*/
 }

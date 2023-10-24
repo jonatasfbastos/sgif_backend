@@ -1,6 +1,6 @@
 package br.com.ifba.entity.matrizcurricular.service;
 
-import br.com.ifba.entity.etapacurso.dao.IDaoEtapaCurso;
+import br.com.ifba.entity.etapacurso.dao.IEtapaCursoDao;
 import java.util.List;
 
 import br.com.ifba.entity.matrizcurricular.dao.IDaoMatrizCurricular;
@@ -38,7 +38,7 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
     @Autowired
     private IDaoMatrizCurricular matrizCurricularDao;
     @Autowired
-    private IDaoEtapaCurso etapaCursoDao;
+    private IEtapaCursoDao etapaCursoDao;
 
      //================= MÃ‰TODOS ================================================
     @Override

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Everton.
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Service que fornece operações relacionadas a Setor

@@ -19,7 +19,7 @@ import java.util.List;
  * Esta classe representa um fornecedor.
  * 
  * @author vitor
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 @Entity(name = "fornecedor")

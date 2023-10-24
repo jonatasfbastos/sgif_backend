@@ -19,7 +19,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  *
  * @author unknown
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 
 @Service

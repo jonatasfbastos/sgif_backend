@@ -23,7 +23,7 @@ import java.util.List;
  * Esta classe representa uma função de servidor.
  *
  * @author Gusd
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa uma função de servidor da organização.

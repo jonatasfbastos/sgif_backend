@@ -19,7 +19,7 @@ import br.com.ifba.entity.terceirizado.dto.TerceirizadoResponseDto;
  *
  * @author unknown
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 
 @Service

@@ -20,7 +20,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 /**
  * @author vitor
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Service
 public class UsuarioService implements IUsuarioService {

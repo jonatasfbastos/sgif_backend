@@ -14,7 +14,7 @@ import br.com.ifba.entity.item.model.Item;
 /**
  *
  * @author vitor
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 @Service

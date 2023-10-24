@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
  * Esta classe representa um empenho.
  *
  * @author rocki.julius
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa um empenho da organização.

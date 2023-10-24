@@ -11,7 +11,7 @@ import br.com.ifba.entity.matrizcurricular.model.MatrizCurricular;
  * 
  * @author unknown
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 public interface IServiceMatrizCurricular {
 

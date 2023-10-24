@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author unknown
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa um tipo de item.

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * Serviço para operações relacionadas a fornecedores.
  * 
 *  @author vitor
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 @Service

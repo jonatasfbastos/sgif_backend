@@ -22,6 +22,7 @@ import br.com.ifba.entity.modalidade.dto.ModalidadeRequestDto;
 import br.com.ifba.entity.modalidade.model.Modalidade;
 import br.com.ifba.entity.modalidade.service.IServiceModalidade;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
 /**
  * @author Andesson Reis
  * @since Desde V1.0.1

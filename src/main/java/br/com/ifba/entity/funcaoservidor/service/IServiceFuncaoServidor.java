@@ -13,7 +13,7 @@ import br.com.ifba.entity.funcaoservidor.model.FuncaoServidor;
  *
  * @author Gusd
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Service
 public interface IServiceFuncaoServidor {

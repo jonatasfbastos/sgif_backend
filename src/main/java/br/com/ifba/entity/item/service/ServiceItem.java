@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author vitor
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since Desde V1.0.1
  */
 @Service

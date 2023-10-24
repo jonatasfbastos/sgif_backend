@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
  *
  * @author ph715
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Entity
 @Data

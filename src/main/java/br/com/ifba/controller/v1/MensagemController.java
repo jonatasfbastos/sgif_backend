@@ -22,6 +22,7 @@ import br.com.ifba.entity.mensagem.dto.MensagemRequestDto;
 import br.com.ifba.entity.mensagem.model.Mensagem;
 import br.com.ifba.entity.mensagem.service.IServiceMensagem;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
 /**
  * @author Andesson reis
  * @since V1.0.1

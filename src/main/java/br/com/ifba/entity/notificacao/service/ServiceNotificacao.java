@@ -18,7 +18,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  *
  * @author tarciiz
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Service
 public class ServiceNotificacao implements IServiceNotificacao {

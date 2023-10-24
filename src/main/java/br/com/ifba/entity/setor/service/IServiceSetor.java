@@ -8,7 +8,7 @@ import java.util.UUID;
 
 /**
  * @author Everton.
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Interface para serviços relacionados à entidade Setor.

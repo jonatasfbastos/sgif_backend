@@ -19,7 +19,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * Interface para serviços relacionados à entidade Empenho.
  *
  * @author rocki.julius
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  *Veja também: {@link br.com.ifba.entity.empenho.model.Empenho}

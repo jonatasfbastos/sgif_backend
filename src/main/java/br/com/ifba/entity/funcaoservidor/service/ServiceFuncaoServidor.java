@@ -19,7 +19,7 @@ import java.util.UUID;
  *
  * @author Gusd
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Service
 public class ServiceFuncaoServidor implements IServiceFuncaoServidor {

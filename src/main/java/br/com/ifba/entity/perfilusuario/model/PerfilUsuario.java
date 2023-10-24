@@ -23,8 +23,8 @@ import java.util.List;
  * Esta classe representa um perfil de usuário.
  *
  * @author Igor Lopes
- * @edited by tarciiz
- * @edited by Andesson Reis
+ * edited by tarciiz
+ * edited by Andesson Reis
  * 
  * @since V1.0.1
  * 

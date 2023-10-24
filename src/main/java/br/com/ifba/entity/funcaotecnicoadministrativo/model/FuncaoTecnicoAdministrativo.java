@@ -19,7 +19,7 @@ import java.util.List;
  * Esta classe representa uma função de técnico administrativo.
  *
  * @author unknown
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa uma função de técnico administrativo da organização.

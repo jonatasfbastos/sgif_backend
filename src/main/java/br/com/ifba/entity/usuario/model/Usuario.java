@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author vitor
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe, descendente da classe Pessoa, representa um usuario.

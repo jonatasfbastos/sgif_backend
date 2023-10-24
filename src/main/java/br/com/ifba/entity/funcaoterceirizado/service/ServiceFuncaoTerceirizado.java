@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  *
  * @author ph715
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 @Service
 public class ServiceFuncaoTerceirizado implements IServiceFuncaoTerceirizado {

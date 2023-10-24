@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
  *
  * @author unknown
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * 
  * Esta classe representa um servidor da organização.
  * Nenhum dos atributos desta classe pode ser nulo.

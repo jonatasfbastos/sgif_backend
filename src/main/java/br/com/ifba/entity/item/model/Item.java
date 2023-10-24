@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
  * Classe que representa um item.
  *
  * @author vitor
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  * @since V1.0.1
  * 
  * Esta classe representa um item utilizado na organização.

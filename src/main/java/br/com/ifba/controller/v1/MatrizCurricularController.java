@@ -34,11 +34,20 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 @RestController
 @RequestMapping("/api/v1")
 public class MatrizCurricularController {
+
+    // =========================================================== //
+    // =============== [ ATRIBUTOS ] ============================= //
+    // =========================================================== //
+
     @Autowired
     IServiceMatrizCurricular matrizCurricularService;
 
     @Autowired
     ObjectMapperUtil objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [ ENDPOINTS ] ============================= //
+    // =========================================================== //
 
     /**
      * Obtém a lista de todas as matrizes curriculares.

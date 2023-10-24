@@ -11,7 +11,7 @@ import br.com.ifba.entity.notificacao.model.Notificacao;
  *
  * @author tarciiz
  * @since V1.0.1
- * @Editado por Andesson Reis
+ * Editado por Andesson Reis
  */
 public interface IServiceNotificacao {
 

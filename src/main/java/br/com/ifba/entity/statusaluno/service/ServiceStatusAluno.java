@@ -55,15 +55,24 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
     }
 
 
+
+    /**
+     * Atualiza o Status do Aluno na base de dados e retorna um objeto DTO com os dados resumidos do Status do Aluno atualizado.
+     *
+     * @param status - O Status do Aluno que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do Status do Aluno atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public StatusAluno updateStatus(StatusAluno status) {
-        if(status == null) {
-            throw new BusinessException(STATUS_NULL);
-        } 
-        if(statusDao.existsById(status.getId()) == false) {
-            throw new BusinessException(STATUS_NAO_EXISTE);
-        }
-        return statusDao.save(status);
+    public StatusAlunoResponseDto updateStatus(StatusAluno status) {
+        
+        statusAlunoDao.findById(status.getId())
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+
+        return objectMapperUtil.map(
+                statusAlunoDao.save(status),
+                StatusAlunoResponseDto.class);
     }
 
 
@@ -78,7 +87,7 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
      */
     @Override
     public StatusAlunoResponseDto deleteStatus(UUID id) {
-        
+
         return this.statusAlunoDao.findById(id)
                 .map(statusAluno -> {
                     statusAlunoDao.delete(statusAluno);

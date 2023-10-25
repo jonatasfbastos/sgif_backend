@@ -29,13 +29,13 @@ public interface IEtapaCursoDao extends JpaRepository<EtapaCurso, Long>{
     Optional<EtapaCurso> findById(UUID id);
 
     /**
-     * Busca uma etapa de curso na base de dados com base no ID
+     * Busca etapas de curso na base de dados com base no nome
      * passado por parâmetro.
      *
      * @author Giovane Neves
      * @since Desde V1.0.1
      * @param nome O nome das etapas de curso a serem buscadas.
-     * @return Lista das etapas de curso que possuem o nome passado por parâmetro.
+     * @return lista das etapas de curso que possuem o nome passado por parâmetro.
      */
     List<EtapaCurso> findByNome(String nome);
 

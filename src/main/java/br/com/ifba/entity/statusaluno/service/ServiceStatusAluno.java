@@ -5,9 +5,12 @@ import br.com.ifba.entity.statusaluno.dao.IDaoStatusAluno;
 import br.com.ifba.entity.statusaluno.dto.StatusAlunoResponseDto;
 import br.com.ifba.entity.statusaluno.model.StatusAluno;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +48,7 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
      */
     @Override
     public StatusAlunoResponseDto saveStatus(StatusAluno status) {
-        
+
         return objectMapperUtil.map(
                 statusAlunoDao.save(status),
                 StatusAlunoResponseDto.class);
@@ -63,18 +66,25 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
         return statusDao.save(status);
     }
 
+
+    /**
+     * Deleta o Status do Aluno com base no ID.
+     *
+     * @param id - O ID do Status do Aluno a ser deletado.
+     * @return um objeto DTO com os dados do Status do Aluno deletado.
+     * 
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteStatus(StatusAluno status) {
-        if(status == null) {
-            throw new BusinessException(STATUS_NULL);
-        } 
-        if(statusDao.existsById(status.getId()) == false) {
-            throw new BusinessException(STATUS_NAO_EXISTE);
-        }
-        if(statusDao.getReferenceById(status.getId()).getAlunos().isEmpty() == false){
-            throw new BusinessException(ALUNO_EXISTE);
-        }
-        statusDao.delete(status);
+    public StatusAlunoResponseDto deleteStatus(UUID id) {
+        
+        return this.statusAlunoDao.findById(id)
+                .map(statusAluno -> {
+                    statusAlunoDao.delete(statusAluno);
+                    return objectMapperUtil.map(statusAluno, StatusAlunoResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

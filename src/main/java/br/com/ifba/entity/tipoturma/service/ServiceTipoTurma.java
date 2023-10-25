@@ -2,6 +2,7 @@ package br.com.ifba.entity.tipoturma.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,16 +78,23 @@ public class ServiceTipoTurma implements IServiceTipoTurma{
                                 () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                         );
     }
-
+    
+    /**
+     * Deleta um Tipo de Turma com base no ID.
+     *
+     * @param id - O ID do Tipo de Turma a ser deletado.
+     * @return um objeto DTO com os dados do Tipo de Turma deletado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public void deleteTipoTurma(TipoTurma tipoturma) {
-        if(tipoturma == null){
-            throw new BusinessException(TIPOTURMA_NULL);
-        } 
-        if(tipoturmaDao.existsById(tipoturma.getId()) == false) {
-            throw new BusinessException(TIPOTURMA_NAO_EXISTE);
-        }
-        this.tipoturmaDao.delete(tipoturma);
+    public TipoTurmaResponseDto deleteTipoTurma(UUID id) {
+        return this.tipoTurmaDao.findById(id)
+                .map(tipoTurma -> {
+                    tipoTurmaDao.delete(tipoTurma);
+                    return objectMapperUtil.map(tipoTurma, TipoTurmaResponseDto.class);
+                })
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
     @Override

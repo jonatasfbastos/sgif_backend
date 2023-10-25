@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,10 +58,24 @@ public class StatusAlunoController {
      */
     @PutMapping(path = "/statusAlunos/statusAluno", consumes = "application/json")
     public ResponseEntity<?> atualizarStatusAluno(@Valid @RequestBody StatusAlunoRequestDto statusAlunoDto, BindingResult result) {
-        
+
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.OK).body(statusAlunoService.updateStatus(objectMapperUtil.map(statusAlunoDto, StatusAluno.class)));
+    }
+
+    /**
+     * @apiNote Endpoint criado desde a versão 1.0.1
+     * Salva um Status do Aluno.
+     * 
+     * @return Uma entidade de resposta genérica.
+     */
+    @PostMapping(path = "/statusAlunos/statusAluno", consumes = "application/json")
+    public ResponseEntity<?> salvarStatusAluno(@Valid @RequestBody StatusAlunoRequestDto statusAlunoDto, BindingResult result) {
+        
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.CREATED).body(statusAlunoService.saveStatus(objectMapperUtil.map(statusAlunoDto, StatusAluno.class)));
     }
     
 }

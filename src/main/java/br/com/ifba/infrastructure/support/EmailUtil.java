@@ -14,7 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import br.com.ifba.usuario.model.Usuario;
+import br.com.ifba.entity.usuario.model.Usuario;
 
 /**
  *

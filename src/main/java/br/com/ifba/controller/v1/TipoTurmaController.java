@@ -33,5 +33,15 @@ public class TipoTurmaController {
     // =============== [ ENDPOINTS ] ============================= //
     // =========================================================== //
 
- 
+    /**
+     * Obtém a lista de todos os Tipos de Turma.
+     *
+     * @return Uma lista de Tipos de Turma ou uma resposta de erro em caso de falha.
+     */
+    @GetMapping(path = "/tiposTurma", consumes = "application/json")
+    public ResponseEntity<?> getTipoTurma() {
+        
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(tipoTurmaService.getAllTipoTurma());
+    }
 }

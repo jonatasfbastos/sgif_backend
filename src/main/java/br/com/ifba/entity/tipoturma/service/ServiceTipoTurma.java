@@ -1,40 +1,63 @@
 package br.com.ifba.entity.tipoturma.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.tipoturma.dao.IDaoTipoTurma;
+import br.com.ifba.entity.tipoturma.dto.TipoTurmaResponseDto;
 import br.com.ifba.entity.tipoturma.model.TipoTurma;
 
+/**
+ * Service que fornece operações relacionadas a Tipos de Turma.
+ *
+ * @author unknown
+ * @since V1.0.1
+ * Editado por Andesson Reis
+ */
 @Service
 public class ServiceTipoTurma implements IServiceTipoTurma{
-    private final static String TIPOTURMA_NULL = "Dados do Tipo da Turma nao preenchidos";
-    // Mensagem de erro se o TipoTurma jÃ¡ existir.
-    private final static String TIPOTURMA_EXISTE = "Tipo da Turma ja existente no Banco de dados";
-    // Mensagem de erro se a TipoTurma nÃ£o existir no banco.
-    private final static String TIPOTURMA_NAO_EXISTE = "Tipo da Turma nao existente no Banco de dados";
-    // Mensagem de erro caso o nome esteja vazio.
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-    // Mensagem de erro caso o nome seja null.
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-     //================= OBJETO =================================================
-    @Autowired
-    private IDaoTipoTurma tipoturmaDao;
 
-     //================= MÃ‰TODOS ================================================
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
+
+     @Autowired
+    private IDaoTipoTurma tipoTurmaDao;
+
+    @Autowired
+    private ObjectMapperUtil objectMapperUtil;
+    
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+    
+    /**
+     * Salva um Tipo de Turma na base de dados e retorna um objeto DTO com os dados resumidos do Tipo de Turma salvo.
+     *
+     * @param tipoTurma - O Tipo de Turma que será salvo na base de dados.
+     * @return um objeto DTO com os dados resumidos do Tipo de Turma salvo.
+     * 
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public TipoTurma saveTipoTurma(TipoTurma tipoturma) {
-       if(tipoturma == null){
-            throw new BusinessException(TIPOTURMA_NULL);
-        }
-       if(tipoturmaDao.existsByNome(tipoturma.getNome()) == true) {
-            throw new BusinessException(TIPOTURMA_EXISTE);
-        }
-       return this.tipoturmaDao.save(tipoturma);
+    public TipoTurmaResponseDto saveTipoTurma(TipoTurma tipoTurma) {
+
+        return Optional.of(tipoTurma)
+                .filter(tipo -> !this.tipoTurmaDao.existsByNome(tipo.getNome()))
+                .map(tipo -> objectMapperUtil.map(this.tipoTurmaDao.save(tipo), TipoTurmaResponseDto.class))
+                .orElseThrow(() -> new BusinessException(
+                        BusinessExceptionMessage.ATTRIBUTE_VALUE_ALREADY_EXISTS.getMensagemValorJaExiste("Nome"))
+                );
+
+
     }
 
     @Override

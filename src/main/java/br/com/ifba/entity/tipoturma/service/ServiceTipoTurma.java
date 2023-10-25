@@ -78,7 +78,7 @@ public class ServiceTipoTurma implements IServiceTipoTurma{
                                 () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                         );
     }
-    
+
     /**
      * Deleta um Tipo de Turma com base no ID.
      *
@@ -89,6 +89,7 @@ public class ServiceTipoTurma implements IServiceTipoTurma{
      */
     @Override
     public TipoTurmaResponseDto deleteTipoTurma(UUID id) {
+
         return this.tipoTurmaDao.findById(id)
                 .map(tipoTurma -> {
                     tipoTurmaDao.delete(tipoTurma);
@@ -97,25 +98,18 @@ public class ServiceTipoTurma implements IServiceTipoTurma{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os Tipos de Turma como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Tipos de Turma.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */
     @Override
-    public List<TipoTurma> getAllTipoTurma() {
-        return this.tipoturmaDao.findAll();
+    public List<TipoTurmaResponseDto> getAllTipoTurma() {
+        
+        return objectMapperUtil.mapAll(
+                this.tipoTurmaDao.findAll(),
+                TipoTurmaResponseDto.class);
     }
-    
-    @Override
-    public List<TipoTurma> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException(NOME_NULL);
-        } 
-        if(nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return this.tipoturmaDao.findByNome(nome);
-    }
-    
-     @Override
-     public TipoTurma findById(Long id) {
-          return this.tipoturmaDao.getReferenceById(id);
-     }
-     
 }

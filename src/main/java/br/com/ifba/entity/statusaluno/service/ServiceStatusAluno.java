@@ -66,7 +66,7 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
      */
     @Override
     public StatusAlunoResponseDto updateStatus(StatusAluno status) {
-        
+
         statusAlunoDao.findById(status.getId())
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
@@ -96,9 +96,18 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
 
+    /**
+     * Obtém uma lista de todos os Status dos Alunos como objetos DTO.
+     *
+     * @return uma lista de objetos DTO representando os Status dos Alunos.
+     * @since V1.0.1
+     */
     @Override
-    public List<StatusAluno> getAllstatus() {
-        return this.statusDao.findAll();
+    public List<StatusAlunoResponseDto> getAllstatus() {
+        
+        return objectMapperUtil.mapAll(
+                this.statusAlunoDao.findAll(),
+                StatusAlunoResponseDto.class);
     }
     
 }

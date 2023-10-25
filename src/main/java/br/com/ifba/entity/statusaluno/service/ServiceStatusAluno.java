@@ -1,6 +1,5 @@
 package br.com.ifba.entity.statusaluno.service;
 
-import br.com.ifba.entity.aluno.dao.IDaoAluno;
 import br.com.ifba.entity.statusaluno.dao.IDaoStatusAluno;
 import br.com.ifba.entity.statusaluno.dto.StatusAlunoResponseDto;
 import br.com.ifba.entity.statusaluno.model.StatusAluno;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Service;
  * Service que fornece operações relacionadas ao Status dos Alunos.
  *
  * @author Ellen Cristina
- * Editado por Andesson Reisa
+ * Editado por Andesson Reis
  * @since V1.0.1
  */
 @Service

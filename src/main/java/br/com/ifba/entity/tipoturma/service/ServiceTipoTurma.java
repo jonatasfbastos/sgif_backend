@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
-import br.com.ifba.entity.formulario.dto.FormularioSimpleResponseDto;
 import br.com.ifba.entity.tipoturma.dao.IDaoTipoTurma;
 import br.com.ifba.entity.tipoturma.dto.TipoTurmaResponseDto;
 import br.com.ifba.entity.tipoturma.model.TipoTurma;
@@ -60,15 +59,23 @@ public class ServiceTipoTurma implements IServiceTipoTurma{
 
     }
 
+    /**
+     * Atualiza um Tipo de Turma na base de dados e retorna um objeto DTO com os dados resumidos do Tipo de Turma atualizado.
+     *
+     * @param tipoTurma - O Tipo de Turma que será atualizado na base de dados.
+     * @return um objeto DTO com os dados resumidos do Tipo de Turma atualizado.
+     * @author Andesson Reis
+     * @since V1.0.1
+     */    
     @Override
-    public TipoTurma updateTipoTurma(TipoTurma tipoturma) {
-        if(tipoturma == null){
-            throw new BusinessException(TIPOTURMA_NULL);
-        } 
-        if(tipoturmaDao.existsById(tipoturma.getId()) == false) {
-            throw new BusinessException(TIPOTURMA_NAO_EXISTE);
-        }
-        return this.tipoturmaDao.save(tipoturma);        
+    public TipoTurmaResponseDto updateTipoTurma(TipoTurma tipoturma) {
+ 
+        return Optional.of(tipoturma)
+                        .filter(tipo -> this.tipoTurmaDao.existsById(tipoturma.getId()))
+                        .map(tipo -> objectMapperUtil.map(this.tipoTurmaDao.save(tipo), TipoTurmaResponseDto.class))
+                        .orElseThrow(
+                                () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                        );
     }
 
     @Override

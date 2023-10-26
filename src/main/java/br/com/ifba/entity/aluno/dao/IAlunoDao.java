@@ -1,13 +1,12 @@
 package br.com.ifba.entity.aluno.dao;
 
 import br.com.ifba.entity.aluno.model.Aluno;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author Unknown
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IAlunoDao extends JpaRepository<Aluno, Long>{
+public interface IAlunoDao extends JpaRepository<Aluno, Long> {
 
 
     List<Aluno> findByStatusAlunoId(Long id);
@@ -43,3 +42,4 @@ public interface IAlunoDao extends JpaRepository<Aluno, Long>{
     boolean existsByMatricula(String matricula);
 
 }
+

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import br.com.ifba.entity.aluno.dao.IDaoAluno;
+import br.com.ifba.entity.aluno.dao.IAlunoDao;
 import br.com.ifba.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.entity.aluno.model.Aluno;
 import br.com.ifba.entity.pessoa.dao.IDaoPessoa;
@@ -30,7 +30,7 @@ public class AlunoService implements IAlunoService {
     // =========================================================== //
 
     @Autowired
-    private IDaoAluno alunoDao;
+    private IAlunoDao alunoDao;
 
     @Autowired
     private IDaoPessoa pessoaDao;

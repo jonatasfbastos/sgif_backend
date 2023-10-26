@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import br.com.ifba.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.entity.aluno.model.Aluno;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Unknown

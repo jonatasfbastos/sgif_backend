@@ -1,86 +1,154 @@
 package br.com.ifba.entity.professor.service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-import br.com.ifba.entity.professor.dao.IDaoProfessor;
+import br.com.ifba.entity.professor.dao.IProfessorDao;
+import br.com.ifba.entity.professor.dto.ProfessorResponseDto;
 import br.com.ifba.entity.professor.model.Professor;
+import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
+import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
 
 @Service
-public class ServiceProfessor implements IServiceProfessor{
-    // Mensagem de erro se o Professor for null.
-    public final static String PROFESSOR_NULL = "Dados do Professor nao preenchidos";
-    // Mensagem de erro se o Professor jÃ¡ existir.
-    public final static String PROFESSOR_EXISTE = "Professor ja existente no Banco de dados";
-    // Mensagem de erro se o Professor nÃ£o existir no banco.
-    public final static String PROFESSOR_NAO_EXISTE = "Professor nao existente no Banco de dados";
-    // Mensagem de erro se o Professor for invÃ¡lido.
-    public final static String PROFESSOR_INVALIDO = "As informaÃ§oes do Professor nao sao validas";
-     // Mensagem de erro caso o nome esteja vazio.
-    private final static String NOME_VAZIO = "O Campo Nome esta vazio";
-    // Mensagem de erro caso o nome seja null.
-    private final static String NOME_NULL = "Dados do nome nao preenchidos";
-    
-     //================= OBJETO =================================================
+public class ProfessorService implements IProfessorService {
+
+    // =========================================================== //
+    // =============== [       ATRIBUTOS        ] ================ //
+    // =========================================================== //
+
     @Autowired
-    private IDaoProfessor professorDao;
-    
-     //================= MÃ‰TODOS ================================================
+    private IProfessorDao _professorDao;
+    @Autowired
+    private ObjectMapperUtil _objectMapperUtil;
+
+    // =========================================================== //
+    // =============== [        MÉTODOS       ] ================== //
+    // =========================================================== //
+
+    /**
+     * Lista todas os professores cadastrados na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @return uma lista de DTO com dados de todos os professores da base de dados.
+     */
     @Override
-    public Professor saveProfessor(Professor professor) {
-       
-       if(professor == null) {
-            throw new BusinessException(PROFESSOR_NULL);
-        }
-       if(professorDao.existsBySiape(professor.getSiape())){
-           throw new BusinessException(PROFESSOR_EXISTE);
-       }
-       return professorDao.save(professor);
+    public List<ProfessorResponseDto> listarProfessores() {
+
+        return this._objectMapperUtil.mapAll(
+                this._professorDao.findAll(),
+                ProfessorResponseDto.class
+        );
+
     }
 
-    @Override
-    public Professor updateProfessor(Professor professor) {
-        if(professor == null) {
-            throw new BusinessException(PROFESSOR_NULL);
-        } 
-        if(professorDao.existsById(professor.getId()) == false) {
-            throw new BusinessException(PROFESSOR_NAO_EXISTE);
-        }
-        return professorDao.save(professor);
-    }
-
-    @Override
-    public void deleteProfessor(Professor professor) {
-        if(professor == null) {
-            throw new BusinessException(PROFESSOR_NULL);
-        } 
-        if(professorDao.existsById(professor.getId()) == false) {
-            throw new BusinessException(PROFESSOR_NAO_EXISTE);
-        }
-        professorDao.delete(professor);
-    }
-
-    @Override
-    public List<Professor> getAllprofessor() {
-        return this.professorDao.findAll();
-    }
-    
-    @Override
-    public List<Professor> findByNome(String nome) {
-        if(nome == null) {
-            throw new BusinessException(NOME_NULL);
-        } 
-        if(nome.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
-        }
-        return professorDao.findByNome(nome); 
-    }
-    
+    /**
+     * Busca um professor na base de dados com base no ID passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param id O ID do professor a ser buscado.
+     * @return DTO com dados do professor atrelado ao ID passado por parâmetro.
+     */
      @Override
-     public Professor findById(Long id) {
-          return professorDao.getReferenceById(id);
+     public ProfessorResponseDto encontrarProfessorPorId(final UUID id) {
+
+
+        return this._professorDao.findById(id)
+                .map(prof -> this._objectMapperUtil.map(this._professorDao.save(prof), ProfessorResponseDto.class))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
      }
+
+    /**
+     * Busca professores na base de dados com base no nome
+     * passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param nome O nome dos professores a serem buscados.
+     * @return Lista de DTO com dados dos professores que possuem o nome
+     * passado por parâmetro.
+     */
+    @Override
+    public List<ProfessorResponseDto> encontrarProfessorPorNome(final String nome) {
+
+         return this._professorDao.findByNome(nome)
+                 .stream()
+                 .map(prof -> this._objectMapperUtil.map(this._professorDao.save(prof), ProfessorResponseDto.class))
+                 .collect(Collectors.toList());
+
+    }
+
+    /**
+     * Salva um professor na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param professor O professor a ser salvo na base de dados.
+     * @return DTO com dados do professor salvo.
+     */
+    @Override
+    public ProfessorResponseDto salvarProfessor(final Professor professor) {
+
+        // TODO: Adicionar verificação de SIAPE
+
+        return this._objectMapperUtil.map(
+                this._professorDao.save(professor),
+                ProfessorResponseDto.class
+        );
+
+    }
+
+    /**
+     * Atualiza um professor existente na base de dados.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param professor O professor a ser atualizado.
+     * @return DTO com dados do professor atualizado.
+     */
+    @Override
+    public ProfessorResponseDto atualizarProfessor(final Professor professor) {
+
+        // TODO: Adicionar verificação de SIAPE
+
+        return this._professorDao.findById(professor.getId())
+                .map(prof -> this._objectMapperUtil.map(prof, ProfessorResponseDto.class))
+                .orElseThrow(
+                        () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                );
+    }
+
+    /**
+     * Deleta um professor na base de dados com base no ID passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param id O ID do professor a ser deletado.
+     * @return DTO com dados do professor deletado.
+     */
+    @Override
+    public ProfessorResponseDto deletarProfessorPorId(final UUID id) {
+
+         return this._professorDao.findById(id)
+                 .map(prof -> {
+                     this._professorDao.delete(prof);
+                     return this._objectMapperUtil.map(prof, ProfessorResponseDto.class);
+                 })
+                 .orElseThrow(
+                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
+                 );
+
+
+    }
+
+
+
 }

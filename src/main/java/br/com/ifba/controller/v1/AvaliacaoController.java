@@ -1,6 +1,5 @@
 package br.com.ifba.controller.v1;
 
-
 import br.com.ifba.controller.v1.util.ResultError;
 import br.com.ifba.entity.avaliacao.dto.AvaliacaoRequestDto;
 import br.com.ifba.entity.avaliacao.model.Avaliacao;
@@ -54,7 +53,7 @@ public class AvaliacaoController {
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/avaliacoes", produces = "application/json")
-    public ResponseEntity<?> listarTurmas() {
+    public ResponseEntity<?> listarAvaliacoes() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.avaliacaoService.listarAvaliacoes());

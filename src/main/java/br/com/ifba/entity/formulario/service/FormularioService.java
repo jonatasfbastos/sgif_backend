@@ -1,6 +1,6 @@
 package br.com.ifba.entity.formulario.service;
 
-import br.com.ifba.entity.avaliacao.dao.IDaoAvaliacao;
+import br.com.ifba.entity.avaliacao.dao.IAvaliacaoDao;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class FormularioService implements IFormularioService {
     private ObjectMapperUtil objectMapperUtil;
     
     @Autowired
-    private IDaoAvaliacao avaliacaoDao;
+    private IAvaliacaoDao avaliacaoDao;
 
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //

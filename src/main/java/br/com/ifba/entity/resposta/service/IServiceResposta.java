@@ -5,23 +5,27 @@
  */
 package br.com.ifba.entity.resposta.service;
 
+import br.com.ifba.entity.resposta.dto.RespostaResponseDto;
 import br.com.ifba.entity.resposta.model.Resposta;
 import java.util.List;
+import java.util.UUID;
 
 /**
- *
  * @author Ellen Cristina
+ * Editado por Giovane Neves
+ * @since V1.0.1
  */
 public interface IServiceResposta {
-    //salva a Resposta
-    public abstract Resposta saveResposta(Resposta resposta);
-    
-    //atualiza a Resposta
-    public abstract Resposta updateResposta(Resposta resposta);
-    
-    //deleta a Resposta
-    public abstract void deleteResposta(Resposta resposta);
-    
-    // Metodo que retorna todas as Resposta da base de dados
-    public abstract List<Resposta> getAllQuestao();
+
+    // =========================================================== //
+    // =============== [ ASSINATURAS DE MÉTODOS ] ================ //
+    // =========================================================== //
+
+    List<RespostaResponseDto> listarRespostas();
+    Resposta salvarResposta(final Resposta resposta);
+
+    Resposta atualizarResposta(final Resposta resposta);
+
+    RespostaResponseDto deletarRespostaPorId(final UUID id);
+
 }

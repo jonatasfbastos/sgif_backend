@@ -35,7 +35,7 @@ public class Pessoa extends PersistenceEntity {
      * O nome da pessoa, não pode ser nulo.
      */
     @Column(name = "nome", nullable = false)
-    private String nome;
+    protected String nome;
 
     /**
      * O telefone da pessoa,

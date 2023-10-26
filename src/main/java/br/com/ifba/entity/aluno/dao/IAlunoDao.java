@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDaoAluno extends JpaRepository<Aluno, Long>{
+public interface IAlunoDao extends JpaRepository<Aluno, Long>{
 
 
     List<Aluno> findByStatusAlunoId(Long id);

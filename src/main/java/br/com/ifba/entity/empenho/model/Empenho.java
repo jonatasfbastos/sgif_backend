@@ -49,7 +49,7 @@ public class Empenho extends PersistenceEntity {
     /**
      * Itens relacionados ao empenho.
      */
-    @OneToMany(mappedBy = "empenho")
-    @JsonIgnoreProperties("itens")
+    @OneToMany(mappedBy = "codigoItem")
+    @JsonIgnoreProperties("empenho")
     private List<Item> itens;
 }

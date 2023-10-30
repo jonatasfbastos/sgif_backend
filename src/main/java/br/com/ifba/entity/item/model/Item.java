@@ -93,6 +93,7 @@ public class Item extends PersistenceEntity implements Serializable {
     private TipoDeItem tipoDeItem;
 
     @ManyToOne
+    @JoinColumn(name = "empenho_id")
     @JsonIgnoreProperties("itens")
     private Empenho empenhos;
 

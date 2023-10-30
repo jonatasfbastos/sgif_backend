@@ -3,6 +3,7 @@ package br.com.ifba.entity.perfilusuario.model;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.permissao.model.Permissao;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
+import br.com.ifba.entity.usuario.model.Usuario;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -60,7 +61,7 @@ public class PerfilUsuario extends PersistenceEntity {
     private List<Permissao> permissoes;
 
     @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE })
-    private List<UsuarioResponseDto> usuarios;
+    private List<Usuario> usuarios;
 
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //

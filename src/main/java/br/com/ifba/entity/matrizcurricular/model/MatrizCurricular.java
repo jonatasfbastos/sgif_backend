@@ -17,7 +17,7 @@ import java.util.List;
  * @since V1.0.1
  * Editado por Andesson Reis
  */
-@Entity
+@Entity(name = "matriz_curricular")
 @Data
 @Table(name = "matriz_curricular")
 @EqualsAndHashCode(callSuper = false)

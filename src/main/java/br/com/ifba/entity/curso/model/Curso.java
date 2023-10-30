@@ -77,7 +77,7 @@ public class Curso extends PersistenceEntity implements Serializable{
      * A matriz curricular do curso.
      * Um curso pode estar associado a uma ou mais matrizes curriculares.
      */
-    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List <MatrizCurricular> matrizesCurriculares;
 
 }

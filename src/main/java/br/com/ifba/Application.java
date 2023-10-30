@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"br.com.ifba.entity.aluno.dao", "br.com.ifba.entity.pessoa.dao"})
-@EnableJpaRepositories(basePackages = {"br.com.ifba.entity.aluno.dao", "br.com.ifba.entity.pessoa.dao"})
+@EntityScan(basePackages = {"br.com.ifba.entity"})
+@EnableJpaRepositories(basePackages = {"br.com.ifba.entity"})
 public class Application {
 
 	public static void main(String[] args) {

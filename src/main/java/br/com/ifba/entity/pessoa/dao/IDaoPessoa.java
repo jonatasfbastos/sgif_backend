@@ -15,7 +15,7 @@ import br.com.ifba.entity.pessoa.model.Pessoa;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDaoPessoa extends JpaRepository<Pessoa, Long> {
+public interface IDaoPessoa extends JpaRepository<Pessoa, UUID> {
 
     // =========================================================== //
     // =============== [ ASSINATURAS DE MÉTODOS ] ================ //

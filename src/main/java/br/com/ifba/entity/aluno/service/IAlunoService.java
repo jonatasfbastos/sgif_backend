@@ -58,12 +58,5 @@ public interface IAlunoService {
      */
     AlunoResponseDto deletarAlunoPorId(UUID id);
 
-    /**
-     *
-     * AVISO: Temporariamente desabilitada enquanto não é entendida a sua utilidade.
-     *
-     */
-    @Deprecated
-    List<Aluno> findByStatusAlunoId(Long id);
 
 }

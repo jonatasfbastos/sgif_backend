@@ -1,17 +1,19 @@
 package br.com.ifba.entity.aluno.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.Optional;
 
 import br.com.ifba.entity.aluno.dao.IAlunoDao;
 import br.com.ifba.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.entity.aluno.model.Aluno;
 import br.com.ifba.entity.pessoa.dao.IDaoPessoa;
+import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
-import br.com.ifba.infrastructure.exception.BusinessException;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Service;
  * Desde V1.0.1
  */
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class AlunoService implements IAlunoService {
     
 
@@ -72,7 +76,7 @@ public class AlunoService implements IAlunoService {
     @Override
     public AlunoResponseDto salvarAluno(Aluno aluno) {
 
-        boolean existsByMatricula = this.alunoDao.existsByMatricula(aluno.getMatricula());
+        boolean existsByMatricula = this.alunoDao.existsAlunoByMatricula(aluno.getMatricula());
         return Optional.of(aluno)
                 .filter(al -> !existsByMatricula)
                 .filter(al -> !this.pessoaDao.existsByCpf(al.getCpf()))
@@ -94,11 +98,11 @@ public class AlunoService implements IAlunoService {
     @Override
     public AlunoResponseDto atualizarAluno(Aluno aluno) {
 
-        boolean alunoExists = this.alunoDao.findById(aluno.getId()).isPresent();
+        boolean alunoExists = this.alunoDao.findAlunoById(aluno.getId()).isPresent();
 
         return Optional.of(aluno)
                 .filter(al -> alunoExists)
-                .filter(al -> this.alunoDao.existsByMatricula(aluno.getMatricula()))
+                .filter(al -> this.alunoDao.existsAlunoByMatricula(aluno.getMatricula()))
                 .map(al -> objectMapperUtil.map(this.alunoDao.save(al), AlunoResponseDto.class))
                 .orElseThrow(
                         () -> new BusinessException(!alunoExists
@@ -120,7 +124,7 @@ public class AlunoService implements IAlunoService {
     @Override
     public AlunoResponseDto deletarAlunoPorId(UUID id) {
 
-        return this.alunoDao.findById(id)
+        return this.alunoDao.findAlunoById(id)
                 .map(al -> {
                     this.alunoDao.delete(al);
                     return objectMapperUtil.map(al, AlunoResponseDto.class);
@@ -130,11 +134,5 @@ public class AlunoService implements IAlunoService {
     }
 
 
-    /**
-     * AVISO: Temporariamente desabilitada enquanto não é entendida a sua utilidade.
-     */
-    @Override
-    public List<Aluno> findByStatusAlunoId(Long id) {
-        return alunoDao.findByStatusAlunoId(id);
-    }
+
 }

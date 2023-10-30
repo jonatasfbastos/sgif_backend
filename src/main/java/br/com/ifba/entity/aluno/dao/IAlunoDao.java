@@ -1,10 +1,11 @@
 package br.com.ifba.entity.aluno.dao;
 
 import br.com.ifba.entity.aluno.model.Aluno;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,10 +15,7 @@ import java.util.UUID;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IAlunoDao extends JpaRepository<Aluno, Long> {
-
-
-    List<Aluno> findByStatusAlunoId(Long id);
+public interface IAlunoDao extends JpaRepository<Aluno, UUID> {
 
     /**
      * @author Giovane Neves
@@ -27,7 +25,7 @@ public interface IAlunoDao extends JpaRepository<Aluno, Long> {
      * @return o aluno atrelado ao ID passado por parâmetro,
      * ou nulo, caso não exista.
      */
-    Optional<Aluno> findById(UUID id);
+    Optional<Aluno> findAlunoById(UUID id);
 
     /**
      * @author Giovane Neves
@@ -39,7 +37,7 @@ public interface IAlunoDao extends JpaRepository<Aluno, Long> {
      * @return 'true' caso exista cum aluno cadastrado na base de dados
      * com a matrícula passada por parâmetro.
      */
-    boolean existsByMatricula(String matricula);
+    boolean existsAlunoByMatricula(String matricula);
 
 }
 

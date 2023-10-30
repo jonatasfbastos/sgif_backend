@@ -13,7 +13,7 @@ import java.util.UUID;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IAvaliacaoDao extends JpaRepository<Avaliacao, Long> {
+public interface IAvaliacaoDao extends JpaRepository<Avaliacao, UUID> {
 
     /**
      * Busca uma avaliação na base de dados com base no ID

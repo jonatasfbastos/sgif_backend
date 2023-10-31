@@ -13,7 +13,7 @@ import java.util.UUID;
  * Esta classe representa uma notificação.
  *
  * @author tarciiz
- * Editado por Andesson Reis
+ * Editado por Andesson Reis, Giovane Neves
  * @since V1.0.1
  * 
  * Esta classe representa uma notificação da aplicação.
@@ -23,22 +23,23 @@ import java.util.UUID;
 @Table(name = "notificacoes")
 public class Notificacao extends PersistenceEntity {
 
-    @Column(nullable = false)
-    private String title;
+    @Column(name = "titulo", nullable = false)
+    private String titulo;
 
-    @Column(nullable = false)
-    private String body;
+    @Column(name = "corpo", nullable = false)
+    private String corpo;
 
-    @Column(nullable = false, updatable = false)
-    private UUID whatId;
+    @Column(name = "qual_id", nullable = false, updatable = false)
+    private UUID qualId;
 
-    @Column(nullable = false, updatable = false)
-    private String whatObjectName;
+    @Column(name = "qual_nome_objeto", nullable = false, updatable = false)
+    private String qualNomeObjeto;
 
-    @Column(nullable = false)
-    private boolean read;
+    @Column(name = "lido", nullable = false)
+    private boolean lido;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "data_envio", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime sendDateTime;
+    private LocalDateTime dataEnvio;
+
 }

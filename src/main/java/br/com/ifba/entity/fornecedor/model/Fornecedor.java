@@ -6,6 +6,7 @@ import br.com.ifba.infrastructure.model.PersistenceEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @Entity(name = "fornecedor")
 @Table(name = "fornecedores")
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)

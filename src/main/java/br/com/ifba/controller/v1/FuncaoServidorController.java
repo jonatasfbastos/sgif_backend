@@ -32,7 +32,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * @author Andesson Reis
  * @since V1.0.1
  *
- * Veja também: {@link br.com.ifba.entity.funcao_servidor.model.FuncaoServidor}
+ * Veja também: {@link br.com.ifba.entity.funcaoservidor.model.FuncaoServidor}
  */
 @RestController
 @RequestMapping(path = "/apif/v1")
@@ -58,7 +58,7 @@ public class FuncaoServidorController {
      *
      * @return Uma lista de funções de servidor ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/funcoesServidor", consumes = "application/json")
+    @GetMapping(path = "/funcoesServidor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> getFuncoesServidor() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -70,7 +70,7 @@ public class FuncaoServidorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/funcoesServidor/funcaoServidor", consumes = "application/json")
+    @PostMapping(path = "/funcoesServidor/funcaoServidor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarFuncaoServidor(@Valid @RequestBody FuncaoServidorRequestDto funcaoServidorDto, BindingResult result) {
 
         return result.hasErrors()
@@ -83,7 +83,7 @@ public class FuncaoServidorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "/funcoesServidor/funcaoServidor", consumes = "application/json")
+    @PutMapping(path = "/funcoesServidor/funcaoServidor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarFuncaoServidor(@Valid @RequestBody FuncaoServidorRequestDto funcaoServidorDto, BindingResult result) {
 
         return result.hasErrors()
@@ -97,7 +97,7 @@ public class FuncaoServidorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/funcoesServidor/funcaoServidor/{id}", consumes = "application.json")
+    @DeleteMapping(path = "/funcoesServidor/funcaoServidor/{id}", produces = "application/json")
     public ResponseEntity<?> deletarFuncaoServidorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

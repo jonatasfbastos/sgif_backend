@@ -29,6 +29,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * Controller para gerenciar funções de técnico administrativo.
  *
  * @author Andesson Reis
+ * Editado por Giovane Neves
  * @since V1.0.1
  *
  * Veja também: {@link br.com.ifba.entity.funcao_tecnico_administrativo.model.FuncaoTecnicoAdministrativo}
@@ -49,8 +50,8 @@ public class FuncaoTecnicoAdministrativoController {
      *
      * @return Uma lista de funções de técnico administrativo ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/funcoes_tecnico_administrativo", consumes = "application/json")
-    public ResponseEntity<?> getFuncoesTecnicoAdministrativo() {
+    @GetMapping(path = "/funcoes-tecnico-administrativo/funcao-tecnico-administrativo", produces = "application/json")
+    public ResponseEntity<?> listarFuncoesTecnicoAdministrativo() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(funcaoTecnicoAdministrativoService.getAllFuncoesTecnicoAdm());
@@ -61,7 +62,7 @@ public class FuncaoTecnicoAdministrativoController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/funcoes_tecnico_administrativo/funcao_tecnico_adm", consumes = "application/json")
+    @PostMapping(path = "/funcoes-tecnico-administrativo/funcao-tecnico-administrativo", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarFuncaoTecnicoAdministrativo(@Valid @RequestBody FuncaoTecnicoAdministrativoRequestDto funcaoTecnicoAdmDto, BindingResult result) {
 
         return result.hasErrors()
@@ -74,7 +75,7 @@ public class FuncaoTecnicoAdministrativoController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/funcoes_tecnico_administrativo/funcao_tecnico_adm/{id}", consumes = "application.json")
+    @DeleteMapping(path = "/funcoes-tecnico-administrativo/funcao-tecnico-administrativo/{id}", produces = "application/json")
     public ResponseEntity<?> deletarFuncaoTecnicoAdministrativoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

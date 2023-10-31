@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDaoFormulario extends JpaRepository<Formulario, Long>{
+public interface IDaoFormulario extends JpaRepository<Formulario, UUID>{
 
     // =========================================================== //
     // =============== [ ASSINATURAS DE MÉTODOS ] ================ //

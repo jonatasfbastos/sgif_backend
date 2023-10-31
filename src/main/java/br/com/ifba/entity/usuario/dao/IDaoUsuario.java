@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface IDaoUsuario extends JpaRepository<Usuario, Long> {
+public interface IDaoUsuario extends JpaRepository<Usuario, UUID> {
 
     Optional<Usuario> findById(UUID id);
     Optional<Usuario> findByLoginAndSenha(String login, String senha);

@@ -14,7 +14,7 @@ import br.com.ifba.entity.disciplina.model.Disciplina;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDisciplinaDao extends JpaRepository<Disciplina, Long>{
+public interface IDisciplinaDao extends JpaRepository<Disciplina, UUID>{
 
     /**
      * Busca uma disciplina na base de dados com base no ID

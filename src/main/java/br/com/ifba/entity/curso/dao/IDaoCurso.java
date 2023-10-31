@@ -12,7 +12,7 @@ import java.util.UUID;
  * Editado por Giovane Neves
  * Desde V1.0.1
  */
-public interface IDaoCurso extends JpaRepository<Curso, Long>{
+public interface IDaoCurso extends JpaRepository<Curso, UUID>{
 
     /**
      * @author Giovane Neves

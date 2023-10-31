@@ -11,7 +11,7 @@ import br.com.ifba.entity.requisicao.model.Requisicao;
  *
  * @author Vitor
  */
-public interface IDaoRequisicao extends JpaRepository<Requisicao, Long> { 
+public interface IDaoRequisicao extends JpaRepository<Requisicao, UUID> { 
     /**
      * @author Andesson Reis
      * @since Desde V1.0.1

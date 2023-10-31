@@ -9,7 +9,7 @@ import br.com.ifba.entity.relatoriomensal.model.RelatorioMensal;
 
 
 
-public interface IDaoRelatorioMensal extends JpaRepository<RelatorioMensal, Long>{
+public interface IDaoRelatorioMensal extends JpaRepository<RelatorioMensal, UUID>{
     
     /**
      * @author Andesson Reis

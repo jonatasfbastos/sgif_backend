@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDaoFuncaoTecnicoAdministrativo extends JpaRepository<FuncaoTecnicoAdministrativo, Long> {
+public interface IDaoFuncaoTecnicoAdministrativo extends JpaRepository<FuncaoTecnicoAdministrativo, UUID> {
 
     boolean existsByNome(String nome);
     boolean existsById(Long id);

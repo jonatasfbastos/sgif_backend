@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IDaoFuncaoServidor extends JpaRepository<FuncaoServidor, Long> {
+public interface IDaoFuncaoServidor extends JpaRepository<FuncaoServidor, UUID> {
        /**
      * @author Andesson Reis
      * @since Desde V1.0.1

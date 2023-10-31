@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDaoTerceirizado extends JpaRepository<Terceirizado, Long> {
+public interface IDaoTerceirizado extends JpaRepository<Terceirizado, UUID> {
     List<Terceirizado> findByNome(String nome);
     boolean existsByNome(String nome);
     List<Terceirizado> findFuncaoTerceirizadoById(UUID id);

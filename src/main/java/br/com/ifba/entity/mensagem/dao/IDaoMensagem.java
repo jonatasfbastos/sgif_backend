@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author felip
  */
 @Repository
-public interface IDaoMensagem extends JpaRepository<Mensagem, Long>{
+public interface IDaoMensagem extends JpaRepository<Mensagem, UUID>{
      List<Mensagem> findByNome(String name);
      boolean existsByNome(String nome);
             /**

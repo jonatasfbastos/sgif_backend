@@ -17,7 +17,7 @@ import br.com.ifba.entity.empenho.model.Empenho;
  *
  * @author rocki.julius
  */
-public interface IDaoEmpenho extends JpaRepository<Empenho, Long> {
+public interface IDaoEmpenho extends JpaRepository<Empenho, UUID> {
        /**
      * @author Andesson Reis
      * @since Desde V1.0.1

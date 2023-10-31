@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ifba.entity.tecnicoadministrativo.model.TecnicoAdministrativo;
 
 @Repository
-public interface IDaoTecnicoAdministrativo extends JpaRepository<TecnicoAdministrativo, Long>{
+public interface IDaoTecnicoAdministrativo extends JpaRepository<TecnicoAdministrativo, UUID>{
     
     List<TecnicoAdministrativo> findByNome(String nome);
     boolean existsByNome(String nome);

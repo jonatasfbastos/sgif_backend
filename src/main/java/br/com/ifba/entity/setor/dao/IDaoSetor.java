@@ -13,7 +13,7 @@ import br.com.ifba.entity.setor.model.Setor;
  * @author Everton.
  */
 @Repository
-public interface IDaoSetor extends JpaRepository<Setor, Long> {
+public interface IDaoSetor extends JpaRepository<Setor, UUID> {
 
    List<Setor> findByNome(String name);
 

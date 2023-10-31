@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author dudasss
  */
 @Repository
-public interface IDaoTipoItem extends JpaRepository<TipoDeItem, Long> {
+public interface IDaoTipoItem extends JpaRepository<TipoDeItem, UUID> {
 
     List<TipoDeItem> findByNome(String name);
 

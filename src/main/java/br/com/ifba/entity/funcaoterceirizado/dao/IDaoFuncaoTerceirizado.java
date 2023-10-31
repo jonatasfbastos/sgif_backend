@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author ph715
  */
 @Repository
-public interface IDaoFuncaoTerceirizado extends JpaRepository<FuncaoTerceirizado, Long> {
+public interface IDaoFuncaoTerceirizado extends JpaRepository<FuncaoTerceirizado, UUID> {
     boolean existsByNome(String nome);
     boolean existsById(Long id);
 

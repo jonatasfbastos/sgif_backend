@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IDaoPermissaoLink extends JpaRepository<PermissaoLink, Long> {
+public interface IDaoPermissaoLink extends JpaRepository<PermissaoLink, UUID> {
 
     boolean existsByUrl(String url);
 

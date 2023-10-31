@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ifba.entity.matrizcurricular.model.MatrizCurricular;
 
 @Repository
-public interface IDaoMatrizCurricular extends JpaRepository<MatrizCurricular, Long>{
+public interface IDaoMatrizCurricular extends JpaRepository<MatrizCurricular, UUID>{
     List<MatrizCurricular> findByNome(String nome);
     boolean existsByNome(String nome);
     boolean existsById(Long id);

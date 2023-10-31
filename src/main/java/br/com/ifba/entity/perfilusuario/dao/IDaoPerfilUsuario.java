@@ -14,7 +14,7 @@ import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
  * @author Igor Lopes e Eduarda
  */
 @Repository
-public interface IDaoPerfilUsuario extends JpaRepository<PerfilUsuario, Long> {
+public interface IDaoPerfilUsuario extends JpaRepository<PerfilUsuario, UUID> {
    List<PerfilUsuario> findByNome(String name);
    List<PerfilUsuario> findByPermissoesId(UUID id);
    Optional<PerfilUsuario> findById(UUID id);

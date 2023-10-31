@@ -10,7 +10,7 @@ import br.com.ifba.entity.modalidade.model.Modalidade;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDaoModalidade extends JpaRepository<Modalidade, Long>{
+public interface IDaoModalidade extends JpaRepository<Modalidade, UUID>{
     List <Modalidade> findByNome(String nome);
            /**
      * @author Andesson Reis

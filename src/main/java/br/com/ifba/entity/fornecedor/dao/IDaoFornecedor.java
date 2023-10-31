@@ -11,7 +11,7 @@ import br.com.ifba.entity.fornecedor.model.Fornecedor;
  *
  * @author vitor
  */
-public interface IDaoFornecedor extends JpaRepository<Fornecedor, Long> {
+public interface IDaoFornecedor extends JpaRepository<Fornecedor, UUID> {
    /**
      * @author Andesson Reis
      * @since Desde V1.0.1

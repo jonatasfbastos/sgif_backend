@@ -14,7 +14,7 @@ import br.com.ifba.entity.etapacurso.model.EtapaCurso;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IEtapaCursoDao extends JpaRepository<EtapaCurso, Long>{
+public interface IEtapaCursoDao extends JpaRepository<EtapaCurso, UUID>{
 
     /**
      * Busca uma estapa de curso na base de dados com base no ID

@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Ellen Cristina
  */
-public interface IDaoStatusAluno extends JpaRepository<StatusAluno, Long> {
+public interface IDaoStatusAluno extends JpaRepository<StatusAluno, UUID> {
         /**
      * @author Andesson Reis
      * @since Desde V1.0.1

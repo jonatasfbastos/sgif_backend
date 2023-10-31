@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author vitor
  */
 @Repository
-public interface IDaoItem extends JpaRepository<Item, Long> {
+public interface IDaoItem extends JpaRepository<Item, UUID> {
 
     List<Item> findByNome(String name);
 

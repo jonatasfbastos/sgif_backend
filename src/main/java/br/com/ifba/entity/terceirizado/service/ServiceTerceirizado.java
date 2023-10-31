@@ -23,13 +23,13 @@ import br.com.ifba.entity.terceirizado.dto.TerceirizadoResponseDto;
  */
 
 @Service
-public class ServiceTerceirizado implements IServiceTerceirizado{
+public class ServiceTerceirizado implements IServiceTerceirizado {
 
     // =========================================================== //
     // ======================= [ ATRIBUTOS ] ===================== //
     // =========================================================== //
 
-   @Autowired
+    @Autowired
     private IDaoTerceirizado terceirizadoDao;
 
     @Autowired
@@ -41,12 +41,13 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
     // =========================================================== //
     
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva um Terceirizado na base de dados e retorna um objeto DTO com os dados resumidos do Terceirizado salvo.
      *
      * @param terceirizado - O Terceirizado que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do Terceirizado salvo.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TerceirizadoResponseDto saveTerceirizado(Terceirizado terceirizado) {
@@ -57,12 +58,13 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza um Terceirizado na base de dados e retorna um objeto DTO com os dados resumidos do Terceirizado atualizado.
      *
      * @param terceirizado - O Terceirizado que será atualizado na base de dados.
      * @return um objeto DTO com os dados resumidos do Terceirizado atualizado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TerceirizadoResponseDto updateTerceirizado(Terceirizado terceirizado) {
@@ -75,12 +77,13 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta um Terceirizado.
      *
      * @param Id - O ID do Terceirizado a ser deletado.
      * @return objeto DTO com os dados do Terceirizado deletado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TerceirizadoResponseDto deleteTerceirizado(UUID id) {
@@ -93,11 +96,12 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de todos os Terceirizados como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os Terceirizados.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public List<TerceirizadoResponseDto> getAllTerceirizados() {
@@ -105,5 +109,4 @@ public class ServiceTerceirizado implements IServiceTerceirizado{
                 this.terceirizadoDao.findAll(),
                 TerceirizadoResponseDto.class);
     }
-    
 }

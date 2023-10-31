@@ -24,7 +24,7 @@ import br.com.ifba.entity.tecnicoadministrativo.model.TecnicoAdministrativo;
 @Service
 public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrativo {
     // =========================================================== //
-    // =============== [ ATRIBUTOS ] ================ //
+    // ======================= [ ATRIBUTOS ] ===================== //
     // =========================================================== //
 
     @Autowired
@@ -34,16 +34,17 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     private ObjectMapperUtil objectMapperUtil;
 
     // =========================================================== //
-    // =============== [ MÉTODOS ] ================== //
+    // ========================= [ MÉTODOS ] ===================== //
     // =========================================================== //
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva um Técnico Administrativo na base de dados e retorna um objeto DTO com os dados resumidos do Técnico Administrativo salvo.
      *
      * @param tecnicoAdministrativo - O Técnico Administrativo que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do Técnico Administrativo salvo.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TecnicoAdministrativoResponseDto saveTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
@@ -53,12 +54,13 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza um Técnico Administrativo na base de dados e retorna um objeto DTO com os dados resumidos do Técnico Administrativo atualizado.
      *
      * @param tecnicoAdministrativo - O Técnico Administrativo que será atualizado na base de dados.
      * @return um objeto DTO com os dados resumidos do Técnico Administrativo atualizado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TecnicoAdministrativoResponseDto updateTecnicoAdministrativo(TecnicoAdministrativo tecnicoAdministrativo) {
@@ -71,11 +73,12 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de todos os Técnicos Administrativos como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os Técnicos Administrativos.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public List<TecnicoAdministrativoResponseDto> getAllTecnicoAdministrativo() {
@@ -86,12 +89,13 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta um Técnico Administrativo com base no ID.
      *
      * @param id - O ID do Técnico Administrativo a ser deletado.
      * @return um objeto DTO com os dados do Técnico Administrativo deletado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TecnicoAdministrativoResponseDto deleteTecnicoAdministrativo(UUID id) {
@@ -103,5 +107,4 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
                 })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-
 }

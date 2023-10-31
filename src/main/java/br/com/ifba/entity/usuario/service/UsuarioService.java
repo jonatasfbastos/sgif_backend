@@ -39,26 +39,30 @@ public class UsuarioService implements IUsuarioService {
     // =========================================================== //
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Salva um Usuario na base de dados e retorna um objeto DTO com os dados
      * resumidos do usuario salvo.
      *
      * @param usuario - O usuario que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do usuario salvo.
      */
-
-   @Override
+    @Override
     public UsuarioSimpleResponseDto saveUsuario(@Valid Usuario usuario) {
 
         usuario.setSenha(StringUtil.toMD5(usuario.getSenha()));
 
         return objectMapperUtil.map(
-            daoUsuario.save(usuario),
-            UsuarioSimpleResponseDto.class
+                daoUsuario.save(usuario),
+                UsuarioSimpleResponseDto.class
         );
     }
 
-
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Deleta um Usuario.
      *
      * @param id O ID do usuario a ser deletado.
@@ -67,7 +71,7 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public UsuarioSimpleResponseDto deleteUsuario(UUID id) {
 
-           return this.daoUsuario.findById(id)
+        return this.daoUsuario.findById(id)
                 .map(user -> {
                     daoUsuario.delete(user);
                     return objectMapperUtil.map(user, UsuarioSimpleResponseDto.class);
@@ -75,8 +79,11 @@ public class UsuarioService implements IUsuarioService {
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
 
     }
-    
+
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Obtém uma lista de todos os usuários como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os usuários.
@@ -88,9 +95,11 @@ public class UsuarioService implements IUsuarioService {
                 this.daoUsuario.findAll(),
                 UsuarioSimpleResponseDto.class);
     }
-    
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Encontra um usuário pelo ID.
      *
      * @param id - O ID do usuário a ser encontrado.
@@ -100,11 +109,14 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioResponseDto findById(UUID id) {
 
         return daoUsuario.findById(id)
-            .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
-            .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-    }   
+                .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+    }
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Encontra um usuário pelo login e senha.
      *
      * @param login - O login do usuário.
@@ -113,11 +125,10 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public UsuarioResponseDto findByLoginAndSenha(String login, String senha) {
-    
+
         return daoUsuario.findByLoginAndSenha(login, senha)
                 .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-    
-    }    
 
+    }
 }

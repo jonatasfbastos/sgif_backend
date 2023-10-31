@@ -21,31 +21,31 @@ import br.com.ifba.entity.servidor.model.Servidor;
  * @since V1.0.1
  * Editado por Andesson Reis
  */
-
 @Service
 public class ServiceServidor implements IServiceServidor{
 
     // =========================================================== //
-    // =============== [        ATRIBUTOS       ] ================ //
+    // =============== [ ATRIBUTOS ] ================== //
     // =========================================================== //
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
-    
-   @Autowired
+
+    @Autowired
     private IDaoServidor servidorDao;
 
     // =========================================================== //
-    // =============== [        MÉTODOS       ] ================== //
+    // =============== [ MÉTODOS ] =================== //
     // =========================================================== //
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor salvo.
      *
      * @param servidor - O Servidor que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do Servidor salvo.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public ServidorResponseDto saveServidor(Servidor servidor) {
@@ -59,32 +59,34 @@ public class ServiceServidor implements IServiceServidor{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza um Servidor na base de dados e retorna um objeto DTO com os dados resumidos do Servidor atualizado.
      *
      * @param servidor - O Servidor que será atualizado na base de dados.
      * @return um objeto DTO com os dados resumidos do Servidor atualizado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public ServidorResponseDto updateServidor(Servidor servidor) {
-            
+
         return Optional.of(servidor)
-                    .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
-                    .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
-                    .orElseThrow(
+                .filter(serv -> !this.servidorDao.existsBySiape(serv.getSiape()))
+                .map(serv -> objectMapperUtil.map(this.servidorDao.save(serv), ServidorResponseDto.class))
+                .orElseThrow(
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                 );
 
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta um Servidor com base no ID.
      *
      * @param id - O ID do Servidor a ser deletado.
      * @return um objeto DTO com os dados do Servidor deletado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public ServidorResponseDto deleteServidor(UUID id) {
@@ -98,11 +100,12 @@ public class ServiceServidor implements IServiceServidor{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de todos os Servidores como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os Servidores.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public List<ServidorResponseDto> getAllServidor() {

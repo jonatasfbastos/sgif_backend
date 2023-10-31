@@ -40,12 +40,13 @@ public class TipoDeItemService implements ITipoDeItemService{
 
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva um TipoDeItem na base de dados e retorna um objeto DTO com os dados resumidos do TipoDeItem salvo.
      *
      * @param tipoDeItem - O TipoDeItem que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do TipoDeItem salvo.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TipoDeItemResponseDto saveTipoDeItem(TipoDeItem tipoDeItem) {
@@ -56,12 +57,13 @@ public class TipoDeItemService implements ITipoDeItemService{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza um TipoDeItem na base de dados e retorna um objeto DTO com os dados resumidos do TipoDeItem atualizado.
      *
      * @param tipoDeItem - O TipoDeItem que será atualizado na base de dados.
      * @return um objeto DTO com os dados resumidos do TipoDeItem atualizado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TipoDeItemResponseDto updateTipoDeItem(TipoDeItem tipoDeItem) {
@@ -74,13 +76,14 @@ public class TipoDeItemService implements ITipoDeItemService{
     }
 
 
-   /**
+    /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta um TipoDeItem.
      *
      * @param ID - O id a ser deletado.
      * @return objeto DTO com os dados do TipoDeItem deletado.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public TipoDeItemResponseDto deleteTipoDeItem(UUID id) {
@@ -93,11 +96,12 @@ public class TipoDeItemService implements ITipoDeItemService{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de todos os TiposDeItem como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os TiposDeItem.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public List<TipoDeItemResponseDto> getAllTiposDeItem() {
@@ -105,5 +109,4 @@ public class TipoDeItemService implements ITipoDeItemService{
                 this.daoTipoDeItem.findAll(),
                 TipoDeItemResponseDto.class);
     }
-    
 }

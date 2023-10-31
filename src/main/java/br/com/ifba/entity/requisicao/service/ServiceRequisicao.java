@@ -15,16 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Service que fornece operações relacionadas a Requisição.
  *
- * @author Vitor 
+ * @author Vitor
+ * @since V1.0.1
  * Editado por Andesson Reis
- * Desde V1.0.1
  */
 @Service
 public class ServiceRequisicao implements IServiceRequisicao {
 
     // =========================================================== //
-    // =============== [        ATRIBUTOS       ] ================ //
+    // =============== [ ATRIBUTOS ] ===================== //
     // =========================================================== //
 
     @Autowired
@@ -34,14 +35,13 @@ public class ServiceRequisicao implements IServiceRequisicao {
     private ObjectMapperUtil objectMapperUtil;
 
     // =========================================================== //
-    // =============== [        MÉTODOS       ] ================== //
-    // =========================================================== /
-
+    // =============== [ MÉTODOS ] ===================== //
+    // =========================================================== //
 
     /**
      * @author Andesson Reis
      * @since V1.0.1
-
+     * <p>
      * Salva uma requisição na base de dados e retorna um objeto DTO com os dados da requisição salva.
      *
      * @param requisicao - A requisição que será salva na base de dados.
@@ -56,11 +56,12 @@ public class ServiceRequisicao implements IServiceRequisicao {
 
     /**
      * @author Andesson Reis
-     * @since Desde V1.0.1
-     * 
+     * @since V1.0.1
+     * <p>
      * Atualiza uma requisição existente na base de dados.
-     * @param requisicao - A c que será atualizado.
-     * @return dados da requisição atualizado.
+     *
+     * @param requisicao - A requisição que será atualizada na base de dados.
+     * @return um objeto DTO com os dados da requisição atualizada.
      */
     @Override
     public RequisicaoResponseDto updateRequisicao(Requisicao requisicao) {
@@ -73,15 +74,15 @@ public class ServiceRequisicao implements IServiceRequisicao {
                         );
 
     }
-    
+
     /**
      * @author Andesson Reis
-     * @since Desde V1.0.1
-     * 
-     * Deleta uma requisição .
+     * @since V1.0.1
+     * <p>
+     * Deleta uma requisição.
      *
-     * @param id O ID da requisição a ser deletado.
-     * @return objeto DTO com os dados da requisição deletado.
+     * @param id - O ID da requisição a ser deletado.
+     * @return objeto DTO com os dados da requisição deletada.
      */
     @Override
     public RequisicaoResponseDto deleteRequisicao(UUID id) {
@@ -97,11 +98,11 @@ public class ServiceRequisicao implements IServiceRequisicao {
 
     /**
      * @author Andesson Reis
-     * @since Desde V1.0.1
-     * 
-     * Obtém uma lista de todas as requisição como objetos DTO.
+     * @since V1.0.1
+     * <p>
+     * Obtém uma lista de todas as requisições como objetos DTO.
      *
-     * @return uma lista de objetos DTO representando as requisição.
+     * @return uma lista de objetos DTO representando as requisições.
      */
     @Override
     public List<RequisicaoResponseDto> getAllRequisicao() {

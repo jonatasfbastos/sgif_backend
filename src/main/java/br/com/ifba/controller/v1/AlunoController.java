@@ -48,13 +48,13 @@ public class AlunoController {
     // =========================================================== //
 
     /**
+     * Lista todos os alunos cadastrados na base de dados.
+     *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
-     * <p>
-     * Lista todos os alunos cadastrados na base de dados.
      * @return uma entidade de resposta genérica.
      */
-    @GetMapping(path = "/alunos", consumes = "application/json")
+    @GetMapping(path = "/alunos", produces = "application/json")
     public ResponseEntity<?> listarAlunos() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -63,13 +63,13 @@ public class AlunoController {
     }
 
     /**
+     * Salva um aluno na base de dados.
+     *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
-     * <p>
-     * Salva um aluno na base de dados.
      * @return uma entidade de resposta generica.
      */
-    @PostMapping(path = "/cursos/curso", consumes = "application/json")
+    @PostMapping(path = "/alunos/aluno", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarAluno(@Valid @RequestBody AlunoRequestDto alunoDto, BindingResult result){
 
         return result.hasErrors()
@@ -78,13 +78,13 @@ public class AlunoController {
     }
 
     /**
+     * Atualiza um aluno.
+     *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
-     * <p>
-     * Atualiza um aluno.
      * @return uma entidade de resposta generica.
      */
-    @PutMapping(path = "/cursos/curso", consumes = "application/json")
+    @PutMapping(path = "/alunos/aluno", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarAluno(@Valid @RequestBody AlunoRequestDto alunoDto, BindingResult result){
 
         return result.hasErrors()
@@ -94,13 +94,13 @@ public class AlunoController {
     }
 
     /**
+     * Deleta o aluno atrelado ao ID passado por parâmetro.
+     *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
-     * <p>
-     * Deleta o aluno atrelado ao ID passado por parâmetro.
      * @return uma entidade de resposta generica.
      */
-    @DeleteMapping(path = "/cursos/curso/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/alunos/aluno/{id}", produces = "application/json")
     public ResponseEntity<?> deletarAlunoPorId(@PathVariable("id") @NotNull UUID id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

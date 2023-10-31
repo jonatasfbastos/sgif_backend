@@ -57,7 +57,7 @@ public class Questao extends PersistenceEntity implements Serializable{
      * cada resposta tem o seu dono, ou seja, quem respondeu.
      */
     @Column(name = "respostas", nullable = false)
-    @OneToMany(mappedBy = "questão", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "questao", cascade = CascadeType.ALL)
     private List<Resposta> respostas;
 
     // =========================================================== //

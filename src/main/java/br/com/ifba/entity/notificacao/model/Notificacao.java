@@ -19,8 +19,8 @@ import java.util.UUID;
  * Esta classe representa uma notificação da aplicação.
  * Nenhum dos atributos desta classe pode ser nulo.
  */
-@Entity
-@Table(name = "notificacao")
+@Entity(name = "notificao")
+@Table(name = "notificacoes")
 public class Notificacao extends PersistenceEntity {
 
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class Notificacao extends PersistenceEntity {
     private String whatObjectName;
 
     @Column(nullable = false)
-    private boolean read = false;
+    private boolean read;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

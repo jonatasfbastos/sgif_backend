@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IDaoNotification extends JpaRepository<Notificacao, UUID> {
 
-    List<Notificacao> findByReaded(boolean readed);
+    List<Notificacao> findByRead(boolean readed);
 
     Optional<Notificacao> findById(UUID id);
 

@@ -21,41 +21,42 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * @since V1.0.1
  * Editado por Andesson Reis
  */
-
 @Service
-public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
+public class ServiceMatrizCurricular implements IServiceMatrizCurricular {
     
-  
     @Autowired
     private IDaoMatrizCurricular matrizCurricularDao;
 
     @Autowired
     private IEtapaCursoDao etapaCursoDao;
+    
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
+
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva uma Matriz Curricular na base de dados e retorna um objeto DTO com os dados resumidos da Matriz Curricular salva.
      *
      * @param matrizCurricular - A Matriz Curricular que será salva na base de dados.
      * @return um objeto DTO com os dados resumidos da Matriz Curricular salva.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public MatrizCurricularResponseDto saveMatrizCurricular(MatrizCurricular matrizCurricular) {
-        
         return objectMapperUtil.map(
                 matrizCurricularDao.save(matrizCurricular),
                 MatrizCurricularResponseDto.class);
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza uma Matriz Curricular na base de dados e retorna um objeto DTO com os dados resumidos da Matriz Curricular atualizada.
      *
      * @param matrizCurricular - A Matriz Curricular que será atualizada na base de dados.
      * @return um objeto DTO com os dados resumidos da Matriz Curricular atualizada.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public MatrizCurricularResponseDto updateMatrizCurricular(MatrizCurricular matrizCurricular) {
@@ -68,12 +69,13 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta uma Matriz Curricular com base no ID.
      *
      * @param id - O ID da Matriz Curricular a ser deletada.
      * @return um objeto DTO com os dados da Matriz Curricular deletada.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public MatrizCurricularResponseDto deleteMatrizCurricular(UUID id) {
@@ -86,11 +88,12 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular{
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de todas as Matrizes Curriculares como objetos DTO.
      *
      * @return uma lista de objetos DTO representando as Matrizes Curriculares.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public List<MatrizCurricularResponseDto> getAllMatrizCurricular() {

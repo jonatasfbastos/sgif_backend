@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Service que fornece operações relacionadas a Item.
  *
  * @author vitor
  * Editado por Andesson Reis
@@ -27,21 +28,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceItem implements IServiceItem {
 
-    // =========================================================== //
-    // ======================== [ ATRIBUTOS ] ==================== //
-    // =========================================================== //
-
     @Autowired
     private IDaoItem daoItem;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
 
-    // =========================================================== //
-    // ======================== [ MÉTODOS ] ====================== //
-    // =========================================================== //
-
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva um item na base de dados e retorna um objeto DTO com os dados do item salvo.
      *
      * @param item - O item que será salvo na base de dados.
@@ -49,7 +45,6 @@ public class ServiceItem implements IServiceItem {
      */
     @Override
     public ItemSimpleResponseDto saveItem(Item item) {
-
         return Optional.of(item)
                 .map(savedItem -> {
                     savedItem.setDataNot(getDataAjuste(savedItem.getValidade(), savedItem.getAlerta()));
@@ -60,6 +55,9 @@ public class ServiceItem implements IServiceItem {
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta um item pelo ID.
      *
      * @param id - O ID do item a ser deletado.
@@ -68,31 +66,33 @@ public class ServiceItem implements IServiceItem {
      */
     @Override
     public ItemSimpleResponseDto deleteItem(UUID id) {
-
         return this.daoItem.findById(id)
                 .map(DeletItem -> {
                     daoItem.delete(DeletItem);
                     return objectMapperUtil.map(DeletItem, ItemSimpleResponseDto.class);
                 })
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
-
     }
 
-
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de todos os itens como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os itens.
      */
     @Override
     public List<ItemSimpleResponseDto> getAllItens() {
-
         return objectMapperUtil.mapAll(
                 this.daoItem.findAll(),
                 ItemSimpleResponseDto.class);
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de itens por nome como objetos DTO.
      *
      * @param name - O nome a ser pesquisado.
@@ -107,26 +107,30 @@ public class ServiceItem implements IServiceItem {
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza um item na base de dados.
      *
      * @param item - O item a ser atualizado.
      * @return um objeto DTO com os dados do item atualizado.
      * @throws BusinessException se o item com o ID especificado não for encontrado.
-     */    
+     */
     @Override
     public ItemSimpleResponseDto updateItem(Item item) {
-    
         return Optional.ofNullable(item)
-                    .filter(itemToSave -> daoItem.existsById(itemToSave.getId()))
-                    .map(itemToSave -> {
-                        itemToSave.setDataNot(getDataAjuste(itemToSave.getValidade(), itemToSave.getAlerta()));
-                        return daoItem.save(itemToSave);
-                    })
-                    .map(savedItem -> objectMapperUtil.map(savedItem, ItemSimpleResponseDto.class))
-                    .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
+                .filter(itemToSave -> daoItem.existsById(itemToSave.getId()))
+                .map(itemToSave -> {
+                    itemToSave.setDataNot(getDataAjuste(itemToSave.getValidade(), itemToSave.getAlerta()));
+                    return daoItem.save(itemToSave);
+                })
+                .map(savedItem -> objectMapperUtil.map(savedItem, ItemSimpleResponseDto.class))
+                .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
     }
-    
+
     /**
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de itens com data anterior à data especificada.
      *
      * @param dataNot - A data de referência.
@@ -134,13 +138,14 @@ public class ServiceItem implements IServiceItem {
      */
     @Override
     public List<ItemSimpleResponseDto> findByDataNotBefore(Date dataNot) {
-
-         return objectMapperUtil.mapAll(
+        return objectMapperUtil.mapAll(
                 this.daoItem.dataNotBefore(dataNot),
                 ItemSimpleResponseDto.class);
     }
 
     /**
+     * @since V1.0.1
+     * <p>
      * Obtém uma lista de itens com validade posterior à data especificada.
      *
      * @param validade - A data de validade de referência.
@@ -148,23 +153,23 @@ public class ServiceItem implements IServiceItem {
      */
     @Override
     public List<ItemSimpleResponseDto> findByValidadeAfter(Date validade) {
-
         return objectMapperUtil.mapAll(
                 this.daoItem.validadeAfter(validade),
                 ItemSimpleResponseDto.class);
     }
 
-     /**
+    /**
+     * @since V1.0.1
+     * <p>
      * Obtém um item por ID e mapeia para um objeto DTO.
      *
      * @param id - O ID do item a ser obtido.
      * @return um objeto DTO com os dados do item encontrado.
-     * 
      * @throws BusinessException se o item não for encontrado.
      */
     @Override
     public ItemResponseDto getItemById(UUID id) {
-     return objectMapperUtil.map(
+        return objectMapperUtil.map(
                 daoItem.findById(id)
                         .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())),
                 ItemResponseDto.class
@@ -179,12 +184,9 @@ public class ServiceItem implements IServiceItem {
      * @return a data ajustada.
      */
     public Date getDataAjuste(Date data, int num) {
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(data);
         calendar.add(Calendar.DATE, -num);
-
         return calendar.getTime();
     }
-
 }

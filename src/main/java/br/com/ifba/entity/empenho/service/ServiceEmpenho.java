@@ -5,15 +5,15 @@ import br.com.ifba.entity.empenho.dto.EmpenhoResponseDto;
 import br.com.ifba.entity.empenho.model.Empenho;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Interface para serviços relacionados à entidade Empenho.
@@ -27,27 +27,20 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 @Service
 public class ServiceEmpenho implements IServiceEmpenho {
 
-    // =========================================================== //
-    // =============== [ ATRIBUTOS ] ================ //
-    // =========================================================== //
-
     @Autowired
     private IDaoEmpenho daoEmpenho;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
 
-    // =========================================================== //
-    // =============== [ MÉTODOS ] ================== //
-    // =========================================================== //
-
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Salva um empenho (Response DTO) na base de dados.
      *
      * @param empenho O empenho (Response DTO) a ser salvo.
      * @return O empenho (Response DTO) salvo.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public EmpenhoResponseDto saveEmpenho(Empenho empenho) {
@@ -57,13 +50,14 @@ public class ServiceEmpenho implements IServiceEmpenho {
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Atualiza um empenho (Response DTO) na base de dados.
      *
      * @param empenho O empenho (Response DTO) a ser atualizado.
      * @return O empenho (Response DTO) atualizado.
      * @throws BusinessException se o empenho com o ID especificado não existe.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public EmpenhoResponseDto updateEmpenho(Empenho empenho) {
@@ -76,17 +70,18 @@ public class ServiceEmpenho implements IServiceEmpenho {
     }
 
     /**
+     * @author Andesson Reis
+     * @since V1.0.1
+     * <p>
      * Deleta um empenho com base no seu ID.
      *
      * @param id O ID do empenho a ser excluído.
      * @return O empenho (Response DTO) que foi deletado.
      * @throws BusinessException se o empenho com o ID especificado não existe.
-     * @author Andesson Reis
-     * @since V1.0.1
      */
     @Override
     public EmpenhoResponseDto deleteEmpenho(UUID id) {
-        
+
         return this.daoEmpenho.findById(id)
                 .map(empenho -> {
                     daoEmpenho.delete(empenho);
@@ -96,13 +91,13 @@ public class ServiceEmpenho implements IServiceEmpenho {
     }
 
     /**
-     * Obtém uma lista de todos os empenhos (Response DTOs) cadastrados na base de
-     * dados.
+     * @since V1.0.1
+     * @author Andesson Reis
+     * <p>
+     * Obtém uma lista de todos os empenhos (Response DTOs) cadastrados na base de dados.
      *
      * @return Uma lista de empenhos (Response DTOs).
      * @throws BusinessException se ocorrer um erro ao recuperar a lista de empenhos.
-     * @author Andesson Reis                          
-     * @since V1.0.1
      */
     @Override
     public List<EmpenhoResponseDto> getAllEmpenho() {
@@ -111,5 +106,4 @@ public class ServiceEmpenho implements IServiceEmpenho {
                 this.daoEmpenho.findAll(),
                 EmpenhoResponseDto.class);
     }
-
 }

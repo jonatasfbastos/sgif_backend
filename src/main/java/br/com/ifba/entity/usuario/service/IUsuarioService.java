@@ -18,15 +18,22 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IUsuarioService {
 
-    /**
-     * Salva um Usuario na base de dados e retorna um objeto DTO com os dados resumidos do usuario salvo.
+  /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
+     * Salva um Usuario na base de dados e retorna um objeto DTO com os dados
+     * resumidos do usuario salvo.
      *
-     * @param usuario - O Usuario que será salvo na base de dados.
+     * @param usuario - O usuario que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do usuario salvo.
      */
     UsuarioSimpleResponseDto saveUsuario(Usuario usuario);
 
-      /**
+    /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Deleta um Usuario.
      *
      * @param id O ID do usuario a ser deletado.
@@ -35,6 +42,9 @@ public interface IUsuarioService {
     UsuarioSimpleResponseDto deleteUsuario(UUID id);
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Obtém uma lista de todos os usuários como objetos DTO.
      *
      * @return uma lista de objetos DTO representando os usuários.
@@ -42,6 +52,9 @@ public interface IUsuarioService {
     List<UsuarioSimpleResponseDto> getAllUsuarios();
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Encontra um usuário pelo ID.
      *
      * @param id - O ID do usuário a ser encontrado.
@@ -50,6 +63,9 @@ public interface IUsuarioService {
     UsuarioResponseDto findById(UUID id);
 
     /**
+     * @author Andesson Reis
+     * @since Desde V1.0.1
+     * <p>
      * Encontra um usuário pelo login e senha.
      *
      * @param login - O login do usuário.

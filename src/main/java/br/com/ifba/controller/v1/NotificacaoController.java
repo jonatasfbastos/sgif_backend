@@ -25,12 +25,11 @@ import br.com.ifba.entity.notificacao.service.IServiceNotificacao;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
 /**
- * @apiNote Endpoint criado desde a versão 1.0.1
- *
  * Controller para gerenciar notificações.
  *
+ * @apiNote Endpoint criado desde a versão 1.0.1
  * @author Andesson Reis
- * @since V1.0.1
+ * Editado por Giovane Neves
  *
  * Veja também: {@link br.com.ifba.entity.notificacao.model.Notificacao}
  */
@@ -56,8 +55,8 @@ public class NotificacaoController {
      *
      * @return Uma lista de notificações ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/notificacoes", consumes = "application/json")
-    public ResponseEntity<?> getNotificacoes() {
+    @GetMapping(path = "/notificacoes", produces = "application/json")
+    public ResponseEntity<?> listarNotificacoes() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(notificacaoService.getAllNotification());
@@ -67,7 +66,7 @@ public class NotificacaoController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "/notificacoes/notificacao", consumes = "application/json")
+    @PutMapping(path = "/notificacoes/notificacao", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarNotificacao(@Valid @RequestBody NotificacaoRequestDto notificacaoDto, BindingResult result) {
 
         return result.hasErrors()
@@ -80,7 +79,7 @@ public class NotificacaoController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/notificacoes/notificacao", consumes = "application/json")
+    @PostMapping(path = "/notificacoes/notificacao", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarNotificacao(@Valid @RequestBody NotificacaoRequestDto notificacaoDto, BindingResult result) {
 
         return result.hasErrors()
@@ -94,7 +93,7 @@ public class NotificacaoController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/notificacoes/notificacao/{id}", consumes = "application.json")
+    @DeleteMapping(path = "/notificacoes/notificacao/{id}", produces = "application/json")
     public ResponseEntity<?> deletarNotificacaoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

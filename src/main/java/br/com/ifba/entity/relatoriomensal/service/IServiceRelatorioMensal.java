@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
  * Editado por Andesson Reis
  * @since V1.0.1
  */
-@Service
 public interface IServiceRelatorioMensal {
 
     /**

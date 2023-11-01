@@ -29,6 +29,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * Controller para gerenciar servidores.
  *
  * @author Andesson Reis
+ * Editado por Giovane Neves
  * @since V1.0.1
  *
  * Veja também: {@link br.com.ifba.entity.servidor.model.Servidor}
@@ -55,8 +56,8 @@ public class ServidorController {
      *
      * @return Uma lista de servidores ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/servidores", consumes = "application/json")
-    public ResponseEntity<?> getServidores() {
+    @GetMapping(path = "/servidores", produces = "application/json")
+    public ResponseEntity<?> listarServidores() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(servidorService.getAllServidor());
@@ -67,7 +68,7 @@ public class ServidorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/servidores/servidor", consumes = "application/json")
+    @PostMapping(path = "/servidores/servidor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarServidor(@Valid @RequestBody ServidorRequestDto servidorDto, BindingResult result) {
 
         return result.hasErrors()
@@ -80,7 +81,7 @@ public class ServidorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/servidores/servidor/{id}", consumes = "application.json")
+    @DeleteMapping(path = "/servidores/servidor/{id}", produces = "application/json")
     public ResponseEntity<?> deletarServidorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

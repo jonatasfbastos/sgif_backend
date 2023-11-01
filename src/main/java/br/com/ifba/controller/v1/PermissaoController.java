@@ -59,7 +59,7 @@ public class PermissaoController {
      * @author Andesson Reis
      */
 
-    @GetMapping(path = "/permissoes", consumes = "application/json")
+    @GetMapping(path = "/permissoes", produces = "application/json")
     public ResponseEntity<?> listarPermissoes() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -75,7 +75,7 @@ public class PermissaoController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/permissoes/{id}", consumes = "application/json")
+    @GetMapping(path = "/permissoes/{id}", produces = "application/json")
     public ResponseEntity<?> listarPermissoesPorId(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -91,7 +91,7 @@ public class PermissaoController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/permissoes/{id}", consumes = "application/json")
+    @GetMapping(path = "/permissoes/permissao/link/{id}", produces = "application/json")
     public ResponseEntity<?> listarPermissoesPorLinkId(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -105,7 +105,7 @@ public class PermissaoController {
      * Atualiza uma permissao.
      * @return uma entidade de resposta generica.
      */
-    @PutMapping(path = "/permissoes/permissao", consumes = "application/json")
+    @PutMapping(path = "/permissoes/permissao", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarPermissao(@Valid @RequestBody PermissaoRequestDto permissaoDto, BindingResult result){
 
         return result.hasErrors()
@@ -123,7 +123,7 @@ public class PermissaoController {
      * @return uma entidade de resposta generica.
      */
 
-    @PostMapping(path = "/permissoes/permissao", consumes = "application/json")
+    @PostMapping(path = "/permissoes/permissao", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarPermissao (@Valid @RequestBody PermissaoRequestDto permissaoDto, BindingResult result) {
 
         Permissao permissao = objectMapperUtil.map(permissaoDto, Permissao.class);
@@ -141,8 +141,8 @@ public class PermissaoController {
      * Deleta uma permissão.
      * @return uma entidade de resposta generica.
      */
-    @DeleteMapping(path = "/permissoes/permissao/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletaPermissaoId (@Valid @PathVariable("id") @NotNull UUID id) {
+    @DeleteMapping(path = "/permissoes/permissao/{id}", produces = "application/json")
+    public ResponseEntity<?> deletarPermissaoPorId (@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(permissaoService.deletePermissao(id));

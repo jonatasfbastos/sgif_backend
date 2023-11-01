@@ -29,9 +29,10 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  * Controller para gerenciar relatórios mensais.
  *
  * @author Andesson Reis
+ * Editado por Giovane Neves
  * @since V1.0.1
  *
- * Veja também: {@link br.com.ifba.entity.relatorioMensal.model.RelatorioMensal}
+ * Veja também: {@link br.com.ifba.entity.relatoriomensal.model.RelatorioMensal}
  */
 @RestController
 @RequestMapping(path = "/apif/v1")
@@ -55,8 +56,8 @@ public class RelatorioMensalController {
      *
      * @return Uma lista de relatórios mensais ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/relatorios-mensais", consumes = "application/json")
-    public ResponseEntity<?> getRelatoriosMensais() {
+    @GetMapping(path = "/relatorios-mensais", produces = "application/json")
+    public ResponseEntity<?> listarRelatoriosMensais() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(relatorioMensalService.getAllRelatorioMensal());
@@ -67,7 +68,7 @@ public class RelatorioMensalController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/relatorios-mensais/relatorio-mensal", consumes = "application/json")
+    @PostMapping(path = "/relatorios-mensais/relatorio-mensal", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarRelatorioMensal(@Valid @RequestBody RelatorioMensalRequestDto relatorioMensalDto, BindingResult result) {
 
         return result.hasErrors()
@@ -80,7 +81,7 @@ public class RelatorioMensalController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/relatorios-mensais/relatorio-mensal/{id}", consumes = "application.json")
+    @DeleteMapping(path = "/relatorios-mensais/relatorio-mensal/{id}", produces = "application/json")
     public ResponseEntity<?> deletarRelatorioMensalPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

@@ -15,7 +15,6 @@ import br.com.ifba.entity.servidor.model.Servidor;
  * @since V1.0.1
  * Editado por Andesson Reis
  */
-@Service
 public interface IServiceServidor {
 
     /**

@@ -58,8 +58,8 @@ public class SetorController {
      *
      * @return Uma lista de setores ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/setores", consumes = "application/json")
-    public ResponseEntity<?> getSetores() {
+    @GetMapping(path = "/setores", produces = "application/json")
+    public ResponseEntity<?> listarSetores() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(setorService.getAllSetor());
@@ -70,7 +70,7 @@ public class SetorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "/setores/setor", consumes = "application/json")
+    @PutMapping(path = "/setores/setor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarSetor(@Valid @RequestBody SetorRequestDto setorDto, BindingResult result) {
 
         return result.hasErrors()
@@ -83,7 +83,7 @@ public class SetorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/setores/setor", consumes = "application/json")
+    @PostMapping(path = "/setores/setor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarSetor(@Valid @RequestBody SetorRequestDto setorDto, BindingResult result) {
 
         return result.hasErrors()
@@ -96,7 +96,7 @@ public class SetorController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/setores/setor/{id}", consumes = "application.json")
+    @DeleteMapping(path = "/setores/setor/{id}", produces = "application/json")
     public ResponseEntity<?> deletarSetorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

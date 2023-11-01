@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author Giovane Neves
  * @since Desde V1.0.1
  */
+/*
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -26,7 +27,7 @@ public class SwaggerConfig {
      * @return um Swagger Docket configurado para
      * documentar todos os endpoints da API.
      */
-    @Bean
+ /*   @Bean
     public Docket api(){
 
         return new Docket(DocumentationType.SWAGGER_2)
@@ -36,3 +37,4 @@ public class SwaggerConfig {
                 .build();
     }
 }
+*/

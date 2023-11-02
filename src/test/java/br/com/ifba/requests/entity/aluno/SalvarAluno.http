@@ -1,0 +1,6 @@
+POST http://localhost:8080/apif/v1/alunos/aluno
+Content-Type: application/json
+
+{
+  "matricula": "20221ireads0001"
+}

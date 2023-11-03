@@ -26,9 +26,10 @@ public class DisciplinaService implements IDisciplinaService {
     // =========================================================== //
 
     @Autowired
-    private IDisciplinaDao disciplinaDao;
+    private IDisciplinaDao _disciplinaDao;
+
     @Autowired
-    private ObjectMapperUtil objectMapperUtil;
+    private ObjectMapperUtil _objectMapperUtil;
 
 
     // =========================================================== //
@@ -45,10 +46,29 @@ public class DisciplinaService implements IDisciplinaService {
     @Override
     public List<DisciplinaResponseDto> listarDisciplinas() {
 
-        return this.objectMapperUtil.mapAll(
-                this.disciplinaDao.findAll(),
+        return this._objectMapperUtil.mapAll(
+                this._disciplinaDao.findAll(),
                 DisciplinaResponseDto.class
         );
+
+    }
+
+    /**
+     * Lista todas as disciplinas cadastradas na base de dados
+     * que possuam o professor passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param professor O nome do professor.
+     * @return uma lista de DTO com dados de todas as disciplinas da base de dados.
+     */
+    @Override
+    public List<DisciplinaResponseDto> listarDisciplinas(final String professor) {
+
+        return this._disciplinaDao.findDisciplinaByProfessorNome(professor)
+                .stream()
+                .map(d -> this._objectMapperUtil.map(d, DisciplinaResponseDto.class))
+                .collect(Collectors.toList());
 
     }
 
@@ -61,10 +81,10 @@ public class DisciplinaService implements IDisciplinaService {
      * @return DTO com dados da disciplina atrelada ao ID passado por parâmetro.
      */
     @Override
-    public DisciplinaResponseDto encontrarDisciplinaPorId(UUID id) {
+    public DisciplinaResponseDto encontrarDisciplinaPorId(final UUID id) {
 
-        return this.disciplinaDao.findById(id)
-                .map(d -> this.objectMapperUtil.map(d, DisciplinaResponseDto.class))
+        return this._disciplinaDao.findById(id)
+                .map(d -> this._objectMapperUtil.map(d, DisciplinaResponseDto.class))
                 .orElseThrow(
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                 );
@@ -82,11 +102,11 @@ public class DisciplinaService implements IDisciplinaService {
      * passado por parâmetro.
      */
     @Override
-    public List<DisciplinaResponseDto> encontrarDisciplinaPorNome(String nome) {
+    public List<DisciplinaResponseDto> encontrarDisciplinaPorNome(final String nome) {
 
-        return this.disciplinaDao.findByNome(nome)
+        return this._disciplinaDao.findByNome(nome)
                 .stream()
-                .map(d -> this.objectMapperUtil.map(d, DisciplinaResponseDto.class))
+                .map(d -> this._objectMapperUtil.map(d, DisciplinaResponseDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -99,12 +119,12 @@ public class DisciplinaService implements IDisciplinaService {
      * @return DTO com dados da disciplina salva.
      */
     @Override
-    public DisciplinaResponseDto salvarDisciplina(Disciplina disciplina) {
+    public DisciplinaResponseDto salvarDisciplina(final Disciplina disciplina) {
 
         // TODO: Adicionar verificação de código, para evitar cadastro de disciplinas com código repetido
 
-        return this.objectMapperUtil.map(
-                this.disciplinaDao.save(disciplina),
+        return this._objectMapperUtil.map(
+                this._disciplinaDao.save(disciplina),
                 DisciplinaResponseDto.class
         );
 
@@ -119,12 +139,12 @@ public class DisciplinaService implements IDisciplinaService {
      * @return DTO com dados da disciplina atualizada.
      */
     @Override
-    public DisciplinaResponseDto atualizarDisciplina(Disciplina disciplina) {
+    public DisciplinaResponseDto atualizarDisciplina(final Disciplina disciplina) {
 
         // TODO: Adicionar verificação de código, para evitar cadastro de disciplinas com código repetido
 
-        return this.disciplinaDao.findById(disciplina.getId())
-                .map(d -> this.objectMapperUtil.map(d, DisciplinaResponseDto.class))
+        return this._disciplinaDao.findById(disciplina.getId())
+                .map(d -> this._objectMapperUtil.map(d, DisciplinaResponseDto.class))
                 .orElseThrow(
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                 );
@@ -139,12 +159,12 @@ public class DisciplinaService implements IDisciplinaService {
      * @return DTO com dados da disciplina deletada.
      */
     @Override
-    public DisciplinaResponseDto deletarDisciplinaPorId(UUID id) {
+    public DisciplinaResponseDto deletarDisciplinaPorId(final UUID id) {
 
-        return this.disciplinaDao.findById(id)
+        return this._disciplinaDao.findById(id)
                 .map(d -> {
-                    this.disciplinaDao.delete(d);
-                    return this.objectMapperUtil.map(d, DisciplinaResponseDto.class);
+                    this._disciplinaDao.delete(d);
+                    return this._objectMapperUtil.map(d, DisciplinaResponseDto.class);
                 })
                 .orElseThrow(
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())

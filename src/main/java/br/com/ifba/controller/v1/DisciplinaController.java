@@ -1,6 +1,5 @@
 package br.com.ifba.controller.v1;
 
-import br.com.ifba.entity.avaliacao.service.IAvaliacaoService;
 import br.com.ifba.entity.disciplina.service.IDisciplinaService;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
+import java.util.Optional;
 
 /**
  * @author Giovane Neves
@@ -27,10 +28,10 @@ public class DisciplinaController {
     // =========================================================== //
 
     @Autowired
-    IDisciplinaService disciplinaService;
+    private IDisciplinaService _disciplinaService;
 
     @Autowired
-    ObjectMapperUtil objectMapperUtil;
+    private ObjectMapperUtil _objectMapperUtil;
 
     // =========================================================== //
     // =============== [         ENDPOINTS      ] ================ //
@@ -41,13 +42,19 @@ public class DisciplinaController {
      *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
+     * @param professor (Opcional) O filtro para listar apenas
+     * disciplinas que possuem esse professor.
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/disciplinas", produces = "application/json")
-    public ResponseEntity<?> listarDisciplinas() {
+    public ResponseEntity<?> listarDisciplinas(@RequestParam(value = "professor", required = false) Optional<String> professor) {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(this.disciplinaService.listarDisciplinas());
+                .body(
+                        (professor.isEmpty())
+                        ? this._disciplinaService.listarDisciplinas()
+                        : this._disciplinaService.listarDisciplinas(professor.get())
+                );
 
     }
 
@@ -63,7 +70,7 @@ public class DisciplinaController {
     public ResponseEntity<?> encontrarDisciplinaPorId(@PathVariable("id") @NotNull UUID id){
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(this.disciplinaService.encontrarDisciplinaPorId(id));
+                .body(this._disciplinaService.encontrarDisciplinaPorId(id));
 
     }
 

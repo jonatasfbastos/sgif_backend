@@ -39,6 +39,17 @@ public interface IDisciplinaDao extends JpaRepository<Disciplina, UUID>{
      */
     List<Disciplina> findByNome(String nome);
 
+    /**
+     * Lista todas as disciplinas cadastradas na base de dados
+     * que possuam o professor passado por parâmetro.
+     *
+     * @author Giovane Neves
+     * @since Desde V1.0.1
+     * @param nome O nome do professor.
+     * @return uma lista de disciplinas da base de dados que
+     * possuem o professor passado por parâmetro.
+     */
+    List<Disciplina> findDisciplinaByProfessorNome(String nome);
 
     /**
      * Verifica se existe alguma disciplina com o nome

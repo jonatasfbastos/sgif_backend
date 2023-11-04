@@ -1,0 +1,4 @@
+GET http://localhost:8080/apif/v1/cursos
+Accept: application/json
+
+###

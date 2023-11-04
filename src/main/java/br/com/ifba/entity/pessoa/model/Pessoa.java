@@ -3,11 +3,7 @@ package br.com.ifba.entity.pessoa.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.requisicao.model.Requisicao;
@@ -23,6 +19,7 @@ import lombok.EqualsAndHashCode;
  */
 @Entity(name = "pessoa")
 @Table(name = "pessoas")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Pessoa extends PersistenceEntity {

@@ -5,14 +5,18 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import br.com.ifba.entity.pessoa.model.Pessoa;
 import br.com.ifba.entity.statusaluno.model.StatusAluno;
 import br.com.ifba.entity.turma.model.Turma;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,6 +34,9 @@ import lombok.EqualsAndHashCode;
 @Table(name = "alunos")
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Inheritance(strategy = InheritanceType.JOINED)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@PrimaryKeyJoinColumn(name="aluno_id",referencedColumnName = "id")
 public class Aluno extends Pessoa implements Serializable{
 
     // =========================================================== //

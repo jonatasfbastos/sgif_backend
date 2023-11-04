@@ -25,5 +25,5 @@ import lombok.EqualsAndHashCode;
 public class Professor extends Servidor implements Serializable{
     @JsonIgnore
     @ManyToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Disciplina> disciplina;
+    private List<Disciplina> disciplinas;
 }

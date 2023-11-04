@@ -1,6 +1,7 @@
 package br.com.ifba.controller.v1;
 
 import br.com.ifba.controller.v1.util.ResultError;
+import br.com.ifba.entity.professor.dto.ProfessorPostRequestDto;
 import br.com.ifba.entity.professor.dto.ProfessorRequestDto;
 import br.com.ifba.entity.professor.model.Professor;
 import br.com.ifba.entity.professor.service.IProfessorService;
@@ -30,7 +31,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "/apif/v1")
 public class ProfessorController {
-
 
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //
@@ -83,12 +83,12 @@ public class ProfessorController {
      *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
-     * @param prfessorDto DTO com dados do professor a ser salvo.
+     * @param professorDto DTO com dados do professor a ser salvo.
      * @param result Resultado da requisição HTTP.
      * @return uma entidade de resposta genérica.
      */
     @PostMapping(path = "/professores/professor", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> salvarProfessor(@Valid @RequestBody ProfessorRequestDto professorDto, BindingResult result){
+    public ResponseEntity<?> salvarProfessor(@Valid @RequestBody ProfessorPostRequestDto professorDto, BindingResult result){
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))

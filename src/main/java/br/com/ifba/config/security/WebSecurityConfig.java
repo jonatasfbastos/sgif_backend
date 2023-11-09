@@ -44,7 +44,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/apif/v1/**") // Todos os métodos GET estão públicos
+                .antMatchers(HttpMethod.GET) // Todos os métodos GET estão públicos
+                    .permitAll()
+                .antMatchers(HttpMethod.POST, "/apif/v1/login")
                     .permitAll()
                 .anyRequest()
                     .authenticated()

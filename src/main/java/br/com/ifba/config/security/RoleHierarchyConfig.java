@@ -21,8 +21,8 @@ public class RoleHierarchyConfig {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
         hierarchy.setHierarchy(
                 "ROLE_ADMIN > ROLE_STAFF\n".concat(
-                        "ROLE_STAFF > ROLE_PROFESSOR\n".concat(
-                                "ROLE_PROFESSOR > ROLE_USER"
+                        "ROLE_STAFF > ROLE_USER\n".concat(
+                                "ROLE_USER > ROLE_GUEST"
                         )
                 )
         );

@@ -1,11 +1,14 @@
 package br.com.ifba.infrastructure.model;
 
+import br.com.ifba.entity.usuario.model.Usuario;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,6 +28,9 @@ public class Role extends PersistenceEntity implements GrantedAuthority {
      */
     private String nomePapel;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //

@@ -1,6 +1,7 @@
-package br.com.ifba.infrastructure.model;
+package br.com.ifba.entity.roles.model;
 
 import br.com.ifba.entity.usuario.model.Usuario;
+import br.com.ifba.infrastructure.model.PersistenceEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,10 +28,6 @@ public class Role extends PersistenceEntity implements GrantedAuthority {
      * O nome do papel. Exemplo: "ROLE_ALUNO"
      */
     private String nomePapel;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
 
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //

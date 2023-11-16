@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,6 +26,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
 
+
+    // TODO: Limpar essa classe
+    @Bean
+    public SecurityFilterChain web(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
+
+        http.authorizeHttpRequests((auth) ->
+                auth.antMatchers(HttpMethod.GET)
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/apif/v1/login").permitAll()
+                .anyRequest().authenticated());
+
+        return http.build();
+
+    }
     /**
      * Define filtros da cadeia de segurança.
      *
@@ -33,7 +50,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
      * @param http O objeto http.
      * @return configurações da cadeia de segurança.
      */
-    @Bean
+    /*@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
         // TODO:Rever privacidade de alguns endpoints.
@@ -52,7 +69,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                     .authenticated()
                 .and()
                 .build();
-    }
+    }*/
 
     /**
      * Define configurações de CORS.

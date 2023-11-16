@@ -1,23 +1,30 @@
 package br.com.ifba.entity.usuario.model;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.ifba.entity.roles.model.Role;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -46,17 +53,17 @@ public class Usuario extends PersistenceEntity implements UserDetails {
     // =============== [        ATRIBUTOS       ] ================ //
     // =========================================================== //
 
+    private static final long SerialVersionUID = 1L;
+
     /**
      * O nome de usuário do usuário. Não pode ser nulo.
      */
-
     @Column(nullable = false, unique = true)
     private String login;
 
     /**
      * A senha do usuário. Não pode ser nula.
      */
-
     @NotNull
     private String senha;
 
@@ -68,6 +75,27 @@ public class Usuario extends PersistenceEntity implements UserDetails {
     @JsonIgnoreProperties("usuarios")
     private PerfilUsuario perfilUsuario;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_roles",
+            uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "role_id"}, name = "unique_usuario_role"),
+            joinColumns = @JoinColumn(
+                name = "usuario_id",
+                referencedColumnName = "id",
+                table = "usuarios",
+                foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id",
+                    referencedColumnName = "id",
+                    table = "roles",
+                    foreignKey = @ForeignKey(
+                            name = "role_fk",
+                            value = ConstraintMode.CONSTRAINT
+                    )
+            )
+    )
+    private List<Role> roles;
 
     // =========================================================== //
     // =============== [        MÉTODOS       ] ================== //
@@ -85,7 +113,7 @@ public class Usuario extends PersistenceEntity implements UserDetails {
 
         // TODO: Adicionar lógica para dar permissão de administrador a determinados usuários.
 
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return roles;
     }
 
     /**

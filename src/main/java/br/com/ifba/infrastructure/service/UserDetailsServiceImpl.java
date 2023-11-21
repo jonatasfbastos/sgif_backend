@@ -13,10 +13,19 @@ import org.springframework.stereotype.Service;
  * @since Desde V1.0.1
  */
 @Service
-public class AuthenticationService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+    // =========================================================== //
+    // =============== [        ATRIBUTOS       ] ================ //
+    // =========================================================== //
 
     @Autowired
-    IDaoUsuario usuarioDao;
+    private IDaoUsuario usuarioDao;
+
+
+    // =========================================================== //
+    // =============== [         ENDPOINTS      ] ================ //
+    // =========================================================== //
 
     /**
      * Carrega um usuário da base de dados pelo login passado por parâmetro.
@@ -29,7 +38,10 @@ public class AuthenticationService implements UserDetailsService {
      * login passado por parâmetro na base de dados.
      */
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        return usuarioDao.findByLogin(login).get();
+    public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
+
+        return usuarioDao.findUserByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+
     }
 }

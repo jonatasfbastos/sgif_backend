@@ -21,7 +21,6 @@ public interface IDaoUsuario extends JpaRepository<Usuario, UUID> {
 
     Optional<Usuario> findById(UUID id);
     Optional<Usuario> findByLoginAndSenha(String login, String senha);
-    Optional<Usuario> findByLogin(String login);
 
     /**
      * Encontra um usuário pelo login passado por parâmetro.
@@ -31,6 +30,7 @@ public interface IDaoUsuario extends JpaRepository<Usuario, UUID> {
      * @param login O login do usuário a ser buscado.
      * @return instância com dados do usuário encontrado.
      */
-    @Query("select u from Usuario u where u.login = ?1")
-    Usuario findUserByLogin(String login);
+    @Query("select u from usuario u where u.login = ?1")
+    Optional<Usuario> findUserByLogin(String login);
+
 }

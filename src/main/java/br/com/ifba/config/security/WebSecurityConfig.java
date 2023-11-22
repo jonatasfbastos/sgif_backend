@@ -79,6 +79,7 @@ public class WebSecurityConfig implements WebMvcConfigurer, HttpSessionListener 
                 .authorizeRequests((auth) -> {
                     auth.antMatchers(HttpMethod.GET).permitAll();
                     auth.antMatchers(HttpMethod.POST, "/apif/v1/usuarios/usuario").permitAll();
+                    auth.antMatchers(HttpMethod.POST, "/apif/v1/login").permitAll();
                     auth.antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     auth.anyRequest().authenticated();
 

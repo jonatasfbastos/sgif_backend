@@ -19,10 +19,7 @@ import br.com.ifba.entity.roles.model.Role;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.entity.perfilusuario.model.PerfilUsuario;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +43,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class Usuario extends PersistenceEntity implements UserDetails {
 

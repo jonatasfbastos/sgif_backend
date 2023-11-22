@@ -24,6 +24,7 @@ import br.com.ifba.infrastructure.util.ObjectMapperUtil;
  */
 @Service
 public class UsuarioService implements IUsuarioService {
+
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //
     // =========================================================== //
@@ -50,8 +51,6 @@ public class UsuarioService implements IUsuarioService {
      */
     @Override
     public UsuarioSimpleResponseDto saveUsuario(@Valid Usuario usuario) {
-
-        usuario.setSenha(StringUtil.toMD5(usuario.getSenha()));
 
         return objectMapperUtil.map(
                 daoUsuario.save(usuario),

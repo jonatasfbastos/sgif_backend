@@ -1,0 +1,11 @@
+POST http://localhost:8080/apif/v1/usuarios/usuario
+Content-Type: application/json
+
+{
+  "login" : "sujiro_kimimame",
+  "senha" : "benjaminarrola",
+  "perfilUsuario" : {
+    "nome" : "Sujiro Kimimame",
+    "descricao" : "Mimama"
+  }
+}

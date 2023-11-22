@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -55,10 +56,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException methodArgumentNotValidException,
-            HttpHeaders headers,
-            HttpStatus status,
-            WebRequest request) {
+            final MethodArgumentNotValidException methodArgumentNotValidException,
+            final HttpHeaders headers,
+            final HttpStatus status,
+            final WebRequest request) {
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
@@ -83,8 +84,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(
-            Exception exception,
-            WebRequest request) {
+            final Exception exception,
+            final WebRequest request) {
 
         final String mensagemErro = "Ocorreu um erro inesperado";
 
@@ -109,8 +110,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleBusinessException(
-            BusinessException businessException,
-            WebRequest request) {
+            final BusinessException businessException,
+            final WebRequest request) {
 
         final String mensagemErro = businessException.getMessage();
 
@@ -123,6 +124,30 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 request);
     }
 
+    /**
+     *
+     * Trata a exceção 'UsernameNotFoundException'.
+     *
+     * @param exception - A instância de 'UsernameNotFoundException'.
+     * @param request - A requisição HTTP.
+     * @return uma entidade generica com a mensagem de erro.
+     */
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> handleUsernameNotFoundException(
+            final UsernameNotFoundException exception,
+            final WebRequest request) {
+
+        final String mensagemErro = exception.getMessage();
+
+        log.error(mensagemErro, exception);
+
+        return construirMensagemDeErro(
+                exception,
+                mensagemErro,
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                request);
+    }
 
     /**
      * Constroi uma mensagem de erro.
@@ -134,10 +159,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return a mensagem de erro.
      */
     private ResponseEntity<Object> construirMensagemDeErro(
-            Exception exception,
-            String message,
-            HttpStatus httpStatus,
-            WebRequest request) {
+            final Exception exception,
+            final String message,
+            final HttpStatus httpStatus,
+            final WebRequest request) {
 
         ErrorResponse errorResponse = new ErrorResponse(httpStatus.value(), message);
         if (this.printStackTrace) {

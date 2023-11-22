@@ -25,11 +25,11 @@ import javax.validation.Valid;
 @RequestMapping(path = "/apif/v1")
 public class LoginController {
 
-    @Autowired
-    TokenService tokenService;
+    //@Autowired
+    //TokenService tokenService;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    //@Autowired
+    //AuthenticationManager authenticationManager;
 
     /**
      * Tenta fazer login com informações de usuário.
@@ -39,7 +39,7 @@ public class LoginController {
      * @param usuarioDto DTO com informações do usuário a ser autenticado.
      * @return uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
+    /*@PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> fazerLogin(@Valid @RequestBody UsuarioRequestDto usuarioDto){
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -54,5 +54,5 @@ public class LoginController {
                 .body(tokenService.gerarToken(usuario));
 
     }
-
+*/
 }

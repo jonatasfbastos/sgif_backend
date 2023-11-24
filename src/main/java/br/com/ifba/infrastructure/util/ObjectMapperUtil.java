@@ -1,7 +1,6 @@
 package br.com.ifba.infrastructure.util;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -68,9 +67,15 @@ public class ObjectMapperUtil {
      * @param <Source> O tipo de origem.
      * @param <Target> O tipo de saída.
      */
-    public <Source, Target> Target mapDto(final Source s, Target t){
+    public <Source, Target> Target map(final Source s, Target t){
+
+        System.out.println("Convertendo source: " + s.toString());
+        System.out.print("para t " + t.toString());
+        System.out.println();
 
         try{
+
+            System.out.println("Source possui a seguinte lista de atributos : " + s.getClass().getDeclaredFields().toString());
 
             // Criando Foreach na lista de atributos da classe Source.
             for(Field sourceField : s.getClass().getDeclaredFields()){
@@ -78,32 +83,32 @@ public class ObjectMapperUtil {
                 boolean fieldExists = Arrays.stream(t.getClass().getDeclaredFields())
                         .anyMatch(f -> f.getName().equals(sourceField.getName()));
 
+                System.out.println("O atributo com o nome '" + sourceField.getName() + (fieldExists ? "' existe" : "' não existe"));
+
                 // Salta a iteração caso ambas as classes não possuem o atributo com o mesmo nome.
                 if(!fieldExists)
                     continue;
 
                 // Pega o campo do Target que receberá o valor do campo com o mesmo nome em Source.
                 Field targetField = t.getClass().getDeclaredField(sourceField.getName());
+                sourceField.setAccessible(true);
+                targetField.setAccessible(true);
 
                 // Verifica se o atributo atual de Source é um Record.
-                if(isRecord(sourceField.getClass())){
+                if(isRecord(sourceField.getType())){
 
+                    System.out.println("O atributo é um Record agregado!");
 
-                    sourceField.setAccessible(true);
                     Object sourceAggregateObject = sourceField.get(s);
 
-
-                    targetField.setAccessible(true);
-
+                    Object targetAggregateObject = targetField.getType().getDeclaredConstructor().newInstance();
                     // Copia os atributos do Record para os atributos do objeto agregado de mesmo nome com uma chamada recursiva.
-                    targetField.set(t, mapDto(sourceAggregateObject, targetField.getType()));
+                    targetField.set(t, map(sourceAggregateObject, targetAggregateObject));
 
                     continue;
                 }
 
-                sourceField.setAccessible(true);
-                targetField.setAccessible(true);
-
+                System.out.println("O atributo agregado não é um Record!");
                 // Atribui o valor do atributo atual de source para o atributo de mesmo nome em Target.
                 Object value = sourceField.get(s);
 

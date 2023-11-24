@@ -6,6 +6,7 @@ import br.com.ifba.entity.usuario.model.Usuario;
 import br.com.ifba.entity.usuario.service.IUsuarioService;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ import javax.validation.constraints.NotNull;
  *Veja também: {@link br.com.ifba.entity.usuario.model.Usuario}
  */
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/apif/v1")
 public class UsuarioController {
@@ -107,10 +109,14 @@ public class UsuarioController {
     @PostMapping(path = "/usuarios/usuario", consumes = "application/json")
     public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioRequestDto usuarioDto, BindingResult result) {
 
+        Usuario user = objectMapperUtil.map(usuarioDto, new Usuario());
+
+        log.info("Levando user ao service: {}", user.toString());
+
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
                 : ResponseEntity.status(HttpStatus.CREATED)
-                        .body(usuarioService.saveUsuario(objectMapperUtil.map(usuarioDto, Usuario.class)));
+                        .body(usuarioService.saveUsuario(user));
 
     }
 

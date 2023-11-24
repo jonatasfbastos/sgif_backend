@@ -60,7 +60,7 @@ public class PerfilUsuario extends PersistenceEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Permissao> permissoes;
 
-    @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.LAZY/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE }*/)
     private List<Usuario> usuarios;
 
     // =========================================================== //

@@ -1,9 +1,9 @@
-POST http://localhost:8080/apif/v1/login
+POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "login" : "user",
-  "senha" : 12345
+  "login" : "eneias",
+  "senha" : "meunomeeneias"
 }
 
 ###

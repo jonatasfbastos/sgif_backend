@@ -5,10 +5,13 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import br.com.ifba.entity.perfilusuario.dao.IDaoPerfilUsuario;
+import br.com.ifba.entity.perfilusuario.service.IServicePerfilUsuario;
 import br.com.ifba.entity.usuario.dao.IDaoUsuario;
 import br.com.ifba.entity.usuario.dto.UsuarioResponseDto;
 import br.com.ifba.entity.usuario.dto.UsuarioSimpleResponseDto;
 import br.com.ifba.entity.usuario.model.Usuario;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +19,14 @@ import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.infrastructure.util.ObjectMapperUtil;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author vitor
  * @since V1.0.1
  * Editado por Andesson Reis
  */
+@Slf4j
 @Service
 public class UsuarioService implements IUsuarioService {
 
@@ -31,6 +36,9 @@ public class UsuarioService implements IUsuarioService {
 
     @Autowired
     private IDaoUsuario daoUsuario;
+
+    @Autowired
+    private IDaoPerfilUsuario perfilUsuarioDao;
 
     @Autowired
     private ObjectMapperUtil objectMapperUtil;
@@ -49,12 +57,17 @@ public class UsuarioService implements IUsuarioService {
      * @param usuario - O usuario que será salvo na base de dados.
      * @return um objeto DTO com os dados resumidos do usuario salvo.
      */
+    @Transactional
     @Override
-    public UsuarioSimpleResponseDto saveUsuario(@Valid Usuario usuario) {
+    public UsuarioSimpleResponseDto saveUsuario(final Usuario usuario) {
+
+        log.info("Salvando usuário {}", usuario.toString());
+
+        perfilUsuarioDao.save(usuario.getPerfilUsuario());
 
         return objectMapperUtil.map(
                 daoUsuario.save(usuario),
-                UsuarioSimpleResponseDto.class
+                new UsuarioSimpleResponseDto()
         );
     }
 

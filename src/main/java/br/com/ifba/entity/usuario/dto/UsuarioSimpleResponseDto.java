@@ -1,12 +1,19 @@
 package br.com.ifba.entity.usuario.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record UsuarioSimpleResponseDto(
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UsuarioSimpleResponseDto{
+
         /**
          * O login do usuário (username).
          */
         @JsonProperty(value = "login")
-        String login
-) {
+        String login;
+
 }

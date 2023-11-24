@@ -1,8 +1,7 @@
 package br.com.ifba.entity.usuario.dto;
 
+import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioRequestDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import br.com.ifba.entity.perfilusuario.dto.PerfilUsuarioResponseDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -38,7 +37,7 @@ public record UsuarioRequestDto(
         String senha,
 
         @JsonProperty(value = "perfilUsuario")
-        PerfilUsuarioResponseDto perfilUsuario
+        PerfilUsuarioRequestDto perfilUsuario
 
 
 ) {

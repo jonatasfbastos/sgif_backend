@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 public record PerfilUsuarioResponseDto(
+
       /**
        * O nome do perfil de usuário.
        */

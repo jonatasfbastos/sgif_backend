@@ -80,7 +80,7 @@ public class ModalidadeController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarModalidadePorID(@Valid @PathVariable("id") UUID id) {
+    public ResponseEntity<?> deletarModalidadePorID(@Valid @PathVariable("id") Long id) {
         
         return ResponseEntity.status(HttpStatus.ACCEPTED)
             .body(modalidadeService.deleteModalidade(id));

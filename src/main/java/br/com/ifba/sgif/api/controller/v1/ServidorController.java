@@ -82,7 +82,7 @@ public class ServidorController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/servidores/servidor/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarServidorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarServidorPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(servidorService.deleteServidor(id));

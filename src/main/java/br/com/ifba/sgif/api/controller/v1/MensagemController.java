@@ -24,7 +24,7 @@ import br.com.ifba.sgif.api.entity.mensagem.service.IServiceMensagem;
 import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 
 /**
- * @author Andesson reis
+ * @author Andesson reis, Giovane Neves
  * @since V1.0.1
  */
 @RestController
@@ -49,21 +49,9 @@ public class MensagemController {
      *
      * @return Uma lista de mensagens ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(consumes = "application/json")
-    public ResponseEntity<?> getMensagens() {
+    @GetMapping(path = "mensagens/mensagem", produces = "application/json")
+    public ResponseEntity<?> listarMensagens() {
         return ResponseEntity.status(HttpStatus.OK).body(mensagemService.getAllMensagem());
-    }
-
-    /**
-     * Atualiza uma mensagem.
-     *
-     * @return Uma entidade de resposta genérica.
-     */
-    @PutMapping(consumes = "application/json")
-    public ResponseEntity<?> atualizarMensagem(@Valid @RequestBody MensagemRequestDto mensagemDto, BindingResult result) {
-        return result.hasErrors()
-                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.OK).body(mensagemService.updateMensagem(objectMapperUtil.map(mensagemDto, Mensagem.class)));
     }
 
     /**
@@ -71,20 +59,35 @@ public class MensagemController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(consumes = "application/json")
+    @PostMapping(path = "mensagens/mensagem", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarMensagem(@Valid @RequestBody MensagemRequestDto mensagemDto, BindingResult result) {
+
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
-                : ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.saveMensagem(objectMapperUtil.map(mensagemDto, Mensagem.class)));
+                : ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.saveMensagem(objectMapperUtil.map(mensagemDto, new Mensagem())));
+
     }
+
+    /**
+     * Atualiza uma mensagem.
+     *
+     * @return Uma entidade de resposta genérica.
+     */
+    @PutMapping(path = "mensagens/mensagem", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> atualizarMensagem(@Valid @RequestBody MensagemRequestDto mensagemDto, BindingResult result) {
+        return result.hasErrors()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
+                : ResponseEntity.status(HttpStatus.OK).body(mensagemService.updateMensagem(objectMapperUtil.map(mensagemDto, new Mensagem())));
+    }
+
 
     /**
      * Deleta uma mensagem com base no seu ID.
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarMensagemPorID(@Valid @PathVariable("id") UUID id) {
+    @DeleteMapping(path = "/{id}", produces = "application/json")
+    public ResponseEntity<?> deletarMensagemPorID(@Valid @PathVariable("id") Long id) {
         
         return ResponseEntity.status(HttpStatus.ACCEPTED)
             .body(mensagemService.deleteMensagem(id));

@@ -98,7 +98,7 @@ public class FuncaoServidorController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/funcoesServidor/funcaoServidor/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarFuncaoServidorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarFuncaoServidorPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(funcaoServidorService.deleteFuncaoServidor(id));

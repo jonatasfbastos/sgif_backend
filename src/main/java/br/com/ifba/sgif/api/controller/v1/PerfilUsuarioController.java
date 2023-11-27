@@ -131,7 +131,7 @@ public class PerfilUsuarioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/perfilUsuarios/perfilUsuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletaPerfilUsuarioId(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletaPerfilUsuarioId(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(perfilUsuarioService.deletePerfilUsuario(id));

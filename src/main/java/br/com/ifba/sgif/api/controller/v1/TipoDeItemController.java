@@ -95,7 +95,7 @@ public class TipoDeItemController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/tiposdeitem/tipodeitem/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarTipoDeItemPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarTipoDeItemPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(tipoDeItemService.deleteTipoDeItem(id));

@@ -101,7 +101,7 @@ public class TurmaController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/turmas/turma/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarTurmaPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarTurmaPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(turmaService.deletarTurmaPorId(id));

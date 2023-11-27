@@ -76,7 +76,7 @@ public class ItemController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/item/{id}", consumes = "application/json")
-    public ResponseEntity<?> getItem(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> getItem(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.getItemById(id));
@@ -184,7 +184,7 @@ public class ItemController {
      * @author Andesson Reis
      */
     @DeleteMapping(path = "/Itens/Item/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarItemPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarItemPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(itemService.deleteItem(id));

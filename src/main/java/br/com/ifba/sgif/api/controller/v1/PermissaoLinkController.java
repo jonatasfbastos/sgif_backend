@@ -76,7 +76,7 @@ public class PermissaoLinkController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/listarLinksPermissao/{id}", consumes = "application/json")
-    public ResponseEntity<?> listarPermissoesPorId(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> listarPermissoesPorId(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(permissaoLinkService.getAllByPermissaoId(id));
@@ -126,7 +126,7 @@ public class PermissaoLinkController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/permissoesLinks/permissoesLink/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletaPermissaoLinkId (@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletaPermissaoLinkId (@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(permissaoLinkService.deleteLink(id));

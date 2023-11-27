@@ -97,7 +97,7 @@ public class SetorController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/setores/setor/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarSetorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarSetorPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(setorService.deleteSetor(id));

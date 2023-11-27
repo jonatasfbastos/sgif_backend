@@ -61,7 +61,7 @@ public class EtapaCursoController {
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/etapascurso/etapacurso/{id}", produces = "application/json")
-    public ResponseEntity<?> encontrarEtapaCursoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> encontrarEtapaCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.etapaCursoService.encontrarEtapaCursoPorId(id));
@@ -113,7 +113,7 @@ public class EtapaCursoController {
      * @return uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/etapascurso/etapacurso{id}", produces = "application/json")
-    public ResponseEntity<?> deletarEtapaCursoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarEtapaCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.etapaCursoService.deletarEtapaCursoPorId(id));

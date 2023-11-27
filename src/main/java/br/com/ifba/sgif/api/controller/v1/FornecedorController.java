@@ -90,7 +90,7 @@ public class FornecedorController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/fornecedores/fornecedor/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarFornecedorPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarFornecedorPorID(@Valid @PathVariable("id") @NotNull Long id) {
         
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(fornecedorService.deleteFornecedor(id));

@@ -90,7 +90,7 @@ public class StatusAlunoController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/statusAlunos/statusAluno/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarStatusAlunoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarStatusAlunoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(statusAlunoService.deleteStatus(id));

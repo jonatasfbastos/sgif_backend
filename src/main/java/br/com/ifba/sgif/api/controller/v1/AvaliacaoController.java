@@ -69,7 +69,7 @@ public class AvaliacaoController {
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/avaliacoes/avaliacao/{id}", produces = "application/json")
-    public ResponseEntity<?> encontrarAvaliacaoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> encontrarAvaliacaoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.avaliacaoService.encontrarAvaliacaoPorId(id));
@@ -121,7 +121,7 @@ public class AvaliacaoController {
      * @return uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/avaliacoes/avaliacao/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarAvaliacaoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarAvaliacaoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.avaliacaoService.deletarAvaliacaoPorId(id));

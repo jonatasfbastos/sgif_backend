@@ -109,7 +109,7 @@ public class RequisicaoController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/requisicoes/requisicao/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarRequisicaoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarRequisicaoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(requisicaoService.deleteRequisicao(id));

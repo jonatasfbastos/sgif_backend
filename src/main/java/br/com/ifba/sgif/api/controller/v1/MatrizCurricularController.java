@@ -91,7 +91,7 @@ public class MatrizCurricularController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/matrizesCurriculares/matrizCurricular/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarMatrizCurricularPorID(@Valid @PathVariable("id") UUID id) {
+    public ResponseEntity<?> deletarMatrizCurricularPorID(@Valid @PathVariable("id") Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
             .body(matrizCurricularService.deleteMatrizCurricular(id));

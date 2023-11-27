@@ -82,7 +82,7 @@ public class FuncaoTerceirizadoController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/funcoes-terceirizados/funcao-terceirizado/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarFuncaoTerceirizadoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarFuncaoTerceirizadoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(funcaoTerceirizadoService.deleteFuncaoTerceirizado(id));

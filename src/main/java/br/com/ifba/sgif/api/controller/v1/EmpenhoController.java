@@ -89,7 +89,7 @@ public class EmpenhoController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/empenhos/empenho/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarEmpenhoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarEmpenhoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(empenhoService.deleteEmpenho(id));

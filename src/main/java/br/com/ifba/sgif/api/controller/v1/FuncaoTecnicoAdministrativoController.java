@@ -76,7 +76,7 @@ public class FuncaoTecnicoAdministrativoController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/funcoes-tecnico-administrativo/funcao-tecnico-administrativo/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarFuncaoTecnicoAdministrativoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarFuncaoTecnicoAdministrativoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(funcaoTecnicoAdministrativoService.deleteFuncaoTecnicoAdm(id));

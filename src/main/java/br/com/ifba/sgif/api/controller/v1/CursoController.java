@@ -63,7 +63,7 @@ public class CursoController {
      * @return uma entidade de resposta generica.
      */
     @GetMapping(path = "/cursos/curso/{id}", consumes = "application/json")
-    public ResponseEntity<?> encontrarCursoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> encontrarCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(cursoService.encontrarCursoPorId(id));
@@ -109,7 +109,7 @@ public class CursoController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/cursos/curso/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarCursoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(cursoService.deletarCursoPorId(id));

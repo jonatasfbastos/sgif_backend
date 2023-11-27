@@ -82,7 +82,7 @@ public class RelatorioMensalController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/relatorios-mensais/relatorio-mensal/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarRelatorioMensalPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarRelatorioMensalPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(relatorioMensalService.delete(id));

@@ -82,7 +82,7 @@ public class TerceirizadoController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/terceirizados/terceirizado/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarTerceirizadoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarTerceirizadoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(terceirizadoService.deleteTerceirizado(id));

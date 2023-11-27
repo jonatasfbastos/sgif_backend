@@ -76,7 +76,7 @@ public class PermissaoController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/permissoes/{id}", produces = "application/json")
-    public ResponseEntity<?> listarPermissoesPorId(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> listarPermissoesPorId(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(permissaoService.getAllByPerfilId(id));
@@ -92,7 +92,7 @@ public class PermissaoController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/permissoes/permissao/link/{id}", produces = "application/json")
-    public ResponseEntity<?> listarPermissoesPorLinkId(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> listarPermissoesPorLinkId(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(permissaoService.getAllByLinkId(id));
@@ -142,7 +142,7 @@ public class PermissaoController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/permissoes/permissao/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarPermissaoPorId (@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarPermissaoPorId (@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(permissaoService.deletePermissao(id));

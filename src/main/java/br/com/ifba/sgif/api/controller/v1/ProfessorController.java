@@ -71,7 +71,7 @@ public class ProfessorController {
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/professores/professor/{id}", produces = "application/json")
-    public ResponseEntity<?> encontrarProfessorPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> encontrarProfessorPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this._professorService.encontrarProfessorPorId(id));
@@ -101,7 +101,7 @@ public class ProfessorController {
      *
      * @author Giovane Neves
      * @apiNote Endpoint criado desde a versão 1.0.1
-     * @param prfessorDto DTO com dados do professor a ser atualizado.
+     * @param professorDto DTO com dados do professor a ser atualizado.
      * @param result Resultado da requisição HTTP.
      * @return uma entidade de resposta genérica.
      */
@@ -123,7 +123,7 @@ public class ProfessorController {
      * @return uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/professores/professor/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarProfessorPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarProfessorPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this._professorService.deletarProfessorPorId(id));

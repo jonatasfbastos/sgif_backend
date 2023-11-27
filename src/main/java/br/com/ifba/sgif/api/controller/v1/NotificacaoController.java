@@ -94,7 +94,7 @@ public class NotificacaoController {
      * @return Uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/notificacoes/notificacao/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarNotificacaoPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarNotificacaoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(notificacaoService.deleteNotification(id));

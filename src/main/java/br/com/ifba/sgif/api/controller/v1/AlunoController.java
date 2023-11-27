@@ -102,7 +102,7 @@ public class AlunoController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/alunos/aluno/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarAlunoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarAlunoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(alunoService.deletarAlunoPorId(id));

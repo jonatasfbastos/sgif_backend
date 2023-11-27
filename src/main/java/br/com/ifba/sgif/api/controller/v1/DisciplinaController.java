@@ -67,7 +67,7 @@ public class DisciplinaController {
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/disciplinas/disciplina/{id}", produces = "application/json")
-    public ResponseEntity<?> encontrarDisciplinaPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> encontrarDisciplinaPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this._disciplinaService.encontrarDisciplinaPorId(id));

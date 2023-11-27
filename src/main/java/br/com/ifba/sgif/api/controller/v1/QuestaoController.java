@@ -67,7 +67,7 @@ public class QuestaoController {
      * @return uma entidade de resposta genérica.
      */
     @GetMapping(path = "/questoes/questao/{id}", produces = "application/json")
-    public ResponseEntity<?> encontrarQuestaoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> encontrarQuestaoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.questaoService.encontrarQuestaoPorId(id));
@@ -122,7 +122,7 @@ public class QuestaoController {
      * @return uma entidade de resposta genérica.
      */
     @DeleteMapping(path = "/questoes/questao/{id}", produces = "application/json")
-    public ResponseEntity<?> deletarQuestaoPorId(@PathVariable("id") @NotNull UUID id){
+    public ResponseEntity<?> deletarQuestaoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(this.questaoService.deletarQuestaoPorId(id));

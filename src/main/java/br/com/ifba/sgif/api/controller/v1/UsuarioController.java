@@ -59,7 +59,7 @@ public class UsuarioController {
      * 
      * @author Andesson Reis
      */
-    @GetMapping(path = "/usuarios", consumes = "application/json")
+    @GetMapping(path = "/usuarios", produces = "application/json")
     public ResponseEntity<?> getUsuarios() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -76,7 +76,7 @@ public class UsuarioController {
      * @author Andesson Reis
      */
     @GetMapping(path = "/usuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> getUsuario(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> getUsuario(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(usuarioService.findById(id));
@@ -125,7 +125,7 @@ public class UsuarioController {
      * @return uma entidade de resposta generica.
      */
     @DeleteMapping(path = "/usuarios/usuario/{id}", consumes = "application/json")
-    public ResponseEntity<?> deletarUsuarioPorID(@Valid @PathVariable("id") @NotNull UUID id) {
+    public ResponseEntity<?> deletarUsuarioPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(usuarioService.deleteUsuario(id));

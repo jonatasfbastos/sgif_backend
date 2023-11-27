@@ -12,7 +12,7 @@ import java.util.UUID;
  * Editado por Giovane Neves
  * Desde V1.0.1
  */
-public interface IDaoCurso extends JpaRepository<Curso, UUID>{
+public interface IDaoCurso extends JpaRepository<Curso, Long>{
 
     /**
      * @author Giovane Neves
@@ -23,7 +23,7 @@ public interface IDaoCurso extends JpaRepository<Curso, UUID>{
      * @return um objeto opcional do tipo formulário,
      * que será nulo caso o formulário não exista na base de dados.
      */
-    Optional<Curso> findById(UUID id);
+    Optional<Curso> findById(Long id);
 
     @Deprecated
     List <Curso> findByNome (String nome);
@@ -48,7 +48,7 @@ public interface IDaoCurso extends JpaRepository<Curso, UUID>{
      * @param id O ID a ser verificado.
      * @return 'true' caso exista, 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Giovane Neves
@@ -58,6 +58,6 @@ public interface IDaoCurso extends JpaRepository<Curso, UUID>{
      * passado por parâmetro.
      * @param id O ID do curso a ser deletado.
      */
-    void deleteById(UUID id);
+    void deleteById(Long id);
 
 }

@@ -25,7 +25,7 @@ public interface IQuestaoDao extends JpaRepository<Questao, Long>{
      * @return a questão atrelada ao ID passado por parâmetro,
      * ou nulo, caso não exista.
      */
-    Optional<Questao> findById(UUID id);
+    Optional<Questao> findById(Long id);
 
     /**
      * Busca uma questão na base de dados com base no ID

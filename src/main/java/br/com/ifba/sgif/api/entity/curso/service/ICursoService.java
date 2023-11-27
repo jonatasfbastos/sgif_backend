@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.curso.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.curso.dto.CursoResponseDto;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public interface ICursoService {
      * @param id O ID do curso a ser buscado.
      * @return o curso atrelado ao ID passado por parâmetro.
      */
-    CursoResponseDto encontrarCursoPorId(UUID id);
+    CursoResponseDto encontrarCursoPorId(Long id);
 
     /**
      * @author Giovane Neves
@@ -64,6 +63,6 @@ public interface ICursoService {
      * @param id O ID do formulário a ser deletado.
      * @return dados básicos do formulário deletado.
      */
-    CursoResponseDto deletarCursoPorId(UUID id);
+    CursoResponseDto deletarCursoPorId(Long id);
 
 }

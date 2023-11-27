@@ -23,7 +23,7 @@ public interface IDaoTipoTurma extends JpaRepository<TipoTurma, Long>{
      * @return um objeto opcional do tipo TipoTurma,
      * que será nulo caso o TipoTurma não exista na base de dados.
      */
-    Optional<TipoTurma> findById(UUID id);
+    Optional<TipoTurma> findById(Long id);
 
       /**
      * @author Andesson Reis
@@ -36,5 +36,5 @@ public interface IDaoTipoTurma extends JpaRepository<TipoTurma, Long>{
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

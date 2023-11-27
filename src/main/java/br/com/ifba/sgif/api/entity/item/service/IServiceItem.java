@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.item.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -37,7 +36,7 @@ public interface IServiceItem {
      * @author Andesson Reis
      * @since V1.0.1
      */
-    ItemResponseDto getItemById(UUID id);
+    ItemResponseDto getItemById(Long id);
 
     /**
      * Salva um item na base de dados.
@@ -67,7 +66,7 @@ public interface IServiceItem {
      * @author Andesson Reis
      * @since V1.0.1
      */
-    ItemSimpleResponseDto deleteItem(UUID id);
+    ItemSimpleResponseDto deleteItem(Long id);
 
     /**
      * Busca itens pelo nome.

@@ -4,7 +4,6 @@ import br.com.ifba.sgif.api.entity.funcaoterceirizado.dto.FuncaoTerceirizadoResp
 import br.com.ifba.sgif.api.entity.funcaoterceirizado.model.FuncaoTerceirizado;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  *
@@ -28,7 +27,7 @@ public interface IServiceFuncaoTerceirizado {
      * @param id - O ID da Função de Terceirizado a ser deletada.
      * @return um objeto DTO com os dados da Função de Terceirizado deletada.
      */
-    FuncaoTerceirizadoResponseDto deleteFuncaoTerceirizado(UUID id);
+    FuncaoTerceirizadoResponseDto deleteFuncaoTerceirizado(Long id);
 
     /**
      * Obtém uma lista de todas as Funções de Terceirizado como objetos DTO.

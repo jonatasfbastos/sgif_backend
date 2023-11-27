@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.matrizcurricular.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.matrizcurricular.dto.MatrizCurricularResponseDto;
 import br.com.ifba.sgif.api.entity.matrizcurricular.model.MatrizCurricular;
@@ -37,7 +36,7 @@ public interface IServiceMatrizCurricular {
      * @param id - O ID da Matriz Curricular a ser deletada.
      * @return um objeto DTO com os dados da Matriz Curricular deletada.
      */
-    MatrizCurricularResponseDto deleteMatrizCurricular(UUID id);
+    MatrizCurricularResponseDto deleteMatrizCurricular(Long id);
 
     /**
      * Obtém uma lista de todas as Matrizes Curriculares como objetos DTO.

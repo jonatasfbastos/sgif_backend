@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.tipoturma.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,7 +87,7 @@ public class ServiceTipoTurma implements IServiceTipoTurma{
      * @since V1.0.1
      */
     @Override
-    public TipoTurmaResponseDto deleteTipoTurma(UUID id) {
+    public TipoTurmaResponseDto deleteTipoTurma(Long id) {
 
         return this.tipoTurmaDao.findById(id)
                 .map(tipoTurma -> {

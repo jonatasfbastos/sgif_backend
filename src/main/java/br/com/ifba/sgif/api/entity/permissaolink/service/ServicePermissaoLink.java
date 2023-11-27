@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -66,7 +65,7 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
      * 
      */
     @Override
-    public PermissaoLinkResponseDto deleteLink(UUID id) {
+    public PermissaoLinkResponseDto deleteLink(Long id) {
         // Busca o PermissaoLink pelo ID ou lança uma exceção se não for encontrado
         PermissaoLink permissaoLink = daoLink.findById(id)
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));
@@ -122,7 +121,7 @@ public class ServicePermissaoLink implements IServicePermissaoLink {
      *         Permissao.
      */
     @Override
-    public List<PermissaoLinkResponseDto> getAllByPermissaoId(UUID id) {
+    public List<PermissaoLinkResponseDto> getAllByPermissaoId(Long id) {
         return objectMapperUtil.mapAll(
                 this.daoLink.findByPermissoesId(id),
                 PermissaoLinkResponseDto.class);

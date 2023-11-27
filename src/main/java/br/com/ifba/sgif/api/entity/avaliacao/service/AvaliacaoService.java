@@ -16,7 +16,6 @@ import java.time.format.ResolverStyle;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 /**
@@ -68,7 +67,7 @@ public class AvaliacaoService implements IAvaliacaoService {
      * @return a avaliação atrelada ao ID passado por parâmetro.
      */
     @Override
-    public AvaliacaoResponseDto encontrarAvaliacaoPorId(UUID id) {
+    public AvaliacaoResponseDto encontrarAvaliacaoPorId(Long id) {
 
         return avaliacaoDao.findById(id)
                 .map(av -> this.objectMapperUtil.map(av, AvaliacaoResponseDto.class))
@@ -134,7 +133,7 @@ public class AvaliacaoService implements IAvaliacaoService {
      * @return DTO om dados da avaliação deletada.
      */
     @Override
-    public AvaliacaoResponseDto deletarAvaliacaoPorId(UUID id) {
+    public AvaliacaoResponseDto deletarAvaliacaoPorId(Long id) {
 
         return this.avaliacaoDao.findById(id)
                 .map(av -> {

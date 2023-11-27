@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.questao.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import br.com.ifba.sgif.api.entity.questao.dto.QuestaoResponseDto;
@@ -63,7 +62,7 @@ public class QuestaoService implements IQuestaoService {
      * @return DTO com dados da  questão atrelada ao ID passado por parâmetro.
      */
      @Override
-     public QuestaoResponseDto encontrarQuestaoPorId(UUID id) {
+     public QuestaoResponseDto encontrarQuestaoPorId(Long id) {
 
           return this.questaoDao.findById(id)
                   .map(q -> this.objectMapperUtil.map(q, QuestaoResponseDto.class))
@@ -140,7 +139,7 @@ public class QuestaoService implements IQuestaoService {
      */
     @Transactional
     @Override
-    public QuestaoResponseDto deletarQuestaoPorId(UUID id) {
+    public QuestaoResponseDto deletarQuestaoPorId(Long id) {
 
         return this.questaoDao.findById(id)
                 .map(q -> {

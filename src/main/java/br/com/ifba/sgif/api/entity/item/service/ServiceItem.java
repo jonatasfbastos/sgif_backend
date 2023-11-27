@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import br.com.ifba.sgif.api.infrastructure.exception.BusinessException;
@@ -65,7 +64,7 @@ public class ServiceItem implements IServiceItem {
      * @throws BusinessException se o item não for encontrado.
      */
     @Override
-    public ItemSimpleResponseDto deleteItem(UUID id) {
+    public ItemSimpleResponseDto deleteItem(Long id) {
         return this.daoItem.findById(id)
                 .map(DeletItem -> {
                     daoItem.delete(DeletItem);
@@ -168,7 +167,7 @@ public class ServiceItem implements IServiceItem {
      * @throws BusinessException se o item não for encontrado.
      */
     @Override
-    public ItemResponseDto getItemById(UUID id) {
+    public ItemResponseDto getItemById(Long id) {
         return objectMapperUtil.map(
                 daoItem.findById(id)
                         .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())),

@@ -13,7 +13,7 @@ import java.util.UUID;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IAlunoDao extends JpaRepository<Aluno, UUID> {
+public interface IAlunoDao extends JpaRepository<Aluno, Long> {
 
     /**
      * @author Giovane Neves
@@ -23,7 +23,7 @@ public interface IAlunoDao extends JpaRepository<Aluno, UUID> {
      * @return o aluno atrelado ao ID passado por parâmetro,
      * ou nulo, caso não exista.
      */
-    Optional<Aluno> findAlunoById(UUID id);
+    Optional<Aluno> findAlunoById(Long id);
 
     /**
      * @author Giovane Neves

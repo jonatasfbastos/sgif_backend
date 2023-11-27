@@ -10,11 +10,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IDaoPermissao extends JpaRepository<Permissao, UUID> {
+public interface IDaoPermissao extends JpaRepository<Permissao, Long> {
 
     boolean existsByNome(String url);
-    List<Permissao> findByPerfisId(UUID id);
-    List<Permissao> findByLinksId(UUID id);
-    Optional<Permissao> findById(UUID id);
+    List<Permissao> findByPerfisId(Long id);
+    List<Permissao> findByLinksId(Long id);
+    Optional<Permissao> findById(Long id);
 
 }

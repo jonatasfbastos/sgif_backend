@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.tipodeitem.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.tipodeitem.dto.TipoDeItemResponseDto;
 import br.com.ifba.sgif.api.entity.tipodeitem.model.TipoDeItem;
@@ -40,7 +39,7 @@ public interface ITipoDeItemService {
      * @param ID - O id a ser deletado.
      * @return objeto DTO com os dados do TipoDeItem deletado.
      */
-    TipoDeItemResponseDto deleteTipoDeItem(UUID ID);
+    TipoDeItemResponseDto deleteTipoDeItem(Long ID);
 
     /**
      * Obtém uma lista de todos os TiposDeItem como objetos DTO.

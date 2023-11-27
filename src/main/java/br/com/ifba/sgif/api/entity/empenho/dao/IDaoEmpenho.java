@@ -15,8 +15,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  *
  * @author rocki.julius
+ * @since V1.0.1
  */
-public interface IDaoEmpenho extends JpaRepository<Empenho, UUID> {
+public interface IDaoEmpenho extends JpaRepository<Empenho, Long> {
        /**
      * @author Andesson Reis
      * @since Desde V1.0.1
@@ -26,7 +27,7 @@ public interface IDaoEmpenho extends JpaRepository<Empenho, UUID> {
      * @return um objeto opcional do tipo Empenho,
      * que será nulo caso o Empenho não exista na base de dados.
      */
-    Optional<Empenho> findById(UUID id);
+    Optional<Empenho> findById(Long id);
 
       /**
      * @author Andesson Reis
@@ -39,5 +40,5 @@ public interface IDaoEmpenho extends JpaRepository<Empenho, UUID> {
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

@@ -10,7 +10,6 @@ import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,7 +67,7 @@ public class ServiceFuncaoTerceirizado implements IServiceFuncaoTerceirizado {
      * @since V1.0.1
      */
     @Override
-    public FuncaoTerceirizadoResponseDto deleteFuncaoTerceirizado(UUID id) {
+    public FuncaoTerceirizadoResponseDto deleteFuncaoTerceirizado(Long id) {
 
         return this.daoFuncaoTerceirizado.findById(id)
                 .map(fun -> {

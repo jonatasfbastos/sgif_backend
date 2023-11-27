@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDaoMatrizCurricular extends JpaRepository<MatrizCurricular, UUID>{
+public interface IDaoMatrizCurricular extends JpaRepository<MatrizCurricular, Long>{
     List<MatrizCurricular> findByNome(String nome);
     boolean existsByNome(String nome);
     boolean existsById(Long id);
-    Optional<MatrizCurricular> findById(UUID id);
+    Optional<MatrizCurricular> findById(Long id);
 }

@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.avaliacao.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.avaliacao.dto.AvaliacaoResponseDto;
 import br.com.ifba.sgif.api.entity.avaliacao.model.Avaliacao;
@@ -29,7 +28,7 @@ public interface IAvaliacaoService {
      * @param id O ID da avaliação a ser buscada.
      * @return a avaliação atrelada ao ID passado por parâmetro.
      */
-    AvaliacaoResponseDto encontrarAvaliacaoPorId(UUID id);
+    AvaliacaoResponseDto encontrarAvaliacaoPorId(Long id);
 
     /**
      * Salva uma avaliação na base de dados.
@@ -59,7 +58,7 @@ public interface IAvaliacaoService {
      * @param id O ID da avaliação a ser deletada.
      * @return DTO com dados da avaliação deletada.
      */
-    AvaliacaoResponseDto deletarAvaliacaoPorId(UUID id);
+    AvaliacaoResponseDto deletarAvaliacaoPorId(Long id);
 
     // List<Avaliacao> filtrarAvaliacao(String dtInicio, String dtFim, Long idDisciplina);
     

@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.etapacurso.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.etapacurso.dto.EtapaCursoResponseDto;
 import br.com.ifba.sgif.api.entity.etapacurso.model.EtapaCurso;
@@ -34,7 +33,7 @@ public interface IEtapaCursoService {
       * @param id O ID da etapa de curso a ser buscada.
       * @return DTO com dados da etapa de curso atrelada ao ID passado por parâmetro.
       */
-     EtapaCursoResponseDto encontrarEtapaCursoPorId(UUID id);
+     EtapaCursoResponseDto encontrarEtapaCursoPorId(Long id);
 
      /**
       * Busca etapa de curso na base de dados com base no nome
@@ -77,5 +76,5 @@ public interface IEtapaCursoService {
       * @param id O ID da etapa de curso a ser deletada.
       * @return DTO com dados da etapa de curso deletada.
       */
-     EtapaCursoResponseDto deletarEtapaCursoPorId(UUID id);
+     EtapaCursoResponseDto deletarEtapaCursoPorId(Long id);
 }

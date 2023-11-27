@@ -15,11 +15,11 @@ import org.springframework.stereotype.Repository;
  * @author tarciiz
  */
 @Repository
-public interface IDaoNotification extends JpaRepository<Notificacao, UUID> {
+public interface IDaoNotification extends JpaRepository<Notificacao, Long> {
 
     List<Notificacao> findByLido(boolean status);
 
-    Optional<Notificacao> findById(UUID id);
+    Optional<Notificacao> findById(Long id);
 
-    Notificacao findByQualIdAndQualNomeObjeto(UUID id, String nomeObjeto);
+    Notificacao findByQualIdAndQualNomeObjeto(Long id, String nomeObjeto);
 }

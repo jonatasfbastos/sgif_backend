@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.requisicao.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.requisicao.dto.RequisicaoResponseDto;
 import br.com.ifba.sgif.api.entity.requisicao.model.Requisicao;
@@ -48,7 +47,7 @@ public interface IServiceRequisicao {
      * @param id O ID da requisição a ser deletado.
      * @return objeto DTO com os dados da requisição deletado.
      */
-    RequisicaoResponseDto deleteRequisicao(UUID id);
+    RequisicaoResponseDto deleteRequisicao(Long id);
 
      /**
      * @author Andesson Reis

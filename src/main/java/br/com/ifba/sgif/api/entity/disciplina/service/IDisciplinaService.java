@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.disciplina.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.disciplina.dto.DisciplinaResponseDto;
 import br.com.ifba.sgif.api.entity.disciplina.model.Disciplina;
@@ -48,7 +47,7 @@ public interface IDisciplinaService {
      * @param id O ID da disciplina a ser buscada.
      * @return DTO com dados da disciplina atrelada ao ID passado por parâmetro.
      */
-    DisciplinaResponseDto encontrarDisciplinaPorId(final UUID id);
+    DisciplinaResponseDto encontrarDisciplinaPorId(final Long id);
 
     /**
      * Busca disciplinas na base de dados com base no nome
@@ -91,6 +90,6 @@ public interface IDisciplinaService {
      * @param id O ID da disciplina a ser deletada.
      * @return DTO com dados da disciplina deletada.
      */
-    DisciplinaResponseDto deletarDisciplinaPorId(final UUID id);
+    DisciplinaResponseDto deletarDisciplinaPorId(final Long id);
 
 }

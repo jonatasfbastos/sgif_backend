@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.tecnicoadministrativo.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,7 +97,7 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
      * @return um objeto DTO com os dados do Técnico Administrativo deletado.
      */
     @Override
-    public TecnicoAdministrativoResponseDto deleteTecnicoAdministrativo(UUID id) {
+    public TecnicoAdministrativoResponseDto deleteTecnicoAdministrativo(Long id) {
 
         return this.tecnicoAdministrativoDao.findById(id)
                 .map(tecnicoAdministrativo -> {

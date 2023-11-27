@@ -13,7 +13,7 @@ import java.util.UUID;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IAvaliacaoDao extends JpaRepository<Avaliacao, UUID> {
+public interface IAvaliacaoDao extends JpaRepository<Avaliacao, Long> {
 
     /**
      * Busca uma avaliação na base de dados com base no ID
@@ -25,7 +25,7 @@ public interface IAvaliacaoDao extends JpaRepository<Avaliacao, UUID> {
      * @return a avaliação atrelada ao ID passado por parâmetro,
      * ou nulo, caso não exista.
      */
-    Optional<Avaliacao> findById(UUID id);
+    Optional<Avaliacao> findById(Long id);
 
     /**
      * Verifica se existe uma avaliação com o ID
@@ -37,5 +37,5 @@ public interface IAvaliacaoDao extends JpaRepository<Avaliacao, UUID> {
      * @return 'true' caso haja uma avaliação com o ID passado por
      * parâmetro na base de dados, 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

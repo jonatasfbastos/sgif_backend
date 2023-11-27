@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IProfessorDao extends JpaRepository<Professor, Long>{
 
-    Optional<Professor> findById(UUID id);
+    Optional<Professor> findById(Long id);
     List<Professor> findByNome(String nome);
     boolean existsByNome(String nome);
     boolean existsBySiape(String siape);

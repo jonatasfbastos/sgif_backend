@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDaoTerceirizado extends JpaRepository<Terceirizado, UUID> {
+public interface IDaoTerceirizado extends JpaRepository<Terceirizado, Long> {
 
-    List<Terceirizado> findFuncaoTerceirizadoById(UUID id);
+    List<Terceirizado> findFuncaoTerceirizadoById(Long id);
 
         /**
      * @author Andesson Reis
@@ -25,7 +25,7 @@ public interface IDaoTerceirizado extends JpaRepository<Terceirizado, UUID> {
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Andesson Reis
@@ -36,5 +36,5 @@ public interface IDaoTerceirizado extends JpaRepository<Terceirizado, UUID> {
      * @return um objeto opcional do tipo Terceirizado,
      * que será nulo caso o Terceirizado não exista na base de dados.
      */
-    Optional<Terceirizado> findById(UUID id);
+    Optional<Terceirizado> findById(Long id);
 }

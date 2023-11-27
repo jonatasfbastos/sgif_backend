@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.tipoturma.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.tipoturma.dto.TipoTurmaResponseDto;
 import br.com.ifba.sgif.api.entity.tipoturma.model.TipoTurma;
@@ -10,9 +9,9 @@ import br.com.ifba.sgif.api.entity.tipoturma.model.TipoTurma;
  * Interface de serviço para Tipo de Turma.
  *
  * @author unknown
- * @since V1.0.1
  * Editado por Andesson Reis
- * 
+ * @since V1.0.1
+ *
  */
 public interface IServiceTipoTurma {
 
@@ -38,7 +37,7 @@ public interface IServiceTipoTurma {
      * @param id - O ID do Tipo de Turma a ser deletado.
      * @return um objeto DTO com os dados do Tipo de Turma deletado.
      */
-    TipoTurmaResponseDto deleteTipoTurma(UUID id);
+    TipoTurmaResponseDto deleteTipoTurma(Long id);
 
     /**
      * Obtém uma lista de todos os Tipos de Turma como objetos DTO.

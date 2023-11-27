@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.notificacao.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,7 +79,7 @@ public class ServiceNotificacao implements IServiceNotificacao {
      * @since V1.0.1
      */
     @Override
-    public NotificacaoResponseDto deleteNotification(UUID id) {
+    public NotificacaoResponseDto deleteNotification(Long id) {
 
         return this.notificacaoDao.findById(id)
                 .map(notificacao -> {

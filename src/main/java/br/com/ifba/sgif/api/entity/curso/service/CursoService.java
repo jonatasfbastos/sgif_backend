@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.curso.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.curso.dto.CursoResponseDto;
 import br.com.ifba.sgif.api.entity.curso.dao.IDaoCurso;
@@ -61,7 +60,7 @@ public class CursoService implements ICursoService {
      * @return o curso atrelado ao ID passado por parâmetro.
      */
     @Override
-    public CursoResponseDto encontrarCursoPorId(UUID id) {
+    public CursoResponseDto encontrarCursoPorId(Long id) {
 
 
         return objectMapperUtil.map(
@@ -133,7 +132,7 @@ public class CursoService implements ICursoService {
      * @return dados básicos do formulário deletado.
      */
     @Override
-    public CursoResponseDto deletarCursoPorId(UUID id) {
+    public CursoResponseDto deletarCursoPorId(Long id) {
 
         // TODO: Analisar regra de negócio atual.
 

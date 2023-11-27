@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.turma.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.turma.dto.TurmaResponseDto;
 import br.com.ifba.sgif.api.entity.turma.model.Turma;
@@ -50,7 +49,7 @@ public interface ITurmaService {
      * @param id O ID da turma que será deletado da base de dados.
      * @return um DTO com os dados da turma deletada da base de dados.
      */
-    TurmaResponseDto deletarTurmaPorId(UUID id);
+    TurmaResponseDto deletarTurmaPorId(Long id);
 
 
 }

@@ -39,7 +39,7 @@ public interface IUsuarioService {
      * @param id O ID do usuario a ser deletado.
      * @return objeto DTO com os dados do usuario deletado.
      */
-    UsuarioSimpleResponseDto deleteUsuario(UUID id);
+    UsuarioSimpleResponseDto deleteUsuario(Long id);
 
     /**
      * @author Andesson Reis
@@ -60,7 +60,7 @@ public interface IUsuarioService {
      * @param id - O ID do usuário a ser encontrado.
      * @return um objeto DTO com os dados resumidos do usuário encontrado.
      */
-    UsuarioResponseDto findById(UUID id);
+    UsuarioResponseDto findById(Long id);
 
     /**
      * @author Andesson Reis

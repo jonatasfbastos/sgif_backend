@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.modalidade.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.modalidade.dao.IDaoModalidade;
 import br.com.ifba.sgif.api.entity.modalidade.dto.ModalidadeResponseDto;
@@ -80,7 +79,7 @@ public class ServiceModalidade implements IServiceModalidade{
      * @since V1.0.1
      */
     @Override
-    public ModalidadeResponseDto deleteModalidade(UUID id) {
+    public ModalidadeResponseDto deleteModalidade(Long id) {
 
         return this.modalidadeDao.findById(id)
                 .map(modalidade -> {

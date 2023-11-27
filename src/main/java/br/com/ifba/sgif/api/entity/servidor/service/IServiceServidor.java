@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.servidor.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.servidor.dto.ServidorResponseDto;
 import br.com.ifba.sgif.api.entity.servidor.model.Servidor;
@@ -37,7 +36,7 @@ public interface IServiceServidor {
      * @param id - O ID do Servidor a ser deletado.
      * @return um objeto DTO com os dados do Servidor deletado.
      */
-    ServidorResponseDto deleteServidor(UUID id);
+    ServidorResponseDto deleteServidor(Long id);
 
     /**
      * Obtém uma lista de todos os Servidores como objetos DTO.

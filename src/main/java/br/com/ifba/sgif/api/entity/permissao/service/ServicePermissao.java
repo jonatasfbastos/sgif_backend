@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Serviço para manipulação de permissões.
@@ -58,7 +57,7 @@ public class ServicePermissao implements IServicePermissao {
      * @throws BusinessException se a permissão não for encontrada.
      */
     @Override
-    public PermissaoResponseDto deletePermissao(UUID id) {
+    public PermissaoResponseDto deletePermissao(Long id) {
         return this.daoPermissao.findById(id)
                 .map(permissao -> {
                     daoPermissao.delete(permissao);
@@ -103,7 +102,7 @@ public class ServicePermissao implements IServicePermissao {
      * @return uma lista de objetos DTO representando as permissões associadas ao perfil.
      */
     @Override
-    public List<PermissaoResponseDto> getAllByPerfilId(UUID id) {
+    public List<PermissaoResponseDto> getAllByPerfilId(Long id) {
         return objectMapperUtil.mapAll(
                 this.daoPermissao.findByPerfisId(id),
                 PermissaoResponseDto.class);
@@ -116,7 +115,7 @@ public class ServicePermissao implements IServicePermissao {
      * @return uma lista de objetos DTO representando as permissões associadas ao link.
      */
     @Override
-    public List<PermissaoResponseDto> getAllByLinkId(UUID id) {
+    public List<PermissaoResponseDto> getAllByLinkId(Long id) {
         return objectMapperUtil.mapAll(
                 this.daoPermissao.findByLinksId(id),
                 PermissaoResponseDto.class);

@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.relatoriomensal.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.relatoriomensal.dto.RelatorioMensalResponseDto;
 import br.com.ifba.sgif.api.entity.relatoriomensal.model.RelatorioMensal;
@@ -36,5 +35,5 @@ public interface IServiceRelatorioMensal {
      * @param id - O ID do Relatório Mensal a ser deletado.
      * @return um objeto DTO com os dados do Relatório Mensal deletado.
      */
-    RelatorioMensalResponseDto delete(UUID id);
+    RelatorioMensalResponseDto delete(Long id);
 }

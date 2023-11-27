@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.fornecedor.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.fornecedor.dto.FornecedorResponseDto;
 import br.com.ifba.sgif.api.entity.fornecedor.model.Fornecedor;
@@ -40,7 +39,7 @@ public interface IServiceFornecedor {
      * @param id - O ID do fornecedor a ser deletado.
      * @return objeto DTO com os dados do fornecedor deletado.
      */
-    FornecedorResponseDto deleteFornecedor(UUID id);
+    FornecedorResponseDto deleteFornecedor(Long id);
 
     /**
      * Obtém uma lista de todos os fornecedores como objetos DTO.

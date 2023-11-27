@@ -20,7 +20,7 @@ public interface IDaoServidor extends JpaRepository<Servidor, Long>{
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Andesson Reis
@@ -31,7 +31,7 @@ public interface IDaoServidor extends JpaRepository<Servidor, Long>{
      * @return um objeto opcional do tipo Servidor,
      * que será nulo caso o Servidor não exista na base de dados.
      */
-    Optional<Servidor> findById(UUID id);
+    Optional<Servidor> findById(Long id);
 
 
     /**

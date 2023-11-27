@@ -24,7 +24,7 @@ public interface ITurmaDao extends JpaRepository<Turma, Long>{
      * @return a turma atrelada ao ID passado por parâmetro, ou nulo,
      * caso não exista turma com este ID.
      */
-    Optional<Turma> findById(UUID id);
+    Optional<Turma> findById(Long id);
 
     List<Turma> findByEtapaCursoId(Long id);
 

@@ -4,7 +4,6 @@ import br.com.ifba.sgif.api.entity.setor.dto.SetorResponseDto;
 import br.com.ifba.sgif.api.entity.setor.model.Setor;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Everton.
@@ -45,7 +44,7 @@ public interface IServiceSetor {
      * @param id O ID do setor a ser excluído.
      * @return Um DTO representando o setor excluído.
      */
-    SetorResponseDto deleteSetor(UUID id);
+    SetorResponseDto deleteSetor(Long id);
 
     /**
      * @author Andesson Reis

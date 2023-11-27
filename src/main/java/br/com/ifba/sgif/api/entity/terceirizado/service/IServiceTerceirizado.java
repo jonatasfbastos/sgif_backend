@@ -1,7 +1,7 @@
 package br.com.ifba.sgif.api.entity.terceirizado.service;
 
 import java.util.List;
-import java.util.UUID;
+
 import br.com.ifba.sgif.api.entity.terceirizado.dto.TerceirizadoResponseDto;
 import br.com.ifba.sgif.api.entity.terceirizado.model.Terceirizado;
 
@@ -37,7 +37,7 @@ public interface IServiceTerceirizado {
      * @param Id - O ID do Terceirizado a ser deletado.
      * @return objeto DTO com os dados do Terceirizado deletado.
      */
-    TerceirizadoResponseDto deleteTerceirizado(UUID Id);
+    TerceirizadoResponseDto deleteTerceirizado(Long Id);
 
     /**
      * Obtém uma lista de todos os Terceirizados como objetos DTO.

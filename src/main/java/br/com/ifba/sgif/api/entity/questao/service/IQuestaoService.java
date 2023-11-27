@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.questao.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.questao.dto.QuestaoResponseDto;
 import br.com.ifba.sgif.api.entity.questao.model.Questao;
@@ -33,7 +32,7 @@ public interface IQuestaoService {
      * @param id O ID da questão a ser buscada.
      * @return DTO com dados da  questão atrelada ao ID passado por parâmetro.
      */
-    QuestaoResponseDto encontrarQuestaoPorId(UUID id);
+    QuestaoResponseDto encontrarQuestaoPorId(Long id);
 
     /**
      * Busca questões na base de dados com base no enunciado passado por parâmetro.
@@ -74,7 +73,7 @@ public interface IQuestaoService {
      * @param id O ID da questão a ser deletada.
      * @return DTO com dados da questão deletada.
      */
-    QuestaoResponseDto deletarQuestaoPorId(UUID id);
+    QuestaoResponseDto deletarQuestaoPorId(Long id);
 
 
 }

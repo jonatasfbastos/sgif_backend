@@ -10,7 +10,6 @@ import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Service que fornece operações relacionadas a Função de Técnico Administrativo.
@@ -54,7 +53,7 @@ public class ServiceFuncaoTecnicoAdministrativo implements IServiceFuncaoTecnico
      * @return um objeto DTO com os dados da Função Técnico Administrativo deletada.
      */
     @Override
-    public FuncaoTecnicoAdministrativoResponseDto deleteFuncaoTecnicoAdm(UUID id) {
+    public FuncaoTecnicoAdministrativoResponseDto deleteFuncaoTecnicoAdm(Long id) {
         return this.funcaoTecnicoAdministrativoDao.findById(id)
                 .map(funcaoTecnicoAdm -> {
                     funcaoTecnicoAdministrativoDao.delete(funcaoTecnicoAdm);

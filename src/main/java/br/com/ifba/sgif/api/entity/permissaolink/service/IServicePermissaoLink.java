@@ -4,7 +4,6 @@ import br.com.ifba.sgif.api.entity.permissaolink.dto.PermissaoLinkResponseDto;
 import br.com.ifba.sgif.api.entity.permissaolink.model.PermissaoLink;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Interface que define os serviços relacionados à entidade "PermissaoLink".
@@ -28,7 +27,7 @@ public interface IServicePermissaoLink {
      * @param id - O ID do PermissaoLink a ser deletado.
      * @return uma mensagem de confirmação de exclusão.
      */
-    PermissaoLinkResponseDto deleteLink(UUID id);
+    PermissaoLinkResponseDto deleteLink(Long id);
 
     /**
      * Atualiza um PermissaoLink na base de dados.
@@ -51,5 +50,5 @@ public interface IServicePermissaoLink {
      * @param id - O ID da Permissao a ser pesquisada.
      * @return uma lista de PermissaoLinks associados à Permissao.
      */
-    List<PermissaoLinkResponseDto> getAllByPermissaoId(UUID id);
+    List<PermissaoLinkResponseDto> getAllByPermissaoId(Long id);
 }

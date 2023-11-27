@@ -77,7 +77,7 @@ public class UsuarioService implements IUsuarioService {
      * @return objeto DTO com os dados do usuario deletado.
      */
     @Override
-    public UsuarioSimpleResponseDto deleteUsuario(UUID id) {
+    public UsuarioSimpleResponseDto deleteUsuario(Long id) {
 
         return this.daoUsuario.findById(id)
                 .map(user -> {
@@ -99,6 +99,8 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public List<UsuarioSimpleResponseDto> getAllUsuarios() {
 
+        System.out.println("No método getAllUsuarios");
+        System.out.println("Todos os usuários: " + this.daoUsuario.findAll());
         return objectMapperUtil.mapAll(
                 this.daoUsuario.findAll(),
                 UsuarioSimpleResponseDto.class);
@@ -114,7 +116,7 @@ public class UsuarioService implements IUsuarioService {
      * @return um objeto DTO com os dados resumidos do usuário encontrado.
      */
     @Override
-    public UsuarioResponseDto findById(UUID id) {
+    public UsuarioResponseDto findById(Long id) {
 
         return daoUsuario.findById(id)
                 .map(objectMapperUtil.mapFn(UsuarioResponseDto.class))

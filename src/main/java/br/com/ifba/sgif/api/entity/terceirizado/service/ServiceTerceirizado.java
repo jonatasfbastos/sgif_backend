@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.terceirizado.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.terceirizado.model.Terceirizado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +85,7 @@ public class ServiceTerceirizado implements IServiceTerceirizado {
      * @return objeto DTO com os dados do Terceirizado deletado.
      */
     @Override
-    public TerceirizadoResponseDto deleteTerceirizado(UUID id) {
+    public TerceirizadoResponseDto deleteTerceirizado(Long id) {
         return this.terceirizadoDao.findById(id)
                 .map(terc -> {
                     terceirizadoDao.delete(terc);

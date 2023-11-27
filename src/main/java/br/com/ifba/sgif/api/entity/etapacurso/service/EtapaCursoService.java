@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.etapacurso.service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import br.com.ifba.sgif.api.entity.etapacurso.dao.IEtapaCursoDao;
@@ -65,7 +64,7 @@ public class EtapaCursoService implements IEtapaCursoService {
      * @return DTO com dados da etapa de curso atrelada ao ID passado por parâmetro.
      */
     @Override
-    public EtapaCursoResponseDto encontrarEtapaCursoPorId(UUID id) {
+    public EtapaCursoResponseDto encontrarEtapaCursoPorId(Long id) {
 
         return this.etapaCursoDao.findById(id)
                 .map(ec -> this.objectMapperUtil.map(ec, EtapaCursoResponseDto.class))
@@ -145,7 +144,7 @@ public class EtapaCursoService implements IEtapaCursoService {
      * @return DTO com dados da etapa de curso deletada.
      */
     @Override
-    public EtapaCursoResponseDto deletarEtapaCursoPorId(UUID id) {
+    public EtapaCursoResponseDto deletarEtapaCursoPorId(Long id) {
 
         return this.etapaCursoDao.findById(id)
                 .map(ec -> {

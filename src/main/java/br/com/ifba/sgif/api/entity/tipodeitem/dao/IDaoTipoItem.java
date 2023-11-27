@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author dudasss
  */
 @Repository
-public interface IDaoTipoItem extends JpaRepository<TipoDeItem, UUID> {
+public interface IDaoTipoItem extends JpaRepository<TipoDeItem, Long> {
 
     List<TipoDeItem> findByNome(String name);
 
@@ -28,7 +28,7 @@ public interface IDaoTipoItem extends JpaRepository<TipoDeItem, UUID> {
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Andesson Reis
@@ -39,6 +39,6 @@ public interface IDaoTipoItem extends JpaRepository<TipoDeItem, UUID> {
      * @return um objeto opcional do tipo TipoDeItem,
      * que será nulo caso o TipoDeItem não exista na base de dados.
      */
-    Optional<TipoDeItem> findById(UUID id);
+    Optional<TipoDeItem> findById(Long id);
 
 }

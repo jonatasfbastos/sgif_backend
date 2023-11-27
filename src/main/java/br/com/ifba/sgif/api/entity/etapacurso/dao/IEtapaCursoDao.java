@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IEtapaCursoDao extends JpaRepository<EtapaCurso, UUID>{
+public interface IEtapaCursoDao extends JpaRepository<EtapaCurso, Long>{
 
     /**
      * Busca uma estapa de curso na base de dados com base no ID
@@ -25,7 +25,7 @@ public interface IEtapaCursoDao extends JpaRepository<EtapaCurso, UUID>{
      * @return a etapa de curso atrelada ao ID passado por parâmetro,
      * ou nulo, caso não exista.
      */
-    Optional<EtapaCurso> findById(UUID id);
+    Optional<EtapaCurso> findById(Long id);
 
     /**
      * Busca etapas de curso na base de dados com base no nome

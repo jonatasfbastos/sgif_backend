@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.relatoriomensal.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.relatoriomensal.dao.IDaoRelatorioMensal;
 import br.com.ifba.sgif.api.entity.relatoriomensal.dto.RelatorioMensalResponseDto;
@@ -81,7 +80,7 @@ public class ServiceRelatorioMensal implements IServiceRelatorioMensal {
      * @return um objeto DTO com os dados do Relatório Mensal deletado.
      */
     @Override
-    public RelatorioMensalResponseDto delete(UUID id) {
+    public RelatorioMensalResponseDto delete(Long id) {
 
         return this.relatorioMensalDao.findById(id)
                 .map(relatorioMensal -> {

@@ -14,11 +14,10 @@ import org.springframework.stereotype.Repository;
  * @author ph715
  */
 @Repository
-public interface IDaoFuncaoTerceirizado extends JpaRepository<FuncaoTerceirizado, UUID> {
+public interface IDaoFuncaoTerceirizado extends JpaRepository<FuncaoTerceirizado, Long> {
     boolean existsByNome(String nome);
-    boolean existsById(Long id);
 
-           /**
+    /**
      * @author Andesson Reis
      * @since Desde V1.0.1
      * 
@@ -27,7 +26,7 @@ public interface IDaoFuncaoTerceirizado extends JpaRepository<FuncaoTerceirizado
      * @return um objeto opcional do tipo Empenho,
      * que será nulo caso a FuncaoTerceirizado não exista na base de dados.
      */
-    Optional<FuncaoTerceirizado> findById(UUID id);
+    Optional<FuncaoTerceirizado> findById(Long id);
 
       /**
      * @author Andesson Reis
@@ -40,5 +39,5 @@ public interface IDaoFuncaoTerceirizado extends JpaRepository<FuncaoTerceirizado
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

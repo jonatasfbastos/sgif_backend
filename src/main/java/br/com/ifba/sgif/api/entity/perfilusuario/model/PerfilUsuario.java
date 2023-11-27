@@ -4,11 +4,7 @@ import br.com.ifba.sgif.api.infrastructure.model.PersistenceEntity;
 import br.com.ifba.sgif.api.entity.permissao.model.Permissao;
 import br.com.ifba.sgif.api.entity.usuario.model.Usuario;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -58,7 +54,7 @@ public class PerfilUsuario extends PersistenceEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Permissao> permissoes;
 
-    @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.LAZY/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE }*/)
+    @OneToMany(mappedBy = "perfilUsuario", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE })
     private List<Usuario> usuarios;
 
     // =========================================================== //

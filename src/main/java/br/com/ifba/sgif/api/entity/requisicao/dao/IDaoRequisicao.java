@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Vitor
  */
-public interface IDaoRequisicao extends JpaRepository<Requisicao, UUID> {
+public interface IDaoRequisicao extends JpaRepository<Requisicao, Long> {
     /**
      * @author Andesson Reis
      * @since Desde V1.0.1
@@ -22,7 +22,7 @@ public interface IDaoRequisicao extends JpaRepository<Requisicao, UUID> {
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Andesson Reis
@@ -33,6 +33,6 @@ public interface IDaoRequisicao extends JpaRepository<Requisicao, UUID> {
      * @return um objeto opcional do tipo requisição,
      * que será nulo caso o requisição não exista na base de dados.
      */
-    Optional<Requisicao> findById(UUID id);
+    Optional<Requisicao> findById(Long id);
 
 }

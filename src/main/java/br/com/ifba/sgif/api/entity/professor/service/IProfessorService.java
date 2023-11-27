@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.professor.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.professor.dto.ProfessorResponseDto;
 import br.com.ifba.sgif.api.entity.professor.model.Professor;
@@ -33,7 +32,7 @@ public interface IProfessorService {
      * @param id O ID do professor a ser buscado.
      * @return DTO com dados do professor atrelado ao ID passado por parâmetro.
      */
-    ProfessorResponseDto encontrarProfessorPorId(final UUID id);
+    ProfessorResponseDto encontrarProfessorPorId(final Long id);
 
     /**
      * Busca professores na base de dados com base no nome
@@ -75,6 +74,6 @@ public interface IProfessorService {
      * @param id O ID do professor a ser deletado.
      * @return DTO com dados do professor deletado.
      */
-    ProfessorResponseDto deletarProfessorPorId(final UUID id);
+    ProfessorResponseDto deletarProfessorPorId(final Long id);
 
 }

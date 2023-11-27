@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Service que fornece operações relacionadas a Função de Servidor.
@@ -59,7 +58,7 @@ public class ServiceFuncaoServidor implements IServiceFuncaoServidor {
      * @return um objeto DTO com os dados da Função de Servidor deletada.
      */
     @Override
-    public FuncaoServidorResponseDto deleteFuncaoServidor(UUID id) {
+    public FuncaoServidorResponseDto deleteFuncaoServidor(Long id) {
         return this.funcaoServidorDao.findById(id)
                 .map(funcaoServidor -> {
                     funcaoServidorDao.delete(funcaoServidor);

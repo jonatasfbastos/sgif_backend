@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDaoPessoa extends JpaRepository<Pessoa, UUID> {
+public interface IDaoPessoa extends JpaRepository<Pessoa, Long> {
 
     // =========================================================== //
     // =============== [ ASSINATURAS DE MÉTODOS ] ================ //
@@ -22,7 +22,7 @@ public interface IDaoPessoa extends JpaRepository<Pessoa, UUID> {
 
     List<Pessoa> findByNome(String name);
 
-    Optional<Pessoa> findById(UUID id);
+    Optional<Pessoa> findById(Long id);
 
     void delete(Pessoa pessoa);
 

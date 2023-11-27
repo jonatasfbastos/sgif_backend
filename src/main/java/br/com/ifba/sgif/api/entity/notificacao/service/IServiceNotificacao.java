@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.notificacao.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.notificacao.dto.NotificacaoResponseDto;
 import br.com.ifba.sgif.api.entity.notificacao.model.Notificacao;
@@ -37,7 +36,7 @@ public interface IServiceNotificacao {
      * @param id - O objeto Notificação a ser deletado.
      * @return um objeto DTO com os dados da Notificação deletada.
      */
-    NotificacaoResponseDto deleteNotification(UUID id);
+    NotificacaoResponseDto deleteNotification(Long id);
 
     /**
      * Obtém uma lista de todas as Notificações como objetos DTO.

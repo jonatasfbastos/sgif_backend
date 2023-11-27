@@ -87,7 +87,7 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
      * @param Id id do perfil de usuário a ser deletado.
      */
     @Override
-    public PerfilUsuarioResponseDto deletePerfilUsuario(UUID id) {
+    public PerfilUsuarioResponseDto deletePerfilUsuario(Long id) {
         
            return this.daoPerfilUsuario.findById(id)
                 .map(perfil -> {
@@ -132,21 +132,5 @@ public class ServicePerfilUsuario implements IServicePerfilUsuario {
                 .collect(Collectors.toList());
     
     }
-    /**
-     * Encontra perfis de usuário (Response DTO) por ID de permissão.
-     *
-     * @param id O ID da permissão a ser pesquisada.
-     * @return Uma lista de perfis de usuário (Response DTO) com a permissão
-     *         especificada.
-     */
-
-      @Override
-      public List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(UUID id) {
-
-          return objectMapperUtil.mapAll(
-                this.daoPerfilUsuario.findByPermissoesId(id),
-                PerfilUsuarioResponseDto.class);
-     
-      }
      
 }

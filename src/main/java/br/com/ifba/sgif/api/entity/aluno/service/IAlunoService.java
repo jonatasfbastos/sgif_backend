@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.aluno.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.aluno.dto.AlunoResponseDto;
 import br.com.ifba.sgif.api.entity.aluno.model.Aluno;
@@ -55,7 +54,7 @@ public interface IAlunoService {
      * Deleta um aluno da base de dados.
      * @param id O ID do aluno que será deletado da base de dados.
      */
-    AlunoResponseDto deletarAlunoPorId(UUID id);
+    AlunoResponseDto deletarAlunoPorId(Long id);
 
 
 }

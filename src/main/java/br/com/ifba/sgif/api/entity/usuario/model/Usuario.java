@@ -24,6 +24,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,7 +47,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class Usuario extends PersistenceEntity implements UserDetails {
+public class Usuario extends PersistenceEntity implements UserDetails, Serializable {
 
     // =========================================================== //
     // =============== [        ATRIBUTOS       ] ================ //
@@ -69,8 +70,8 @@ public class Usuario extends PersistenceEntity implements UserDetails {
     /**
      * Perfil do usuario.
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "perfil_usuario_id", referencedColumnName = "ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "perfil_usuario_id", referencedColumnName = "id")
     @JsonIgnoreProperties("usuarios")
     private PerfilUsuario perfilUsuario;
 

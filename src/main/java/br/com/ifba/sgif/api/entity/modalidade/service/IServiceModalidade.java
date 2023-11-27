@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.modalidade.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.modalidade.dto.ModalidadeResponseDto;
 import br.com.ifba.sgif.api.entity.modalidade.model.Modalidade;
@@ -38,7 +37,7 @@ public interface IServiceModalidade {
      * @param id - O ID da Modalidade a ser deletada.
      * @return um objeto DTO com os dados da Modalidade deletada.
      */
-    ModalidadeResponseDto deleteModalidade(UUID id);
+    ModalidadeResponseDto deleteModalidade(Long id);
 
     /**
      * Obtém uma lista de todas as Modalidades como objetos DTO.

@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.requisicao.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.requisicao.dao.IDaoRequisicao;
 import br.com.ifba.sgif.api.entity.requisicao.dto.RequisicaoResponseDto;
@@ -85,7 +84,7 @@ public class ServiceRequisicao implements IServiceRequisicao {
      * @return objeto DTO com os dados da requisição deletada.
      */
     @Override
-    public RequisicaoResponseDto deleteRequisicao(UUID id) {
+    public RequisicaoResponseDto deleteRequisicao(Long id) {
 
            return this.daoRequisicao.findById(id)
                 .map(req -> {

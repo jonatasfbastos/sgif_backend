@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.tipodeitem.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.tipodeitem.model.TipoDeItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +85,7 @@ public class TipoDeItemService implements ITipoDeItemService{
      * @return objeto DTO com os dados do TipoDeItem deletado.
      */
     @Override
-    public TipoDeItemResponseDto deleteTipoDeItem(UUID id) {
+    public TipoDeItemResponseDto deleteTipoDeItem(Long id) {
         return this.daoTipoDeItem.findById(id)
                 .map(tipoDeItem -> {
                     daoTipoDeItem.delete(tipoDeItem);

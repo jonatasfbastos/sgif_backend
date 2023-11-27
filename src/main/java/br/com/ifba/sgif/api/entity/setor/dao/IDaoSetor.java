@@ -13,7 +13,7 @@ import br.com.ifba.sgif.api.entity.setor.model.Setor;
  * @author Everton.
  */
 @Repository
-public interface IDaoSetor extends JpaRepository<Setor, UUID> {
+public interface IDaoSetor extends JpaRepository<Setor, Long> {
 
    List<Setor> findByNome(String name);
 
@@ -26,6 +26,6 @@ public interface IDaoSetor extends JpaRepository<Setor, UUID> {
      * @return um objeto opcional do tipo de setor,
      * que será nulo caso o setor não exista na base de dados.
      */
-    Optional<Setor> findById(UUID id);
+    Optional<Setor> findById(Long id);
 
 }

@@ -7,7 +7,7 @@ import br.com.ifba.sgif.api.entity.relatoriomensal.model.RelatorioMensal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface IDaoRelatorioMensal extends JpaRepository<RelatorioMensal, UUID>{
+public interface IDaoRelatorioMensal extends JpaRepository<RelatorioMensal, Long>{
     
     /**
      * @author Andesson Reis
@@ -18,5 +18,5 @@ public interface IDaoRelatorioMensal extends JpaRepository<RelatorioMensal, UUID
      * @return um objeto opcional do tipo RelatorioMensal,
      * que será nulo caso o RelatorioMensal não exista na base de dados.
      */
-    Optional<RelatorioMensal> findById(UUID id);
+    Optional<RelatorioMensal> findById(Long id);
 }

@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.funcaoservidor.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,7 @@ public interface IServiceFuncaoServidor {
      * @param id - O ID da Função de Servidor a ser deletada.
      * @return um objeto DTO com os dados da Função de Servidor deletada.
      */
-    FuncaoServidorResponseDto deleteFuncaoServidor(UUID id);
+    FuncaoServidorResponseDto deleteFuncaoServidor(Long id);
 
     /**
      * Obtém uma lista de todas as Funções de Servidor como objetos DTO.

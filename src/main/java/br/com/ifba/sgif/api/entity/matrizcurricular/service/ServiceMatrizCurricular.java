@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.matrizcurricular.service;
 
 import br.com.ifba.sgif.api.entity.etapacurso.dao.IEtapaCursoDao;
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.matrizcurricular.dao.IDaoMatrizCurricular;
 import br.com.ifba.sgif.api.entity.matrizcurricular.dto.MatrizCurricularResponseDto;
@@ -78,7 +77,7 @@ public class ServiceMatrizCurricular implements IServiceMatrizCurricular {
      * @return um objeto DTO com os dados da Matriz Curricular deletada.
      */
     @Override
-    public MatrizCurricularResponseDto deleteMatrizCurricular(UUID id) {
+    public MatrizCurricularResponseDto deleteMatrizCurricular(Long id) {
         return this.matrizCurricularDao.findById(id)
                 .map(matrizCurricular -> {
                     matrizCurricularDao.delete(matrizCurricular);

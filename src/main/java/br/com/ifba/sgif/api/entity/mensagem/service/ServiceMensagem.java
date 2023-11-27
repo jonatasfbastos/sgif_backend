@@ -8,7 +8,6 @@ import br.com.ifba.sgif.api.entity.mensagem.dao.IDaoMensagem;
 import br.com.ifba.sgif.api.entity.mensagem.dto.MensagemResponseDto;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,7 +80,7 @@ public class ServiceMensagem implements IServiceMensagem{
      * @since V1.0.1
      */
     @Override
-    public MensagemResponseDto deleteMensagem(UUID id) {
+    public MensagemResponseDto deleteMensagem(Long id) {
 
         return this.mensagemDao.findById(id)
                 .map(mensagem -> {

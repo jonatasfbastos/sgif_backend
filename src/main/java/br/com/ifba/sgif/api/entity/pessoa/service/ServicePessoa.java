@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.pessoa.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.pessoa.dao.IDaoPessoa;
 import br.com.ifba.sgif.api.entity.pessoa.dto.PessoaResponseDto;
@@ -66,7 +65,7 @@ public class ServicePessoa implements IServicePessoa {
      * @return Dados de uma pessoa deletada deletado.
      */
     @Override
-    public PessoaResponseDto deleteById(UUID id) {
+    public PessoaResponseDto deleteById(Long id) {
 
         return this.daoPessoa.findById(id)
                 .map(pessoa -> {
@@ -121,7 +120,7 @@ public class ServicePessoa implements IServicePessoa {
      * @return um objeto DTO com os dados da pessoa encontrada.
      */
     @Override
-    public PessoaResponseDto findById(UUID id) {
+    public PessoaResponseDto findById(Long id) {
         return daoPessoa.findById(id)
                 .map(objectMapperUtil.mapFn(PessoaResponseDto.class))
                 .orElseThrow(() -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem()));

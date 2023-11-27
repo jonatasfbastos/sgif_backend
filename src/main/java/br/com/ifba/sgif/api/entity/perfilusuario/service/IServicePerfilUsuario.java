@@ -38,7 +38,7 @@ public interface IServicePerfilUsuario {
      *
      * @param Id id do perfil de usuário a ser deletado.
      */
-    PerfilUsuarioResponseDto deletePerfilUsuario(UUID ID);
+    PerfilUsuarioResponseDto deletePerfilUsuario(Long ID);
 
     /**
      * Obtém uma lista de todos os perfis de usuário (Response DTO).
@@ -55,11 +55,4 @@ public interface IServicePerfilUsuario {
      */
     List<PerfilUsuarioResponseDto> findByNome(String name);
 
-    /**
-     * Encontra perfis de usuário (Response DTO) por ID de permissão.
-     *
-     * @param id O ID da permissão a ser pesquisada.
-     * @return Uma lista de perfis de usuário (Response DTO) com a permissão especificada.
-     */
-    List<PerfilUsuarioResponseDto> findPerfisByPermissaoId(UUID id);
 }

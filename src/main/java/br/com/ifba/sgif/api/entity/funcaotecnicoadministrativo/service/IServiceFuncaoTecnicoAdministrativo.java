@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.funcaotecnicoadministrativo.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.funcaotecnicoadministrativo.dto.FuncaoTecnicoAdministrativoResponseDto;
 import br.com.ifba.sgif.api.entity.funcaotecnicoadministrativo.model.FuncaoTecnicoAdministrativo;
@@ -29,7 +28,7 @@ public interface IServiceFuncaoTecnicoAdministrativo {
      * @param id - O ID da Função Técnico Administrativo a ser deletada.
      * @return um objeto DTO com os dados da Função Técnico Administrativo deletada.
      */
-    FuncaoTecnicoAdministrativoResponseDto deleteFuncaoTecnicoAdm(UUID id);
+    FuncaoTecnicoAdministrativoResponseDto deleteFuncaoTecnicoAdm(Long id);
 
     /**
      * Obtém uma lista de todas as Funções Técnico Administrativo como objetos DTO.

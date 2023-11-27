@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.disciplina.service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import br.com.ifba.sgif.api.entity.disciplina.dao.IDisciplinaDao;
@@ -81,7 +80,7 @@ public class DisciplinaService implements IDisciplinaService {
      * @return DTO com dados da disciplina atrelada ao ID passado por parâmetro.
      */
     @Override
-    public DisciplinaResponseDto encontrarDisciplinaPorId(final UUID id) {
+    public DisciplinaResponseDto encontrarDisciplinaPorId(final Long id) {
 
         return this._disciplinaDao.findById(id)
                 .map(d -> this._objectMapperUtil.map(d, DisciplinaResponseDto.class))
@@ -159,7 +158,7 @@ public class DisciplinaService implements IDisciplinaService {
      * @return DTO com dados da disciplina deletada.
      */
     @Override
-    public DisciplinaResponseDto deletarDisciplinaPorId(final UUID id) {
+    public DisciplinaResponseDto deletarDisciplinaPorId(final Long id) {
 
         return this._disciplinaDao.findById(id)
                 .map(d -> {

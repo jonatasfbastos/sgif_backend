@@ -4,7 +4,6 @@ import br.com.ifba.sgif.api.entity.permissao.dto.PermissaoResponseDto;
 import br.com.ifba.sgif.api.entity.permissao.model.Permissao;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  *
@@ -28,7 +27,7 @@ public interface IServicePermissao {
      * @param id O ID da permissão a ser deletado.
      * @return objeto DTO com os dados da permissão deletado.
      */
-    PermissaoResponseDto deletePermissao(UUID id);
+    PermissaoResponseDto deletePermissao(Long id);
 
     /**
      * Atualiza uma permissão na base de dados.
@@ -51,7 +50,7 @@ public interface IServicePermissao {
      * @param id O id do perfil de usuario a ser pesquisado.
      * @return Uma lista de permissões atrelado ao perfil.
      */
-    List<PermissaoResponseDto> getAllByPerfilId(UUID id);
+    List<PermissaoResponseDto> getAllByPerfilId(Long id);
 
     /**
      * 
@@ -59,6 +58,6 @@ public interface IServicePermissao {
      * @param id
      * @return
      */
-    List<PermissaoResponseDto> getAllByLinkId(UUID id);
+    List<PermissaoResponseDto> getAllByLinkId(Long id);
 
 }

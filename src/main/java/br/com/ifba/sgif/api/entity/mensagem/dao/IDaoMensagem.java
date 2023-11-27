@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author felip
  */
 @Repository
-public interface IDaoMensagem extends JpaRepository<Mensagem, UUID>{
+public interface IDaoMensagem extends JpaRepository<Mensagem, Long>{
      List<Mensagem> findByNome(String name);
      boolean existsByNome(String nome);
             /**
@@ -27,7 +27,7 @@ public interface IDaoMensagem extends JpaRepository<Mensagem, UUID>{
      * @return um objeto opcional do tipo Mensagem,
      * que será nulo caso o Mensagem não exista na base de dados.
      */
-    Optional<Mensagem> findById(UUID id);
+    Optional<Mensagem> findById(Long id);
 
       /**
      * @author Andesson Reis
@@ -40,5 +40,5 @@ public interface IDaoMensagem extends JpaRepository<Mensagem, UUID>{
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

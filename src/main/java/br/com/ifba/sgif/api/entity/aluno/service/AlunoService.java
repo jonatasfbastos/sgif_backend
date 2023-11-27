@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.aluno.service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.Optional;
 
 import br.com.ifba.sgif.api.entity.aluno.dao.IAlunoDao;
@@ -122,7 +121,7 @@ public class AlunoService implements IAlunoService {
      *
      */
     @Override
-    public AlunoResponseDto deletarAlunoPorId(UUID id) {
+    public AlunoResponseDto deletarAlunoPorId(Long id) {
 
         return this.alunoDao.findAlunoById(id)
                 .map(al -> {

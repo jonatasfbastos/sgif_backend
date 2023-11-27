@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.setor.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -87,7 +86,7 @@ public class ServiceSetor implements IServiceSetor {
      * @param id - Id do setor a ser deletado.
      */
     @Override
-    public SetorResponseDto deleteSetor(UUID id) {
+    public SetorResponseDto deleteSetor(Long id) {
 
         return this.daoSetor.findById(id)
                 .map(setor -> {

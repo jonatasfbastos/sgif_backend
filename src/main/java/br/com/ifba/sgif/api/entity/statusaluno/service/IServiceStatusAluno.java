@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.statusaluno.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.statusaluno.dto.StatusAlunoResponseDto;
 import br.com.ifba.sgif.api.entity.statusaluno.model.StatusAluno;
@@ -37,7 +36,7 @@ public interface IServiceStatusAluno {
      * @param id - O ID do Status do Aluno a ser deletado.
      * @return um objeto DTO com os dados do Status do Aluno deletado.
      */
-    StatusAlunoResponseDto deleteStatus(UUID id);
+    StatusAlunoResponseDto deleteStatus(Long id);
 
     /**
      * Obtém uma lista de todos os Status dos Alunos como objetos DTO.

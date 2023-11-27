@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.mensagem.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.mensagem.dto.MensagemResponseDto;
 import br.com.ifba.sgif.api.entity.mensagem.model.Mensagem;
@@ -37,7 +36,7 @@ public interface IServiceMensagem {
      * @param id - O ID da Mensagem a ser deletada.
      * @return um objeto DTO com os dados da Mensagem deletada.
      */
-    MensagemResponseDto deleteMensagem(UUID id);
+    MensagemResponseDto deleteMensagem(Long id);
 
     /**
      * Obtém uma lista de todas as Mensagens como objetos DTO.

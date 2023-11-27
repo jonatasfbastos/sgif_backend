@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Ellen Cristina
  */
-public interface IDaoStatusAluno extends JpaRepository<StatusAluno, UUID> {
+public interface IDaoStatusAluno extends JpaRepository<StatusAluno, Long> {
         /**
      * @author Andesson Reis
      * @since Desde V1.0.1
@@ -28,7 +28,7 @@ public interface IDaoStatusAluno extends JpaRepository<StatusAluno, UUID> {
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Andesson Reis
@@ -39,5 +39,5 @@ public interface IDaoStatusAluno extends JpaRepository<StatusAluno, UUID> {
      * @return um objeto opcional do tipo StatusAluno,
      * que será nulo caso o requisição não exista na base de dados.
      */
-    Optional<StatusAluno> findById(UUID id);
+    Optional<StatusAluno> findById(Long id);
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDisciplinaDao extends JpaRepository<Disciplina, UUID>{
+public interface IDisciplinaDao extends JpaRepository<Disciplina, Long>{
 
     /**
      * Busca uma disciplina na base de dados com base no ID
@@ -25,7 +25,7 @@ public interface IDisciplinaDao extends JpaRepository<Disciplina, UUID>{
      * @return a disciplina atrelada ao ID passado por parâmetro,
      * ou nulo, caso não exista.
      */
-    Optional<Disciplina> findById(UUID id);
+    Optional<Disciplina> findById(Long id);
 
     /**
      * Busca disciplinas na base de dados com base no nome

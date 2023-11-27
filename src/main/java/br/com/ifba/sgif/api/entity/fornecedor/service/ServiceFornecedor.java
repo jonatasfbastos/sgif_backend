@@ -3,7 +3,6 @@ package br.com.ifba.sgif.api.entity.fornecedor.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
   
@@ -88,7 +87,7 @@ public class ServiceFornecedor implements IServiceFornecedor {
      * @since V1.0.1
      */
     @Override
-    public FornecedorResponseDto deleteFornecedor(UUID id) {
+    public FornecedorResponseDto deleteFornecedor(Long id) {
         return this.daoFornecedor.findById(id)
                 .map(forn -> {
                     daoFornecedor.delete(forn);

@@ -13,7 +13,6 @@ import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Interface para serviços relacionados à entidade Empenho.
@@ -80,7 +79,7 @@ public class ServiceEmpenho implements IServiceEmpenho {
      * @throws BusinessException se o empenho com o ID especificado não existe.
      */
     @Override
-    public EmpenhoResponseDto deleteEmpenho(UUID id) {
+    public EmpenhoResponseDto deleteEmpenho(Long id) {
 
         return this.daoEmpenho.findById(id)
                 .map(empenho -> {

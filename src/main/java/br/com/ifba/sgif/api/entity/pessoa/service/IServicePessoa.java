@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.pessoa.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.pessoa.dto.PessoaResponseDto;
 import br.com.ifba.sgif.api.entity.pessoa.model.Pessoa;
@@ -31,7 +30,7 @@ public interface IServicePessoa {
      *
      * @param Id - O ID da pessoa a ser deletada.
      */
-    PessoaResponseDto deleteById(UUID Id);
+    PessoaResponseDto deleteById(Long Id);
 
     /**
      * Obtém uma lista de todas as pessoas como objetos DTO.
@@ -46,7 +45,7 @@ public interface IServicePessoa {
      * @param id - O ID da pessoa a ser encontrada.
      * @return um objeto DTO com os dados da pessoa encontrada.
      */
-    PessoaResponseDto findById(UUID id);
+    PessoaResponseDto findById(Long id);
 
     /**
      * Encontra pessoas pelo nome.

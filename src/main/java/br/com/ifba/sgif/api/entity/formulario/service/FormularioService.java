@@ -4,7 +4,6 @@ import br.com.ifba.sgif.api.entity.avaliacao.dao.IAvaliacaoDao;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.formulario.dto.FormularioResponseDto;
 import br.com.ifba.sgif.api.entity.formulario.dto.FormularioSimpleResponseDto;
@@ -68,7 +67,7 @@ public class FormularioService implements IFormularioService {
      * @return os dados do formulário atrelados àquele ID.
      */
     @Override
-    public FormularioResponseDto encontrarFormularioPorId(UUID id) {
+    public FormularioResponseDto encontrarFormularioPorId(Long id) {
 
         return objectMapperUtil.map(
                 formularioDao.findById(id)
@@ -129,7 +128,7 @@ public class FormularioService implements IFormularioService {
      * @return objeto DTO com os dados do formulário deletado.
      */
     @Override
-    public FormularioSimpleResponseDto deletarFormularioPorId(UUID id) {
+    public FormularioSimpleResponseDto deletarFormularioPorId(Long id) {
 
         // TODO: Analisar se é preciso adicionar uma lógica para verificar se existe uma avaliação atrelada ao formulário.
 

@@ -8,7 +8,6 @@ import br.com.ifba.sgif.api.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,7 +84,7 @@ public class ServiceStatusAluno implements IServiceStatusAluno{
      * @since V1.0.1
      */
     @Override
-    public StatusAlunoResponseDto deleteStatus(UUID id) {
+    public StatusAlunoResponseDto deleteStatus(Long id) {
 
         return this.statusAlunoDao.findById(id)
                 .map(statusAluno -> {

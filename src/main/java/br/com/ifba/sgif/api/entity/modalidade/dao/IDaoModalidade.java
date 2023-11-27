@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDaoModalidade extends JpaRepository<Modalidade, UUID>{
+public interface IDaoModalidade extends JpaRepository<Modalidade, Long>{
     List <Modalidade> findByNome(String nome);
            /**
      * @author Andesson Reis
@@ -21,5 +21,5 @@ public interface IDaoModalidade extends JpaRepository<Modalidade, UUID>{
      * @return um objeto opcional do tipo modalidade,
      * que será nulo caso o modalidade não exista na base de dados.
      */
-    Optional<Modalidade> findById(UUID id);
+    Optional<Modalidade> findById(Long id);
 }

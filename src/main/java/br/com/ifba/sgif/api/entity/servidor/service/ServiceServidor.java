@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.servidor.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,7 +88,7 @@ public class ServiceServidor implements IServiceServidor{
      * @return um objeto DTO com os dados do Servidor deletado.
      */
     @Override
-    public ServidorResponseDto deleteServidor(UUID id) {
+    public ServidorResponseDto deleteServidor(Long id) {
 
         return this.servidorDao.findById(id)
                 .map(servidor -> {

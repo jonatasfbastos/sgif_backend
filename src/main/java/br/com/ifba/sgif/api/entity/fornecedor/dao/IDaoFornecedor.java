@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author vitor
  */
-public interface IDaoFornecedor extends JpaRepository<Fornecedor, UUID> {
+public interface IDaoFornecedor extends JpaRepository<Fornecedor, Long> {
    /**
      * @author Andesson Reis
      * @since Desde V1.0.1
@@ -21,7 +21,7 @@ public interface IDaoFornecedor extends JpaRepository<Fornecedor, UUID> {
      * @return um objeto opcional do tipo fornecedor,
      * que será nulo caso o fornecedor não exista na base de dados.
      */
-    Optional<Fornecedor> findById(UUID id);
+    Optional<Fornecedor> findById(Long id);
 
       /**
      * @author Andesson Reis
@@ -34,5 +34,5 @@ public interface IDaoFornecedor extends JpaRepository<Fornecedor, UUID> {
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

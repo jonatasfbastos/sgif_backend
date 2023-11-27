@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.empenho.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.empenho.dto.EmpenhoResponseDto;
 import br.com.ifba.sgif.api.entity.empenho.model.Empenho;
@@ -45,7 +44,7 @@ public interface IServiceEmpenho {
      * @param id O ID do empenho a ser excluído.
      * @return Um DTO representando o empenho excluído.
      */
-    EmpenhoResponseDto deleteEmpenho(UUID id);
+    EmpenhoResponseDto deleteEmpenho(Long id);
 
     /**
      * @author Andesson Reis

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IDaoFuncaoServidor extends JpaRepository<FuncaoServidor, UUID> {
+public interface IDaoFuncaoServidor extends JpaRepository<FuncaoServidor, Long> {
        /**
      * @author Andesson Reis
      * @since Desde V1.0.1
@@ -17,7 +17,7 @@ public interface IDaoFuncaoServidor extends JpaRepository<FuncaoServidor, UUID> 
      * @return um objeto opcional do tipo Empenho,
      * que será nulo caso o FuncaoServidor não exista na base de dados.
      */
-    Optional<FuncaoServidor> findById(UUID id);
+    Optional<FuncaoServidor> findById(Long id);
 
       /**
      * @author Andesson Reis
@@ -30,5 +30,5 @@ public interface IDaoFuncaoServidor extends JpaRepository<FuncaoServidor, UUID> 
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 }

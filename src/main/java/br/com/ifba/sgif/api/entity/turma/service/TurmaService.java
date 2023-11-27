@@ -2,7 +2,6 @@ package br.com.ifba.sgif.api.entity.turma.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import br.com.ifba.sgif.api.entity.turma.dao.ITurmaDao;
 import br.com.ifba.sgif.api.entity.turma.dto.TurmaResponseDto;
@@ -96,7 +95,7 @@ public class TurmaService implements ITurmaService {
      * @return um DTO com os dados da turma deletada da base de dados.
      */
     @Override
-    public TurmaResponseDto deletarTurmaPorId(UUID id) {
+    public TurmaResponseDto deletarTurmaPorId(Long id) {
 
         return this.turmaDao.findById(id)
                 .map(t -> {

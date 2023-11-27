@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since Desde V1.0.1
  */
 @Repository
-public interface IDaoFormulario extends JpaRepository<Formulario, UUID>{
+public interface IDaoFormulario extends JpaRepository<Formulario, Long>{
 
     // =========================================================== //
     // =============== [ ASSINATURAS DE MÉTODOS ] ================ //
@@ -28,7 +28,7 @@ public interface IDaoFormulario extends JpaRepository<Formulario, UUID>{
      * @return um objeto opcional do tipo formulário,
      * que será nulo caso o formulário não exista na base de dados.
      */
-    Optional<Formulario> findById(UUID id);
+    Optional<Formulario> findById(Long id);
 
     List<Formulario> findByTitulo(String titulo);
 
@@ -43,7 +43,7 @@ public interface IDaoFormulario extends JpaRepository<Formulario, UUID>{
      * passado por parâmetro na base de dados,
      * 'false' caso contrário.
      */
-    boolean existsById(UUID id);
+    boolean existsById(Long id);
 
     /**
      * @author Giovane Neves

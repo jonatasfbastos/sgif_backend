@@ -1,7 +1,6 @@
 package br.com.ifba.sgif.api.entity.professor.service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import br.com.ifba.sgif.api.entity.professor.dao.IProfessorDao;
@@ -56,7 +55,7 @@ public class ProfessorService implements IProfessorService {
      * @return DTO com dados do professor atrelado ao ID passado por parâmetro.
      */
      @Override
-     public ProfessorResponseDto encontrarProfessorPorId(final UUID id) {
+     public ProfessorResponseDto encontrarProfessorPorId(final Long id) {
 
 
         return this._professorDao.findById(id)
@@ -135,7 +134,7 @@ public class ProfessorService implements IProfessorService {
      * @return DTO com dados do professor deletado.
      */
     @Override
-    public ProfessorResponseDto deletarProfessorPorId(final UUID id) {
+    public ProfessorResponseDto deletarProfessorPorId(final Long id) {
 
          return this._professorDao.findById(id)
                  .map(prof -> {

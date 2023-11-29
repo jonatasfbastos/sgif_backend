@@ -43,7 +43,6 @@ import java.util.List;
 @Table(name = "usuarios")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
@@ -188,5 +187,10 @@ public class Usuario extends PersistenceEntity implements UserDetails, Serializa
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

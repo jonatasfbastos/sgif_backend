@@ -7,10 +7,7 @@ import br.com.ifba.sgif.api.entity.usuario.model.Usuario;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -29,7 +26,8 @@ import java.util.List;
 @Table(name = "perfilusuarios")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class PerfilUsuario extends PersistenceEntity {
     // =========================================================== //
@@ -61,4 +59,8 @@ public class PerfilUsuario extends PersistenceEntity {
     // =============== [        MÉTODOS       ] ================== //
     // =========================================================== //
 
+    @Override
+    public String toString() {
+        return "";
+    }
 }

@@ -50,7 +50,7 @@ public class FormularioController {
      * Lista todos os formulários cadastrados na base de dados.
      * @return uma entidade de resposta genérica.
      */
-    @GetMapping(path = "/formularios", consumes="application/json")
+    @GetMapping(path = "/formularios", produces = "application/json")
     public ResponseEntity<?> listarFormularios(){
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -66,7 +66,7 @@ public class FormularioController {
      * como parâmetro da requisição.
      * @return uma entidade de resposta generica.
      */
-    @GetMapping(path = "/formularios/formulario/{id}", consumes = "application/json")
+    @GetMapping(path = "/formularios/formulario/{id}", produces = "application/json")
     public ResponseEntity<?> encontrarFormularioPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -81,7 +81,7 @@ public class FormularioController {
      * Salva um formulário.
      * @return uma entidade de resposta generica.
      */
-    @PostMapping(path = "/formularios/formulario", consumes = "application/json")
+    @PostMapping(path = "/formularios/formulario", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarFormulario(@Valid @RequestBody FormularioRequestDto formDto, BindingResult result){
 
         return result.hasErrors()
@@ -96,7 +96,7 @@ public class FormularioController {
      * Atualiza um formulário.
      * @return uma entidade de resposta generica.
      */
-    @PutMapping(path = "/formularios/formulario", consumes = "application/json")
+    @PutMapping(path = "/formularios/formulario", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarFormulario(@Valid @RequestBody FormularioRequestDto formDto, BindingResult result){
 
         return result.hasErrors()

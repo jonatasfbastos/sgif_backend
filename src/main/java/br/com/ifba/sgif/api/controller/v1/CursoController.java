@@ -77,7 +77,7 @@ public class CursoController {
      * Salva um curso na base de dados.
      * @return uma entidade de resposta generica.
      */
-    @PostMapping(path = "/cursos/curso", consumes = "application/json")
+    @PostMapping(path = "/cursos/curso", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarCurso(@Valid @RequestBody CursoRequestDto cursoDto, BindingResult result){
 
         return result.hasErrors()
@@ -92,7 +92,7 @@ public class CursoController {
      * Atualiza um curso.
      * @return uma entidade de resposta generica.
      */
-    @PutMapping(path = "/cursos/curso", consumes = "application/json")
+    @PutMapping(path = "/cursos/curso", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarCurso(@Valid @RequestBody CursoRequestDto cursoDto, BindingResult result){
 
         return result.hasErrors()
@@ -108,7 +108,7 @@ public class CursoController {
      * Deleta o curso atrelado ao ID passado por parâmetro.
      * @return uma entidade de resposta generica.
      */
-    @DeleteMapping(path = "/cursos/curso/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/cursos/curso/{id}", produces = "application/json")
     public ResponseEntity<?> deletarCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

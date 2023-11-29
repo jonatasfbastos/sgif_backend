@@ -75,7 +75,7 @@ public class UsuarioController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/usuario/{id}", consumes = "application/json")
+    @GetMapping(path = "/usuarios/usuario/{id}", produces = "application/json")
     public ResponseEntity<?> getUsuario(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -91,7 +91,7 @@ public class UsuarioController {
      * 
      * @author Andesson Reis
      */
-    @GetMapping(path = "/usuarios/login", consumes = "application/json")
+    @GetMapping(path = "/usuarios/login", produces = "application/json")
     public ResponseEntity<?> getUsuarioByLoginAndSenha(@Valid @PathVariable("login") String login, @PathVariable("senha") String senha) {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -107,7 +107,7 @@ public class UsuarioController {
      * @return uma entidade de resposta generica.
      */
 
-    @PostMapping(path = "/usuarios/usuario", consumes = "application/json")
+    @PostMapping(path = "/usuarios/usuario", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioRequestDto usuarioDto, BindingResult result) {
 
         return result.hasErrors()
@@ -124,7 +124,7 @@ public class UsuarioController {
      * Deleta um usuario.
      * @return uma entidade de resposta generica.
      */
-    @DeleteMapping(path = "/usuarios/usuario/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/usuarios/usuario/{id}", produces = "application/json")
     public ResponseEntity<?> deletarUsuarioPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

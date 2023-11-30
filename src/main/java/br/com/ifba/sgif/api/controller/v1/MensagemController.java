@@ -49,7 +49,7 @@ public class MensagemController {
      *
      * @return Uma lista de mensagens ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "mensagens/mensagem", produces = "application/json")
+    @GetMapping(path = "/mensagens", produces = "application/json")
     public ResponseEntity<?> listarMensagens() {
         return ResponseEntity.status(HttpStatus.OK).body(mensagemService.getAllMensagem());
     }
@@ -59,7 +59,7 @@ public class MensagemController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "mensagens/mensagem", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/mensagens/mensagem", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarMensagem(@Valid @RequestBody MensagemRequestDto mensagemDto, BindingResult result) {
 
         return result.hasErrors()
@@ -73,7 +73,7 @@ public class MensagemController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "mensagens/mensagem", consumes = "application/json", produces = "application/json")
+    @PutMapping(path = "/mensagens/mensagem", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarMensagem(@Valid @RequestBody MensagemRequestDto mensagemDto, BindingResult result) {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
@@ -86,7 +86,7 @@ public class MensagemController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/{id}", produces = "application/json")
+    @DeleteMapping(path = "/mensagens/mensagem/{id}", produces = "application/json")
     public ResponseEntity<?> deletarMensagemPorID(@Valid @PathVariable("id") Long id) {
         
         return ResponseEntity.status(HttpStatus.ACCEPTED)

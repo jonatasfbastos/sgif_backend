@@ -112,7 +112,7 @@ public class EtapaCursoController {
      * @param id O ID da etapa de curso a ser deletada.
      * @return uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/etapascurso/etapacurso{id}", produces = "application/json")
+    @DeleteMapping(path = "/etapascurso/etapacurso/{id}", produces = "application/json")
     public ResponseEntity<?> deletarEtapaCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)

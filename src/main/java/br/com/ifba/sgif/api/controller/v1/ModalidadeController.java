@@ -42,7 +42,7 @@ public class ModalidadeController {
      *
      * @return Uma lista de modalidades ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(consumes = "application/json")
+    @GetMapping(path = "/modalidades", produces = "application/json")
     public ResponseEntity<?> getModalidades() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -54,7 +54,7 @@ public class ModalidadeController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(consumes = "application/json")
+    @PostMapping(path = "/modalidades/modalidade", produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> salvarModalidade(@Valid @RequestBody ModalidadeRequestDto modalidadeDto, BindingResult result) {
 
         return result.hasErrors()
@@ -67,7 +67,7 @@ public class ModalidadeController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(consumes = "application/json")
+    @PutMapping(path = "/modalidades/modalidade", produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> atualizarModalidade(@Valid @RequestBody ModalidadeRequestDto modalidadeDto, BindingResult result) {
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))
@@ -79,7 +79,7 @@ public class ModalidadeController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/modalidades/modalidade/{id}", produces = "application/json")
     public ResponseEntity<?> deletarModalidadePorID(@Valid @PathVariable("id") Long id) {
         
         return ResponseEntity.status(HttpStatus.ACCEPTED)

@@ -48,7 +48,7 @@ public class StatusAlunoController {
      * 
      * @return Uma lista de Status dos Alunos ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/statusAlunos", consumes = "application/json")
+    @GetMapping(path = "/statusalunos", produces = "application/json")
     public ResponseEntity<?> getStatusAlunos() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -61,7 +61,7 @@ public class StatusAlunoController {
      * 
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "/statusAlunos/statusAluno", consumes = "application/json")
+    @PutMapping(path = "/statusAlunos/statusAluno", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarStatusAluno(@Valid @RequestBody StatusAlunoRequestDto statusAlunoDto, BindingResult result) {
 
         return result.hasErrors()
@@ -75,7 +75,7 @@ public class StatusAlunoController {
      * 
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/statusAlunos/statusAluno", consumes = "application/json")
+    @PostMapping(path = "/statusAlunos/statusAluno", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarStatusAluno(@Valid @RequestBody StatusAlunoRequestDto statusAlunoDto, BindingResult result) {
 
         return result.hasErrors()
@@ -89,7 +89,7 @@ public class StatusAlunoController {
      * 
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/statusAlunos/statusAluno/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/statusAlunos/statusAluno/{id}", produces = "application/json")
     public ResponseEntity<?> deletarStatusAlunoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

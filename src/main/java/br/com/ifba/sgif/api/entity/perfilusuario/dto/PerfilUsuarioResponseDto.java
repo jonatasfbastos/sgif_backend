@@ -13,19 +13,18 @@ import lombok.NoArgsConstructor;
  * Veja também: {@link PerfilUsuario}
  */
 
-public record PerfilUsuarioResponseDto(
+public class PerfilUsuarioResponseDto{
     @JsonProperty(value = "id")
-    Long id,
+    Long id;
 
     /**
      * O nome do perfil de usuário.
      */
     @JsonProperty(value = "nome")
-    String nome,
+    String nome;
     /**
      * A descrição do perfil de usuário.
      */
     @JsonProperty(value = "descricao")
-    String descricao
-) {
+    String descricao;
 }

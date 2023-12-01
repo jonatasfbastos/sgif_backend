@@ -15,17 +15,21 @@ import br.com.ifba.sgif.api.entity.servidor.dto.ServidorResponseDto;
  * @param servidores - Lista de servidores associados à função.
  * @param tecnicoAdministrativos - Lista de técnicos administrativos associados à função.
  */
-public class FuncaoServidorResponseDto {
+public record FuncaoServidorResponseDto(
+    @JsonProperty(value = "id")
+    Long id,
 
     @JsonProperty(value = "nome")
-    private String nome;
+    String nome,
 
     @JsonProperty(value = "descricao")
-    private String descricao;
+    String descricao,
 
     @JsonProperty(value = "servidores")
-    private List<ServidorResponseDto> servidores;
+    List<ServidorResponseDto> servidores,
 
     @JsonProperty(value = "tecnicoAdministrativos")
-    private List<TecnicoAdministrativoResponseDto> tecnicoAdministrativos;
+    List<TecnicoAdministrativoResponseDto> tecnicoAdministrativos
+) {
+
 }

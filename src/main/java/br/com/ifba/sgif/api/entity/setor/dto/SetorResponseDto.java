@@ -16,6 +16,9 @@ import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioSimpleResponseDto;
  * Veja também: {@link Usuario}
  */
 public record SetorResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "nome")
         String nome,
 

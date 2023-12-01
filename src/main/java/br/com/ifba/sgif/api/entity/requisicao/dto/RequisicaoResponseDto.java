@@ -19,6 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Veja também: {@link Setor}
  */
 public record RequisicaoResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "codigoSaida")
         String codigoSaida,
 

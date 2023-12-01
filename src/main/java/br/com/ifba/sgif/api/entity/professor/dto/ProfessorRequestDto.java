@@ -1,6 +1,11 @@
 package br.com.ifba.sgif.api.entity.professor.dto;
 
-public record ProfessorRequestDto() {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record ProfessorRequestDto(
+    @JsonProperty(value = "id")
+    Long id
+) {
 
     // TODO: Adicionar atributos
 

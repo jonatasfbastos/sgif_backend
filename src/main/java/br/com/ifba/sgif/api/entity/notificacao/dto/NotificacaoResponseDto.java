@@ -19,24 +19,25 @@ import java.time.LocalDateTime;
  * @param sendDateTime - Data e hora de envio da notificação.
  */
 
-public class NotificacaoResponseDto {
+public record NotificacaoResponseDto(
+    @JsonProperty(value = "id")
+    Long id,
 
     @JsonProperty(value = "title")
-    private String title;
+    String title,
 
     @JsonProperty(value = "body")
-    private String body;
+    String body,
 
     @JsonProperty(value = "whatId")
-    private Long whatId;
+    Long whatId,
 
     @JsonProperty(value = "whatObjectName")
-    private String whatObjectName;
+    String whatObjectName,
 
     @JsonProperty(value = "read")
-    private boolean read;
+    boolean read,
 
     @JsonProperty(value = "sendDateTime")
-    private LocalDateTime sendDateTime;
-
-}
+    LocalDateTime sendDateTime
+) {}

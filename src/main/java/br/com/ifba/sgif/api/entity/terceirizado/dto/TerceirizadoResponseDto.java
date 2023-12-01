@@ -12,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param funcaoTerceirizado - A função do terceirizado.
  */
 public record TerceirizadoResponseDto(
-
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "funcaoTerceirizado")
         FuncaoTerceirizadoResponseDto funcaoTerceirizado
 ) {

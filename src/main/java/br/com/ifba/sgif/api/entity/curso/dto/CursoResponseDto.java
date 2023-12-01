@@ -26,6 +26,8 @@ import java.util.List;
  * Veja também: {@link MatrizCurricularResponseDto}
  */
 public record CursoResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
         @JsonProperty(value = "nome")
         String nome,
         @JsonProperty(value = "codigo_curso")

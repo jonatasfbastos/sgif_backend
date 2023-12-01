@@ -16,14 +16,18 @@ import java.util.List;
  * @author Andesson Reis
  * @since V1.0.1
  */
-public class TipoTurmaResponseDto {
+public record TipoTurmaResponseDto (
+    @JsonProperty(value = "id")
+    Long id,
 
     @JsonProperty(value = "nome")
-    private String nome;
+    String nome,
 
     @JsonProperty(value = "descricao")
-    private String descricao;
+    String descricao,
 
     @JsonProperty(value = "turmas")
-    private List<TurmaResponseDto> turmas;
+    List<TurmaResponseDto> turmas
+){
+  
 }

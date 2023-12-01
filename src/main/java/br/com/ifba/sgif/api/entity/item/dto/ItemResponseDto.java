@@ -44,6 +44,8 @@ import java.util.List;
  * Veja também: {@link Fornecedor}
  */
 public record ItemResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
 
         @JsonProperty(value = "nome")
         String nome,

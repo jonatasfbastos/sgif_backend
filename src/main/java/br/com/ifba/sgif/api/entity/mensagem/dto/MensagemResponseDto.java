@@ -14,17 +14,21 @@ import java.util.Date;
  * @param dataInicio - A data de início da mensagem.
  * @param dataFim - A data de término da mensagem.
  */
-public class MensagemResponseDto {
+public record MensagemResponseDto(
+    @JsonProperty(value = "id")
+    Long id,
 
     @JsonProperty(value = "nome")
-    private String nome;
+    String nome,
 
     @JsonProperty(value = "descricao")
-    private String descricao;
+    String descricao,
 
     @JsonProperty(value = "dataInicio")
-    private Date dataInicio;
+    Date dataInicio,
 
     @JsonProperty(value = "dataFim")
-    private Date dataFim;
+    Date dataFim
+) {
+
 }

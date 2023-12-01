@@ -21,6 +21,8 @@ import java.util.List;
  * @param itens - A lista de itens fornecidos pelo fornecedor.
  */
 public record FornecedorResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
 
         @JsonProperty(value = "nome")
         String nome,

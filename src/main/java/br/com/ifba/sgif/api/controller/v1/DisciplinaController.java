@@ -16,7 +16,7 @@ import java.util.UUID;
 import java.util.Optional;
 
 /**
- * @author Giovane Neves
+ * @auathor Giovane Neves
  * @since Desde V1.0.1
  */
 @RestController

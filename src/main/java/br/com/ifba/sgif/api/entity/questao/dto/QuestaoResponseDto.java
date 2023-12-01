@@ -20,6 +20,9 @@ import java.util.List;
  * Veja também: {@link RespostaResponseDto}
  */
 public record QuestaoResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+
         @JsonProperty(value = "enunciado")
         String enunciado,
 

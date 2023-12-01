@@ -21,6 +21,9 @@ import java.util.List;
  * Veja também: {@link PermissaoLink}
  */
 public record PermissaoLinkResponseDto(
+    @JsonProperty(value = "id")
+    Long id,
+    
     @JsonProperty("nome")
     String nome,
 

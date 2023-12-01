@@ -13,14 +13,16 @@ import java.util.List;
  * @param descricao - A descrição da função de técnico administrativo.
  * @param tecnicos - Lista de técnicos associados à função.
  */
-public class FuncaoTecnicoAdministrativoResponseDto {
-
+public record FuncaoTecnicoAdministrativoResponseDto(    
+    @JsonProperty(value = "id")
+    Long id,
+    
     @JsonProperty(value = "nome")
-    private String nome;
+    String nome,
 
     @JsonProperty(value = "descricao")
-    private String descricao;
+    String descricao,
 
     @JsonProperty(value = "tecnicos")
-    private List<TecnicoAdministrativoResponseDto> tecnicos;
-}
+    List<TecnicoAdministrativoResponseDto> tecnicos
+    ) {}

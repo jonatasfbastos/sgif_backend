@@ -12,11 +12,15 @@ import br.com.ifba.sgif.api.entity.funcaoservidor.dto.FuncaoServidorResponseDto;
  * @param funcaoServidor - Informações da função de servidor do técnico administrativo.
  * @param funcaoTecnicoAdministrativo - Informações da função de técnico administrativo do servidor.
  */
-public class TecnicoAdministrativoResponseDto {
+public record TecnicoAdministrativoResponseDto(
+    @JsonProperty(value = "id")
+    Long id,
 
     @JsonProperty(value = "funcaoServidor")
-    private FuncaoServidorResponseDto funcaoServidor;
+    FuncaoServidorResponseDto funcaoServidor,
 
     @JsonProperty(value = "funcaoTecnicoAdministrativo")
-    private FuncaoTecnicoAdministrativoResponseDto funcaoTecnicoAdministrativo;
+    FuncaoTecnicoAdministrativoResponseDto funcaoTecnicoAdministrativo
+) {
+
 }

@@ -13,11 +13,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param siape - O número do SIAPE do servidor.
  * @param funcaoServidor - Informações da função do servidor.
  */
-public class ServidorResponseDto {
+public record ServidorResponseDto(
+    @JsonProperty(value = "id")
+    Long id,
 
     @JsonProperty(value = "siape")
-    private String siape;
+    String siape,
 
     @JsonProperty(value = "funcaoServidor")
-    private FuncaoServidorResponseDto funcaoServidor;
+    FuncaoServidorResponseDto funcaoServidor
+) {
 }

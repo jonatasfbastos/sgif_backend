@@ -14,6 +14,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param usuario O dono da resposta.
  */
 public record RespostaResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "text")
         String texto,
         @JsonProperty(value = "usuario")

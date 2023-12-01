@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param requisicoes - A lista de requisições associadas à pessoa.
  */
 public record PessoaResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "nome")
         String nome,
 

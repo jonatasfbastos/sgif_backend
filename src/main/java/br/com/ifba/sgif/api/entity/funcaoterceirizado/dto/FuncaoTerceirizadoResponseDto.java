@@ -16,8 +16,12 @@ import java.util.List;
  * @param nome - O nome da função do terceirizado.
  * @param descricao - A descrição da função do terceirizado.
  * @param terceirizados - Lista de terceirizados associados a esta função.
+ * 
  */
 public record FuncaoTerceirizadoResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+
         @JsonProperty(value = "nome")
         String nome,
 

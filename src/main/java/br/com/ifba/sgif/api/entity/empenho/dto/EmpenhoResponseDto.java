@@ -23,6 +23,9 @@ import java.util.List;
  * Veja também: {@link Usuario}
  */
 public record EmpenhoResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+
         @JsonProperty(value = "nota")
         String nota,
 

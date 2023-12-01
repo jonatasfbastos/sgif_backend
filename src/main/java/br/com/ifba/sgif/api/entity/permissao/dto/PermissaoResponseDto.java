@@ -29,6 +29,9 @@ import java.util.List;
  * Veja também: {@link PermissaoLink}
  */
 public record PermissaoResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         /**
          * O nome da permissão.
          */

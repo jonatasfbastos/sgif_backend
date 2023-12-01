@@ -20,6 +20,9 @@ import br.com.ifba.sgif.api.entity.item.dto.ItemSimpleResponseDto;
  * @param item - Informações do item associado ao relatório.
  */
 public record RelatorioMensalResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "nome")
         String nome,
 

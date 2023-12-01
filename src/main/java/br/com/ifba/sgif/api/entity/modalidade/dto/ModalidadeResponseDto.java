@@ -16,6 +16,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Veja também: {@link Modalidade}
  */
 public record ModalidadeResponseDto(
+        @JsonProperty(value = "id")
+        Long id,
+        
         @JsonProperty(value = "nome")
         String nome,
         @JsonProperty(value = "descricao")

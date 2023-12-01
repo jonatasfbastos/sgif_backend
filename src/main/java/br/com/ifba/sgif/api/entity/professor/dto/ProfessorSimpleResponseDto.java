@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProfessorResponseDto{
+public class ProfessorSimpleResponseDto {
     @JsonProperty(value = "id")
     private Long id;
 

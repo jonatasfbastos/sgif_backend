@@ -30,12 +30,12 @@ public record ProfessorPostRequestDto(
         @NotBlank(message = "o nome do professor não pode ser vazio")
         String nome,
 
-        @JsonProperty(value = "funcao_servidor")
+        @JsonProperty(value = "telefone")
         @NotNull(message = "o telefone do professor não pode ser nulo")
         @NotBlank(message = "o telefone do professor não pode ser vazio")
         String telefone,
 
-        @JsonProperty(value = "funcao_servidor")
+        @JsonProperty(value = "cpf")
         @NotNull(message = "o cpf do professor não pode ser nulo")
         @NotBlank(message = "o cpf do professor não pode ser vazio")
         String cpf,

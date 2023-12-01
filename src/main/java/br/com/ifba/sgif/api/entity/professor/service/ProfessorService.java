@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.ifba.sgif.api.entity.professor.dao.IProfessorDao;
-import br.com.ifba.sgif.api.entity.professor.dto.ProfessorResponseDto;
+import br.com.ifba.sgif.api.entity.professor.dto.ProfessorGetResponseDto;
+import br.com.ifba.sgif.api.entity.professor.dto.ProfessorSimpleResponseDto;
 import br.com.ifba.sgif.api.entity.professor.model.Professor;
 import br.com.ifba.sgif.api.infrastructure.exception.BusinessExceptionMessage;
 import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
@@ -37,11 +38,11 @@ public class ProfessorService implements IProfessorService {
      * @return uma lista de DTO com dados de todos os professores da base de dados.
      */
     @Override
-    public List<ProfessorResponseDto> listarProfessores() {
+    public List<ProfessorSimpleResponseDto> listarProfessores() {
 
         return this._objectMapperUtil.mapAll(
                 this._professorDao.findAll(),
-                ProfessorResponseDto.class
+                ProfessorSimpleResponseDto.class
         );
 
     }
@@ -55,11 +56,11 @@ public class ProfessorService implements IProfessorService {
      * @return DTO com dados do professor atrelado ao ID passado por parâmetro.
      */
      @Override
-     public ProfessorResponseDto encontrarProfessorPorId(final Long id) {
+     public ProfessorSimpleResponseDto encontrarProfessorPorId(final Long id) {
 
 
         return this._professorDao.findById(id)
-                .map(prof -> this._objectMapperUtil.map(this._professorDao.save(prof), ProfessorResponseDto.class))
+                .map(prof -> this._objectMapperUtil.map(this._professorDao.save(prof), ProfessorSimpleResponseDto.class))
                 .orElseThrow(
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                 );
@@ -76,11 +77,11 @@ public class ProfessorService implements IProfessorService {
      * passado por parâmetro.
      */
     @Override
-    public List<ProfessorResponseDto> encontrarProfessorPorNome(final String nome) {
+    public List<ProfessorSimpleResponseDto> encontrarProfessorPorNome(final String nome) {
 
          return this._professorDao.findByNome(nome)
                  .stream()
-                 .map(prof -> this._objectMapperUtil.map(this._professorDao.save(prof), ProfessorResponseDto.class))
+                 .map(prof -> this._objectMapperUtil.map(this._professorDao.save(prof), ProfessorSimpleResponseDto.class))
                  .collect(Collectors.toList());
 
     }
@@ -94,13 +95,13 @@ public class ProfessorService implements IProfessorService {
      * @return DTO com dados do professor salvo.
      */
     @Override
-    public ProfessorResponseDto salvarProfessor(final Professor professor) {
+    public ProfessorSimpleResponseDto salvarProfessor(final Professor professor) {
 
         // TODO: Adicionar verificação de SIAPE
 
         return this._objectMapperUtil.map(
                 this._professorDao.save(professor),
-                ProfessorResponseDto.class
+                ProfessorGetResponseDto.class
         );
 
     }
@@ -114,12 +115,12 @@ public class ProfessorService implements IProfessorService {
      * @return DTO com dados do professor atualizado.
      */
     @Override
-    public ProfessorResponseDto atualizarProfessor(final Professor professor) {
+    public ProfessorSimpleResponseDto atualizarProfessor(final Professor professor) {
 
         // TODO: Adicionar verificação de SIAPE
 
         return this._professorDao.findById(professor.getId())
-                .map(prof -> this._objectMapperUtil.map(prof, ProfessorResponseDto.class))
+                .map(prof -> this._objectMapperUtil.map(prof, ProfessorSimpleResponseDto.class))
                 .orElseThrow(
                         () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())
                 );
@@ -134,12 +135,12 @@ public class ProfessorService implements IProfessorService {
      * @return DTO com dados do professor deletado.
      */
     @Override
-    public ProfessorResponseDto deletarProfessorPorId(final Long id) {
+    public ProfessorSimpleResponseDto deletarProfessorPorId(final Long id) {
 
          return this._professorDao.findById(id)
                  .map(prof -> {
                      this._professorDao.delete(prof);
-                     return this._objectMapperUtil.map(prof, ProfessorResponseDto.class);
+                     return this._objectMapperUtil.map(prof, ProfessorSimpleResponseDto.class);
                  })
                  .orElseThrow(
                          () -> new BusinessException(BusinessExceptionMessage.NOT_FOUND.getMensagem())

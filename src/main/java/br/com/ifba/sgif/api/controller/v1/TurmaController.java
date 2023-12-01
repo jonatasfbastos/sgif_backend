@@ -54,7 +54,7 @@ public class TurmaController {
      * Lista todas as turmas cadastradas na base de dados.
      * @return uma entidade de resposta genérica.
      */
-    @GetMapping(path = "/turmas", consumes = "application/json")
+    @GetMapping(path = "/turmas", produces = "application/json")
     public ResponseEntity<?> listarTurmas() {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -69,7 +69,7 @@ public class TurmaController {
      * Salva uma turma na base de dados.
      * @return uma entidade de resposta generica.
      */
-    @PostMapping(path = "/turmas/turma", consumes = "application/json")
+    @PostMapping(path = "/turmas/turma", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarTurma(@Valid @RequestBody TurmaRequestDto turmaDto, BindingResult result){
 
         return result.hasErrors()
@@ -84,7 +84,7 @@ public class TurmaController {
      * Atualiza uma turma.
      * @return uma entidade de resposta generica.
      */
-    @PutMapping(path = "/turmas/turma", consumes = "application/json")
+    @PutMapping(path = "/turmas/turma", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarTurma(@Valid @RequestBody TurmaRequestDto turmaDto, BindingResult result){
 
         return result.hasErrors()
@@ -100,7 +100,7 @@ public class TurmaController {
      * Deleta a turma atrelada ao ID passado por parâmetro.
      * @return uma entidade de resposta generica.
      */
-    @DeleteMapping(path = "/turmas/turma/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/turmas/turma/{id}", produces = "application/json")
     public ResponseEntity<?> deletarTurmaPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

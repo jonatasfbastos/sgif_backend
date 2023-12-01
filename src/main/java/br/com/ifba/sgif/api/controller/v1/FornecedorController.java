@@ -25,13 +25,10 @@ import br.com.ifba.sgif.api.entity.fornecedor.service.IServiceFornecedor;
 import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 
 /**
- * @apiNote Endpoint criado desde a versão 1.0.1
- *
  * Controller para gerenciar fornecedores.
  *
- * @author Andesson Reis
+ * @author Andesson Reis, Giovane Neves
  * @since V1.0.1
- * 
  * Veja também: {@link Fornecedor}
  */
 @RestController
@@ -49,8 +46,8 @@ public class FornecedorController {
      * 
      * @return Uma lista de fornecedores ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/fornecedores", consumes = "application/json")
-    public ResponseEntity<?> getFornecedores() {
+    @GetMapping(path = "/fornecedores", produces = "application/json")
+    public ResponseEntity<?> listarFornecedores() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(fornecedorService.getAllFornecedores());
@@ -61,7 +58,7 @@ public class FornecedorController {
      * 
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "/fornecedores/fornecedor", consumes = "application/json")
+    @PutMapping(path = "/fornecedores/fornecedor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarFornecedor(@Valid @RequestBody FornecedorRequestDto fornecedorDto, BindingResult result) {
 
         
@@ -76,7 +73,7 @@ public class FornecedorController {
      * 
      * @return Uma entidade de resposta genérica.
      */
-    @PostMapping(path = "/fornecedores/fornecedor", consumes = "application/json")
+    @PostMapping(path = "/fornecedores/fornecedor", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarFornecedor(@Valid @RequestBody FornecedorRequestDto fornecedorDto, BindingResult result) {
 
         return result.hasErrors()
@@ -89,7 +86,7 @@ public class FornecedorController {
      * 
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/fornecedores/fornecedor/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/fornecedores/fornecedor/{id}", produces = "application/json")
     public ResponseEntity<?> deletarFornecedorPorID(@Valid @PathVariable("id") @NotNull Long id) {
         
         return ResponseEntity.status(HttpStatus.ACCEPTED)

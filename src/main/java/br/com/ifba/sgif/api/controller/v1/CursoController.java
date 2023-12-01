@@ -46,7 +46,7 @@ public class CursoController {
      * Lista todos os cursos cadastrados na base de dados.
      * @return uma entidade de resposta genérica.
      */
-    @GetMapping(path = "/cursos", consumes="application/json")
+    @GetMapping(path = "/cursos", produces="application/json")
     public ResponseEntity<?> listarCursos(){
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -62,7 +62,7 @@ public class CursoController {
      * como parâmetro da requisição.
      * @return uma entidade de resposta generica.
      */
-    @GetMapping(path = "/cursos/curso/{id}", consumes = "application/json")
+    @GetMapping(path = "/cursos/curso/{id}", produces = "application/json")
     public ResponseEntity<?> encontrarCursoPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.OK)

@@ -58,8 +58,8 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/itens", consumes = "application/json")
-    public ResponseEntity<?> getItens() {
+    @GetMapping(path = "/itens", produces = "application/json")
+    public ResponseEntity<?> listarItens() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.getAllItens());
@@ -75,8 +75,8 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/item/{id}", consumes = "application/json")
-    public ResponseEntity<?> getItem(@Valid @PathVariable("id") @NotNull Long id) {
+    @GetMapping(path = "/itens/item/{id}", produces = "application/json")
+    public ResponseEntity<?> encontrarItemPorId(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.getItemById(id));
@@ -92,8 +92,8 @@ public class ItemController {
     *
     * @author Andesson Reis
     */
-    @GetMapping(path = "/itens/item", consumes = "application/json")
-    public ResponseEntity<?> getItemPorNome(@Valid @PathVariable String nome) {
+    @GetMapping(path = "/itens/item/{nome}", produces = "application/json")
+    public ResponseEntity<?> encontrarItemPorNome(@Valid @PathVariable String nome) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(itemService.findByNome(nome));
@@ -109,7 +109,7 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/itens/dataNotBefore", consumes = "application/json")
+    @GetMapping(path = "/itens/item/dataNotBefore", produces = "application/json")
     public ResponseEntity<?> findByDataNotBefore(@Valid @PathVariable Date dataNot) {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -126,7 +126,7 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @GetMapping(path = "/itens/validadeAfter", consumes = "application/json")
+    @GetMapping(path = "/itens/item/validadeAfter", produces = "application/json")
     public ResponseEntity<?> findByValidadeAfter(@Valid @PathVariable Date validade) {
 
          return ResponseEntity.status(HttpStatus.OK)
@@ -144,7 +144,7 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @PutMapping(path = "/itens/item", consumes = "application/json")
+    @PutMapping(path = "/itens/item", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarItem(@Valid @RequestBody ItemRequestDto itemDto, BindingResult result){
 
         return result.hasErrors()
@@ -164,7 +164,7 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @PostMapping(path = "/itens/item", consumes = "application/json")
+    @PostMapping(path = "/itens/item", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> salvarItem(@Valid @RequestBody ItemRequestDto itemDto, BindingResult result){
 
         return result.hasErrors()
@@ -183,7 +183,7 @@ public class ItemController {
      *
      * @author Andesson Reis
      */
-    @DeleteMapping(path = "/Itens/Item/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/Itens/Item/{id}", produces = "application/json")
     public ResponseEntity<?> deletarItemPorId(@PathVariable("id") @NotNull Long id){
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

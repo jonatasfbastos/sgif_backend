@@ -1,0 +1,20 @@
+POST http://localhost:8080/apif/v1/professores/professor
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6ZWRhbWFuZ2EiLCJleHAiOjE3MDM4NTQxNTd9.Jme8fmI6CFNm3-ZrPPUAQcuYORLDCLfwEsJcODNUIGfhzcI0g9_0ZONnZg5SvvSzqhbFjiocnprvpoYtbpHW8A
+
+{
+  "nome" : "Reandro",
+  "telefone": "74999000000",
+  "email" : "reandrao@gmail.com",
+  "cpf" : "12345678900",
+  "data_nascimento" : "1997-02-02",
+  "siape" : "123456",
+  "disciplinas" : [
+    {
+      "nome" : "Algarismos e Paginação",
+      "descricao" : "Matéria mais dificil do curso",
+      "codigo" : "123",
+      "carga_horaria" : 40
+    }
+  ]
+}

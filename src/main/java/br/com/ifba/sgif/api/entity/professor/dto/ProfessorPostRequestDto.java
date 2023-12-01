@@ -45,8 +45,8 @@ public record ProfessorPostRequestDto(
 
         // TODO: Verificar se é necessário adicionar a lista de requisições.
 
-        @JsonProperty(value = "funcao_servidor")
-        FuncaoServidorRequestDto funcaoServidor,
+        //@JsonProperty(value = "funcao_servidor")
+        //FuncaoServidorRequestDto funcaoServidor,
 
         @JsonProperty(value = "siape")
         @NotNull(message = "o siape do professor não pode ser nulo")

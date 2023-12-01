@@ -1,12 +1,21 @@
 package br.com.ifba.sgif.api.entity.professor.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record ProfessorResponseDto(
+/**
+ * @author Giovane Neves
+ * @since Desde V1.0.1
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class ProfessorResponseDto{
     @JsonProperty(value = "id")
-    Long id
-) {
+    private Long id;
 
-    // TODO: Adicionar atributos
-
+    @JsonProperty(value = "nome")
+    private String nome;
 }

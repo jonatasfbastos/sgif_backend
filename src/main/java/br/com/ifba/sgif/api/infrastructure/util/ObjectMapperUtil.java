@@ -1,6 +1,8 @@
 package br.com.ifba.sgif.api.infrastructure.util;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -50,6 +52,14 @@ public class ObjectMapperUtil {
      * @param <Output> O tipo de saída.
      */
     public <Input, Output> Output map(final Input object, final Class<Output> clazz){
+
+        MODEL_MAPPER.getConfiguration()
+                .setAmbiguityIgnored(true)
+                .setMatchingStrategy(MatchingStrategies.STRICT)
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
+
+
         Output c =  MODEL_MAPPER.map(object, clazz);
 
         return c;
@@ -160,22 +170,28 @@ public class ObjectMapperUtil {
 
     }
 
-    /**
-     * @author Giovane Neves
-     * Desde V1.0.1
-     *
-     * Converte uma lista de objetos de um tipo para uma lista de objetos Class<T>.
-     *
-     * @param objectList A lista de objetos a ser convertida.
-     * @param clazz O tipo de dados para o qual serão convertidos.
-     * @return uma lista de objectList convertida para o tipo clazz.
-     * @param <Input> O tipo de entrada.
-     * @param <Output> O tipo de saída.
-     */
-    public <Input, Output> List<Output> mapAll(final Collection<Input> objectList, final Class<Output> clazz){
+        /**
+         * @author Giovane Neves
+         * Desde V1.0.1
+         *
+         * Converte uma lista de objetos de um tipo para uma lista de objetos Class<T>.
+         *
+         * @param objectList A lista de objetos a ser convertida.
+         * @param out O tipo de dado para o qual serão convertidos.
+         * @return uma lista de objectList convertida para o tipo clazz.
+         * @param <Input> O tipo de entrada.
+         * @param <Output> O tipo de saída.
+         */
+    public <Input, Output> List<Output> mapAll(final Collection<Input> objectList, Class<Output> out){
+
+        MODEL_MAPPER.getConfiguration()
+                .setAmbiguityIgnored(true)
+                .setMatchingStrategy(MatchingStrategies.STRICT)
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
 
         return objectList.stream()
-                .map(object -> MODEL_MAPPER.map(object, clazz))
+                .map(obj -> MODEL_MAPPER.map(obj, out))
                 .toList();
     }
 

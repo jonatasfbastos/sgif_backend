@@ -49,19 +49,19 @@ public class EmpenhoController {
      *
      * @return Uma lista de empenhos ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/empenhos", consumes = "application/json")
-    public ResponseEntity<?> getEmpenhos() {
+    @GetMapping(path = "/empenhos", produces = "application/json")
+    public ResponseEntity<?> listarEmpenhos() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(empenhoService.getAllEmpenho());
     }
 
      /**
-     * Atualiza um empenho.
+     * Atualiza um empenho.a
      *
      * @return Uma entidade de resposta genérica.
      */
-    @PutMapping(path = "/empenhos/empenho", consumes = "application/json")
+    @PutMapping(path = "/empenhos/empenho", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> atualizarEmpenho(@Valid @RequestBody EmpenhoRequestDto empenhoDto, BindingResult result) {
 
         return result.hasErrors()
@@ -88,7 +88,7 @@ public class EmpenhoController {
      *
      * @return Uma entidade de resposta genérica.
      */
-    @DeleteMapping(path = "/empenhos/empenho/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/empenhos/empenho/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> deletarEmpenhoPorID(@Valid @PathVariable("id") @NotNull Long id) {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

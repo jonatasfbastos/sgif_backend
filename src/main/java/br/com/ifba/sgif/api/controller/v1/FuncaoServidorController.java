@@ -58,8 +58,8 @@ public class FuncaoServidorController {
      *
      * @return Uma lista de funções de servidor ou uma resposta de erro em caso de falha.
      */
-    @GetMapping(path = "/funcoesServidor", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> getFuncoesServidor() {
+    @GetMapping(path = "/funcoesServidor", produces = "application/json")
+    public ResponseEntity<?> ListarFuncoesServidor() {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(funcaoServidorService.getAllFuncaoServidor());

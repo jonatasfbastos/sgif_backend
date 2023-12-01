@@ -49,7 +49,7 @@ public interface IUsuarioService {
      *
      * @return uma lista de objetos DTO representando os usuários.
      */
-    List<UsuarioSimpleResponseDto> getAllUsuarios();
+    List<UsuarioResponseDto> getAllUsuarios();
 
     /**
      * @author Andesson Reis

@@ -97,13 +97,13 @@ public class UsuarioService implements IUsuarioService {
      * @return uma lista de objetos DTO representando os usuários.
      */
     @Override
-    public List<UsuarioSimpleResponseDto> getAllUsuarios() {
+    public List<UsuarioResponseDto> getAllUsuarios() {
 
         System.out.println("No método getAllUsuarios");
         System.out.println("Todos os usuários: " + this.daoUsuario.findAll());
         return objectMapperUtil.mapAll(
                 this.daoUsuario.findAll(),
-                UsuarioSimpleResponseDto.class);
+                UsuarioResponseDto.class);
     }
 
     /**

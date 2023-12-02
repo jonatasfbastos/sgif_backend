@@ -17,8 +17,8 @@ import br.com.ifba.sgif.api.entity.servidor.model.Servidor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Entity
-@Table(name = "professor")
+@Entity(name = "professor")
+@Table(name = "professores")
 @Data
 @EqualsAndHashCode(callSuper = false)
 

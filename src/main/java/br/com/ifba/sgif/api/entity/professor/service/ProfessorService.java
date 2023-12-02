@@ -33,16 +33,16 @@ public class ProfessorService implements IProfessorService {
     /**
      * Lista todas os professores cadastrados na base de dados.
      *
-     * @author Giovane Neves
+     * @auentidathor Giovane Neves
      * @since Desde V1.0.1
      * @return uma lista de DTO com dados de todos os professores da base de dados.
      */
     @Override
-    public List<ProfessorSimpleResponseDto> listarProfessores() {
+    public List<ProfessorGetResponseDto> listarProfessores() {
 
         return this._objectMapperUtil.mapAll(
                 this._professorDao.findAll(),
-                ProfessorSimpleResponseDto.class
+                ProfessorGetResponseDto.class
         );
 
     }
@@ -101,7 +101,7 @@ public class ProfessorService implements IProfessorService {
 
         return this._objectMapperUtil.map(
                 this._professorDao.save(professor),
-                ProfessorGetResponseDto.class
+                ProfessorSimpleResponseDto.class
         );
 
     }

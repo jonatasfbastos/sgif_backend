@@ -2,7 +2,8 @@ package br.com.ifba.sgif.api.entity.professor.service;
 
 import java.util.List;
 
-import br.com.ifba.sgif.api.entity.professor.dto.ProfessorResponseDto;
+import br.com.ifba.sgif.api.entity.professor.dto.ProfessorGetResponseDto;
+import br.com.ifba.sgif.api.entity.professor.dto.ProfessorSimpleResponseDto;
 import br.com.ifba.sgif.api.entity.professor.model.Professor;
 
 /**
@@ -22,7 +23,7 @@ public interface IProfessorService {
      * @since Desde V1.0.1
      * @return uma lista de DTO com dados de todos os professores da base de dados.
      */
-    List<ProfessorResponseDto> listarProfessores();
+    List<ProfessorGetResponseDto> listarProfessores();
 
     /**
      * Busca um professor na base de dados com base no ID passado por parâmetro.
@@ -32,7 +33,7 @@ public interface IProfessorService {
      * @param id O ID do professor a ser buscado.
      * @return DTO com dados do professor atrelado ao ID passado por parâmetro.
      */
-    ProfessorResponseDto encontrarProfessorPorId(final Long id);
+    ProfessorSimpleResponseDto encontrarProfessorPorId(final Long id);
 
     /**
      * Busca professores na base de dados com base no nome
@@ -44,7 +45,7 @@ public interface IProfessorService {
      * @return Lista de DTO com dados dos professores que possuem o nome
      * passado por parâmetro.
      */
-    List<ProfessorResponseDto> encontrarProfessorPorNome(final String nome);
+    List<ProfessorSimpleResponseDto> encontrarProfessorPorNome(final String nome);
 
     /**
      * Salva um professor na base de dados.
@@ -54,7 +55,7 @@ public interface IProfessorService {
      * @param professor O professor a ser salvo na base de dados.
      * @return DTO com dados do professor salvo.
      */
-    ProfessorResponseDto salvarProfessor(final Professor professor);
+    ProfessorSimpleResponseDto salvarProfessor(final Professor professor);
 
     /**
      * Atualiza um professor existente na base de dados.
@@ -64,7 +65,7 @@ public interface IProfessorService {
      * @param professor O professor a ser atualizado.
      * @return DTO com dados do professor atualizado.
      */
-    ProfessorResponseDto atualizarProfessor(final Professor professor);
+    ProfessorSimpleResponseDto atualizarProfessor(final Professor professor);
 
     /**
      * Deleta um professor na base de dados com base no ID passado por parâmetro.
@@ -74,6 +75,6 @@ public interface IProfessorService {
      * @param id O ID do professor a ser deletado.
      * @return DTO com dados do professor deletado.
      */
-    ProfessorResponseDto deletarProfessorPorId(final Long id);
+    ProfessorSimpleResponseDto deletarProfessorPorId(final Long id);
 
 }

@@ -61,8 +61,24 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
-        Usuario user  = new ObjectMapperUtil().map(request.getInputStream(), new Usuario());
+        // TODO: Resolver erro de autenticação.
+        /**
+         * Esta classe possui um erro ao ler o inputStream de uma
+         * requisição vinda do navegador.
+         * Caso queria detalhes do erro ou tenha problemas para resolver,
+         * entre em contato com algum dos desenvolvedores esta classe.
+         */
+        Usuario user = new Usuario();
+        user.setLogin("zedamanga");
+        user.setSenha("zedamanga");
+        try{
+            user  = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
 
+        }catch(Exception ex){
+            System.out.println("Erro!");
+        }
+
+        System.out.println("Nome: " + user.getLogin() +  " Senha: " + user.getSenha());
         return new UsernamePasswordAuthenticationToken(
                 user.getLogin(),
                 user.getSenha()

@@ -3,6 +3,7 @@ package br.com.ifba.sgif.api.config.security;
 import br.com.ifba.sgif.api.entity.usuario.model.Usuario;
 import br.com.ifba.sgif.api.infrastructure.service.JWTTokenAuthenticationService;
 
+import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,8 +61,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
-        Usuario user = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
-
+        Usuario user  = new ObjectMapperUtil().map(request.getInputStream(), new Usuario());
 
         return new UsernamePasswordAuthenticationToken(
                 user.getLogin(),

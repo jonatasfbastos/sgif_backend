@@ -1,7 +1,7 @@
 package br.com.ifba.sgif.api.controller.v1;
 
 import br.com.ifba.sgif.api.controller.v1.util.ResultError;
-import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioRequestDto;
+import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioPostRequestDto;
 import br.com.ifba.sgif.api.entity.usuario.model.Usuario;
 import br.com.ifba.sgif.api.entity.usuario.service.IUsuarioService;
 import br.com.ifba.sgif.api.infrastructure.util.ObjectMapperUtil;
@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -108,7 +106,7 @@ public class UsuarioController {
      */
 
     @PostMapping(path = "/usuarios/usuario", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioRequestDto usuarioDto, BindingResult result) {
+    public ResponseEntity<?> salvarUsuario(@Valid @RequestBody UsuarioPostRequestDto usuarioDto, BindingResult result) {
 
         return result.hasErrors()
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResultError.getResultErrors(result))

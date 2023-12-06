@@ -5,7 +5,7 @@ import br.com.ifba.sgif.api.entity.fornecedor.dto.FornecedorRequestDto;
 import br.com.ifba.sgif.api.entity.relatoriomensal.dto.RelatorioMensalRequestDto;
 import br.com.ifba.sgif.api.entity.requisicao.dto.RequisicaoRequestDto;
 import br.com.ifba.sgif.api.entity.tipodeitem.dto.TipoDeItemRequestDto;
-import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioRequestDto;
+import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioPostRequestDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -64,7 +64,7 @@ public record ItemRequestDto(
 
         @JsonProperty(value = "criador")
         @NotNull(message = "O criador do item é obrigatório")
-        UsuarioRequestDto criador,
+        UsuarioPostRequestDto criador,
 
         @JsonProperty(value = "relatorioMensal")
         RelatorioMensalRequestDto relatorioMensal,

@@ -1,7 +1,7 @@
 package br.com.ifba.sgif.api.entity.empenho.dto;
 
 import br.com.ifba.sgif.api.entity.item.dto.ItemRequestDto;
-import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioRequestDto;
+import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioPostRequestDto;
 
 import br.com.ifba.sgif.api.entity.item.model.Item;
 import br.com.ifba.sgif.api.entity.usuario.model.Usuario;
@@ -32,7 +32,7 @@ public record EmpenhoRequestDto(
 
         @JsonProperty(value = "criador")
         @NotNull(message = "O criador do empenho é obrigatório")
-        UsuarioRequestDto criador,
+        UsuarioPostRequestDto criador,
 
         @JsonProperty(value = "itens")
         List<ItemRequestDto> itens

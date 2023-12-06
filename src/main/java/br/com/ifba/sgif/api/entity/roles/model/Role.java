@@ -1,6 +1,10 @@
 package br.com.ifba.sgif.api.entity.roles.model;
 
 import br.com.ifba.sgif.api.infrastructure.model.PersistenceEntity;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
@@ -10,8 +14,10 @@ import javax.persistence.Table;
  * @author Giovane Neves
  * @since Desde V1.0.1
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "role")
 @Table(name = "roles")
+@Data
 public class Role extends PersistenceEntity implements GrantedAuthority {
 
     // =========================================================== //

@@ -1,6 +1,7 @@
 package br.com.ifba.sgif.api.entity.usuario.dto;
 
 import br.com.ifba.sgif.api.entity.perfilusuario.dto.PerfilUsuarioRequestDto;
+import br.com.ifba.sgif.api.entity.roles.dto.RolePostRequestDto;
 import br.com.ifba.sgif.api.entity.usuario.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.List;
 /**
  *
  * @author Andesson Reis
@@ -20,7 +22,7 @@ import javax.validation.constraints.Size;
  * 
  * Veja também: {@link Usuario}
  */
-public record UsuarioRequestDto(
+public record UsuarioPostRequestDto(
 
         // =========================================================== //
         // =============== [        ATRIBUTOS       ] ================ //
@@ -38,8 +40,10 @@ public record UsuarioRequestDto(
         String senha,
 
         @JsonProperty(value = "perfilUsuario")
-        PerfilUsuarioRequestDto perfilUsuario
+        PerfilUsuarioRequestDto perfilUsuario,
 
+        @JsonProperty(value = "roles")
+        List<RolePostRequestDto> roles
 
 ) {
 }

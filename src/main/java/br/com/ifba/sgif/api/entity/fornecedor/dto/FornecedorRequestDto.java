@@ -1,7 +1,7 @@
 package br.com.ifba.sgif.api.entity.fornecedor.dto;
 
 import br.com.ifba.sgif.api.entity.item.dto.ItemRequestDto;
-import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioRequestDto;
+import br.com.ifba.sgif.api.entity.usuario.dto.UsuarioPostRequestDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -50,7 +50,7 @@ public record FornecedorRequestDto(
 
         @JsonProperty(value = "criador")
         @NotNull(message = "O criador do fornecedor é obrigatório")
-        UsuarioRequestDto criador,
+        UsuarioPostRequestDto criador,
 
         @JsonProperty(value = "itens")
         List<ItemRequestDto> itens

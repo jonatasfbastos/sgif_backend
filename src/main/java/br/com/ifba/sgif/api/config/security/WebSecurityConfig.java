@@ -70,6 +70,13 @@ public class WebSecurityConfig implements WebMvcConfigurer, HttpSessionListener 
     }
 
 
+    /**
+     * Configura o filtro de CORS.
+     *
+     * @author Giovane Neves
+     * @since Dese V1.0.1
+     * @return bean com configurações personalidades de CORS.
+     */
     @Bean
     public FilterRegistrationBean processCorsFilter() {
 
@@ -85,6 +92,7 @@ public class WebSecurityConfig implements WebMvcConfigurer, HttpSessionListener 
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
     }
+
     /**
      * Cofigura segurança da aplicação.
      *
